@@ -1,0 +1,65 @@
+###########################################################################################
+#               Pipeline build, test, sonar & deploy - staging & produduction             #
+#                     Concordanciador Frontend - Cognitiva Brasil                         #
+###########################################################################################
+
+# Imagem base pipeline
+image: node:19-alpine
+
+# Cache Estagios build e deploy
+cache: 
+  paths:
+    - dist/
+
+# Etapas do pipeline
+stages:
+  - build
+  - sonar
+  - deploy
+
+build:
+  stage: build
+  before_script:
+    - apk add --no-cache yarn --repository="http://dl-cdn.alpinelinux.org/alpine/edge/community" 
+    - yarn -v
+  script:
+    - yarn install
+    - yarn build
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 30 mins
+
+sonar:
+  stage: sonar
+  image: sonarsource/sonar-scanner-cli:latest
+  script:
+    - sonar-scanner -Dsonar.projectKey=$SONAR_PJT_KEY -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_LOGIN -Dsonar.password=$SONAR_PSS -Dsonar.qualitygate.wait=false
+
+deploy:
+  stage: deploy
+  before_script:
+    # instalação e configuração do ssh-agent para deploy no servidor de staging
+    - echo "Deploying to developer"
+    - "comand -v ssh-agent /dev/null || ( apk add --update openssh-client)"
+    # Necessário para correto funcionamento do ssh-agent e da correta leitura das variaveis de ambiente (eval.....)
+    - eval $(ssh-agent -s)
+    - echo "$SERVER_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $SERVER_IP >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - echo "Deploying to Master - Concordanciador Frontend started"
+    # Backup do conteudo da pasta /var/www/html/educacep para /var/www/html/educacep_old
+    - ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "sudo -S <<< '$PSS_USR' cp -R /var/www/html/educacep/* /var/www/html/educacep_old/"
+    # Copia do conteudo da pasta dist para /home/$SERVER_USER/educacep
+    - scp -o StrictHostKeyChecking=no -r dist/* $SERVER_USER@$SERVER_IP:/home/$SERVER_USER/educacep/
+    # Copia do conteudo da pasta /home/$SERVER_USER/educacep para /var/www/html/educacep
+    - ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "sudo -S <<< '$PSS_USR' cp -R /home/$SERVER_USER/educacep/* /var/www/html/educacep/"
+    - echo "Deploying to Master - Concordanciador Frontend finished successfully"
+
+
+
+
+

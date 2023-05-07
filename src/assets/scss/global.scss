@@ -1,0 +1,12 @@
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
+@import 'node_modules/bootstrap-vue/src/index.scss';
+@import "vue-select/dist/vue-select.css";
+
+@import './resets';
+@import './fonts';
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: $white;
+}
+

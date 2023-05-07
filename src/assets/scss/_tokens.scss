@@ -1,0 +1,49 @@
+/** Fontes */
+$heading-sizes: (
+  'heading-100': 56px,
+  'heading-80': 30px,
+  'heading-60': 28px,
+  'heading-50': 25px,
+  'heading-40': 23px,
+  'heading-20': 19px,
+  'heading-10': 15px
+) !default;
+
+$paragraph-sizes: (
+  'paragraph-160': 24px,
+  'paragraph-140': 22px,
+  'paragraph-120': 20px,
+  'paragraph-100': 18px,
+  'paragraph-80': 16px,
+  'paragraph-60': 14px,
+  'paragraph-40': 12px,
+  'paragraph-20': 10px,
+  'paragraph-10': 8px
+) !default;
+
+$font-weights: (
+  'weight-thin': 100,
+  'weight-x-light': 200,
+  'weight-light': 300,
+  'weight-normal': 400,
+  'weight-medium': 500,
+  'weight-semi-bold': 600,
+  'weight-bold': 700,
+  'weight-bolder': 800,
+  'weight-x-bold': 900,
+) !default;
+
+@function heading-size($size) {
+  @return map-get($heading-sizes, $size);
+}
+
+@function paragraph-size($size) {
+  @return map-get($paragraph-sizes, $size);
+}
+  
+@function font-weight($weight) {
+  @return map-get($font-weights, $weight);
+}
+
+/** Dimensões */
+$maxWidth: 900px;
