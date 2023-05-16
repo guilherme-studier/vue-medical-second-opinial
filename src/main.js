@@ -1,10 +1,9 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 
 import VueMeta from 'vue-meta'
-Vue.use(VueMeta)
 
 import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
@@ -24,18 +23,26 @@ const options = {
   rtl: false
 }
 
-Vue.use(Toast, options)
+const app = createApp(App)
+
+app.use(router)
+app.use(store)
+
+app.use(VueMeta)
+
+app.use(Toast, options)
 
 import Services from '@/plugins/axios'
 
 import '@/assets/scss/global.scss'
 
-Vue.use(Services)
+app.use(Services)
 
-Vue.config.productionTip = false
+app.component('MetaManager', {
+  render: () => null,
+  mounted() {
+    this.$meta().refresh() // Atualiza os metadados quando o componente é montado
+  }
+})
 
-new Vue({
-  router,
-  store,
-  render: (h) => h(App)
-}).$mount('#app')
+app.mount('#app')

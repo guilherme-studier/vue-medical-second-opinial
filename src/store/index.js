@@ -1,16 +1,14 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 import { getCurrentUserAccess } from '../helpers/auth'
 import user from './modules/user'
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+const store = createStore({
   state: {
-    authToken: getCurrentUserAccess() /** Token de autenticação */,
-    retryDelay: null /** Armazena o tempo de delay até executar uma nova requisição para a que falhou */,
-    isTokenExpired: false /** Flag que verifica se o token atual está expirado */,
-    csrf: null /** Token CSRF */
+    authToken: getCurrentUserAccess(),
+    retryDelay: null,
+    isTokenExpired: false,
+    csrf: null
   },
   mutations: {
     updateAuthToken(state, token) {
@@ -50,3 +48,8 @@ export default new Vuex.Store({
     getCsrf: (state) => state.csrf
   }
 })
+
+const app = createApp({})
+app.use(store)
+
+export default store
