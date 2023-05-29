@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import '@/assets/scss/global.scss'
 import { mapActions, mapGetters } from 'vuex'
 import { getCurrentUserAccess } from '@/helpers/auth'
 

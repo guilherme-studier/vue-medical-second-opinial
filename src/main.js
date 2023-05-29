@@ -3,10 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import VueMeta from 'vue-meta'
-
 import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
+import '../src/assets/scss/global.scss'
 
 const options = {
   position: 'bottom-left',
@@ -28,13 +27,9 @@ const app = createApp(App)
 app.use(router)
 app.use(store)
 
-app.use(VueMeta)
-
 app.use(Toast, options)
 
 import Services from '@/plugins/axios'
-
-import '@/assets/scss/global.scss'
 
 app.use(Services)
 

@@ -1,27 +1,37 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'
 
-// Importe seus componentes de rota aqui
-//import Login from '@/views/Login'
-//import Admin from '@/views/Admin'
+// rotas
+import Layout from '@/views/layout/Layout'
+import Login from '@/views/login/Login'
+
+// childrens
+import Home from '@/components/home/Home'
 
 const routes = [
-  // {
-  //   path: '/login',
-  //   name: 'Login',
-  //   component: Login,
-  //   meta: {
-  //     requiresNotAuth: true
-  //   }
-  // },
-  // {
-  //   path: '/admin',
-  //   name: 'Admin',
-  //   component: Admin,
-  //   meta: {
-  //     requiresAuth: true
-  //   }
-  // }
+  {
+    path: '/',
+    name: '',
+    component: Layout,
+    children: [
+      {
+        path: '/',
+        name: 'Home',
+        component: Home,
+        meta: {
+          title: 'home'
+        }
+      }
+    ]
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+    meta: {
+      requiresAuth: true
+    }
+  }
   // Outras rotas aqui
 ]
 
