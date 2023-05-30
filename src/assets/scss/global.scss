@@ -22,11 +22,6 @@ body {
   &.overflow-hidden {
     overflow: hidden;
   }
-}
-
-#app {
-  position: relative;
-  height: 100%;
 
   h1 {
     font-size: 20px;
@@ -42,5 +37,37 @@ body {
     font-size: 16px;
     font-weight: 400;
   }
+
+  button {
+    background: $green-500;
+    text-transform: uppercase;
+    border-radius: 10px;
+    color: $white;
+    border: none;
+    width: 100%;
+    height: 45px;
+  }
+
+  input,
+  textarea {
+  border: 1px solid $gray-400;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  min-width: 200px;
+  height: 46.46px;
+  padding: 10px;
+  width: 100%;
+  opacity: 1;
+
+  &::placeholder {
+    color: $gray-600;
+    font-weight: bold;
+  }
+}
+}
+
+#app {
+  position: relative;
+  height: 100%;
 }
 

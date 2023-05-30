@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import DataBox from '@/components/home/dataBox/DataBox'
+import DataBox from '@/features/home/dataBox/DataBox'
 
 export default {
   name: 'Home',

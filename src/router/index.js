@@ -6,7 +6,8 @@ import Layout from '@/views/layout/Layout'
 import Login from '@/views/login/Login'
 
 // childrens
-import Home from '@/components/home/Home'
+import Home from '@/features/home/Home'
+import IndustryRegistration from '@/features/industryRegistration/IndustryRegistration'
 
 const routes = [
   {
@@ -20,6 +21,14 @@ const routes = [
         component: Home,
         meta: {
           title: 'home'
+        }
+      },
+      {
+        path: '/induster',
+        name: 'IndustryRegistration',
+        component: IndustryRegistration,
+        meta: {
+          title: 'industryRegistration'
         }
       }
     ]

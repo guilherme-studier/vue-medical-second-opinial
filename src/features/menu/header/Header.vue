@@ -4,7 +4,7 @@
     <sidebar-menu />
     <div class="container">
       <h1>
-        Titulo
+        Título
       </h1>
     </div>
   </div>
