@@ -4,7 +4,7 @@
     <sidebar-menu />
     <div class="container">
       <h1>
-        Título
+        {{ title }}
       </h1>
     </div>
   </div>
@@ -22,6 +22,11 @@ export default {
   data() {
     return {
       banner: Banner
+    }
+  },
+  computed: {
+    title() {
+      return this.$route?.meta?.title
     }
   }
 }

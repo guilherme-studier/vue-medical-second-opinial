@@ -9,9 +9,5 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-
-  input {
-    background: red;
-  }
 }
 </style>

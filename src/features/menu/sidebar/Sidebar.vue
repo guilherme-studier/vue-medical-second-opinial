@@ -63,8 +63,21 @@ export default {
       active: true,
       logo: logo,
       menuItems: [
-        { id: 1, name: 'Início', route: '/' },
-        { id: 2, name: 'Cadastro Indústria', route: '/induster' }
+        {
+          id: 1,
+          name: 'Início',
+          route: '/'
+        },
+        {
+          id: 2,
+          name: 'Cadastro Indústria',
+          route: '/induster'
+        },
+        {
+          id: 3,
+          name: 'Geração de Convite para Médico Consultor',
+          route: '/consultant-doctor'
+        }
       ],
       toggleIcon: faChevronLeft,
       iconColor: 'white'

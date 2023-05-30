@@ -7,6 +7,6 @@
 <style lang="scss" scoped>
 .input-wrapper {
   flex: 1;
-  min-width: 100px;
+  min-width: 200px;
 }
 </style>

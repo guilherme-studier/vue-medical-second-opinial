@@ -8,6 +8,7 @@ import Login from '@/views/login/Login'
 // childrens
 import Home from '@/features/home/Home'
 import IndustryRegistration from '@/features/industryRegistration/IndustryRegistration'
+import ConsultantDoctorInvitation from '@/features/consultantDoctorInvitation/ConsultantDoctorInvitation'
 
 const routes = [
   {
@@ -20,7 +21,7 @@ const routes = [
         name: 'Home',
         component: Home,
         meta: {
-          title: 'home'
+          title: 'Início'
         }
       },
       {
@@ -28,7 +29,15 @@ const routes = [
         name: 'IndustryRegistration',
         component: IndustryRegistration,
         meta: {
-          title: 'industryRegistration'
+          title: 'Cadastro Indústria'
+        }
+      },
+      {
+        path: '/consultant-doctor',
+        name: 'ConsultantDoctorInvitation',
+        component: ConsultantDoctorInvitation,
+        meta: {
+          title: 'Geração de Convite para Médico Consultor'
         }
       }
     ]
