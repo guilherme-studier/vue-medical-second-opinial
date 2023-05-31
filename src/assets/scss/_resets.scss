@@ -104,6 +104,10 @@ table {
 input {
   min-width: 300px;
   border-radius: 0;
+
+  &:disabled {
+    opacity: 0.4;
+  }
 }
 
 a,

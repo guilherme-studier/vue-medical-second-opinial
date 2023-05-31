@@ -8,7 +8,9 @@ import Login from '@/views/login/Login'
 // childrens
 import Home from '@/features/home/Home'
 import IndustryRegistration from '@/features/industryRegistration/IndustryRegistration'
+import VoucherGenerator from '@/features/voucherGenerator/VoucherGenerator'
 import ConsultantDoctorInvitation from '@/features/consultantDoctorInvitation/ConsultantDoctorInvitation'
+import SystemAccessCancellation from '@/features/systemAccessCancellation/SystemAccessCancellation'
 
 const routes = [
   {
@@ -33,11 +35,27 @@ const routes = [
         }
       },
       {
+        path: '/voucher-generator',
+        name: 'Voucher Generator',
+        component: VoucherGenerator,
+        meta: {
+          title: 'Geração de Vouchers'
+        }
+      },
+      {
         path: '/consultant-doctor',
         name: 'ConsultantDoctorInvitation',
         component: ConsultantDoctorInvitation,
         meta: {
           title: 'Geração de Convite para Médico Consultor'
+        }
+      },
+      {
+        path: '/access-cancellation',
+        name: 'SystemAccessCancellation',
+        component: SystemAccessCancellation,
+        meta: {
+          title: 'Cancelamento de Acesso ao Sistema'
         }
       }
     ]

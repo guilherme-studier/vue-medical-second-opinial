@@ -75,8 +75,18 @@ export default {
         },
         {
           id: 3,
+          name: 'Geração de Vouchers',
+          route: '/voucher-generator'
+        },
+        {
+          id: 4,
           name: 'Geração de Convite para Médico Consultor',
           route: '/consultant-doctor'
+        },
+        {
+          id: 5,
+          name: 'Cancelamento de Acesso ao Sistema',
+          route: '/access-cancellation'
         }
       ],
       toggleIcon: faChevronLeft,

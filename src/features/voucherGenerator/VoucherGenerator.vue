@@ -4,30 +4,28 @@
     <div class="form">
       <InputGroup>
         <InputWrapper>
-          <input
-            type="text"
-            placeholder="CNPJ"
-            class="flexible-input"
-            v-model="cnpj"
-            v-mask="'###.###.###-##'"
+          <VueSelect
+            v-model="industry"
+            :options="industryOptions"
+            placeholder="Indústria"
           />
         </InputWrapper>
         <InputWrapper>
           <input
             type="text"
-            placeholder="Razão Social"
+            placeholder="Especialidade"
             class="flexible-input"
-            v-model="razaoSocial"
+            v-model="specialty"
           />
         </InputWrapper>
       </InputGroup>
       <InputGroup>
         <InputWrapper>
           <input
-            type="email"
-            placeholder="E-mail"
+            type="text"
+            placeholder="Doença"
             class="flexible-input"
-            v-model="email"
+            v-model="illness"
           />
         </InputWrapper>
         <InputWrapper>
@@ -40,21 +38,23 @@
         </InputWrapper>
       </InputGroup>
       <InputGroup>
-        <input
-          type="text"
-          placeholder="Data de Validade"
-          class="full-width"
-          v-model="contato"
-        />
+        <InputWrapper>
+          <input
+            type="text"
+            placeholder="Data de Validade"
+            class="flexible-input"
+            v-model="date"
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <input
+            type="text"
+            placeholder="Honorários Médico Consultor"
+            class="flexible-input"
+            v-model="fees"
+          />
+        </InputWrapper>
       </InputGroup>
-      <InputGroup>
-        <textarea
-          placeholder="Observação"
-          class="full-width"
-          v-model="observacao"
-        ></textarea>
-      </InputGroup>
-
       <div class="save">
         <button @click="imprimirValores">Salvar</button>
       </div>
@@ -66,43 +66,46 @@
 import Title from '@/components/title/Title'
 import InputGroup from '@/components/inputGroup/InputGroup'
 import InputWrapper from '@/components/inputWrapper/InputWrapper'
+import { VueSelect } from 'vue-select'
 
 export default {
-  name: 'Voucher Generator',
+  name: 'VoucherGenerator',
   components: {
     Title,
     InputGroup,
-    InputWrapper
+    InputWrapper,
+    VueSelect
   },
   data() {
     return {
       tituloComponente: 'Dados Cadastrais',
-      cnpj: '',
-      razaoSocial: '',
-      email: '',
-      telefone: '',
-      contato: '',
-      observacao: ''
+      quantity: '',
+      specialty: '',
+      industry: '',
+      illness: '',
+      date: '',
+      fees: '',
+      industryOptions: ['Astrazeneca', 'GlaxoSmithKline', 'Pfizer']
     }
   },
   methods: {
     imprimirValores() {
-      console.log('CNPJ:', this.cnpj)
-      console.log('Razão Social:', this.razaoSocial)
-      console.log('E-mail:', this.email)
-      console.log('Telefone:', this.telefone)
-      console.log('Contato:', this.contato)
-      console.log('Observação:', this.observacao)
+      console.log('Indústria:', this.industry)
+      console.log('Especialidade:', this.specialty)
+      console.log('Doença:', this.illness)
+      console.log('Quantidade de Vouchers:', this.quantity)
+      console.log('Data de Validade:', this.date)
+      console.log('Honorários Médico Consultor:', this.fees)
 
       this.limparDados()
     },
     limparDados() {
-      this.cnpj = ''
-      this.razaoSocial = ''
-      this.email = ''
-      this.telefone = ''
-      this.contato = ''
-      this.observacao = ''
+      this.industry = ''
+      this.specialty = ''
+      this.illness = ''
+      this.quantity = ''
+      this.date = ''
+      this.fees = ''
     }
   }
 }
@@ -131,5 +134,10 @@ export default {
 
 .full-width {
   grid-column: 1 / -1;
+}
+
+.vs--open {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 </style>
