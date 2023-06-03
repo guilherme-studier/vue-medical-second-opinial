@@ -83,6 +83,30 @@ body {
     height: 46.46px;
     width: 100%;
     opacity: 1;
+    
+    .vs__search {
+      font-weight: bold;
+      color: $gray-600;
+    }
+    
+    .vs__actions {
+      padding: 5px;
+
+      .vs__clear {
+        margin: 0;
+      }
+
+      .vs__clear:hover {
+        border: none;
+      }
+
+      .vs__clear:not([style*="display: none"]) ~ .vs__open-indicator {
+        display: none;
+      }
+    }
+
+
+
   
     &::placeholder {
       font-weight: bold;

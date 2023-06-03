@@ -257,10 +257,14 @@ export default {
 }
 
 .menu-item-content {
+  max-width: 245px;
+  line-height: 22px;
+  flex-wrap: wrap;
   padding: 20.5px 0;
 }
 
 .menu-item-text {
+  font-weight: bold;
   margin-left: 44px;
   align-self: flex-start;
 }

@@ -17,7 +17,7 @@ export default {
   height: 50px;
   width: 100%;
   text-align: right; /* Alinhamento do texto à direita */
-  position: fixed;
+  //position: fixed;
   margin-top: 32px;
   background-color: $gray;
   color: $gray-600;
