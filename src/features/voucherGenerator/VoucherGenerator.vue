@@ -17,7 +17,7 @@
               v-model="specialty"
               placeholder="Especialidade"
               class="flexible-input"
-              @click="openModal"
+              @click="openSpecialtyModal"
               readonly
             />
             <span class="icon" aria-hidden="true">
@@ -34,10 +34,10 @@
           <div class="input-with-icon">
             <input
               type="text"
-              v-model="illnes"
+              v-model="illness"
               placeholder="Doença"
               class="flexible-input"
-              @click="openModal"
+              @click="openIllnessModal"
               readonly
             />
             <span class="icon" aria-hidden="true">
@@ -79,8 +79,21 @@
         <button @click="imprimirValores">Salvar</button>
       </div>
     </div>
-    <Modal v-if="modalVisible" @close="closeModal" title="Especialidade">
-      <RadioContent :items="specialities" @item-selected="handleItemSelected" />
+    <Modal
+      v-if="specialtyModalVisible"
+      @close="closeSpecialtyModal"
+      title="Especialidade"
+    >
+      <RadioContent
+        :items="specialities"
+        @item-selected="handleSpecialtySelected"
+      />
+    </Modal>
+    <Modal v-if="illnessModalVisible" @close="closeIllnessModal" title="Doença">
+      <RadioContent
+        :items="illnessOptions"
+        @item-selected="handleIllnessSelected"
+      />
     </Modal>
   </div>
 </template>
@@ -114,12 +127,12 @@ export default {
       quantity: '',
       specialty: '',
       industry: '',
-      illnes: '',
+      illness: '',
       date: '',
       fees: '',
       industryOptions: ['Astrazeneca', 'GlaxoSmithKline', 'Pfizer'],
-      modalVisible: false,
-      selectedOption: null,
+      specialtyModalVisible: false,
+      illnessModalVisible: false,
       specialities: [
         {
           name: 'Alergia e Imunologia',
@@ -138,36 +151,41 @@ export default {
           value: '4'
         }
       ],
-      illness: [
+      illnessOptions: [
         {
-          name: 'Alergia e Imunologia',
+          name: 'Option 1',
           value: '1'
         },
         {
-          name: 'Cardiologia',
+          name: 'Option 2',
           value: '2'
-        },
-        {
-          name: 'Dermatologia',
-          value: '3'
-        },
-        {
-          name: 'Gastroenterologia',
-          value: '4'
         }
       ]
     }
   },
   methods: {
-    handleItemSelected(item) {
-      this.specialty = item.name
-      this.closeModal()
+    handleIllnessSelected(item) {
+      this.illness = item?.name
+      this.closeIllnessModal()
     },
-    openModal() {
-      this.modalVisible = true
+    handleSpecialtySelected(item) {
+      this.specialty = item?.name
+      this.closeSpecialtyModal()
     },
-    closeModal() {
-      this.modalVisible = false
+    openSpecialtyModal() {
+      this.specialtyModalVisible = true
+    },
+
+    closeSpecialtyModal() {
+      this.specialtyModalVisible = false
+    },
+
+    openIllnessModal() {
+      this.illnessModalVisible = true
+    },
+
+    closeIllnessModal() {
+      this.illnessModalVisible = false
     },
     imprimirValores() {
       console.log('Indústria:', this.industry)
@@ -211,10 +229,6 @@ export default {
   }
 }
 
-.full-width {
-  grid-column: 1 / -1;
-}
-
 .vs--open {
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
@@ -233,16 +247,6 @@ export default {
     display: flex;
     margin-top: 15px;
   }
-}
-
-.radio-specialty {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-input[type='radio'] {
-  margin-right: 10px;
 }
 
 .input-with-icon {

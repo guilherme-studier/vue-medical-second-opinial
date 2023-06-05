@@ -31,7 +31,6 @@ export default {
   },
   methods: {
     saveSelection() {
-      console.log('Item selecionado:', this.selectedItem)
       this.$emit('item-selected', this.selectedItem)
     }
   }
@@ -40,31 +39,26 @@ export default {
 
 <style lang="scss" scoped>
 .radio-content {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   padding: 25px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 
   .radio-items {
     margin-bottom: 10px;
   }
 
   .btn-save {
-    text-align: left;
     grid-column: 1 / -1;
-    width: 150px;
+    margin-top: 15px;
+    text-align: left;
     place-self: end;
     display: flex;
-    margin-top: 15px;
+    width: 150px;
   }
-}
-
-.radio-specialty {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
 }
 
 input[type='radio'] {
   margin-right: 10px;
+  cursor: pointer;
 }
 </style>
