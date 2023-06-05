@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 
 import Toast from 'vue-toastification'
+import { ElButton, ElRadioGroup, ElRadio } from 'element-plus'
 import 'vue-toastification/dist/index.css'
 import '../src/assets/scss/global.scss'
 
@@ -31,6 +32,10 @@ app.use(store)
 
 app.use(VueTheMask)
 app.use(Toast, options)
+
+app.component(ElRadioGroup.name, ElRadioGroup)
+app.component(ElButton.name, ElButton)
+app.component(ElRadio.name, ElRadio)
 
 import Services from '@/plugins/axios'
 

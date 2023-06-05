@@ -15,6 +15,7 @@
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.8.3",
     "date-fns": "^2.27.0",
+    "element-plus": "^2.3.6",
     "js-cookie": "^3.0.1",
     "retry-axios": "^3.0.0",
     "vue": "^3.2.36",

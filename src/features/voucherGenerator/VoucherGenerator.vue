@@ -11,22 +11,42 @@
           />
         </InputWrapper>
         <InputWrapper>
-          <input
-            type="text"
-            placeholder="Especialidade"
-            class="flexible-input"
-            v-model="specialty"
-          />
+          <div class="input-with-icon">
+            <input
+              type="text"
+              v-model="specialty"
+              placeholder="Especialidade"
+              class="flexible-input"
+              @click="openModal"
+              readonly
+            />
+            <span class="icon" aria-hidden="true">
+              <font-awesome-icon
+                :icon="toggleIcon"
+                :style="{ color: iconColor }"
+              />
+            </span>
+          </div>
         </InputWrapper>
       </InputGroup>
       <InputGroup>
         <InputWrapper>
-          <input
-            type="text"
-            placeholder="Doença"
-            class="flexible-input"
-            v-model="illness"
-          />
+          <div class="input-with-icon">
+            <input
+              type="text"
+              v-model="illnes"
+              placeholder="Doença"
+              class="flexible-input"
+              @click="openModal"
+              readonly
+            />
+            <span class="icon" aria-hidden="true">
+              <font-awesome-icon
+                :icon="toggleIcon"
+                :style="{ color: iconColor }"
+              />
+            </span>
+          </div>
         </InputWrapper>
         <InputWrapper>
           <input
@@ -59,36 +79,96 @@
         <button @click="imprimirValores">Salvar</button>
       </div>
     </div>
+    <Modal v-if="modalVisible" @close="closeModal" title="Especialidade">
+      <RadioContent :items="specialities" @item-selected="handleItemSelected" />
+    </Modal>
   </div>
 </template>
 
 <script>
-import Title from '@/components/title/Title'
-import InputGroup from '@/components/inputGroup/InputGroup'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
+import RadioContent from '@/components/radioContent/RadioContent'
 import InputWrapper from '@/components/inputWrapper/InputWrapper'
+import InputGroup from '@/components/inputGroup/InputGroup'
+import Title from '@/components/title/Title'
+import Modal from '@/components/modal/Modal'
+
 import { VueSelect } from 'vue-select'
 
 export default {
   name: 'VoucherGenerator',
   components: {
-    Title,
-    InputGroup,
+    FontAwesomeIcon,
     InputWrapper,
-    VueSelect
+    RadioContent,
+    InputGroup,
+    VueSelect,
+    Title,
+    Modal
   },
   data() {
     return {
+      toggleIcon: faCirclePlus,
       tituloComponente: 'Dados Cadastrais',
       quantity: '',
       specialty: '',
       industry: '',
-      illness: '',
+      illnes: '',
       date: '',
       fees: '',
-      industryOptions: ['Astrazeneca', 'GlaxoSmithKline', 'Pfizer']
+      industryOptions: ['Astrazeneca', 'GlaxoSmithKline', 'Pfizer'],
+      modalVisible: false,
+      selectedOption: null,
+      specialities: [
+        {
+          name: 'Alergia e Imunologia',
+          value: '1'
+        },
+        {
+          name: 'Cardiologia',
+          value: '2'
+        },
+        {
+          name: 'Dermatologia',
+          value: '3'
+        },
+        {
+          name: 'Gastroenterologia',
+          value: '4'
+        }
+      ],
+      illness: [
+        {
+          name: 'Alergia e Imunologia',
+          value: '1'
+        },
+        {
+          name: 'Cardiologia',
+          value: '2'
+        },
+        {
+          name: 'Dermatologia',
+          value: '3'
+        },
+        {
+          name: 'Gastroenterologia',
+          value: '4'
+        }
+      ]
     }
   },
   methods: {
+    handleItemSelected(item) {
+      this.specialty = item.name
+      this.closeModal()
+    },
+    openModal() {
+      this.modalVisible = true
+    },
+    closeModal() {
+      this.modalVisible = false
+    },
     imprimirValores() {
       console.log('Indústria:', this.industry)
       console.log('Especialidade:', this.specialty)
@@ -124,7 +204,6 @@ export default {
   margin-top: 20px;
   display: flex;
   width: 100%;
-
   .save {
     place-self: end;
     display: flex;
@@ -139,5 +218,50 @@ export default {
 .vs--open {
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
+}
+
+.radio-content {
+  padding: 25px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+  .btn-save {
+    text-align: left;
+    grid-column: 1 / -1;
+    width: 150px;
+    place-self: end;
+    display: flex;
+    margin-top: 15px;
+  }
+}
+
+.radio-specialty {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+input[type='radio'] {
+  margin-right: 10px;
+}
+
+.input-with-icon {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.input-with-icon input {
+  padding-right: 30px;
+  cursor: pointer;
+}
+
+.input-with-icon .icon {
+  position: absolute;
+  right: 10px;
+  top: 13px;
+  pointer-events: none;
+  color: $green-500;
+  font-size: 25px;
 }
 </style>

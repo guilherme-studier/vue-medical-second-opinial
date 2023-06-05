@@ -55,7 +55,7 @@ body {
     }
   }
 
-  input,
+  input[type=text],
   textarea {
     border: 1px solid $gray-400;
     max-height: 100px;
@@ -87,13 +87,17 @@ body {
     .vs__search {
       font-weight: bold;
       color: $gray-600;
+      padding: 0;
+      margin: 0;
+      position: relative;
+      top: 3px;
     }
     
     .vs__actions {
       padding: 5px;
 
       .vs__clear {
-        margin: 0;
+        margin: 0 3px 3px 0;
       }
 
       .vs__clear:hover {
@@ -151,13 +155,6 @@ body {
     .vs__selected {
       margin: 4px 0;
       padding: 0px;
-    }
-
-    .vs__search {
-      padding: 0;
-      margin: 0;
-      position: relative;
-      top: -10px;
     }
   }
 }
