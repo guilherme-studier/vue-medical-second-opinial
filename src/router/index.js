@@ -11,6 +11,7 @@ import IndustryRegistration from '@/features/industryRegistration/IndustryRegist
 import VoucherGenerator from '@/features/voucherGenerator/VoucherGenerator'
 import ConsultantDoctorInvitation from '@/features/consultantDoctorInvitation/ConsultantDoctorInvitation'
 import SystemAccessCancellation from '@/features/systemAccessCancellation/SystemAccessCancellation'
+import DesignatedVouchers from '@/features/designatedVouchers/DesignatedVouchers'
 
 const routes = [
   {
@@ -40,6 +41,14 @@ const routes = [
         component: VoucherGenerator,
         meta: {
           title: 'Geração de Vouchers'
+        }
+      },
+      {
+        path: '/designated-vouchers',
+        name: 'DesignatedVouchers',
+        component: DesignatedVouchers,
+        meta: {
+          title: 'Vouchers Designados'
         }
       },
       {

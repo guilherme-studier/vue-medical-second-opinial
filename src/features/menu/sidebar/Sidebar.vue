@@ -80,11 +80,16 @@ export default {
         },
         {
           id: 4,
+          name: 'Vouchers Designados',
+          route: '/designated-vouchers'
+        },
+        {
+          id: 5,
           name: 'Geração de Convite para Médico Consultor',
           route: '/consultant-doctor'
         },
         {
-          id: 5,
+          id: 6,
           name: 'Cancelamento de Acesso ao Sistema',
           route: '/access-cancellation'
         }
