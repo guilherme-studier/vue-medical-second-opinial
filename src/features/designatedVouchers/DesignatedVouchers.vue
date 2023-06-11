@@ -1,5 +1,9 @@
 <template>
   <div id="designated-vouchers">
+    <div class="title">
+      <img class="icon-voucher" :src="icon" />
+      <h1>3 vouchers ativos</h1>
+    </div>
     <InputGroup>
       <InputWrapper>
         <v-select
@@ -60,6 +64,7 @@
 
 <script>
 import InputWrapper from '@/components/inputWrapper/InputWrapper'
+import iconVoucher from '../../assets/icons/icon-voucher.svg'
 import InputGroup from '@/components/inputGroup/InputGroup'
 import vSelect from 'vue-select'
 
@@ -71,6 +76,7 @@ export default {
   },
   data() {
     return {
+      icon: iconVoucher,
       selectedInduster: null,
       industerOptions: [
         { label: 'Ind. Farmacêutica', value: 'Ind. Farmacêutica' },
@@ -178,6 +184,19 @@ export default {
   display: flex;
   width: 100%;
 
+  .title {
+    display: flex;
+    place-items: end;
+    text-align: left;
+    color: $green-500;
+    width: 100%;
+    margin-bottom: 20px;
+
+    h1 {
+      margin-left: 10px;
+    }
+  }
+
   .input-group {
     height: fit-content;
   }
@@ -187,7 +206,7 @@ export default {
   text-transform: uppercase;
   border: 1px solid $white;
   background: $green-500;
-  padding: 10px 20px;
+  padding: 20px;
   text-align: center;
   color: white;
 
