@@ -51,7 +51,7 @@ import {
   faChevronLeft,
   faChevronRight
 } from '@fortawesome/free-solid-svg-icons'
-import logo from '../../../assets/logo.png'
+import logo from '../../../assets/logo-ceos.png'
 
 export default {
   name: 'SidebarMenu',

@@ -12,7 +12,7 @@
 
 <script>
 import SidebarMenu from '../sidebar/Sidebar.vue'
-import Banner from '../../../assets/banner-header.png'
+import Banner from '../../../assets/ceos-header.png'
 
 export default {
   name: 'Header',

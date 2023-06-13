@@ -149,27 +149,36 @@ export default {
   },
   computed: {
     filteredTableData() {
+      const filters = [
+        {
+          property: 'industry',
+          selectedValue: this.selectedInduster
+        },
+        {
+          property: 'specialty',
+          selectedValue: this.selectedSpecialty
+        },
+        {
+          property: 'illness',
+          selectedValue: this.selectedIllness
+        },
+        {
+          property: 'doctor',
+          selectedValue: this.selectedDoctor
+        }
+      ]
+
       let filteredData = this.tableData
-      if (this.selectedInduster) {
-        filteredData = filteredData.filter((item) => {
-          return item.industry === this.selectedInduster.value
-        })
-      }
-      if (this.selectedSpecialty) {
-        filteredData = filteredData.filter((item) => {
-          return item.specialty === this.selectedSpecialty.value
-        })
-      }
-      if (this.selectedIllness) {
-        filteredData = filteredData.filter((item) => {
-          return item.illness === this.selectedIllness.value
-        })
-      }
-      if (this.selectedDoctor) {
-        filteredData = filteredData.filter((item) => {
-          return item.doctor === this.selectedDoctor.value
-        })
-      }
+
+      filters.forEach((filter) => {
+        const { property, selectedValue } = filter
+        if (selectedValue) {
+          filteredData = filteredData.filter(
+            (item) => item[property] === selectedValue.value
+          )
+        }
+      })
+
       return filteredData
     }
   }
