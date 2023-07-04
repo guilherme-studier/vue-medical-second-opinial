@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     toggleMenu() {
-      this.active = !this.active
+      this.active = this.active
       this.toggleIcon = this.active ? faChevronLeft : faChevronRight
     }
   }
