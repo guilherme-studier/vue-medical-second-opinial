@@ -13,6 +13,7 @@ import ConsultantDoctorInvitation from '@/features/consultantDoctorInvitation/Co
 import SystemAccessCancellation from '@/features/systemAccessCancellation/SystemAccessCancellation'
 import DesignatedVouchers from '@/features/designatedVouchers/DesignatedVouchers'
 import ConsultantMedicalRegistration from '@/features/consultantMedicalRegistration/ConsultantMedicalRegistration'
+import Registration from '@/features/registration/Registration'
 
 const routes = [
   {
@@ -74,6 +75,14 @@ const routes = [
         component: ConsultantMedicalRegistration,
         meta: {
           title: 'Cadastro Médico Consultor'
+        }
+      },
+      {
+        path: '/registration',
+        name: 'Registration',
+        component: Registration,
+        meta: {
+          title: 'Cadastro'
         }
       }
     ]

@@ -97,6 +97,11 @@ export default {
           id: 7,
           name: 'Cadastro Médico Consultor',
           route: '/medical-registration'
+        },
+        {
+          id: 8,
+          name: 'Cadastro',
+          route: '/registration'
         }
       ],
       toggleIcon: faChevronLeft,
@@ -105,7 +110,8 @@ export default {
   },
   methods: {
     toggleMenu() {
-      this.active = this.active
+      // eslint-disable-next-line no-self-assign
+      this.active = !this.active
       this.toggleIcon = this.active ? faChevronLeft : faChevronRight
     }
   }
