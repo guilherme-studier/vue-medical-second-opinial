@@ -92,6 +92,11 @@ export default {
           id: 6,
           name: 'Cancelamento de Acesso ao Sistema',
           route: '/access-cancellation'
+        },
+        {
+          id: 7,
+          name: 'Cadastro Médico Consultor',
+          route: '/medical-registration'
         }
       ],
       toggleIcon: faChevronLeft,

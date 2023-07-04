@@ -235,7 +235,6 @@ export default {
 }
 
 .radio-content {
-  padding: 25px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 

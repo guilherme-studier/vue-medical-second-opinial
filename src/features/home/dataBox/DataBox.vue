@@ -40,8 +40,8 @@ $data-quantity-font-size: 50.11px;
   grid-gap: 0;
 
   .data-title {
-    border-top-right-radius: 1.67rem;
-    border-top-left-radius: 1.67rem;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
     justify-content: center;
     align-items: center;
     color: $white;
@@ -51,8 +51,8 @@ $data-quantity-font-size: 50.11px;
   }
 
   .data-quantity {
-    border-bottom-right-radius: 1.67rem;
-    border-bottom-left-radius: 1.67rem;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
     justify-content: center;
     align-items: center;
     display: flex;

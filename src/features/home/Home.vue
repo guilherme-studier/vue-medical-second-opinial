@@ -1,24 +1,49 @@
 <template>
   <div id="home">
-    <DataBox title="Indústrias Cadastradas" quantity="2" />
-    <DataBox title="Vouchers aguardando ativação" quantity="3" />
-    <DataBox title="Vouchers designados" quantity="4" />
+    <signature v-if="doctorName" :name="doctorName" class="signature" />
+
+    <div class="data-box-container">
+      <data-box title="Indústrias Cadastradas" quantity="2" />
+      <data-box title="Vouchers aguardando ativação" quantity="3" />
+      <data-box title="Vouchers designados" quantity="4" />
+    </div>
   </div>
 </template>
 
 <script>
+import Signature from '@/features/home/signature/Signature'
 import DataBox from '@/features/home/dataBox/DataBox'
 
 export default {
   name: 'Home',
   components: {
-    DataBox
+    DataBox,
+    Signature
+  },
+  data() {
+    return {
+      doctorName: 'Dr. Guilherme Studier'
+    }
   }
 }
 </script>
 
 <style scoped>
 #home {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  display: box;
+  width: 100%;
+}
+
+.signature {
+  margin-bottom: 10px;
+  width: 100%;
+  order: 1;
+}
+
+.data-box-container {
+  margin-top: 26px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -26,20 +51,18 @@ export default {
 }
 
 .data-box {
-  flex-basis: calc(
-    33.33% - 10px
-  ); /* Define a largura base para cada componente DataBox */
-  margin-right: 10px; /* Define o espaçamento entre os componentes */
+  flex-basis: calc(33.33% - 10px);
+  margin-right: 10px;
 }
 
 .data-box:last-child {
-  margin-right: 0; /* Remove o espaçamento à direita do último componente */
+  margin-right: 0;
 }
 
 @media (max-width: 767px) {
   .data-box {
-    flex-basis: 100%; /* Altera a largura para ocupar 100% em telas menores */
-    margin-right: 0; /* Remove o espaçamento em telas menores */
+    flex-basis: 100%;
+    margin-right: 0;
   }
 }
 </style>

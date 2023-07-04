@@ -5,7 +5,10 @@
         <h2 class="modal-title">{{ title }}</h2>
         <img class="icon-close" :src="toggleIcon" @click="closeModal" />
       </div>
-      <slot></slot>
+
+      <div class="modal-text">
+        <slot></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -46,15 +49,19 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  border: none;
+  border: none !important;
 
   .modal-content {
     border: none;
-    width: 500px;
+    width: 882px;
     background-color: white;
     padding: 0;
     border-radius: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+    .modal-text {
+      padding: 25px;
+    }
   }
 
   .modal-header {
@@ -82,7 +89,6 @@ export default {
   }
 
   .modal-close-btn {
-    border: 1px solid;
     background: transparent;
     color: white;
     font-size: 24px;

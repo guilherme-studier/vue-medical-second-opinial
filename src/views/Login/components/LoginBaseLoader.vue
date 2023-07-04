@@ -58,16 +58,16 @@ export default {
 
 .roller,
 .roller:last-child {
+  -moz-animation: rollercoaster 1.2s infinite linear;
+  animation: rollercoaster 1.2s infinite linear;
+  -webkit-animation: rollercoaster 1.2s infinite linear;
   width: 70px;
   height: 70px;
   position: absolute;
   top: 0;
   left: 0;
-  -webkit-animation: rollercoaster 1.2s infinite linear;
   -webkit-transform: rotate(135deg);
-  -moz-animation: rollercoaster 1.2s infinite linear;
   -moz-transform: rotate(135deg);
-  animation: rollercoaster 1.2s infinite linear;
   transform: rotate(135deg);
 }
 

@@ -20,6 +20,7 @@ export default {
 <style lang="scss" scoped>
 .content-title {
   flex-direction: column;
+  margin-bottom: 25px;
   align-items: center;
   text-align: center;
   display: flex;

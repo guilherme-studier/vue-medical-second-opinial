@@ -12,6 +12,7 @@ import VoucherGenerator from '@/features/voucherGenerator/VoucherGenerator'
 import ConsultantDoctorInvitation from '@/features/consultantDoctorInvitation/ConsultantDoctorInvitation'
 import SystemAccessCancellation from '@/features/systemAccessCancellation/SystemAccessCancellation'
 import DesignatedVouchers from '@/features/designatedVouchers/DesignatedVouchers'
+import ConsultantMedicalRegistration from '@/features/consultantMedicalRegistration/ConsultantMedicalRegistration'
 
 const routes = [
   {
@@ -66,6 +67,14 @@ const routes = [
         meta: {
           title: 'Cancelamento de Acesso ao Sistema'
         }
+      },
+      {
+        path: '/medical-registration',
+        name: 'ConsultantMedicalRegistration',
+        component: ConsultantMedicalRegistration,
+        meta: {
+          title: 'Cadastro Médico Consultor'
+        }
       }
     ]
   },
@@ -86,6 +95,20 @@ const router = createRouter({
   scrollBehavior() {
     return { left: 0, top: 0 }
   }
+})
+
+// Update the document title on each navigation
+router.beforeEach((to, from, next) => {
+  const baseTitle = 'Ceos'
+
+  // Check if the route has a title defined in its meta
+  if (to.meta && to.meta.title) {
+    document.title = `${baseTitle} | ${to.meta.title}`
+  } else {
+    document.title = baseTitle
+  }
+
+  next()
 })
 
 export default router
