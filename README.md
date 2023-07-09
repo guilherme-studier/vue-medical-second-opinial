@@ -13,9 +13,35 @@ Espaço para introdução e resumo da plataforma.
   <img src="./src/assets/screenshot-login.png">
 </div>
 
-### Funcionalidades
+### Features desenvolvidas
 
-- [x] **Criar conta**: Criar conta na plataforma.
+- [x] **Login**: Tela de múltiplo login.
+
+- [x] **Início**: Tela Home.
+
+- [x] **Cadastro**: Cadastro.
+
+- [x] **Cadastro**: Cadastro Indústria.
+
+- [x] **Vouchers**: Geração de Vouchers.
+
+- [x] **Vouchers**: Vouchers Designados.
+
+- [x] **Vouchers**: Administração de Vouchers.
+
+- [x] **Vouchers**: Ativação de Vouchers.
+
+- [x] **Vouchers**: Vouchers em Avaliação.
+
+- [x] **Médico Consultor**: Geração de Convite para Médico Consultor.
+
+- [x] **Cancelamento**: Cancelamento de Acesso ao Sistema.
+
+- [ ] **Cadastro**: Cadastro Representante.
+
+- [ ] **Vouchers**: Atribuição de Vouchers.
+
+
 
 ### Conceitos abordados
 
