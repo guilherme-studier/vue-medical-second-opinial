@@ -102,6 +102,11 @@ export default {
           id: 8,
           name: 'Cadastro',
           route: '/registration'
+        },
+        {
+          id: 8,
+          name: 'Administração de Vouchers',
+          route: '/voucher-administration'
         }
       ],
       toggleIcon: faChevronLeft,

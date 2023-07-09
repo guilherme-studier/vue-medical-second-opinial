@@ -35,30 +35,7 @@
       </InputWrapper>
     </InputGroup>
 
-    <table class="custom-table">
-      <thead>
-        <tr>
-          <th class="custom-th custom-th-top-left">Voucher</th>
-          <th class="custom-th">Indústria</th>
-          <th class="custom-th">Especialidade</th>
-          <th class="custom-th">Doença</th>
-          <th class="custom-th">Médico Consultor</th>
-          <th class="custom-th">Data</th>
-          <th class="custom-th custom-th-top-right">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in filteredTableData" :key="index">
-          <td>{{ item.voucher }}</td>
-          <td>{{ item.industry }}</td>
-          <td>{{ item.specialty }}</td>
-          <td>{{ item.illness }}</td>
-          <td>{{ item.doctor }}</td>
-          <td>{{ item.date }}</td>
-          <td>{{ item.status }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <custom-table :tableHeader="tableHeader" :tableData="tableData" />
   </div>
 </template>
 
@@ -66,11 +43,13 @@
 import InputWrapper from '@/components/inputWrapper/InputWrapper'
 import iconVoucher from '../../assets/icons/icon-voucher.svg'
 import InputGroup from '@/components/inputGroup/InputGroup'
+import CustomTable from '@/components/customTable/CustomTable'
 import vSelect from 'vue-select'
 
 export default {
   components: {
     InputWrapper,
+    CustomTable,
     InputGroup,
     vSelect
   },
@@ -100,6 +79,15 @@ export default {
         { label: 'Paulo Pitrez', value: 'Paulo Pitrez' },
         { label: 'Paulo Pitrez', value: 'Paulo Pitrez' },
         { label: 'Paulo Pitrez', value: 'Paulo Pitrez' }
+      ],
+      tableHeader: [
+        'Voucher',
+        'Indústria',
+        'Especialidade',
+        'Doença',
+        'Médico Consultor',
+        'Data',
+        'Status'
       ],
       tableData: [
         {

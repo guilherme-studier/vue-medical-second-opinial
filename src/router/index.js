@@ -14,6 +14,7 @@ import SystemAccessCancellation from '@/features/systemAccessCancellation/System
 import DesignatedVouchers from '@/features/designatedVouchers/DesignatedVouchers'
 import ConsultantMedicalRegistration from '@/features/consultantMedicalRegistration/ConsultantMedicalRegistration'
 import Registration from '@/features/registration/Registration'
+import VoucherAdministration from '@/features/voucherAdministration/VoucherAdministration'
 
 const routes = [
   {
@@ -83,6 +84,14 @@ const routes = [
         component: Registration,
         meta: {
           title: 'Cadastro'
+        }
+      },
+      {
+        path: '/voucher-administration',
+        name: 'VoucherAdministration',
+        component: VoucherAdministration,
+        meta: {
+          title: 'Administração de Vouchers'
         }
       }
     ]
