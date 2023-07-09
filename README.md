@@ -1,27 +1,33 @@
-# Medical Second Opinion
+<!-- Title -->
+<h1 align="center"> Ceos </h1>
 
-### Descrição
+<!-- Subtitle -->
+<h2 align="center"> Medical Second Opinion </h2>
 
-Projeto Vuejs
+### Projeto
 
-### Tecnologias empregadas
+Espaço para introdução e resumo da plataforma.
 
-- Vuejs
-- Axios
-- Sass
-- Eslint, Babel
-- Node 18.13.0
+## 🖼️ Imagens do Projeto
+<div align="center">
+  <img src="./src/assets/screenshot-login.png">
+</div>
 
-## Comandos para clonar o projeto
+### Funcionalidades
 
-``` bash
-# clonando projeto do github
-git clone https://github.com/thiagostudier/medical-second-opinion.git
+- [x] **Criar conta**: Criar conta na plataforma.
 
-# instalar dependências
-yarn install
+### Conceitos abordados
 
-# subir ambiente no link: http://localhost:8080/#/
-yarn serve
+- Controle de rotas com [Vue Router](https://router.vuejs.org/).
 
-```
+- Controle de estudos e mutações das functions utilizando [Vue X](https://vuex.vuejs.org/).
+
+- Uso de flexbox para alinhar e ajustar elementos na página.
+
+## :rocket: Tecnologias
+
+-  [Vue](https://vuejs.org/guide/introduction.html)
+-  [Vue Router](https://router.vuejs.org/)
+-  [Vue X](https://vuex.vuejs.org/)
+-  [Axios](https://github.com/axios/axios)
