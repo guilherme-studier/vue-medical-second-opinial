@@ -28,8 +28,16 @@
 </template>
 
 <script>
+// icons
 import iconVoucher from '../../assets/icons/icon-voucher.svg'
 import iconSearch from '../../assets/icons/icon-search.svg'
+import iconCheckActive from '../../assets/icons/icon-check-active.svg'
+import iconCheckInactive from '../../assets/icons/icon-check-inactive.svg'
+import iconCloseActive from '../../assets/icons/icon-close-active.svg'
+import iconCloseInactive from '../../assets/icons/icon-close-inactive.svg'
+import iconTrashActive from '../../assets/icons/icon-trash-active.svg'
+import iconTrashInactive from '../../assets/icons/icon-trash-inactive.svg'
+// components
 import CustomTable from '@/components/customTable/CustomTable'
 
 export default {
@@ -50,40 +58,80 @@ export default {
           illness: 'Doença 1',
           date: '2016-05-03',
           status: 'Em avaliação',
-          action: {
-            icon: iconSearch,
-            handler: () => console.log('Função do item 1')
-          }
+          action: [
+            {
+              icon: iconCheckActive,
+              handler: () => console.log('Função do item 1')
+            },
+            {
+              icon: iconCloseActive,
+              handler: () => console.log('Função do item 1')
+            },
+            {
+              icon: iconTrashActive,
+              handler: () => console.log('Função do item 1')
+            }
+          ]
         },
         {
           voucher: '23011014002',
           illness: 'Doença 2',
           date: '2016-05-03',
           status: 'Em avaliação',
-          action: {
-            icon: iconSearch,
-            handler: () => console.log('Função do item 2')
-          }
+          action: [
+            {
+              icon: iconCheckActive,
+              handler: () => console.log('Função do item 1')
+            },
+            {
+              icon: iconCloseInactive,
+              handler: () => console.log('Função do item 1')
+            },
+            {
+              icon: iconTrashInactive,
+              handler: () => console.log('Função do item 1')
+            }
+          ]
         },
         {
           voucher: '23011014002',
           illness: 'Doença 3',
           date: '2016-05-03',
           status: 'Em avaliação',
-          action: {
-            icon: iconSearch,
-            handler: () => console.log('Função do item 3')
-          }
+          action: [
+            {
+              icon: iconCheckInactive,
+              handler: () => console.log('Função do item 1')
+            },
+            {
+              icon: iconCloseActive,
+              handler: () => console.log('Função do item 1')
+            },
+            {
+              icon: iconTrashInactive,
+              handler: () => console.log('Função do item 1')
+            }
+          ]
         },
         {
           voucher: '23011014002',
           illness: 'Doença 4',
           date: '2016-05-03',
           status: 'Em avaliação',
-          action: {
-            icon: iconSearch,
-            handler: () => console.log('Função do item 4')
-          }
+          action: [
+            {
+              icon: iconCheckActive,
+              handler: () => console.log('Função do item 1')
+            },
+            {
+              icon: iconCloseActive,
+              handler: () => console.log('Função do item 1')
+            },
+            {
+              icon: iconTrashActive,
+              handler: () => console.log('Função do item 1')
+            }
+          ]
         }
       ],
       searchTerm: ''

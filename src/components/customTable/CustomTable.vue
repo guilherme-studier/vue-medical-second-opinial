@@ -20,11 +20,19 @@
         <tr v-for="(item, index) in tableData" :key="index">
           <td v-for="(value, key) in item" :key="key">
             <template v-if="key === 'action'">
-              <img
-                :src="value.icon"
-                alt="Ícone de Ação"
-                @click="value.handler(item)"
-              />
+              <div class="action-icons">
+                <div
+                  v-for="(iconItem, iconIndex) in value"
+                  :key="iconIndex"
+                  class="action-icon"
+                >
+                  <img
+                    :src="iconItem.icon"
+                    alt="Ícone de Ação"
+                    @click="iconItem.handler(item)"
+                  />
+                </div>
+              </div>
             </template>
             <template v-else>
               {{ value }}
@@ -60,6 +68,7 @@ export default {
 <style lang="scss" scoped>
 #custom-table {
   width: 100%;
+
   .table {
     border-collapse: separate;
     border-spacing: 0;
@@ -88,6 +97,17 @@ export default {
         border-top-right-radius: 10px;
       }
     }
+  }
+
+  .action-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .action-icon {
+    display: inline-block;
   }
 }
 </style>
