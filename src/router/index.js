@@ -16,6 +16,7 @@ import ConsultantMedicalRegistration from '@/features/consultantMedicalRegistrat
 import Registration from '@/features/registration/Registration'
 import VoucherAdministration from '@/features/voucherAdministration/VoucherAdministration'
 import VoucherAllocation from '@/features/voucherAllocation/VoucherAllocation'
+import RepresentativeRegistration from '@/features/representativeRegistration/RepresentativeRegistration'
 
 const routes = [
   {
@@ -101,6 +102,14 @@ const routes = [
         component: VoucherAllocation,
         meta: {
           title: 'Atribuição de Vouchers'
+        }
+      },
+      {
+        path: '/representative-registration',
+        name: 'RepresentativeRegistration',
+        component: RepresentativeRegistration,
+        meta: {
+          title: 'Cadastro Representante'
         }
       }
     ]

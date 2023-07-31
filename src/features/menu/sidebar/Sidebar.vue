@@ -112,6 +112,11 @@ export default {
           id: 9,
           name: 'Atribuição de Vouchers',
           route: '/voucher-allocation'
+        },
+        {
+          id: 10,
+          name: 'Cadastro Representante',
+          route: '/representative-registration'
         }
       ],
       toggleIcon: faChevronLeft,
