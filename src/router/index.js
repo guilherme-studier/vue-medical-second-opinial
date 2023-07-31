@@ -15,6 +15,7 @@ import DesignatedVouchers from '@/features/designatedVouchers/DesignatedVouchers
 import ConsultantMedicalRegistration from '@/features/consultantMedicalRegistration/ConsultantMedicalRegistration'
 import Registration from '@/features/registration/Registration'
 import VoucherAdministration from '@/features/voucherAdministration/VoucherAdministration'
+import VoucherAllocation from '@/features/voucherAllocation/VoucherAllocation'
 
 const routes = [
   {
@@ -92,6 +93,14 @@ const routes = [
         component: VoucherAdministration,
         meta: {
           title: 'Administração de Vouchers'
+        }
+      },
+      {
+        path: '/voucher-allocation',
+        name: 'VoucherAllocation',
+        component: VoucherAllocation,
+        meta: {
+          title: 'Atribuição de Vouchers'
         }
       }
     ]

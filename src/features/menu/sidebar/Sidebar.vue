@@ -107,6 +107,11 @@ export default {
           id: 8,
           name: 'Administração de Vouchers',
           route: '/voucher-administration'
+        },
+        {
+          id: 9,
+          name: 'Atribuição de Vouchers',
+          route: '/voucher-allocation'
         }
       ],
       toggleIcon: faChevronLeft,
