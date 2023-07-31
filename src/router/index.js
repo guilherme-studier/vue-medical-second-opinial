@@ -17,6 +17,7 @@ import Registration from '@/features/registration/Registration'
 import VoucherAdministration from '@/features/voucherAdministration/VoucherAdministration'
 import VoucherAllocation from '@/features/voucherAllocation/VoucherAllocation'
 import RepresentativeRegistration from '@/features/representativeRegistration/RepresentativeRegistration'
+import VouchersEvaluation from '@/features/vouchersEvaluation/VouchersEvaluation'
 
 const routes = [
   {
@@ -110,6 +111,14 @@ const routes = [
         component: RepresentativeRegistration,
         meta: {
           title: 'Cadastro Representante'
+        }
+      },
+      {
+        path: '/vouchers-evaluation',
+        name: 'VouchersEvaluation',
+        component: VouchersEvaluation,
+        meta: {
+          title: 'Vouchers em avaliação'
         }
       }
     ]

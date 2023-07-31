@@ -117,6 +117,11 @@ export default {
           id: 10,
           name: 'Cadastro Representante',
           route: '/representative-registration'
+        },
+        {
+          id: 11,
+          name: 'Vouchers em avaliação',
+          route: '/vouchers-evaluation'
         }
       ],
       toggleIcon: faChevronLeft,
