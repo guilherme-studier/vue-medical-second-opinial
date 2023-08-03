@@ -4,7 +4,7 @@
     <div class="form">
       <InputGroup>
         <InputWrapper>
-          <VueSelect
+          <v-select
             v-model="industry"
             :options="industryOptions"
             placeholder="Indústria"
@@ -107,7 +107,7 @@ import InputGroup from '@/components/inputGroup'
 import Title from '@/components/title'
 import Modal from '@/components/modal'
 
-import { VueSelect } from 'vue-select'
+import vSelect from 'vue-select'
 
 export default {
   name: 'VoucherGenerator',
@@ -116,7 +116,7 @@ export default {
     InputWrapper,
     RadioContent,
     InputGroup,
-    VueSelect,
+    vSelect,
     Title,
     Modal
   },
