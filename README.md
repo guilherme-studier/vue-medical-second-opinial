@@ -23,6 +23,10 @@ Espaço para introdução e resumo da plataforma.
 
 - [x] **Cadastro**: Cadastro Indústria.
 
+- [x] **Cadastro**: Cadastro Representante.
+
+- [x] **Cadastro**: Cadastro Médico Consultor.
+
 - [x] **Vouchers**: Geração de Vouchers.
 
 - [x] **Vouchers**: Vouchers Designados.
@@ -33,13 +37,13 @@ Espaço para introdução e resumo da plataforma.
 
 - [x] **Vouchers**: Vouchers em Avaliação.
 
+- [x] **Vouchers**: Atribuição de Vouchers.
+
 - [x] **Médico Consultor**: Geração de Convite para Médico Consultor.
 
 - [x] **Cancelamento**: Cancelamento de Acesso ao Sistema.
 
-- [ ] **Cadastro**: Cadastro Representante.
-
-- [ ] **Vouchers**: Atribuição de Vouchers.
+- [ ] **Vouchers**: Ativação de Vouchers.
 
 
 
