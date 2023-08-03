@@ -71,27 +71,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#consultant-doctor-invitation {
-  justify-content: center;
-  flex-wrap: wrap;
-  display: block;
-  width: 100%;
-}
-
-.form {
-  flex-direction: column;
-  margin-top: 20px;
-  display: flex;
-  width: 100%;
-
-  .save {
-    place-self: end;
-    display: flex;
-    width: 150px;
-  }
-}
-
-.full-width {
-  grid-column: 1 / -1;
-}
+@import '../consultantDoctorInvitation/styles';
 </style>
