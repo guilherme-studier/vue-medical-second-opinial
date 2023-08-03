@@ -7,17 +7,17 @@ import Login from '@/views/login/Login'
 
 // childrens
 import Home from '@/features/home/index.vue'
-import IndustryRegistration from '@/features/industryRegistration/IndustryRegistration'
-import VoucherGenerator from '@/features/voucherGenerator/VoucherGenerator'
-import ConsultantDoctorInvitation from '@/features/consultantDoctorInvitation/ConsultantDoctorInvitation'
-import SystemAccessCancellation from '@/features/systemAccessCancellation/SystemAccessCancellation'
-import DesignatedVouchers from '@/features/designatedVouchers/DesignatedVouchers'
-import ConsultantMedicalRegistration from '@/features/consultantMedicalRegistration/ConsultantMedicalRegistration'
-import Registration from '@/features/registration/Registration'
-import VoucherAdministration from '@/features/voucherAdministration/VoucherAdministration'
-import VoucherAllocation from '@/features/voucherAllocation/VoucherAllocation'
-import RepresentativeRegistration from '@/features/representativeRegistration/RepresentativeRegistration'
-import VouchersEvaluation from '@/features/vouchersEvaluation/VouchersEvaluation'
+import IndustryRegistration from '@/features/industryRegistration'
+import VoucherGenerator from '@/features/voucherGenerator'
+import ConsultantDoctorInvitation from '@/features/consultantDoctorInvitation'
+import SystemAccessCancellation from '@/features/systemAccessCancellation'
+import DesignatedVouchers from '@/features/designatedVouchers'
+import ConsultantMedicalRegistration from '@/features/consultantMedicalRegistration'
+import Registration from '@/features/registration'
+import VoucherAdministration from '@/features/voucherAdministration'
+import VoucherAllocation from '@/features/voucherAllocation'
+import RepresentativeRegistration from '@/features/representativeRegistration'
+import VouchersEvaluation from '@/features/vouchersEvaluation'
 
 const routes = [
   {
