@@ -62,9 +62,9 @@
 </template>
 
 <script>
-import Title from '@/components/title/Title'
-import InputGroup from '@/components/inputGroup/InputGroup'
-import InputWrapper from '@/components/inputWrapper/InputWrapper'
+import Title from '@/components/title'
+import InputGroup from '@/components/inputGroup'
+import InputWrapper from '@/components/inputWrapper'
 
 export default {
   name: 'IndustryRegistration',

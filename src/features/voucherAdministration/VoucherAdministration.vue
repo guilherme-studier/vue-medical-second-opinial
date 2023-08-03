@@ -38,7 +38,7 @@ import iconCloseInactive from '../../assets/icons/icon-close-inactive.svg'
 import iconTrashActive from '../../assets/icons/icon-trash-active.svg'
 import iconTrashInactive from '../../assets/icons/icon-trash-inactive.svg'
 // components
-import CustomTable from '@/components/customTable/CustomTable'
+import CustomTable from '@/components/customTable'
 
 export default {
   name: 'VoucherAdministration',

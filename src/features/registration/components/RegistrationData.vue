@@ -117,10 +117,10 @@
 </template>
 
 <script>
-import Title from '@/components/title/Title'
-import InputGroup from '@/components/inputGroup/InputGroup'
-import InputWrapper from '@/components/inputWrapper/InputWrapper'
-import Modal from '@/components/modal/Modal'
+import Title from '@/components/title'
+import InputGroup from '@/components/inputGroup'
+import InputWrapper from '@/components/inputWrapper'
+import Modal from '@/components/modal'
 import Save from '../components/Save'
 
 export default {

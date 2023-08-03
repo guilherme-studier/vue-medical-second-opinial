@@ -34,7 +34,7 @@ import iconSearch from '../../assets/icons/icon-search.svg'
 import iconFiled from '../../assets/icons/icon-filed.svg'
 import iconMessage from '../../assets/icons/icon-message.svg'
 // components
-import CustomTable from '@/components/customTable/CustomTable'
+import CustomTable from '@/components/customTable'
 
 export default {
   name: 'VouchersEvaluation',

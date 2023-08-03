@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import Signature from '@/features/home/signature/Signature'
-import DataBox from '@/features/home/dataBox/DataBox'
+import Signature from '@/features/home/components/signature/Signature'
+import DataBox from '@/features/home/components/dataBox/DataBox'
 
 export default {
   name: 'Home',

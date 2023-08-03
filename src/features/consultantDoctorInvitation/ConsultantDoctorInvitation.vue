@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import InputGroup from '@/components/inputGroup/InputGroup'
-import InputWrapper from '@/components/inputWrapper/InputWrapper'
+import InputGroup from '@/components/inputGroup'
+import InputWrapper from '@/components/inputWrapper'
 
 export default {
   name: 'ConsultantDoctorInvitation',

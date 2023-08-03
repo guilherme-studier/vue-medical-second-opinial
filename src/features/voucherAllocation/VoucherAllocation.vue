@@ -95,11 +95,11 @@
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
-import RadioContent from '@/components/radioContent/RadioContent'
-import InputWrapper from '@/components/inputWrapper/InputWrapper'
-import InputGroup from '@/components/inputGroup/InputGroup'
-import Title from '@/components/title/Title'
-import Modal from '@/components/modal/Modal'
+import RadioContent from '@/components/radioContent'
+import InputWrapper from '@/components/inputWrapper'
+import InputGroup from '@/components/inputGroup'
+import Title from '@/components/title'
+import Modal from '@/components/modal'
 
 export default {
   name: 'VoucherAllocation',

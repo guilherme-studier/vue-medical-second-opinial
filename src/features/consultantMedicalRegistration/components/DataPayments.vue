@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import InputWrapper from '@/components/inputWrapper/InputWrapper'
-import InputGroup from '@/components/inputGroup/InputGroup'
-import Title from '@/components/title/Title'
+import InputWrapper from '@/components/inputWrapper'
+import InputGroup from '@/components/inputGroup'
+import Title from '@/components/title'
 
 export default {
   name: 'DataPayments',

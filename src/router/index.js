@@ -6,7 +6,7 @@ import Layout from '@/views/layout/Layout'
 import Login from '@/views/login/Login'
 
 // childrens
-import Home from '@/features/home/Home'
+import Home from '@/features/home/index.vue'
 import IndustryRegistration from '@/features/industryRegistration/IndustryRegistration'
 import VoucherGenerator from '@/features/voucherGenerator/VoucherGenerator'
 import ConsultantDoctorInvitation from '@/features/consultantDoctorInvitation/ConsultantDoctorInvitation'

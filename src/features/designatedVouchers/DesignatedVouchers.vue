@@ -40,10 +40,10 @@
 </template>
 
 <script>
-import InputWrapper from '@/components/inputWrapper/InputWrapper'
+import InputWrapper from '@/components/inputWrapper'
 import iconVoucher from '../../assets/icons/icon-voucher.svg'
-import InputGroup from '@/components/inputGroup/InputGroup'
-import CustomTable from '@/components/customTable/CustomTable'
+import InputGroup from '@/components/inputGroup'
+import CustomTable from '@/components/customTable'
 import vSelect from 'vue-select'
 
 export default {
