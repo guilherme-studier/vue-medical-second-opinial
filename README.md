@@ -45,7 +45,11 @@ Espaço para introdução e resumo da plataforma.
 
 - [ ] **Vouchers**: Ativação de Vouchers.
 
+### Testes
 
+- [ ] **Jest**: Testes unitários focados nos componentes da aplicação.
+  
+- [ ] **Cypress**: Testes automatizados das features como um todo.
 
 ### Conceitos abordados
 
@@ -54,6 +58,10 @@ Espaço para introdução e resumo da plataforma.
 - Controle de estudos e mutações das functions utilizando [Vue X](https://vuex.vuejs.org/).
 
 - Uso de flexbox para alinhar e ajustar elementos na página.
+
+- Testes unitários com Jest
+
+- Testes de integração com Cypress
 
 ## :rocket: Tecnologias
 
