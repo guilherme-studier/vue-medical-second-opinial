@@ -6,7 +6,7 @@
 
 <script>
 import '@/assets/scss/global.scss'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import { getCurrentUserAccess } from '@/helpers/auth'
 
 export default {
@@ -20,6 +20,7 @@ export default {
     ]
   },
   computed: {
+    ...mapState('consultantDoctorInvitation', ['cpf']),
     ...mapGetters(['getIsTokenExpired'])
   },
   async created() {
