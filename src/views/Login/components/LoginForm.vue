@@ -1,8 +1,9 @@
 <template>
   <div class="login-form">
-    <form>
+    <form @submit.prevent="handleSubmit">
       <div class="form-group">
         <input
+          v-model="email"
           type="text"
           id="username"
           name="username"
@@ -11,6 +12,7 @@
       </div>
       <div class="form-group">
         <input
+          v-model="password"
           type="password"
           id="password"
           name="password"
@@ -21,64 +23,67 @@
         <a @click="handlePassword" href="#">
           {{ forgotPassword ? 'Retornar Login' : 'Esqueci minha senha' }}
         </a>
-        <button type="submit">Entrar</button>
+        <button @click="handleLogin" type="submit">Entrar</button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'LoginForm',
   data() {
     return {
-      forgotPassword: false
+      forgotPassword: false,
+      email: '',
+      password: ''
     }
   },
   methods: {
     handlePassword() {
       this.forgotPassword = !this.forgotPassword
+    },
+
+    async handleLogin() {
+      try {
+        // Monta o payload com os dados de email e senha
+        const payload = {
+          email: this.email,
+          password: this.password
+        }
+
+        // Faz a chamada POST para a API
+        const response = await axios.post(
+          'https://meso.poatech.com.br:450/user/api/1.0/auth',
+          payload
+        )
+
+        // Verifica a resposta da API e trata os dados retornados
+        if (response && response.data) {
+          // Faça algo com os dados da resposta, se necessário
+          console.log('Dados da resposta:', response.data)
+
+          // Exemplo de redirecionamento para outra página após a autenticação
+          // this.$router.push('/dashboard'); // Ou qualquer outra rota desejada
+        } else {
+          throw new Error('Resposta inválida da API.')
+        }
+      } catch (error) {
+        // Trate o erro, caso ocorra
+        console.error('Erro na chamada à API:', error.message)
+      }
+    },
+
+    handleSubmit() {
+      // Chama a função loginUser com o email e a senha informados no formulário
+      this.$emit('login', this.email, this.password)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.login-form {
-  margin-top: 50px;
-  background: $white;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 425px;
-  margin: 0 auto;
-  max-height: 100vh;
-  padding: 20px;
-
-  form {
-    width: 100%;
-    height: fit-content;
-
-    .form-group {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 0;
-
-      a:hover {
-        text-decoration: underline;
-      }
-
-      button {
-        max-width: 100px;
-      }
-    }
-
-    .last-form-group {
-      margin-block: 0;
-    }
-  }
-}
+@import '../styles/index.scss';
 </style>

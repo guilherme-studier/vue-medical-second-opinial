@@ -35,6 +35,9 @@ import LoginBaseLoader from '@/views/login/components/LoginBaseLoader'
 import logoMeSo from '../../assets/login-logo.png'
 import logoCeos from '../../assets/logo-ceos.png'
 
+// services
+// import { authenticateUser } from '@/views/login/services/index'
+
 export default {
   name: 'Login',
   components: {
@@ -86,6 +89,7 @@ export default {
         this.isTransitioning = false
       }, 500)
     },
+
     reset() {
       this.isTransitioning = true
       setTimeout(() => {
@@ -98,6 +102,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import './styles/index.scss';
+
 .background-default {
   background-image: url('../../assets/background-login.png');
 }
@@ -116,65 +122,5 @@ export default {
 
 .background-pharma {
   background-image: url('../../assets/background-pharma.png');
-}
-
-#login {
-  background-repeat: no-repeat;
-  background-position: center;
-  justify-content: center;
-  flex-direction: column;
-  background-size: cover;
-  align-items: center;
-  max-height: 100vh;
-  max-width: 100%;
-  display: flex;
-  height: 100%;
-  width: 100%;
-
-  .logo {
-    padding-bottom: 40px;
-    align-items: center;
-    max-width: 300px;
-    margin: 0 auto;
-    display: flex;
-    height: auto;
-    width: 33%;
-  }
-
-  .btn-back {
-    position: absolute;
-    max-height: 100px;
-    max-width: 200px;
-    bottom: 15px;
-    width: 100%;
-    left: 15px;
-  }
-
-  .logo-ceos {
-    position: absolute;
-    max-height: 100px;
-    max-width: 200px;
-    height: 100%;
-    bottom: 15px;
-    right: 15px;
-    width: 100%;
-  }
-
-  .login-form-logo {
-    padding-bottom: 20px;
-    max-width: 200px;
-    margin: 0 auto;
-    display: flex;
-  }
-
-  .base-loader {
-    background-color: rgba(255, 255, 255, 0.5);
-    position: absolute;
-    z-index: 9999;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-  }
 }
 </style>

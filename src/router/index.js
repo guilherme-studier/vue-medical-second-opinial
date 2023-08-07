@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 // rotas
 import Layout from '@/views/layout/Layout'
-import Login from '@/views/login/Login'
+import Login from '@/views/login'
 
 // childrens
 import Home from '@/features/home/index.vue'

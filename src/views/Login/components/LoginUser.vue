@@ -41,20 +41,6 @@ export default {
 }
 </script>
 
-<style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.logo {
-  align-items: center;
-  max-width: 300px;
-  margin: 0 auto;
-  display: flex;
-  height: auto;
-  width: 33%;
-  padding-bottom: 40px;
-}
+<style lang="scss" scoped>
+@import '../styles/index.scss';
 </style>
