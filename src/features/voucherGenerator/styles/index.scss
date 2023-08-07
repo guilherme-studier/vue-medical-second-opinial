@@ -1,0 +1,57 @@
+#industry {
+  justify-content: center;
+  flex-wrap: wrap;
+  display: block;
+  width: 100%;
+}
+
+.form {
+  flex-direction: column;
+  margin-top: 20px;
+  display: flex;
+  width: 100%;
+  .save {
+    place-self: end;
+    display: flex;
+    width: 150px;
+  }
+}
+
+.vs--open {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.radio-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+  .btn-save {
+    text-align: left;
+    grid-column: 1 / -1;
+    width: 150px;
+    place-self: end;
+    display: flex;
+    margin-top: 15px;
+  }
+}
+
+.input-with-icon {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.input-with-icon input {
+  padding-right: 30px;
+  cursor: pointer;
+}
+
+.input-with-icon .icon {
+  position: absolute;
+  right: 10px;
+  top: 13px;
+  pointer-events: none;
+  color: $green-500;
+  font-size: 25px;
+}
