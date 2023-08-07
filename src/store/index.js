@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { createStore } from 'vuex'
 import { getCurrentUserAccess } from '../helpers/auth'
 import user from './modules/user'
+import home from '@/features/home/stores/index'
 import consultantDoctorInvitation from '@/features/consultantDoctorInvitation/store/index'
 
 const store = createStore({
@@ -41,6 +42,7 @@ const store = createStore({
   },
   modules: {
     user,
+    home,
     consultantDoctorInvitation
   },
   getters: {

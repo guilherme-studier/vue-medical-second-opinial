@@ -27,18 +27,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#signature {
-  display: flex;
-  align-items: center;
-  .signature-text {
-    font-weight: 400;
-    margin-left: 8px;
-    font-size: 18px;
-
-    .name {
-      color: $green-500;
-      font-weight: 700;
-    }
-  }
-}
+@import '../../styles/index.scss';
 </style>
