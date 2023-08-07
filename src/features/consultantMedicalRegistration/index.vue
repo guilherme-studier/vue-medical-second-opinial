@@ -32,11 +32,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#medical-registration {
-  justify-content: center;
-  margin-bottom: 100px;
-  flex-wrap: wrap;
-  display: block;
-  width: 100%;
-}
+@import './styles/index.scss';
 </style>

@@ -45,7 +45,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#data-payments {
-  margin-top: 30px;
-}
+@import '../styles/index.scss';
 </style>

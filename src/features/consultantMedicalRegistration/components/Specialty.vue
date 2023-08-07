@@ -51,7 +51,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#specialty {
-  margin-top: 50px;
-}
+@import '../styles/index.scss';
 </style>

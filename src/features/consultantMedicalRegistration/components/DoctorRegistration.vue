@@ -43,12 +43,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#doctor-registration {
-  .form {
-    flex-direction: column;
-    margin-top: 20px;
-    display: flex;
-    width: 100%;
-  }
-}
+@import '../styles/index.scss';
 </style>
