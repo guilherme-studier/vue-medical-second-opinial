@@ -4,7 +4,7 @@
       <login-user
         logo-alt="Logo MeSo"
         :logo-src="loginMeSo"
-        :options="loginOptions"
+        :options="getLoginOptions"
         @user-selected="selectUser"
       />
     </div>
@@ -35,8 +35,8 @@ import LoginBaseLoader from '@/views/login/components/LoginBaseLoader'
 import logoMeSo from '../../assets/login-logo.png'
 import logoCeos from '../../assets/logo-ceos.png'
 
-// services
-// import { authenticateUser } from '@/views/login/services/index'
+//stores
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Login',
@@ -49,33 +49,13 @@ export default {
     return {
       loginMeSo: logoMeSo,
       logoCeos: logoCeos,
-      loginOptions: [
-        {
-          id: 1,
-          name: 'Instituto Ceos',
-          background: 'background-ceos'
-        },
-        {
-          id: 2,
-          name: 'Médico Consultor',
-          background: 'background-doctor'
-        },
-        {
-          id: 3,
-          name: 'Médico Cliente',
-          background: 'background-doctor-client'
-        },
-        {
-          id: 4,
-          name: 'Pharma',
-          background: 'background-pharma'
-        }
-      ],
       userSelected: null,
       isTransitioning: false
     }
   },
   computed: {
+    ...mapGetters('login', ['getLoginOptions']),
+
     backgroundClass() {
       if (!this.userSelected) return 'background-default'
       else return this.userSelected?.background

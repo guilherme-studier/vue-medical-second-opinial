@@ -3,7 +3,7 @@
     <form @submit.prevent="handleSubmit">
       <div class="form-group">
         <input
-          v-model="email"
+          v-model="username"
           type="text"
           id="username"
           name="username"
@@ -30,55 +30,37 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'LoginForm',
   data() {
     return {
       forgotPassword: false,
-      email: '',
+      username: '',
       password: ''
     }
   },
   methods: {
+    ...mapActions('login', ['loginUser']),
+
     handlePassword() {
       this.forgotPassword = !this.forgotPassword
     },
 
     async handleLogin() {
       try {
-        // Monta o payload com os dados de email e senha
-        const payload = {
-          email: this.email,
+        await this.loginUser({
+          username: this.username,
           password: this.password
-        }
-
-        // Faz a chamada POST para a API
-        const response = await axios.post(
-          'https://meso.poatech.com.br:450/user/api/1.0/auth',
-          payload
-        )
-
-        // Verifica a resposta da API e trata os dados retornados
-        if (response && response.data) {
-          // Faça algo com os dados da resposta, se necessário
-          console.log('Dados da resposta:', response.data)
-
-          // Exemplo de redirecionamento para outra página após a autenticação
-          // this.$router.push('/dashboard'); // Ou qualquer outra rota desejada
-        } else {
-          throw new Error('Resposta inválida da API.')
-        }
+        })
       } catch (error) {
-        // Trate o erro, caso ocorra
-        console.error('Erro na chamada à API:', error.message)
+        console.error('Erro na chamada à API (vindo do Vuex):', error.message)
       }
     },
 
     handleSubmit() {
-      // Chama a função loginUser com o email e a senha informados no formulário
-      this.$emit('login', this.email, this.password)
+      this.$emit('login', this.username, this.password)
     }
   }
 }
