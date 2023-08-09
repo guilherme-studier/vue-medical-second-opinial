@@ -1,5 +1,5 @@
 <template>
-  <div id="designated-vouchers">
+  <div id="clinical-cases-evaluation">
     <div class="title">
       <div class="voucher-doctor">
         <img class="icon-voucher" :src="icon" />
@@ -37,7 +37,7 @@ import iconMessage from '../../assets/icons/icon-message.svg'
 import CustomTable from '@/components/customTable'
 
 export default {
-  name: 'VouchersEvaluation',
+  name: 'ClinicalCasesEvaluation',
   components: {
     CustomTable
   },
@@ -140,7 +140,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#designated-vouchers {
+#clinical-cases-evaluation {
   justify-content: center;
   height: fit-content;
   flex-wrap: wrap;

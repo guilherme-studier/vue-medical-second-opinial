@@ -120,8 +120,8 @@ export default {
         },
         {
           id: 11,
-          name: 'Vouchers em avaliação',
-          route: '/vouchers-evaluation'
+          name: 'Casos Clínicos Designados',
+          route: '/clinical-cases-evaluation'
         }
       ],
       toggleIcon: faChevronLeft,

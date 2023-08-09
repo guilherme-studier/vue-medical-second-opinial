@@ -17,7 +17,7 @@ import Registration from '@/features/registration'
 import AdmClinicalCases from '@/features/admClinicalCases'
 import VoucherAllocation from '@/features/voucherAllocation'
 import RepresentativeRegistration from '@/features/representativeRegistration'
-import VouchersEvaluation from '@/features/vouchersEvaluation'
+import ClinicalCasesEvaluation from '@/features/clinicalCasesEvaluation'
 
 const routes = [
   {
@@ -114,11 +114,11 @@ const routes = [
         }
       },
       {
-        path: '/vouchers-evaluation',
+        path: '/clinical-cases-evaluation',
         name: 'VouchersEvaluation',
-        component: VouchersEvaluation,
+        component: ClinicalCasesEvaluation,
         meta: {
-          title: 'Vouchers em avaliação'
+          title: 'Casos Clínicos Designados'
         }
       }
     ]
