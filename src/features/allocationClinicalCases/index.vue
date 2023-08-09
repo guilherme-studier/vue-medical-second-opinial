@@ -1,5 +1,5 @@
 <template>
-  <div id="industry">
+  <div id="allocation-clinical-cases">
     <Title :title="tituloComponente" />
     <div class="form">
       <InputGroup>
@@ -102,7 +102,7 @@ import Title from '@/components/title'
 import Modal from '@/components/modal'
 
 export default {
-  name: 'VoucherAllocation',
+  name: 'AllocationClinicalCases',
   components: {
     FontAwesomeIcon,
     InputWrapper,
@@ -195,7 +195,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#industry {
+#allocation-clinical-cases {
   justify-content: center;
   flex-wrap: wrap;
   display: block;

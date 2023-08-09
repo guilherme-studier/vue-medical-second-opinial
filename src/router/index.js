@@ -15,7 +15,7 @@ import ConsultationClinicalCases from '@/features/consultationClinicalCases'
 import ConsultantMedicalRegistration from '@/features/consultantMedicalRegistration'
 import Registration from '@/features/registration'
 import AdmClinicalCases from '@/features/admClinicalCases'
-import VoucherAllocation from '@/features/voucherAllocation'
+import AllocationClinicalCases from '@/features/allocationClinicalCases'
 import RepresentativeRegistration from '@/features/representativeRegistration'
 import ClinicalCasesEvaluation from '@/features/clinicalCasesEvaluation'
 
@@ -98,11 +98,11 @@ const routes = [
         }
       },
       {
-        path: '/voucher-allocation',
-        name: 'VoucherAllocation',
-        component: VoucherAllocation,
+        path: '/allocation-clinical-cases',
+        name: 'AllocationClinicalCases',
+        component: AllocationClinicalCases,
         meta: {
-          title: 'Atribuição de Vouchers'
+          title: 'Atribuição de Casos Clínicos'
         }
       },
       {

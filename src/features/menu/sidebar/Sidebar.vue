@@ -110,8 +110,8 @@ export default {
         },
         {
           id: 9,
-          name: 'Atribuição de Vouchers',
-          route: '/voucher-allocation'
+          name: 'Atribuição de Casos Clínicos',
+          route: '/allocation-clinical-cases'
         },
         {
           id: 10,
