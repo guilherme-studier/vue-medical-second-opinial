@@ -80,8 +80,8 @@ export default {
         },
         {
           id: 4,
-          name: 'Vouchers Designados',
-          route: '/designated-vouchers'
+          name: 'Consulta Casos Clínicos',
+          route: '/cosultation-clinical-cases'
         },
         {
           id: 5,

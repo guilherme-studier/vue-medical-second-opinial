@@ -2,7 +2,7 @@
   <div id="designated-vouchers">
     <div class="title">
       <img class="icon-voucher" :src="icon" />
-      <h1>3 vouchers ativos</h1>
+      <h1>{{ clinicalCases }} casos clínicos ativos</h1>
     </div>
     <InputGroup>
       <InputWrapper>
@@ -47,6 +47,7 @@ import CustomTable from '@/components/customTable'
 import vSelect from 'vue-select'
 
 export default {
+  name: 'Consulta Casos Clínicos',
   components: {
     InputWrapper,
     CustomTable,
@@ -55,6 +56,7 @@ export default {
   },
   data() {
     return {
+      clinicalCases: 3,
       icon: iconVoucher,
       selectedInduster: null,
       industerOptions: [
@@ -81,7 +83,7 @@ export default {
         { label: 'Paulo Pitrez', value: 'Paulo Pitrez' }
       ],
       tableHeader: [
-        'Voucher',
+        'Caso clínico/ID',
         'Indústria',
         'Especialidade',
         'Doença',

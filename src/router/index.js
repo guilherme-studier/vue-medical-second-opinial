@@ -11,7 +11,7 @@ import IndustryRegistration from '@/features/industryRegistration'
 import RegistrationClinicalCases from '@/features/registrationClinicalCases'
 import ConsultantDoctorInvitation from '@/features/consultantDoctorInvitation'
 import SystemAccessCancellation from '@/features/systemAccessCancellation'
-import DesignatedVouchers from '@/features/designatedVouchers'
+import ConsultationClinicalCases from '@/features/consultationClinicalCases'
 import ConsultantMedicalRegistration from '@/features/consultantMedicalRegistration'
 import Registration from '@/features/registration'
 import VoucherAdministration from '@/features/voucherAdministration'
@@ -50,11 +50,11 @@ const routes = [
         }
       },
       {
-        path: '/designated-vouchers',
-        name: 'DesignatedVouchers',
-        component: DesignatedVouchers,
+        path: '/cosultation-clinical-cases',
+        name: 'ConsultationClinicalCases',
+        component: ConsultationClinicalCases,
         meta: {
-          title: 'Vouchers Designados'
+          title: 'Consulta Casos Clínicos'
         }
       },
       {
