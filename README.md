@@ -19,7 +19,9 @@ Espaço para introdução e resumo da plataforma.
 
 - [x] **Início**: Home.
 
-- [ ] **Casos**: Casos Clínicos Designados.
+- [ ] **404**: 404 Error.
+
+- [ ] **Welcome**: Boas vindas.
 
 <!-- Instituto Ceos -->
 
@@ -50,6 +52,8 @@ Espaço para introdução e resumo da plataforma.
 <!-- Médico Cliente -->
 
 - [x] **Cadastro**: Cadastro. 
+
+- [ ] **Ativação**: Ativação de Caso Clínico. 
 
 
 ### Testes
