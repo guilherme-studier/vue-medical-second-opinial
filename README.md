@@ -29,9 +29,9 @@ Espaço para introdução e resumo da plataforma.
 
 - [x] **Consulta**: Consulta Casos Clínicos.
 
-- [ ] **Consulta**: Geração de Consulta para Médico Consultor.
+- [x] **Consulta**: Geração de Convite para Médico Consultor.
 
-- [ ] **Cancelamento**: Cancelamento de Acesso ao Sistema.
+- [x] **Cancelamento**: Cancelamento de Acesso ao Sistema.
 
 <!-- Médico Consultor -->
 

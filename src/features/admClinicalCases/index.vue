@@ -1,5 +1,5 @@
 <template>
-  <div id="designated-vouchers">
+  <div id="adm-clinical-cases">
     <div class="title">
       <div class="voucher-doctor">
         <img class="icon-voucher" :src="icon" />
@@ -41,7 +41,7 @@ import iconTrashInactive from '../../assets/icons/icon-trash-inactive.svg'
 import CustomTable from '@/components/customTable'
 
 export default {
-  name: 'VoucherAdministration',
+  name: 'AdmClinicalCases',
   components: {
     CustomTable
   },
@@ -51,10 +51,11 @@ export default {
       iconSearch: iconSearch,
       doctor: 'Dr. Guilherme Studier',
       vouchers: 4,
-      tableHeader: ['Voucher', 'Doença', 'Data', 'Status', 'Ação'],
+      tableHeader: ['Casos Clínicos', 'ID', 'Doença', 'Data', 'Status', 'Ação'],
       tableData: [
         {
-          voucher: '23011014002',
+          clinicalCases: 'Tratamento Enfermidade ABC',
+          id: '001',
           illness: 'Doença 1',
           date: '2016-05-03',
           status: 'Em avaliação',
@@ -74,7 +75,8 @@ export default {
           ]
         },
         {
-          voucher: '23011014002',
+          clinicalCases: 'Tratamento Doença XYZ',
+          id: '002',
           illness: 'Doença 2',
           date: '2016-05-03',
           status: 'Em avaliação',
@@ -94,7 +96,8 @@ export default {
           ]
         },
         {
-          voucher: '23011014002',
+          clinicalCases: 'Tratamento Enfermidade FG',
+          id: '003',
           illness: 'Doença 3',
           date: '2016-05-03',
           status: 'Em avaliação',
@@ -114,7 +117,8 @@ export default {
           ]
         },
         {
-          voucher: '23011014002',
+          clinicalCases: 'Tratamento UTI',
+          id: '004',
           illness: 'Doença 4',
           date: '2016-05-03',
           status: 'Em avaliação',
@@ -164,7 +168,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#designated-vouchers {
+#adm-clinical-cases {
   justify-content: center;
   height: fit-content;
   flex-wrap: wrap;

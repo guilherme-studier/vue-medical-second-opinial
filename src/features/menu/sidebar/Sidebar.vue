@@ -105,8 +105,8 @@ export default {
         },
         {
           id: 8,
-          name: 'Administração de Vouchers',
-          route: '/voucher-administration'
+          name: 'Administração de Casos Clínicos Designados',
+          route: '/adm-clinical-cases'
         },
         {
           id: 9,

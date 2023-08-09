@@ -14,7 +14,7 @@ import SystemAccessCancellation from '@/features/systemAccessCancellation'
 import ConsultationClinicalCases from '@/features/consultationClinicalCases'
 import ConsultantMedicalRegistration from '@/features/consultantMedicalRegistration'
 import Registration from '@/features/registration'
-import VoucherAdministration from '@/features/voucherAdministration'
+import AdmClinicalCases from '@/features/admClinicalCases'
 import VoucherAllocation from '@/features/voucherAllocation'
 import RepresentativeRegistration from '@/features/representativeRegistration'
 import VouchersEvaluation from '@/features/vouchersEvaluation'
@@ -90,11 +90,11 @@ const routes = [
         }
       },
       {
-        path: '/voucher-administration',
-        name: 'VoucherAdministration',
-        component: VoucherAdministration,
+        path: '/adm-clinical-cases',
+        name: 'AdmClinicalCases',
+        component: AdmClinicalCases,
         meta: {
-          title: 'Administração de Vouchers'
+          title: 'Administração de Casos Clínicos Designados'
         }
       },
       {
