@@ -8,7 +8,7 @@ import Login from '@/views/login'
 // childrens
 import Home from '@/features/home/index.vue'
 import IndustryRegistration from '@/features/industryRegistration'
-import VoucherGenerator from '@/features/voucherGenerator'
+import RegistrationClinicalCases from '@/features/registrationClinicalCases'
 import ConsultantDoctorInvitation from '@/features/consultantDoctorInvitation'
 import SystemAccessCancellation from '@/features/systemAccessCancellation'
 import DesignatedVouchers from '@/features/designatedVouchers'
@@ -42,9 +42,9 @@ const routes = [
         }
       },
       {
-        path: '/voucher-generator',
-        name: 'Voucher Generator',
-        component: VoucherGenerator,
+        path: '/registration-clinical-cases',
+        name: 'Registro de Contrato e Geração de Casos Clínicos',
+        component: RegistrationClinicalCases,
         meta: {
           title: 'Geração de Vouchers'
         }

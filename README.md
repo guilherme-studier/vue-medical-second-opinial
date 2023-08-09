@@ -15,35 +15,42 @@ Espaço para introdução e resumo da plataforma.
 
 ### Features desenvolvidas
 
-- [x] **Login**: Tela de múltiplo login.
+- [x] **Login**: Login.
 
-- [x] **Início**: Tela Home.
+- [x] **Início**: Home.
 
-- [x] **Cadastro**: Cadastro.
+- [ ] **Casos**: Casos Clínicos Designados.
+
+<!-- Instituto Ceos -->
 
 - [x] **Cadastro**: Cadastro Indústria.
 
-- [x] **Cadastro**: Cadastro Representante.
+- [ ] **Registro**: Registro de Contrato e Geração de Casos Clínicos.
+
+- [ ] **Consulta**: Consulta Casos Clínicos.
+
+- [ ] **Consulta**: Geração de Consulta para Médico Consultor.
+
+- [ ] **Cancelamento**: Cancelamento de Acesso ao Sistema.
+
+<!-- Médico Consultor -->
 
 - [x] **Cadastro**: Cadastro Médico Consultor.
 
-- [x] **Vouchers**: Geração de Vouchers.
+- [ ] **Administração**: Administração de Casos Clínicos Designados.
 
-- [x] **Vouchers**: Vouchers Designados.
+<!-- Patrocinador -->
 
-- [x] **Vouchers**: Administração de Vouchers.
+- [x] **Cadastro**: Cadastro Representante.
 
-- [x] **Vouchers**: Ativação de Vouchers.
+- [x] **Atribuição**: Atribuição de Casos Clínicos.
 
-- [x] **Vouchers**: Vouchers em Avaliação.
+- [x] **Casos**: Casos Clínicos Designados.
 
-- [x] **Vouchers**: Atribuição de Vouchers.
+<!-- Médico Cliente -->
 
-- [x] **Médico Consultor**: Geração de Convite para Médico Consultor.
+- [x] **Cadastro**: Cadastro. 
 
-- [x] **Cancelamento**: Cancelamento de Acesso ao Sistema.
-
-- [ ] **Vouchers**: Ativação de Vouchers.
 
 ### Testes
 

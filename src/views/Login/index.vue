@@ -100,7 +100,7 @@ export default {
   background-image: url('../../assets/background-doctor-client.png');
 }
 
-.background-pharma {
-  background-image: url('../../assets/background-pharma.png');
+.background-sponsor {
+  background-image: url('../../assets/background-sponsor.png');
 }
 </style>

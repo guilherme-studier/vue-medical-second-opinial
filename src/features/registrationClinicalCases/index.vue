@@ -14,6 +14,24 @@
           <div class="input-with-icon">
             <input
               type="text"
+              v-model="illness"
+              placeholder="Doença"
+              class="flexible-input"
+              @click="openIllnessModal"
+              readonly
+            />
+            <span class="icon" aria-hidden="true">
+              <font-awesome-icon
+                :icon="toggleIcon"
+                :style="{ color: iconColor }"
+              />
+            </span>
+          </div>
+        </InputWrapper>
+        <InputWrapper>
+          <div class="input-with-icon">
+            <input
+              type="text"
               v-model="specialty"
               placeholder="Especialidade"
               class="flexible-input"
@@ -31,27 +49,17 @@
       </InputGroup>
       <InputGroup>
         <InputWrapper>
-          <div class="input-with-icon">
-            <input
-              type="text"
-              v-model="illness"
-              placeholder="Doença"
-              class="flexible-input"
-              @click="openIllnessModal"
-              readonly
-            />
-            <span class="icon" aria-hidden="true">
-              <font-awesome-icon
-                :icon="toggleIcon"
-                :style="{ color: iconColor }"
-              />
-            </span>
-          </div>
+          <input
+            type="text"
+            placeholder="Denominação Casos Clínicos"
+            class="flexible-input"
+            v-model="name"
+          />
         </InputWrapper>
         <InputWrapper>
           <input
             type="text"
-            placeholder="Quantidade de Vouchers"
+            placeholder="Quantidade de Casos Clínicos"
             class="flexible-input"
             v-model="quantity"
           />
@@ -61,11 +69,21 @@
         <InputWrapper>
           <input
             type="text"
-            placeholder="Data de Validade"
+            placeholder="Data de Início"
             class="flexible-input"
-            v-model="date"
+            v-model="startDate"
           />
         </InputWrapper>
+        <InputWrapper>
+          <input
+            type="text"
+            placeholder="Data de Validade"
+            class="flexible-input"
+            v-model="expirationDate"
+          />
+        </InputWrapper>
+      </InputGroup>
+      <InputGroup>
         <InputWrapper>
           <input
             type="text"
@@ -74,6 +92,7 @@
             v-model="fees"
           />
         </InputWrapper>
+        <InputWrapper></InputWrapper>
       </InputGroup>
       <div class="save">
         <button @click="imprimirValores">Salvar</button>
@@ -110,7 +129,7 @@ import Modal from '@/components/modal'
 import vSelect from 'vue-select'
 
 export default {
-  name: 'VoucherGenerator',
+  name: 'RegistrationClinicalCases',
   components: {
     FontAwesomeIcon,
     InputWrapper,
@@ -124,11 +143,13 @@ export default {
     return {
       toggleIcon: faCirclePlus,
       tituloComponente: 'Dados Cadastrais',
+      name: '',
       quantity: '',
       specialty: '',
       industry: '',
       illness: '',
-      date: '',
+      startDate: '',
+      expirationDate: '',
       fees: '',
       industryOptions: ['Astrazeneca', 'GlaxoSmithKline', 'Pfizer'],
       specialtyModalVisible: false,
@@ -192,7 +213,7 @@ export default {
       console.log('Especialidade:', this.specialty)
       console.log('Doença:', this.illness)
       console.log('Quantidade de Vouchers:', this.quantity)
-      console.log('Data de Validade:', this.date)
+      console.log('Data de Início:', this.startDate)
       console.log('Honorários Médico Consultor:', this.fees)
 
       this.limparDados()
@@ -202,7 +223,7 @@ export default {
       this.specialty = ''
       this.illness = ''
       this.quantity = ''
-      this.date = ''
+      this.startDate = ''
       this.fees = ''
     }
   }

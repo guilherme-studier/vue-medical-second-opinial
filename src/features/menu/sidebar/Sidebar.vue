@@ -75,8 +75,8 @@ export default {
         },
         {
           id: 3,
-          name: 'Geração de Vouchers',
-          route: '/voucher-generator'
+          name: 'Registro de Contrato e Geração de Casos Clínicos',
+          route: '/registration-clinical-cases'
         },
         {
           id: 4,

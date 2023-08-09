@@ -22,8 +22,8 @@ export default {
       },
       {
         id: 4,
-        name: 'Pharma',
-        background: 'background-pharma'
+        name: 'Patrocinador',
+        background: 'background-sponsor'
       }
     ]
   }),
