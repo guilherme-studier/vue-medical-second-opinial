@@ -37,7 +37,7 @@ Espaço para introdução e resumo da plataforma.
 
 - [x] **Cadastro**: Cadastro Médico Consultor.
 
-- [ ] **Administração**: Administração de Casos Clínicos Designados.
+- [x] **Administração**: Administração de Casos Clínicos Designados.
 
 <!-- Patrocinador -->
 
