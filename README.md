@@ -25,7 +25,7 @@ Espaço para introdução e resumo da plataforma.
 
 - [x] **Cadastro**: Cadastro Indústria.
 
-- [ ] **Registro**: Registro de Contrato e Geração de Casos Clínicos.
+- [x] **Registro**: Registro de Contrato e Geração de Casos Clínicos.
 
 - [ ] **Consulta**: Consulta Casos Clínicos.
 
