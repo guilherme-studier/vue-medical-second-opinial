@@ -46,7 +46,7 @@ const routes = [
         name: 'Registro de Contrato e Geração de Casos Clínicos',
         component: RegistrationClinicalCases,
         meta: {
-          title: 'Geração de Vouchers'
+          title: 'Registro de Contrato e Geração de Casos Clínicos'
         }
       },
       {

@@ -1,5 +1,5 @@
 <template>
-  <div id="designated-vouchers">
+  <div id="consultation-clinical-cases">
     <div class="title">
       <img class="icon-voucher" :src="icon" />
       <h1>{{ clinicalCases }} casos clínicos ativos</h1>
@@ -176,7 +176,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#designated-vouchers {
+#consultation-clinical-cases {
   justify-content: center;
   height: fit-content;
   flex-wrap: wrap;

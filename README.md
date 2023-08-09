@@ -27,7 +27,7 @@ Espaço para introdução e resumo da plataforma.
 
 - [x] **Registro**: Registro de Contrato e Geração de Casos Clínicos.
 
-- [ ] **Consulta**: Consulta Casos Clínicos.
+- [x] **Consulta**: Consulta Casos Clínicos.
 
 - [ ] **Consulta**: Geração de Consulta para Médico Consultor.
 

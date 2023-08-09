@@ -1,5 +1,5 @@
 <template>
-  <div id="industry">
+  <div id="registration-clinical-cases">
     <Title :title="tituloComponente" />
     <div class="form">
       <InputGroup>
