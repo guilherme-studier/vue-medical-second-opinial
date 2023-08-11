@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import { createStore } from 'vuex'
 import { getCurrentUserAccess } from '../helpers/auth'
+
 import user from './modules/user'
 import home from '@/features/home/stores/index'
 import login from '@/views/login/store/index'
