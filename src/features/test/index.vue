@@ -1,14 +1,11 @@
 <template>
   <div id="apis">
-    <!-- <div class="centered-container">
-      <button @click="performLogout" class="logout-button">Logout</button>
-    </div> -->
     <br />
     <Title title="Especialidade" />
     <h1>Listar especialidades</h1>
     <div class="form">
       <InputGroup>
-        <button @click="fetchSpecialty">Listar Especialidades</button>
+        <button @click="fetchSpecialties">Listar Especialidades</button>
       </InputGroup>
     </div>
     <br />
@@ -31,14 +28,14 @@
         <InputGroup>
           <v-select
             v-model="selectedSpecialty"
-            :options="specialties"
+            :options="getSpecialties"
             label="name"
             placeholder="Escolha uma especialidade para excluir"
           />
           <button
             class="delete-button"
             :disabled="!disabledDeleteSpecialty"
-            @click="specialtyDelete"
+            @click.prevent="deleteSpecialtyById(selectedSpecialty?.id)"
           >
             Excluir Especialidade
           </button>
@@ -63,7 +60,9 @@
           class="flexible-input"
           v-model="diseaseName"
         />
-        <button @click="newDisease">Criar Doença</button>
+        <button @click="newDisease">
+          Criar Doença
+        </button>
       </InputGroup>
     </div>
     <br />
@@ -80,7 +79,7 @@
           <button
             class="delete-button"
             :disabled="!disabledDeleteDisease"
-            @click="diseaseDelete"
+            @click.prevent="deleteDiseaseById(selectedSpecialty?.id)"
           >
             Excluir Doença
           </button>
@@ -92,21 +91,10 @@
 </template>
 
 <script>
-import Title from '@/components/title'
 import InputGroup from '@/components/inputGroup'
+import { mapGetters, mapActions } from 'vuex'
+import Title from '@/components/title'
 import vSelect from 'vue-select'
-
-import {
-  createSpecialty,
-  getSpecialties,
-  deleteSpecialty
-} from '../../services/specialty/index'
-
-import {
-  getDiseases,
-  createDisease,
-  deleteDisease
-} from '../../services/disease/index'
 
 export default {
   name: 'IndustryRegistration',
@@ -116,12 +104,7 @@ export default {
     InputGroup
   },
   computed: {
-    disabledDeleteSpecialty() {
-      return this.selectedSpecialty?.id
-    },
-    disabledDeleteDisease() {
-      return this.selectedDiseases?.id
-    }
+    ...mapGetters('specialty', ['getSpecialties'])
   },
   data() {
     return {
@@ -134,83 +117,33 @@ export default {
     }
   },
   mounted() {
-    this.fetchSpecialty()
+    this.fetchSpecialties()
     this.fetchDiseases()
   },
   methods: {
+    ...mapActions('specialty', [
+      'deleteSpecialtyById',
+      'createNewSpecialty',
+      'fetchSpecialties'
+    ]),
+
+    ...mapActions('disease', [
+      'deleteDiseaseById',
+      'createNewDisease',
+      'fetchDiseases'
+    ]),
+
     newSpecialty() {
-      createSpecialty(this.specialtyName)
-        .then((response) => {
-          // Atualizar a resposta da API no estado
-          this.specialtyResponse = JSON.stringify(response.data, null, 2)
-        })
-        .catch((error) => {
-          this.specialtyResponse = 'Erro ao criar a especialidade'
-          console.error('Erro ao criar a especialidade:', error)
-        })
-        .finally(() => {
-          this.specialtyName = ''
-          this.fetchSpecialty()
-        })
+      if (this.specialtyName.trim() !== '') {
+        this.createNewSpecialty(this.specialtyName)
+        this.specialtyName = ''
+      }
     },
-
-    fetchSpecialty() {
-      getSpecialties()
-        .then((response) => {
-          // Atualizar a resposta das especialidades no estado
-          this.specialties = response.data.content
-        })
-        .catch((error) => {
-          this.specialties = 'Erro ao buscar as especialidades'
-          console.error('Erro ao buscar as especialidades:', error)
-        })
-    },
-    specialtyDelete() {
-      console.log(this.selectedSpecialty)
-      deleteSpecialty(this.selectedSpecialty?.id)
-        .then((response) => {
-          console.log(response)
-        })
-        .finally(() => {
-          this.fetchSpecialty()
-        })
-    },
-    fetchDiseases() {
-      getDiseases()
-        .then((response) => {
-          // Atualizar a resposta das especialidades no estado
-          this.diseases = response.data.content
-        })
-        .catch((error) => {
-          this.diseases = 'Erro ao buscar as especialidades'
-          console.error('Erro ao buscar as especialidades:', error)
-        })
-    },
-
     newDisease() {
-      createDisease(this.diseaseName)
-        .then((response) => {
-          // Atualizar a resposta da API no estado
-          this.diseaseResponse = JSON.stringify(response.data, null, 2)
-        })
-        .catch((error) => {
-          this.diseaseResponse = 'Erro ao criar a especialidade'
-          console.error('Erro ao criar a especialidade:', error)
-        })
-        .finally(() => {
-          this.diseaseName = ''
-          this.fetchDiseases()
-        })
-    },
-
-    diseaseDelete() {
-      deleteDisease(this.selectedDiseases?.id)
-        .then((response) => {
-          console.log(response)
-        })
-        .finally(() => {
-          this.fetchDiseases()
-        })
+      if (this.diseaseName.trim() !== '') {
+        this.createNewDisease(this.diseaseName)
+        this.diseaseName = ''
+      }
     }
   }
 }

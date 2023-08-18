@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import {
-  //createSpecialty,
-  getSpecialties
-  //deleteSpecialty,
-  //updateSpecialty,
-  //getSpecialty
+  updateSpecialty,
+  createSpecialty,
+  deleteSpecialty,
+  getSpecialties,
+  getSpecialty
 } from '../../../services/specialty/index.js'
 
 export default {
@@ -20,13 +21,43 @@ export default {
     async fetchSpecialties({ commit }) {
       try {
         const response = await getSpecialties()
-        const specialties = response.data // Assuming the API response structure has an array of specialties
-        commit('setSpecialties', specialties)
+        commit('setSpecialties', response.data.content)
       } catch (error) {
-        console.error('Error fetching specialties:', error)
+        console.error('Erro ao buscar as especialidades:', error)
+      }
+    },
+    async createNewSpecialty({ commit, dispatch }, specialtyName) {
+      try {
+        await createSpecialty(specialtyName)
+        dispatch('fetchSpecialties')
+      } catch (error) {
+        console.error('Erro ao criar a especialidade:', error)
+      }
+    },
+    async deleteSpecialtyById({ commit, dispatch }, specialtyId) {
+      try {
+        await deleteSpecialty(specialtyId)
+        dispatch('fetchSpecialties')
+      } catch (error) {
+        console.error('Erro ao deletar a especialidade:', error)
+      }
+    },
+    async updateSpecialtyById({ commit, dispatch }, { specialtyId, name }) {
+      try {
+        await updateSpecialty(specialtyId, name)
+        dispatch('fetchSpecialties')
+      } catch (error) {
+        console.error('Erro ao atualizar a especialidade:', error)
+      }
+    },
+    async getSpecialtyById({ commit, dispatch }, specialtyId) {
+      try {
+        await getSpecialty(specialtyId)
+        dispatch('fetchSpecialties')
+      } catch (error) {
+        console.error('Erro ao buscar a especialidade:', error)
       }
     }
-    // Add more actions for other API operations (create, update, delete, get)
   },
   getters: {
     getSpecialties: (state) => state.specialties
