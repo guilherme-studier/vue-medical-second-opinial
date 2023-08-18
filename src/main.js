@@ -36,10 +36,6 @@ app.use(Toast, options)
 app.component(ElSelect.name, ElSelect)
 app.component(ElOption.name, ElOption)
 
-import Services from '@/plugins/axios'
-
-app.use(Services)
-
 app.component('MetaManager', {
   render: () => null,
   mounted() {

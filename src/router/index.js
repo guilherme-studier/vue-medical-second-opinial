@@ -6,6 +6,7 @@ import Layout from '@/views/layout'
 import Login from '@/views/login'
 
 // childrens
+import Tests from '@/features/test/index.vue'
 import Home from '@/features/home/index.vue'
 import IndustryRegistration from '@/features/industryRegistration'
 import RegistrationClinicalCases from '@/features/registrationClinicalCases'
@@ -25,6 +26,14 @@ const routes = [
     name: '',
     component: Layout,
     children: [
+      {
+        path: '/teste-de-apis',
+        name: 'Testes',
+        component: Tests,
+        meta: {
+          title: 'Testes de apis'
+        }
+      },
       {
         path: '/',
         name: 'Home',

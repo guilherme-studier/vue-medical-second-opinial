@@ -10,7 +10,7 @@ const token = 'seu_token_de_autenticacao'
 export const login = ({ email, password }) => {
   return axios({
     method: 'POST',
-    headers: { 'content-type': 'multipart/form-data' },
+    //headers: { 'content-type': 'multipart/form-data' },
     url: `${BASE_URL}/auth`,
     data: {
       email,
@@ -28,6 +28,7 @@ export const resetPassword = (email) => {
   return axios({
     method: 'POST',
     headers: { 'content-type': 'application/json' },
+    Authorization: `Bearer ${token}`,
     url: `${BASE_URL}/password`,
     data: {
       email

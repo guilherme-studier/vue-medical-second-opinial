@@ -64,6 +64,11 @@ export default {
       logo: logo,
       menuItems: [
         {
+          id: 12,
+          name: 'Teste de apis',
+          route: '/teste-de-apis'
+        },
+        {
           id: 1,
           name: 'Início',
           route: '/'

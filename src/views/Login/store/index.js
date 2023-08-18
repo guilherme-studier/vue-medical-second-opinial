@@ -29,9 +29,23 @@ export default {
   }),
   actions: {
     async loginUser({ commit }, { username, password }) {
-      console.log(username)
       try {
         const response = await login({ email: username, password })
+
+        const userData = {
+          id: response.data.id,
+          username: response.data.username,
+          firstname: response.data.firstname,
+          lastname: response.data.lastname,
+          phone: response.data.phone,
+          email: response.data.email,
+          token: response.data.token,
+          role: response.data.role
+        }
+
+        // Converter o objeto para uma string JSON e salvar no localStorage
+        localStorage.setItem('user', JSON.stringify(userData))
+
         console.log('Dados da resposta:', response)
       } catch (error) {
         console.error('Erro na chamada à API:', error.message)

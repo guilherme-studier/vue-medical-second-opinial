@@ -1,8 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = 'https://meso.poatech.com.br:450/user/api/1.0'
-
-// Função para obter o token do localStorage
+const BASE_URL = 'https://meso.poatech.com.br:450/clinical-case/api/1.0'
 const getToken = () => {
   const user = JSON.parse(localStorage.getItem('user'))
   return user ? user.token : ''
@@ -13,14 +11,14 @@ const getToken = () => {
  * @param {string} name - Nome da especialidade a ser criada.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const createSpecialty = (name) => {
+export const createDisease = (name) => {
   return axios({
     method: 'POST',
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${getToken()}`
     },
-    url: `${BASE_URL}/specialty`,
+    url: `${BASE_URL}/disease`,
     data: { name }
   })
 }
@@ -31,8 +29,8 @@ export const createSpecialty = (name) => {
  * @param {number} size - Quantidade de especialidades por página.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const getSpecialties = (page = 1, size = 100) => {
-  const url = `${BASE_URL}/specialty?page=${page}&size=${size}`
+export const getDiseases = (page = 1, size = 100) => {
+  const url = `${BASE_URL}/disease?page=${page}&size=${size}`
 
   return axios({
     method: 'GET',
@@ -45,12 +43,12 @@ export const getSpecialties = (page = 1, size = 100) => {
 }
 
 /**
- * Deletar uma especialidade pelo ID.
- * @param {string} specialtyId - O ID da especialidade a ser deletada.
+ * Deletar uma doença pelo ID.
+ * @param {string} diseaseId - O ID da especialidade a ser deletada.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const deleteSpecialty = (specialtyId) => {
-  const url = `${BASE_URL}/specialty/${specialtyId}`
+export const deleteDisease = (diseaseId) => {
+  const url = `${BASE_URL}/disease/${diseaseId}`
 
   return axios({
     method: 'DELETE',
@@ -64,12 +62,12 @@ export const deleteSpecialty = (specialtyId) => {
 
 /**
  * Atualizar uma especialidade pelo ID.
- * @param {string} specialtyId - O ID da especialidade a ser atualizada.
+ * @param {string} diseaseId - O ID da especialidade a ser atualizada.
  * @param {object} updatedData - Novos dados da especialidade a serem atualizados.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const updateSpecialty = (specialtyId, name) => {
-  const url = `${BASE_URL}/specialty/${specialtyId}`
+export const updateDisease = (diseaseId, name) => {
+  const url = `${BASE_URL}/disease/${diseaseId}`
 
   return axios({
     method: 'PUT',
@@ -84,12 +82,12 @@ export const updateSpecialty = (specialtyId, name) => {
 
 /**
  * Atualizar uma especialidade pelo ID.
- * @param {string} specialtyId - O ID da especialidade a ser atualizada.
+ * @param {string} diseaseId - O ID da especialidade a ser atualizada.
  * @param {object} updatedData - Novos dados da especialidade a serem atualizados.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const getSpecialty = (specialtyId) => {
-  const url = `${BASE_URL}/specialty/${specialtyId}`
+export const getDisease = (diseaseId) => {
+  const url = `${BASE_URL}/disease/${diseaseId}`
 
   return axios({
     method: 'GET',
