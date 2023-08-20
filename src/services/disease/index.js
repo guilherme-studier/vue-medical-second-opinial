@@ -1,10 +1,8 @@
 import axios from 'axios'
+import getUserToken from '../../views/login/store/index'
 
 const BASE_URL = 'https://meso.poatech.com.br:450/clinical-case/api/1.0'
-const getToken = () => {
-  const user = JSON.parse(localStorage.getItem('user'))
-  return user ? user.token : ''
-}
+const getToken = () => getUserToken()
 
 /**
  * Criar uma nova especialidade.

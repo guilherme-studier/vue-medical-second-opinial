@@ -7,7 +7,6 @@
 <script>
 import '@/assets/scss/global.scss'
 import { mapActions, mapGetters, mapState } from 'vuex'
-import { getCurrentUserAccess } from '@/helpers/auth'
 
 export default {
   name: 'App',
@@ -24,16 +23,21 @@ export default {
     ...mapGetters(['getIsTokenExpired'])
   },
   async created() {
-    /** Pega do cookie o token de autenticação */
-    const token = getCurrentUserAccess()
-    if (token) {
-      this.setAuthToken(token)
-      this.requestUserData()
+    this.fetchTokenStatus()
+  },
+  watch: {
+    $route() {
+      this.fetchTokenStatus()
     }
   },
   methods: {
     ...mapActions(['setAuthToken']),
-    ...mapActions('user', ['requestUserData'])
+    ...mapActions('user', ['requestUserData']),
+    ...mapActions('login', ['validateToken']),
+
+    fetchTokenStatus() {
+      this.validateToken()
+    }
   }
 }
 </script>

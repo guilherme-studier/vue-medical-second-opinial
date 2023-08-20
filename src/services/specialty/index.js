@@ -1,12 +1,8 @@
 import axios from 'axios'
+import getUserToken from '../../views/login/store/index'
 
 const BASE_URL = 'https://meso.poatech.com.br:450/user/api/1.0'
-
-// Função para obter o token do localStorage
-const getToken = () => {
-  const user = JSON.parse(localStorage.getItem('user'))
-  return user ? user.token : ''
-}
+const getToken = () => getUserToken()
 
 /**
  * Criar uma nova especialidade.

@@ -34,7 +34,6 @@
           />
           <button
             class="delete-button"
-            :disabled="!disabledDeleteSpecialty"
             @click.prevent="deleteSpecialtyById(selectedSpecialty?.id)"
           >
             Excluir Especialidade
@@ -78,7 +77,6 @@
           />
           <button
             class="delete-button"
-            :disabled="!disabledDeleteDisease"
             @click.prevent="deleteDiseaseById(selectedSpecialty?.id)"
           >
             Excluir Doença

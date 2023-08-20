@@ -1,7 +1,8 @@
 import axios from 'axios'
+import getUserToken from '../store/index'
 
 const BASE_URL = 'https://meso.poatech.com.br:450/user/api/1.0'
-const token = 'seu_token_de_autenticacao'
+const getToken = () => getUserToken()
 
 /**
  * @see https://meso.poatech.com.br:450/user/api/1.0/auth
@@ -28,7 +29,7 @@ export const resetPassword = (email) => {
   return axios({
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${getToken()}`,
     url: `${BASE_URL}/password`,
     data: {
       email
@@ -41,12 +42,12 @@ export const resetPassword = (email) => {
  * @param {string} token - O token a ser validado.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const validateToken = (token) => {
+export const validateToken = (token = getToken()) => {
   return axios({
     method: 'POST',
     headers: {
       'content-type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${getToken()}`
     },
     url: `${BASE_URL}/validateToken`,
     data: {
@@ -64,7 +65,7 @@ export const logoutUser = () => {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${getToken()}`
     },
     url: `${BASE_URL}/logout`
   })
