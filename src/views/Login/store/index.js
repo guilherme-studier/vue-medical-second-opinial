@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { login, validateToken, logoutUser } from '../services/index'
+import { validateToken, logoutUser, login, reset } from '../services/index'
 
 export default {
   namespaced: true,
@@ -71,6 +71,16 @@ export default {
         localStorage.clear()
       } catch (error) {
         console.error('Erro ao fazer logout:', error.message)
+      }
+    },
+    async resetPassword({ commit }, email) {
+      try {
+        const response = await reset({ email })
+
+        // Exiba uma mensagem de sucesso no console
+        console.log('E-mail enviado com sucesso:', response)
+      } catch (error) {
+        console.error('Erro ao redefinir a senha:', error.message)
       }
     }
   },

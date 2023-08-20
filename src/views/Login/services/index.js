@@ -25,11 +25,10 @@ export const login = ({ email, password }) => {
  * @param {string} email - O email do usuário para o qual o reset de senha será solicitado.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const resetPassword = (email) => {
+export const reset = ({ email = 'teste@gmail.com' }) => {
   return axios({
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    Authorization: `Bearer ${getToken()}`,
     url: `${BASE_URL}/password`,
     data: {
       email
