@@ -4,6 +4,10 @@ import { validateToken, logoutUser, login, reset } from '../services/index'
 import * as h from '@/helpers/auth'
 import router from '@/router'
 
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
+
 export default {
   state: () => ({
     user: h.getFromStorage('user')
@@ -40,6 +44,7 @@ export default {
   actions: {
     async loginUser({ commit }, { username, password }) {
       try {
+        const toast = useToast()
         const response = await login({ email: username, password })
 
         const userData = {
@@ -58,7 +63,8 @@ export default {
         localStorage.setItem('user', JSON.stringify(userData))
         router.push('/')
       } catch (error) {
-        console.error('Erro na chamada à API:', error.message)
+        toast.warning('Não foi possível realizar o login')
+        console.error(error)
       }
     },
     async validateToken({ dispatch, commit }, token) {
@@ -66,12 +72,12 @@ export default {
         const response = await validateToken(token)
       } catch (error) {
         dispatch('logoutUser')
+        toast.warning('Não foi possível validar o usuário logado')
       }
     },
     async logoutUser({ commit }) {
       try {
         const response = await logoutUser()
-        console.log('Logout bem-sucedido:', response)
 
         localStorage.clear()
         router.push('/login')

@@ -5,25 +5,25 @@ import App from './App.vue'
 import router from './router'
 import store from '@/store'
 
-import Toast from 'vue-toastification'
 import { ElSelect, ElOption } from 'element-plus'
 import 'vue-toastification/dist/index.css'
 import '../src/assets/scss/global.scss'
+import '@/plugins/toast/toast'
 
-const options = {
-  position: 'bottom-left',
-  timeout: 3000,
-  closeOnClick: true,
-  pauseOnFocusLoss: true,
-  pauseOnHover: true,
-  draggable: true,
-  draggablePercent: 0.6,
-  showCloseButtonOnHover: false,
-  hideProgressBar: false,
-  closeButton: 'button',
-  icon: true,
-  rtl: false
-}
+// const options = {
+//   position: 'bottom-left',
+//   timeout: 3000,
+//   closeOnClick: true,
+//   pauseOnFocusLoss: true,
+//   pauseOnHover: true,
+//   draggable: true,
+//   draggablePercent: 0.6,
+//   showCloseButtonOnHover: false,
+//   hideProgressBar: false,
+//   closeButton: 'button',
+//   icon: true,
+//   rtl: false
+// }
 
 const app = createApp(App)
 
@@ -31,7 +31,6 @@ app.use(router)
 app.use(store)
 
 app.use(VueTheMask)
-app.use(Toast, options)
 
 app.component(ElSelect.name, ElSelect)
 app.component(ElOption.name, ElOption)

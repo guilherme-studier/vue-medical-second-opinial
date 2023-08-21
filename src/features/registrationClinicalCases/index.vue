@@ -32,7 +32,7 @@
           <div class="input-with-icon">
             <input
               type="text"
-              v-model="specialty"
+              v-model="getSpecialties"
               placeholder="Especialidade"
               class="flexible-input"
               @click="openSpecialtyModal"
@@ -128,6 +128,8 @@ import Modal from '@/components/modal'
 
 import vSelect from 'vue-select'
 
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'RegistrationClinicalCases',
   components: {
@@ -183,6 +185,9 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapGetters('specialty', ['getSpecialties'])
   },
   methods: {
     handleIllnessSelected(item) {

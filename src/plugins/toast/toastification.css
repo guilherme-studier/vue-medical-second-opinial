@@ -1,0 +1,32 @@
+/* icon toastification global style */
+.icon-toast-warning {
+    background: url('./exclamation.svg');
+    content: '';
+    width: 20px;
+    height: 20px;
+    color: white;
+    background-repeat: no-repeat;
+}
+.Vue-Toastification__toast--warning,
+.Vue-Toastification__toast--error,
+.Vue-Toastification__toast--success {
+    cursor: pointer;
+    background-image: url('./close.svg');
+    background-repeat: no-repeat;
+    background-position: center right 25px;
+    padding-right: 45px;
+}
+.Vue-Toastification__toast--warning {
+    background-color: #FA6F32;
+}
+.Vue-Toastification__toast--error {
+    background-color: #EC3942;
+}
+.Vue-Toastification__toast-body {
+    font-family: "Montserrat", sans-serif;
+    font-size: 12px;
+    line-height: 20px;
+}
+.Vue-Toastification__container .bottom-right {
+    bottom: 4em;
+}

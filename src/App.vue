@@ -30,7 +30,9 @@ export default {
     ...mapActions(['validateToken', 'setAuthToken']),
 
     fetchTokenStatus() {
-      this.validateToken()
+      const currentRoute = this.$route.path
+
+      if (!currentRoute === '/login') this.validateToken()
     }
   }
 }
