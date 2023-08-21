@@ -1,6 +1,9 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'
 
+// store
+import store from '@/store'
+
 // rotas
 import Layout from '@/views/layout'
 import Login from '@/views/login'
@@ -130,14 +133,25 @@ const routes = [
           title: 'Casos Clínicos Designados'
         }
       }
-    ]
+    ],
+    beforeEnter: (to, from, next) => {
+      console.log(store.getters)
+      if (!store.getters.isLoggedIn) next('/login')
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/login',
     name: 'Login',
     component: Login,
-    meta: {
-      requiresAuth: true
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isLoggedIn) {
+        next('/')
+      } else {
+        next()
+      }
     }
   }
   // Outras rotas aqui
@@ -155,7 +169,6 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const baseTitle = 'Ceos'
 
-  // Check if the route has a title defined in its meta
   if (to.meta && to.meta.title) {
     document.title = `${baseTitle} | ${to.meta.title}`
   } else {

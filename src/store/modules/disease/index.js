@@ -60,6 +60,6 @@ export default {
     }
   },
   getters: {
-    setDiseases: (state) => state.diseases
+    getDiseases: (state) => state.diseases
   }
 }

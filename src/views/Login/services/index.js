@@ -1,9 +1,8 @@
 import axios from 'axios'
-import getUserToken from '../store/index'
+import store from '@/store'
 
 const BASE_URL = 'https://meso.poatech.com.br:450/user/api/1.0'
-const getToken = () => getUserToken()
-
+const getToken = () => store?.getters?.getUserToken
 /**
  * @see https://meso.poatech.com.br:450/user/api/1.0/auth
  **/
@@ -25,7 +24,7 @@ export const login = ({ email, password }) => {
  * @param {string} email - O email do usuário para o qual o reset de senha será solicitado.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const reset = ({ email = 'teste@gmail.com' }) => {
+export const reset = ({ email }) => {
   return axios({
     method: 'POST',
     headers: { 'content-type': 'application/json' },

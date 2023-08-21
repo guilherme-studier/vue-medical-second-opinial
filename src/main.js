@@ -3,7 +3,7 @@ import VueTheMask from 'vue-the-mask'
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import store from '@/store'
 
 import Toast from 'vue-toastification'
 import { ElSelect, ElOption } from 'element-plus'

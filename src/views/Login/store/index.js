@@ -1,9 +1,14 @@
 /* eslint-disable no-unused-vars */
 import { validateToken, logoutUser, login, reset } from '../services/index'
 
+import * as h from '@/helpers/auth'
+import router from '@/router'
+
 export default {
-  namespaced: true,
   state: () => ({
+    user: h.getFromStorage('user')
+      ? JSON.parse(h.getFromStorage('user'))
+      : null,
     loginOptions: [
       {
         id: 1,
@@ -48,10 +53,10 @@ export default {
           role: response.data.role
         }
 
-        // Converter o objeto para uma string JSON e salvar no localStorage
-        localStorage.setItem('user', JSON.stringify(userData))
+        commit('setUser', userData)
 
-        console.log('Dados da resposta:', response)
+        localStorage.setItem('user', JSON.stringify(userData))
+        router.push('/')
       } catch (error) {
         console.error('Erro na chamada à API:', error.message)
       }
@@ -69,6 +74,7 @@ export default {
         console.log('Logout bem-sucedido:', response)
 
         localStorage.clear()
+        router.push('/login')
       } catch (error) {
         console.error('Erro ao fazer logout:', error.message)
       }

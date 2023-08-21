@@ -54,7 +54,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('login', ['getLoginOptions']),
+    ...mapGetters(['getLoginOptions']),
 
     backgroundClass() {
       if (!this.userSelected) return 'background-default'

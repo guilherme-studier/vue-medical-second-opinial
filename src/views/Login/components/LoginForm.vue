@@ -59,7 +59,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('login', ['loginUser', 'resetPassword']),
+    ...mapActions(['loginUser', 'resetPassword']),
 
     handlePassword() {
       this.forgotPassword = !this.forgotPassword

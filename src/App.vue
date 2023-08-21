@@ -22,18 +22,12 @@ export default {
     ...mapState('consultantDoctorInvitation', ['cpf']),
     ...mapGetters(['getIsTokenExpired'])
   },
-  async created() {
+  created() {
     this.fetchTokenStatus()
   },
-  watch: {
-    $route() {
-      this.fetchTokenStatus()
-    }
-  },
   methods: {
-    ...mapActions(['setAuthToken']),
     ...mapActions('user', ['requestUserData']),
-    ...mapActions('login', ['validateToken']),
+    ...mapActions(['validateToken', 'setAuthToken']),
 
     fetchTokenStatus() {
       this.validateToken()

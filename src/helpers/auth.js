@@ -20,3 +20,5 @@ export const setCurrentUserAccess = (token) => {
 export const deleteCookie = (name) => {
   Cookies.remove(name)
 }
+
+export const getFromStorage = (prop) => localStorage.getItem(prop)
