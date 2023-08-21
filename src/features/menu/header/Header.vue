@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import SidebarMenu from '../sidebar/Sidebar.vue'
+import SidebarMenu from '../sidebar'
 import Banner from '../../../assets/ceos-header.png'
 
 export default {
