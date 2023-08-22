@@ -10,6 +10,7 @@ import specialty from '@/store/modules/specialty/index'
 import registration from '@/features/registration/store/index'
 import industryRegistration from '@/features/industryRegistration/store/index'
 import registrationClinicalCases from '@/features/registrationClinicalCases/store/index'
+import systemAccessCancellation from '@/features/systemAccessCancellation/store/index'
 import consultantDoctorInvitation from '@/features/consultantDoctorInvitation/store/index'
 
 const store = createStore({
@@ -55,6 +56,7 @@ const store = createStore({
     specialty,
     registration,
     industryRegistration,
+    systemAccessCancellation,
     registrationClinicalCases,
     consultantDoctorInvitation
   },

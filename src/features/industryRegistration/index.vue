@@ -1,17 +1,17 @@
 <template>
   <div id="industry-registration">
-    <industry-registration-data />
+    <industry-registration-form />
   </div>
 </template>
 
 <script>
 // components
-import IndustryRegistrationData from '../industryRegistration/components/IndustryRegistrationData'
+import IndustryRegistrationForm from '../industryRegistration/components/IndustryRegistrationForm'
 
 export default {
   name: 'Industry Registration',
   components: {
-    IndustryRegistrationData
+    IndustryRegistrationForm
   }
 }
 </script>
