@@ -5,10 +5,11 @@
       <InputGroup>
         <InputWrapper>
           <input
-            type="number"
+            type="text"
             placeholder="CNPJ"
             class="flexible-input"
             v-model="cnpj"
+            v-mask="'##.###.###/####-##'"
           />
         </InputWrapper>
         <InputWrapper>

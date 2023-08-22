@@ -72,6 +72,7 @@
             placeholder="Data de Início"
             class="flexible-input"
             v-model="startDate"
+            v-mask="'##/##/####'"
           />
         </InputWrapper>
         <InputWrapper>
@@ -80,6 +81,7 @@
             placeholder="Data de Validade"
             class="flexible-input"
             v-model="expirationDate"
+            v-mask="'##/##/####'"
           />
         </InputWrapper>
       </InputGroup>

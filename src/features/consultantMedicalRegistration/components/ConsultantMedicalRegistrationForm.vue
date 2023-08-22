@@ -4,10 +4,11 @@
       <input-group>
         <input-wrapper>
           <input
-            type="number"
+            type="text"
             placeholder="CPF"
             class="flexible-input"
             v-model="cpf"
+            v-mask="'###.###.###-##'"
           />
         </input-wrapper>
         <input-wrapper>
@@ -203,10 +204,11 @@
         <input-group>
           <input-wrapper>
             <input
-              type="number"
+              type="text"
               placeholder="CNPJ"
               class="flexible-input"
               v-model="cnpj"
+              v-mask="'##.###.###/####-##'"
             />
           </input-wrapper>
           <input-wrapper>

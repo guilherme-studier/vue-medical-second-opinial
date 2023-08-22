@@ -5,10 +5,11 @@
         <input-group>
           <input-wrapper>
             <input
-              type="number"
+              type="text"
               placeholder="CPF"
               class="flexible-input"
               v-model="cpf"
+              v-mask="'###.###.###-##'"
             />
           </input-wrapper>
           <input-wrapper>
