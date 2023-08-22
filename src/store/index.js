@@ -9,6 +9,7 @@ import disease from '@/store/modules/disease/index'
 import specialty from '@/store/modules/specialty/index'
 import registration from '@/features/registration/store/index'
 import industryRegistration from '@/features/industryRegistration/store/index'
+import registrationClinicalCases from '@/features/registrationClinicalCases/store/index'
 import consultantDoctorInvitation from '@/features/consultantDoctorInvitation/store/index'
 
 const store = createStore({
@@ -54,6 +55,7 @@ const store = createStore({
     specialty,
     registration,
     industryRegistration,
+    registrationClinicalCases,
     consultantDoctorInvitation
   },
   getters: {
