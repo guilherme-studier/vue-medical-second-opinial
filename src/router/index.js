@@ -6,7 +6,7 @@ import store from '@/store'
 
 // rotas
 import Layout from '@/views/layout'
-import Login from '@/views/login'
+import Login from '@/views/Login'
 
 // childrens
 import Tests from '@/features/test/index.vue'
@@ -22,6 +22,8 @@ import AdmClinicalCases from '@/features/admClinicalCases'
 import AllocationClinicalCases from '@/features/allocationClinicalCases'
 import RepresentativeRegistration from '@/features/representativeRegistration'
 import ClinicalCasesEvaluation from '@/features/clinicalCasesEvaluation'
+import Specialties from '@/features/specialties'
+import Illnesses from '@/features/illnesses'
 
 const routes = [
   {
@@ -131,6 +133,22 @@ const routes = [
         component: ClinicalCasesEvaluation,
         meta: {
           title: 'Casos Clínicos Designados'
+        }
+      },
+      {
+        path: '/specialties',
+        name: 'Specialties',
+        component: Specialties,
+        meta: {
+          title: 'Especialidades'
+        }
+      },
+      {
+        path: '/illnesses',
+        name: 'Illnesses',
+        component: Illnesses,
+        meta: {
+          title: 'Doenças'
         }
       }
     ],

@@ -7,6 +7,10 @@ import {
   getDisease
 } from '../../../services/disease/index.js'
 
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
+
 export default {
   namespaced: true,
   state: () => ({
@@ -24,30 +28,37 @@ export default {
         commit('setDiseases', response.data.content)
       } catch (error) {
         console.error('Erro ao buscar as doenças:', error)
+        toast.warning('Erro ao buscar as doenças')
       }
     },
     async createNewDisease({ commit, dispatch }, diseaseName) {
       try {
         await createDisease(diseaseName)
         dispatch('fetchDiseases')
+        toast.success('Doença criada com sucesso!')
       } catch (error) {
         console.error('Erro ao criar a doença:', error)
+        toast.warning('Erro ao criar a doença')
       }
     },
     async deleteDiseaseById({ commit, dispatch }, diseaseId) {
       try {
         await deleteDisease(diseaseId)
         dispatch('fetchDiseases')
+        toast.success('Doença removida com sucesso!')
       } catch (error) {
         console.error('Erro ao deletar a doença:', error)
+        toast.warning('Erro ao deletar a doença')
       }
     },
-    async updateDiseaseById({ commit, dispatch }, { diseaseId, name }) {
+    async updateDiseaseById({ commit, dispatch }, data) {
       try {
-        await updateDisease(diseaseId, name)
+        await updateDisease(data.id, data.name)
         dispatch('fetchDiseases')
+        toast.success('Doença atualizada com sucesso!')
       } catch (error) {
         console.error('Erro ao atualizar a doença:', error)
+        toast.warning('Erro ao atualizar a doença')
       }
     },
     async getDiseaseById({ commit, dispatch }, diseaseId) {
@@ -56,6 +67,7 @@ export default {
         dispatch('fetchDiseases')
       } catch (error) {
         console.error('Erro ao buscar a doença:', error)
+        toast.warning('Erro ao buscar a doença')
       }
     }
   },

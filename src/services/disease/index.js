@@ -74,7 +74,7 @@ export const updateDisease = (diseaseId, name) => {
       Authorization: `Bearer ${getToken()}`
     },
     url,
-    data: name
+    data: { name }
   })
 }
 

@@ -24,7 +24,7 @@
                 <div
                   v-for="(iconItem, iconIndex) in value"
                   :key="iconIndex"
-                  class="action-icon"
+                  class="action-icons--item"
                 >
                   <img
                     :src="iconItem.icon"
@@ -68,7 +68,6 @@ export default {
 <style lang="scss" scoped>
 #custom-table {
   width: 100%;
-
   .table {
     border-collapse: separate;
     border-spacing: 0;
@@ -76,9 +75,10 @@ export default {
 
     tbody td {
       border: 1px solid $gray-400;
-      text-align: center;
+      text-align: left;
       color: $gray-600;
       padding: 20px;
+      vertical-align: middle;
     }
 
     .custom-th {
@@ -104,10 +104,15 @@ export default {
     justify-content: center;
     align-items: center;
     gap: 10px;
-  }
 
-  .action-icon {
-    display: inline-block;
+    &--item {
+      display: inline-block;
+      cursor: pointer;
+      
+      img {
+        max-height: 22px;
+      }
+    }
   }
 }
 </style>

@@ -1,45 +1,43 @@
 <template>
-  <div class="sidebar-menu">
-    <div :class="['nav-sidebar', { active: active }]">
-      <div class="header-logo">
-        <transition name="fade">
-          <img
-            v-if="active"
-            :class="{ 'collapsed-sidebar': !active }"
-            :src="logo"
-            alt="logo-ceos"
-            @click.prevent="goHome"
-          />
-        </transition>
-      </div>
-      <div class="menu">
-        <div :class="['nav-list', { active: active }]">
-          <div class="scrollMenuItems">
-            <div
-              class="menu-item-divider"
-              v-for="item in menuItems"
-              :key="item.id"
+  <div :class="['nav-sidebar', { active: active }]">
+    <div class="header-logo">
+      <transition name="fade">
+        <img
+          v-if="active"
+          :class="{ 'collapsed-sidebar': !active }"
+          :src="logo"
+          alt="logo-ceos"
+          @click.prevent="goHome"
+        />
+      </transition>
+    </div>
+    <div class="menu">
+      <div :class="['nav-list', { active: active }]">
+        <div class="scrollMenuItems">
+          <div
+            class="menu-item-divider"
+            v-for="item in menuItems"
+            :key="item.id"
+          >
+            <router-link
+              :to="item.route"
+              class="menu-item"
+              :class="{
+                active: item.route === $route.path,
+                'collapsed-menu': !active
+              }"
             >
-              <router-link
-                :to="item.route"
-                class="menu-item"
-                :class="{
-                  active: item.route === $route.path,
-                  'collapsed-menu': !active
-                }"
-              >
-                <div class="menu-item-content">
-                  <div class="menu-item-text">{{ item.name }}</div>
-                </div>
-              </router-link>
-            </div>
-            <button class="toggle-button" @click="toggleMenu">
-              <font-awesome-icon
-                :icon="toggleIcon"
-                :style="{ color: iconColor }"
-              />
-            </button>
+              <div class="menu-item-content">
+                <div class="menu-item-text">{{ item.name }}</div>
+              </div>
+            </router-link>
           </div>
+          <button class="toggle-button" @click="toggleMenu">
+            <font-awesome-icon
+              :icon="toggleIcon"
+              :style="{ color: iconColor }"
+            />
+          </button>
         </div>
       </div>
     </div>
@@ -57,9 +55,11 @@ import logo from '../../../assets/logo-ceos.png'
 
 export default {
   name: 'SidebarMenu',
+
   components: {
     FontAwesomeIcon
   },
+
   data() {
     return {
       active: true,
@@ -129,18 +129,29 @@ export default {
           id: 11,
           name: 'Casos Clínicos Designados',
           route: '/clinical-cases-evaluation'
+        },
+        {
+          id: 12,
+          name: 'Especialidades',
+          route: '/specialties'
+        },
+        {
+          id: 13,
+          name: 'Doenças',
+          route: '/illnesses'
         }
       ],
       toggleIcon: faChevronLeft,
       iconColor: 'white'
     }
   },
+
   methods: {
     toggleMenu() {
-      // eslint-disable-next-line no-self-assign
       this.active = !this.active
       this.toggleIcon = this.active ? faChevronLeft : faChevronRight
     },
+
     goHome() {
       return router.push('/')
     }

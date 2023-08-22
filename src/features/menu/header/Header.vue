@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <img :src="banner" alt="Imagem" class="header-image" />
-    <sidebar-menu />
+    
     <div class="container">
       <h1>
         {{ title }}
@@ -11,19 +11,17 @@
 </template>
 
 <script>
-import SidebarMenu from '../sidebar'
 import Banner from '../../../assets/ceos-header.png'
 
 export default {
   name: 'Header',
-  components: {
-    SidebarMenu
-  },
+
   data() {
     return {
       banner: Banner
     }
   },
+  
   computed: {
     title() {
       return this.$route?.meta?.title

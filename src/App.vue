@@ -1,15 +1,26 @@
 <template>
-  <div id="app">
+  <div class="app-container">
+    <!-- MENU LATERAL -->
+    <sidebar-menu />
+    
+    <!-- ROTAS -->
     <router-view />
   </div>
 </template>
 
 <script>
+import SidebarMenu from './features/menu/sidebar'
+
 import '@/assets/scss/global.scss'
 import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'App',
+
+  components: {
+    SidebarMenu
+  },
+
   metaInfo: {
     meta: [
       {
@@ -18,13 +29,16 @@ export default {
       }
     ]
   },
+  
   computed: {
     ...mapState('consultantDoctorInvitation', ['cpf']),
     ...mapGetters(['getIsTokenExpired'])
   },
+  
   created() {
     this.fetchTokenStatus()
   },
+
   methods: {
     ...mapActions('user', ['requestUserData']),
     ...mapActions(['validateToken', 'setAuthToken']),
@@ -37,3 +51,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.app-container {
+  display: flex;
+}
+</style>

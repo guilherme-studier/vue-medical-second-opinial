@@ -27,9 +27,9 @@
 
 <script>
 // components
-import LoginUser from '@/views/login/components/LoginUser'
-import LoginForm from '@/views/login/components/LoginForm'
-import LoginBaseLoader from '@/views/login/components/LoginBaseLoader'
+import LoginUser from '@/views/Login/components/LoginUser'
+import LoginForm from '@/views/Login/components/LoginForm'
+import LoginBaseLoader from '@/views/Login/components/LoginBaseLoader'
 
 //img
 import logoMeSo from '../../assets/login-logo.png'
