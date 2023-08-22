@@ -1,29 +1,17 @@
 <template>
   <div id="medical-registration">
-    <doctor-registration />
-    <registration-data />
-    <specialty />
-    <data-payments />
-    <save />
+    <consultant-medical-registration-form />
   </div>
 </template>
 
 <script>
 // components
-import DoctorRegistration from '../consultantMedicalRegistration/components/DoctorRegistration'
-import RegistrationData from '../consultantMedicalRegistration/components/RegistrationData'
-import DataPayments from '../consultantMedicalRegistration/components/DataPayments'
-import Specialty from '../consultantMedicalRegistration/components/Specialty'
-import Save from '../consultantMedicalRegistration/components/Save'
+import ConsultantMedicalRegistrationForm from '../consultantMedicalRegistration/components/ConsultantMedicalRegistrationForm'
 
 export default {
-  name: 'IndustryRegistration',
+  name: 'ConsultatntMedicalRegistration',
   components: {
-    DoctorRegistration,
-    RegistrationData,
-    DataPayments,
-    Specialty,
-    Save
+    ConsultantMedicalRegistrationForm
   },
   data() {
     return {}
