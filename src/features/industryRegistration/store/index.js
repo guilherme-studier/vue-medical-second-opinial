@@ -1,13 +1,14 @@
+/* eslint-disable no-unused-vars */
 import { createUser } from '../../../services/user/index'
 
 export default {
   namespaced: true,
   state: () => ({
-    doctorConsultant: null
+    industryUser: null
   }),
   mutations: {
-    setDoctorConsultant(state, cpf) {
-      state.cpf = cpf
+    setIndustryUser(state, industryUser) {
+      state.industryUser = industryUser
     }
   },
   actions: {
@@ -23,6 +24,6 @@ export default {
     }
   },
   getters: {
-    getDoctorConsultant: (state) => state.doctorConsultant
+    getIndustryUser: (state) => state.industryUser
   }
 }

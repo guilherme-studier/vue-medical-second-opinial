@@ -7,6 +7,12 @@ import login from '@/views/Login/store/index'
 import home from '@/features/home/stores/index'
 import disease from '@/store/modules/disease/index'
 import specialty from '@/store/modules/specialty/index'
+import registration from '@/features/registration/store/index'
+import industryRegistration from '@/features/industryRegistration/store/index'
+import registrationClinicalCases from '@/features/registrationClinicalCases/store/index'
+import systemAccessCancellation from '@/features/systemAccessCancellation/store/index'
+import allocationClinicalCases from '@/features/allocationClinicalCases/store/index'
+import representativeRegistration from '@/features/representativeRegistration/store/index'
 import consultantDoctorInvitation from '@/features/consultantDoctorInvitation/store/index'
 
 const store = createStore({
@@ -50,6 +56,12 @@ const store = createStore({
     login,
     disease,
     specialty,
+    registration,
+    industryRegistration,
+    systemAccessCancellation,
+    allocationClinicalCases,
+    registrationClinicalCases,
+    representativeRegistration,
     consultantDoctorInvitation
   },
   getters: {

@@ -3,11 +3,11 @@ import { createUser } from '../../../services/user/index'
 export default {
   namespaced: true,
   state: () => ({
-    doctorConsultant: null
+    allocationClinicalCase: null
   }),
   mutations: {
-    setDoctorConsultant(state, cpf) {
-      state.cpf = cpf
+    setAllocationClinicalCase(state, allocationClinicalCase) {
+      state.allocationClinicalCase = allocationClinicalCase
     }
   },
   actions: {
@@ -23,6 +23,6 @@ export default {
     }
   },
   getters: {
-    getDoctorConsultant: (state) => state.doctorConsultant
+    getAllocationClinicalCase: (state) => state.allocationClinicalCase
   }
 }

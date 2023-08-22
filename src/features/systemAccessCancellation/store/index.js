@@ -1,15 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { createUser } from '../../../services/user/index'
 
 export default {
   namespaced: true,
-  state: () => ({
-    doctorConsultant: null
-  }),
-  mutations: {
-    setDoctorConsultant(state, cpf) {
-      state.cpf = cpf
-    }
-  },
   actions: {
     async createUser({ commit }, userData) {
       return createUser(userData)
@@ -21,8 +14,5 @@ export default {
           throw error
         })
     }
-  },
-  getters: {
-    getDoctorConsultant: (state) => state.doctorConsultant
   }
 }

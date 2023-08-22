@@ -1,0 +1,95 @@
+#registration {
+  justify-content: center;
+  margin-bottom: 100px;
+  flex-wrap: wrap;
+  display: block;
+  width: 100%;
+}
+
+#registration-data {
+  #doctor-registration {
+    .form {
+      flex-direction: column;
+      margin-top: 20px;
+      display: flex;
+      width: 100%;
+    }
+  }
+
+  #save {
+    place-content: end;
+    margin-top: 10px;
+    display: flex;
+
+    button {
+      width: 150px;
+    }
+  }
+
+  .form {
+    margin-top: 30px;
+    flex-direction: column;
+    display: flex;
+    width: 100%;
+
+    .save {
+      place-self: end;
+      display: flex;
+      width: 150px;
+    }
+  }
+
+  .full-width {
+    grid-column: 1 / -1;
+  }
+
+  .terms-agreement {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+
+    input[type='checkbox'] {
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    span {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  .modal-text {
+    max-height: 250px;
+    overflow-y: auto;
+    margin-bottom: 25px;
+    p {
+      font-size: 16px;
+      color: $grayDark;
+      line-height: 20px;
+      margin: 0 20px 15px 0;
+      text-align: justify;
+    }
+  }
+
+  .modal-text::-webkit-scrollbar {
+    width: 8px;
+    background-color: $gray;
+  }
+
+  .modal-text::-webkit-scrollbar-thumb {
+    background-color: $gray-400;
+    border-radius: 5px;
+  }
+
+  .modal-text::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .modal-btn {
+    width: 100%;
+    max-width: 150px;
+    place-self: end;
+  }
+}

@@ -1,5 +1,27 @@
 <template>
   <div id="registration-data">
+    <div id="doctor-registration">
+      <div class="form">
+        <input-group>
+          <input-wrapper>
+            <input
+              type="number"
+              placeholder="CPF"
+              class="flexible-input"
+              v-model="cpf"
+            />
+          </input-wrapper>
+          <input-wrapper>
+            <input
+              type="password"
+              placeholder="Senha inicial"
+              class="flexible-input"
+              v-model="password"
+            />
+          </input-wrapper>
+        </input-group>
+      </div>
+    </div>
     <div class="form">
       <Title :title="titleComponent" />
       <div class="form">
@@ -110,18 +132,22 @@
             <button class="modal-btn" @click="handleTerms">De acordo</button>
           </div>
         </modal>
-        <save />
+        <div id="save">
+          <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Title from '@/components/title'
-import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
+import InputGroup from '@/components/inputGroup'
+import Title from '@/components/title'
 import Modal from '@/components/modal'
-import Save from '../components/Save'
+
+import { useToast } from 'vue-toastification'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Registration Data',
@@ -129,28 +155,48 @@ export default {
     InputWrapper,
     InputGroup,
     Modal,
-    Title,
-    Save
+    Title
+  },
+  setup() {
+    const toast = useToast()
+
+    return { toast }
   },
   data() {
     return {
       titleComponent: 'Dados Cadastrais',
-      name: '',
-      email: '',
-      phone: '',
-      crm: '',
-      uf: '',
-      newPassword: '',
-      cep: '',
-      place: '',
-      number: '',
-      complement: '',
-      city: '',
+      modalTermsVisible: false,
       termsAgreed: false,
-      modalTermsVisible: false
+      newPassword: '',
+      password: '',
+      number: '',
+      phone: '',
+      email: '',
+      city: '',
+      name: '',
+      crm: '',
+      cpf: '',
+      uf: ''
+    }
+  },
+  computed: {
+    isSaveDisabled() {
+      return (
+        !this.newPassword ||
+        !this.password ||
+        !this.email ||
+        !this.phone ||
+        !this.cpf ||
+        !this.name ||
+        !this.crm ||
+        !this.uf ||
+        !this.termsAgreed
+      )
     }
   },
   methods: {
+    ...mapActions('registration', ['createUser']),
+
     openModal() {
       this.modalTermsVisible = true
     },
@@ -159,81 +205,43 @@ export default {
     },
     handleTerms() {
       this.termsAgreed = true
-
       this.closeModal()
+    },
+    async handleSave() {
+      const userData = {
+        newPassword: this.newPassword,
+        password: this.password,
+        terms: this.termsAgreed,
+        email: this.email,
+        phone: this.phone,
+        cpf: this.cpf,
+        name: this.name,
+        crm: this.crm,
+        uf: this.uf
+      }
+
+      try {
+        await this.createUser(userData)
+        this.toast.success('Cadastro efetuado criado com sucesso')
+      } catch (error) {
+        this.toast.warning('Não foi possível realizar o cadastro')
+      }
+      this.clearForm()
+    },
+    clearForm() {
+      this.termsAgreed = false
+      this.newPassword = ''
+      this.number = ''
+      this.phone = ''
+      this.email = ''
+      this.name = ''
+      this.crm = ''
+      this.uf = ''
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-#registration-data {
-  margin-top: 30px;
-
-  .form {
-    flex-direction: column;
-    display: flex;
-    width: 100%;
-
-    .save {
-      place-self: end;
-      display: flex;
-      width: 150px;
-    }
-  }
-
-  .full-width {
-    grid-column: 1 / -1;
-  }
-
-  .terms-agreement {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 10px;
-
-    input[type='checkbox'] {
-      cursor: pointer;
-      margin-right: 10px;
-    }
-
-    span {
-      text-decoration: underline;
-      cursor: pointer;
-    }
-  }
-
-  .modal-text {
-    max-height: 250px;
-    overflow-y: auto;
-    margin-bottom: 25px;
-    p {
-      font-size: 16px;
-      color: $grayDark;
-      line-height: 20px;
-      margin: 0 20px 15px 0;
-      text-align: justify;
-    }
-  }
-
-  .modal-text::-webkit-scrollbar {
-    width: 8px;
-    background-color: $gray;
-  }
-
-  .modal-text::-webkit-scrollbar-thumb {
-    background-color: $gray-400;
-    border-radius: 5px;
-  }
-
-  .modal-text::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-
-  .modal-btn {
-    width: 100%;
-    max-width: 150px;
-    place-self: end;
-  }
-}
+@import '../styles/index.scss';
 </style>

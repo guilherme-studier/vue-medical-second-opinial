@@ -1,20 +1,21 @@
-import { createUser } from '../../../services/user/index'
+/* eslint-disable no-unused-vars */
+import { createUser } from '@/services/user/index'
 
 export default {
   namespaced: true,
   state: () => ({
-    doctorConsultant: null
+    representative: null
   }),
   mutations: {
-    setDoctorConsultant(state, cpf) {
-      state.cpf = cpf
+    setRepresentative(state, representative) {
+      state.representative = representative
     }
   },
   actions: {
     async createUser({ commit }, userData) {
       return createUser(userData)
         .then((response) => {
-          commit('setIndustryUser', response.data)
+          commit('setUser', response.data)
           return response
         })
         .catch((error) => {
@@ -23,6 +24,6 @@ export default {
     }
   },
   getters: {
-    getDoctorConsultant: (state) => state.doctorConsultant
+    getRepresentative: (state) => state.representative
   }
 }
