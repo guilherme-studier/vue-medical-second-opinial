@@ -90,9 +90,13 @@ export default {
 
       try {
         await this.createUser(userData)
-        this.toast.success('Cadastro efetuado criado com sucesso')
+        this.toast.success(
+          'Cancelamento de acesso ao sistema efetuado com sucesso'
+        )
       } catch (error) {
-        this.toast.warning('Não foi possível realizar o cadastro')
+        this.toast.warning(
+          'Não foi possível realizar cancelamento de acesso ao sistema'
+        )
       }
       this.clearForm()
     },
