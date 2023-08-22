@@ -12,6 +12,7 @@ import industryRegistration from '@/features/industryRegistration/store/index'
 import registrationClinicalCases from '@/features/registrationClinicalCases/store/index'
 import systemAccessCancellation from '@/features/systemAccessCancellation/store/index'
 import allocationClinicalCases from '@/features/allocationClinicalCases/store/index'
+import representativeRegistration from '@/features/representativeRegistration/store/index'
 import consultantDoctorInvitation from '@/features/consultantDoctorInvitation/store/index'
 
 const store = createStore({
@@ -60,6 +61,7 @@ const store = createStore({
     systemAccessCancellation,
     allocationClinicalCases,
     registrationClinicalCases,
+    representativeRegistration,
     consultantDoctorInvitation
   },
   getters: {

@@ -120,8 +120,7 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
+// components
 import RadioContent from '@/components/radioContent'
 import InputWrapper from '@/components/inputWrapper'
 import InputGroup from '@/components/inputGroup'
@@ -129,8 +128,15 @@ import Title from '@/components/title'
 import Modal from '@/components/modal'
 import vSelect from 'vue-select'
 
-import { mapGetters, mapActions } from 'vuex'
+// fonts
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
+
+// plugins
 import { useToast } from 'vue-toastification'
+
+// vuex
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'RegistrationClinicalCasesData',
@@ -240,7 +246,7 @@ export default {
       this.clearForm()
     },
     clearForm() {
-      this.name = false
+      this.name = null
       this.quantity = null
       this.specialtyName = null
       this.specialtyId = null
