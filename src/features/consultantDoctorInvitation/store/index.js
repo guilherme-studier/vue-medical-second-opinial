@@ -1,38 +1,28 @@
+import { createUser } from '../../../services/user/index'
+
 export default {
   namespaced: true,
   state: () => ({
-    cpf: '',
-    name: '',
-    email: ''
+    doctorConsultant: null
   }),
   mutations: {
-    SET_CPF(state, cpf) {
+    setDoctorConsultant(state, cpf) {
       state.cpf = cpf
-    },
-    SET_NAME(state, name) {
-      state.name = name
-    },
-    SET_EMAIL(state, email) {
-      state.email = email
-    },
-    CLEAR_DATA(state) {
-      state.cpf = ''
-      state.name = ''
-      state.email = ''
     }
   },
   actions: {
-    imprimirValores({ state }) {
-      console.log('CPF:', state.cpf)
-      console.log('Nome:', state.name)
-      console.log('E-mail:', state.email)
-
-      this.commit('CLEAR_DATA')
+    async createUser({ commit }, userData) {
+      return createUser(userData)
+        .then((response) => {
+          commit('setIndustryUser', response.data)
+          return response
+        })
+        .catch((error) => {
+          throw error
+        })
     }
   },
   getters: {
-    getCpf: (state) => state.cpf,
-    getName: (state) => state.name,
-    getEmail: (state) => state.email
+    getDoctorConsultant: (state) => state.doctorConsultant
   }
 }

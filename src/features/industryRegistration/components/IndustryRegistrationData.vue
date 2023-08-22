@@ -84,12 +84,12 @@ export default {
   data() {
     return {
       tituloComponente: 'Dados Cadastrais',
-      corporateName: '',
-      observacao: '',
-      contato: '',
-      email: '',
-      phone: '',
-      cnpj: ''
+      corporateName: null,
+      observacao: null,
+      contato: null,
+      email: null,
+      phone: null,
+      cnpj: null
     }
   },
   computed: {
@@ -125,13 +125,13 @@ export default {
       this.clearForm()
     },
     clearForm() {
-      this.corporateName = ''
-      this.observacao = ''
-      this.contato = ''
-      this.phone = ''
-      this.email = ''
-      this.phone = ''
-      this.cnpj = ''
+      this.corporateName = null
+      this.observacao = null
+      this.contato = null
+      this.phone = null
+      this.email = null
+      this.phone = null
+      this.cnpj = null
     }
   }
 }
