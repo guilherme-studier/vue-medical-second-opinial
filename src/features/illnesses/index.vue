@@ -1,6 +1,5 @@
 <template>
   <div ref="illnesses" class="illnesses">
-
     <!-- CADASTRO DE DOENÇAS -->
     <div class="title">
       <img :src="icon" />
@@ -43,10 +42,7 @@
     </div>
 
     <!-- TABELA -->
-    <custom-table
-      :tableHeader="tableHeader"
-      :tableData="filteredTableData"
-    >
+    <custom-table :tableHeader="tableHeader" :tableData="filteredTableData">
       <template v-slot:action="{ item }">
         <img
           :src="value.icon"
@@ -166,14 +162,17 @@ export default {
       /** Validar a doença */
       if (this.illnessName.trim() !== '') {
         /** Editar dados */
-        await this.updateDiseaseById({id: this.illnessId, name: this.illnessName})
+        await this.updateDiseaseById({
+          id: this.illnessId,
+          name: this.illnessName
+        })
 
         /** Limpar campo */
         this.clearForm()
       }
     },
 
-    /** 
+    /**
      * Selecionar doença
      * @param {String|Number} id: Id da doença
      * @param {String} name: Nome da doença
@@ -191,7 +190,6 @@ export default {
       this.illnessId = null
       this.illnessName = ''
     }
-
   }
 }
 </script>

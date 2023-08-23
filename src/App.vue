@@ -2,7 +2,7 @@
   <div class="app-container">
     <!-- MENU LATERAL -->
     <sidebar-menu />
-    
+
     <!-- ROTAS -->
     <router-view />
   </div>
@@ -29,12 +29,12 @@ export default {
       }
     ]
   },
-  
+
   computed: {
     ...mapState('consultantDoctorInvitation', ['cpf']),
     ...mapGetters(['getIsTokenExpired'])
   },
-  
+
   created() {
     this.fetchTokenStatus()
   },
