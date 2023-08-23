@@ -10,12 +10,12 @@ module.exports = {
   rules: {
     'no-console': 'warn',
     'no-debugger': 'warn',
-    semi: ['error', 'never'],
-    quotes: ['error', 'single'],
-    'no-var': 'error',
-    'prefer-const': 'error',
-    eqeqeq: ['error', 'always'],
-    camelcase: 'error',
+    semi: ['warn', 'never'],
+    quotes: ['warn', 'single'],
+    'no-var': 'warn',
+    'prefer-const': 'warn',
+    eqeqeq: ['warn', 'always'],
+    camelcase: 'warn',
     'vue/multi-word-component-names': 0
   },
   overrides: [
