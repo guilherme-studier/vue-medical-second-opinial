@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: NPM Install
-        run: npm install
+        run: npm install --legacy-peer-deps
       - name: NPM Build
         run: npm run build
         env:
