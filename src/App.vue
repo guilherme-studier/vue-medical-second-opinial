@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <!-- MENU LATERAL -->
-    <sidebar-menu />
+    <sidebar-menu v-if="$route.name !== 'Login'" />
 
     <!-- ROTAS -->
     <router-view />
@@ -55,5 +55,6 @@ export default {
 <style lang="scss" scoped>
 .app-container {
   display: flex;
+  min-height: 100vh;
 }
 </style>

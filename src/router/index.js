@@ -6,7 +6,7 @@ import store from '@/store'
 
 // rotas
 import Layout from '@/views/layout'
-import Login from '@/views/login'
+import Login from '@/views/login/index.vue'
 
 // childrens
 import Tests from '@/features/test/index.vue'

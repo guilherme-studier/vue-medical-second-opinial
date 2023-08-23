@@ -51,7 +51,7 @@ export default {
     grid-column: 1 / -1;
     margin-top: 15px;
     text-align: left;
-    place-self: end;
+    place-self: flex-end;
     display: flex;
     width: 150px;
   }
