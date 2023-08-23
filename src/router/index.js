@@ -23,7 +23,7 @@ import Illnesses from '@/features/illnesses'
 
 // rotas
 import Layout from '@/views/layout'
-import Login from '@/views/login'
+import Login from '@/features/login'
 
 const routes = [
   {

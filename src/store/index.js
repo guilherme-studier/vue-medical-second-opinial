@@ -13,7 +13,7 @@ import systemAccessCancellation from '@/features/systemAccessCancellation/store/
 import allocationClinicalCases from '@/features/allocationClinicalCases/store/index'
 import representativeRegistration from '@/features/representativeRegistration/store/index'
 import consultantDoctorInvitation from '@/features/consultantDoctorInvitation/store/index'
-import login from '@/views/login/store/index'
+import login from '@/features/login/store/index'
 
 const store = createStore({
   state: {
