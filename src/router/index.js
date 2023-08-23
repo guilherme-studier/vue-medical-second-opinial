@@ -4,10 +4,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 // store
 import store from '@/store'
 
-// rotas
-import Layout from '@/views/layout'
-import Login from './../views/login'
-
 // childrens
 import Tests from '@/features/test/index.vue'
 import Home from '@/features/home/index.vue'
@@ -24,6 +20,10 @@ import RepresentativeRegistration from '@/features/representativeRegistration'
 import ClinicalCasesEvaluation from '@/features/clinicalCasesEvaluation'
 import Specialties from '@/features/specialties'
 import Illnesses from '@/features/illnesses'
+
+// rotas
+import Layout from '@/views/layout'
+import Login from '@/views/login'
 
 const routes = [
   {
