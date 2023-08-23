@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 import { getCurrentUserAccess } from '../helpers/auth'
 
 import user from './modules/user'
-import login from '@/views/login/store/index.js'
+import login from '@/views/login/store/index'
 import home from '@/features/home/stores/index'
 import disease from '@/store/modules/disease/index'
 import specialty from '@/store/modules/specialty/index'
