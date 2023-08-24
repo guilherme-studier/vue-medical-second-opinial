@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// components
 import ConsultantMedicalRegistrationForm from '../consultantMedicalRegistration/components/ConsultantMedicalRegistrationForm'
 
 export default {

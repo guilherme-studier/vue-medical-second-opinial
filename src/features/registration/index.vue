@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// components
 import RegistrationData from '../registration/components/RegistrationData'
 
 export default {

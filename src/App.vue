@@ -9,13 +9,10 @@
 </template>
 
 <script>
-// vuex
 import { mapActions, mapGetters, mapState } from 'vuex'
 
-// components
 import SidebarMenu from './features/menu/sidebar'
 
-// styles
 import '@/assets/scss/global.scss'
 
 export default {
@@ -43,20 +40,12 @@ export default {
     this.fetchTokenStatus()
   },
 
-  watch: {
-    $route() {
-      this.fetchTokenStatus()
-    }
-  },
-
   methods: {
     ...mapActions('user', ['requestUserData']),
     ...mapActions(['validateToken', 'setAuthToken']),
 
     fetchTokenStatus() {
-      const currentRoute = this.$route.path
-
-      if (!currentRoute === '/login') this.validateToken()
+      this.validateToken()
     }
   }
 }

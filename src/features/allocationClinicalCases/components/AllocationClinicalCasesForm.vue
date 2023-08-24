@@ -94,7 +94,6 @@
 </template>
 
 <script>
-// components
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useToast } from 'vue-toastification'
@@ -105,12 +104,6 @@ import InputWrapper from '@/components/inputWrapper'
 import Modal from '@/components/modal'
 import RadioContent from '@/components/radioContent'
 import Title from '@/components/title'
-
-// fonts
-
-// vuex
-
-// plugins
 
 export default {
   name: 'AllocationClinicalCasesForm',

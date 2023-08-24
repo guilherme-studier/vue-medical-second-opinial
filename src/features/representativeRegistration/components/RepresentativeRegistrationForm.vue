@@ -59,17 +59,12 @@
 </template>
 
 <script>
-// components
 import { useToast } from 'vue-toastification'
 import { mapActions } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
 import Title from '@/components/title'
-
-// plugins
-
-// vuex
 
 export default {
   name: 'RepresentativeRegistration',

@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// components
 import IndustryRegistrationForm from '../industryRegistration/components/IndustryRegistrationForm'
 
 export default {

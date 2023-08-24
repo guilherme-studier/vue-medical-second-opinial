@@ -28,13 +28,11 @@
 </template>
 
 <script>
-// icons
 import iconFiled from '../../assets/icons/icon-filed.svg'
 import iconMessage from '../../assets/icons/icon-message.svg'
 import iconSearch from '../../assets/icons/icon-search.svg'
 import iconVoucher from '../../assets/icons/icon-voucher.svg'
 
-// components
 import CustomTable from '@/components/customTable'
 
 export default {

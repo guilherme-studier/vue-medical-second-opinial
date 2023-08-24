@@ -28,7 +28,6 @@
 </template>
 
 <script>
-// icons
 import iconCheckActive from '../../assets/icons/icon-check-active.svg'
 import iconCheckInactive from '../../assets/icons/icon-check-inactive.svg'
 import iconCloseActive from '../../assets/icons/icon-close-active.svg'
@@ -38,7 +37,6 @@ import iconTrashActive from '../../assets/icons/icon-trash-active.svg'
 import iconTrashInactive from '../../assets/icons/icon-trash-inactive.svg'
 import iconVoucher from '../../assets/icons/icon-voucher.svg'
 
-// components
 import CustomTable from '@/components/customTable'
 
 export default {

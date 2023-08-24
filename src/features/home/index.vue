@@ -14,13 +14,10 @@
 </template>
 
 <script>
-// components
 import { mapGetters } from 'vuex'
 
 import DataBox from '@/features/home/components/dataBox/DataBox'
 import Signature from '@/features/home/components/signature/Signature'
-
-// states
 
 export default {
   name: 'Home',
