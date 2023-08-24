@@ -183,7 +183,7 @@ button {
   width: 100%;
 
   .save {
-    place-self: end;
+    place-self: flex-end;
     display: flex;
     width: 150px;
   }

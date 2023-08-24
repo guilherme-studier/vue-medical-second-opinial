@@ -108,7 +108,7 @@ export default {
     &--item {
       display: inline-block;
       cursor: pointer;
-      
+
       img {
         max-height: 22px;
       }

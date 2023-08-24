@@ -36,7 +36,7 @@
     width: 100%;
 
     .save {
-      place-self: end;
+      place-self: flex-end;
       display: flex;
       width: 150px;
     }
@@ -92,14 +92,14 @@
   .modal-btn {
     width: 100%;
     max-width: 150px;
-    place-self: end;
+    place-self: flex-end;
   }
 }
 
 // Save
 
 #save {
-  place-content: end;
+  place-content: flex-end;
   margin-top: 10px;
   display: flex;
 

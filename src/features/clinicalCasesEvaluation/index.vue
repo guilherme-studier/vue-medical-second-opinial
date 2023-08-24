@@ -149,7 +149,7 @@ export default {
 
   .title {
     display: flex;
-    place-items: end;
+    place-items: flex-end;
     text-align: left;
     color: $green-500;
     width: 100%;
@@ -157,7 +157,7 @@ export default {
 
     .voucher-doctor {
       display: flex;
-      place-items: end;
+      place-items: flex-end;
       text-align: left;
       color: $green-500;
       width: 100%;

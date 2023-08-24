@@ -42,10 +42,7 @@
     </div>
 
     <!-- TABELA -->
-    <custom-table
-      :tableHeader="tableHeader"
-      :tableData="filteredTableData"
-    >
+    <custom-table :tableHeader="tableHeader" :tableData="filteredTableData">
       <template v-slot:action="{ item }">
         <img
           :src="value.icon"
@@ -165,14 +162,17 @@ export default {
       /** Validar a especialidade */
       if (this.specialtyName.trim() !== '') {
         /** Editar dados */
-        await this.updateSpecialtyById({id: this.specialtyId, name: this.specialtyName})
+        await this.updateSpecialtyById({
+          id: this.specialtyId,
+          name: this.specialtyName
+        })
 
         /** Limpar campo */
         this.clearForm()
       }
     },
 
-    /** 
+    /**
      * Selecionar especialidade
      * @param {String|Number} id: Id da especialidade
      * @param {String} name: Nome da especialidade
@@ -190,7 +190,6 @@ export default {
       this.specialtyId = null
       this.specialtyName = ''
     }
-
   }
 }
 </script>
@@ -201,7 +200,7 @@ export default {
 
   .title {
     display: flex;
-    place-items: end;
+    place-items: flex-end;
     text-align: left;
     color: $green-500;
     width: 100%;
@@ -224,7 +223,7 @@ export default {
   &--row {
     display: flex;
     flex-wrap: nowrap;
-    place-items: end;
+    place-items: flex-end;
     text-align: left;
     color: $green-500;
     gap: 20px;

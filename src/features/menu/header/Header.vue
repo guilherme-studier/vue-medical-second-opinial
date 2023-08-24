@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <img :src="banner" alt="Imagem" class="header-image" />
-    
+
     <div class="container">
       <h1>
         {{ title }}
@@ -21,7 +21,7 @@ export default {
       banner: Banner
     }
   },
-  
+
   computed: {
     title() {
       return this.$route?.meta?.title
