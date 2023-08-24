@@ -29,14 +29,15 @@
 
 <script>
 // icons
-import iconVoucher from '../../assets/icons/icon-voucher.svg'
-import iconSearch from '../../assets/icons/icon-search.svg'
 import iconCheckActive from '../../assets/icons/icon-check-active.svg'
 import iconCheckInactive from '../../assets/icons/icon-check-inactive.svg'
 import iconCloseActive from '../../assets/icons/icon-close-active.svg'
 import iconCloseInactive from '../../assets/icons/icon-close-inactive.svg'
+import iconSearch from '../../assets/icons/icon-search.svg'
 import iconTrashActive from '../../assets/icons/icon-trash-active.svg'
 import iconTrashInactive from '../../assets/icons/icon-trash-inactive.svg'
+import iconVoucher from '../../assets/icons/icon-voucher.svg'
+
 // components
 import CustomTable from '@/components/customTable'
 
@@ -62,15 +63,15 @@ export default {
           action: [
             {
               icon: iconCheckActive,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             },
             {
               icon: iconCloseActive,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             },
             {
               icon: iconTrashActive,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             }
           ]
         },
@@ -83,15 +84,15 @@ export default {
           action: [
             {
               icon: iconCheckActive,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             },
             {
               icon: iconCloseInactive,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             },
             {
               icon: iconTrashInactive,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             }
           ]
         },
@@ -104,15 +105,15 @@ export default {
           action: [
             {
               icon: iconCheckInactive,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             },
             {
               icon: iconCloseActive,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             },
             {
               icon: iconTrashInactive,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             }
           ]
         },
@@ -125,15 +126,15 @@ export default {
           action: [
             {
               icon: iconCheckActive,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             },
             {
               icon: iconCloseActive,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             },
             {
               icon: iconTrashActive,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             }
           ]
         }
@@ -160,7 +161,7 @@ export default {
   },
   methods: {
     handleCustomTableAction(item) {
-      console.log('Ação do item:', item)
+      alert('Ação do item:', item)
       // Realize a lógica desejada com o item
     }
   }

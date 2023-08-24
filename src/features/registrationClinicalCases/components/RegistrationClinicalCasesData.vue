@@ -123,22 +123,17 @@
 
 <script>
 // components
-import RadioContent from '@/components/radioContent'
-import InputWrapper from '@/components/inputWrapper'
-import InputGroup from '@/components/inputGroup'
-import Title from '@/components/title'
-import Modal from '@/components/modal'
-import vSelect from 'vue-select'
-
-// fonts
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
-
-// plugins
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import vSelect from 'vue-select'
 import { useToast } from 'vue-toastification'
-
-// vuex
 import { mapGetters, mapActions } from 'vuex'
+
+import InputGroup from '@/components/inputGroup'
+import InputWrapper from '@/components/inputWrapper'
+import Modal from '@/components/modal'
+import RadioContent from '@/components/radioContent'
+import Title from '@/components/title'
 
 export default {
   name: 'RegistrationClinicalCasesData',

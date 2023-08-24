@@ -95,21 +95,22 @@
 
 <script>
 // components
-import RadioContent from '@/components/radioContent'
-import InputWrapper from '@/components/inputWrapper'
-import InputGroup from '@/components/inputGroup'
-import Title from '@/components/title'
-import Modal from '@/components/modal'
-
-// fonts
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
-
-// vuex
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { useToast } from 'vue-toastification'
 import { mapActions, mapGetters } from 'vuex'
 
+import InputGroup from '@/components/inputGroup'
+import InputWrapper from '@/components/inputWrapper'
+import Modal from '@/components/modal'
+import RadioContent from '@/components/radioContent'
+import Title from '@/components/title'
+
+// fonts
+
+// vuex
+
 // plugins
-import { useToast } from 'vue-toastification'
 
 export default {
   name: 'AllocationClinicalCasesForm',

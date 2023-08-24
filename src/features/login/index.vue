@@ -27,16 +27,18 @@
 
 <script>
 // components
-import LoginUser from '@/features/login/components/LoginUser'
-import LoginForm from '@/features/login/components/LoginForm'
-import LoginBaseLoader from '@/features/login/components/LoginBaseLoader'
+import { mapGetters } from 'vuex'
 
-//img
 import logoMeSo from '../../assets/login-logo.png'
 import logoCeos from '../../assets/logo-ceos.png'
 
+import LoginBaseLoader from '@/features/login/components/LoginBaseLoader'
+import LoginForm from '@/features/login/components/LoginForm'
+import LoginUser from '@/features/login/components/LoginUser'
+
+//img
+
 //stores
-import { mapGetters } from 'vuex'
 
 export default {
   name: 'Login',

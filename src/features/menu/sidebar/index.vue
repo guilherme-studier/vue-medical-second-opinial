@@ -45,13 +45,15 @@
 </template>
 
 <script>
-import router from '@/router'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
   faChevronLeft,
   faChevronRight
 } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 import logo from '../../../assets/logo-ceos.png'
+
+import router from '@/router'
 
 export default {
   name: 'SidebarMenu',

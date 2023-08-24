@@ -15,11 +15,12 @@
 
 <script>
 // components
-import Signature from '@/features/home/components/signature/Signature'
+import { mapGetters } from 'vuex'
+
 import DataBox from '@/features/home/components/dataBox/DataBox'
+import Signature from '@/features/home/components/signature/Signature'
 
 // states
-import { mapGetters } from 'vuex'
 
 export default {
   name: 'Home',

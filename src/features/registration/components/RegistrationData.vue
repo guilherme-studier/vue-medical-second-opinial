@@ -142,13 +142,13 @@
 </template>
 
 <script>
-import InputWrapper from '@/components/inputWrapper'
-import InputGroup from '@/components/inputGroup'
-import Title from '@/components/title'
-import Modal from '@/components/modal'
-
 import { useToast } from 'vue-toastification'
 import { mapActions } from 'vuex'
+
+import InputGroup from '@/components/inputGroup'
+import InputWrapper from '@/components/inputWrapper'
+import Modal from '@/components/modal'
+import Title from '@/components/title'
 
 export default {
   name: 'Registration Data',

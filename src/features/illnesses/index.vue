@@ -56,17 +56,18 @@
 
 <script>
 /** Ícones */
-import iconVoucher from '../../assets/icons/icon-voucher.svg'
-import iconSearch from '../../assets/icons/icon-search.svg'
+import { mapActions, mapGetters } from 'vuex'
+
 import iconEdit from '../../assets/icons/icon-edit.svg'
+import iconSearch from '../../assets/icons/icon-search.svg'
 import iconTrash from '../../assets/icons/icon-trash-active.svg'
+import iconVoucher from '../../assets/icons/icon-voucher.svg'
 
 /** Componentes */
 import CustomTable from '@/components/customTable'
 import InputGroup from '@/components/inputGroup'
 
 /** Vuex */
-import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'Illnesses',

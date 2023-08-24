@@ -29,10 +29,11 @@
 
 <script>
 // icons
-import iconVoucher from '../../assets/icons/icon-voucher.svg'
-import iconSearch from '../../assets/icons/icon-search.svg'
 import iconFiled from '../../assets/icons/icon-filed.svg'
 import iconMessage from '../../assets/icons/icon-message.svg'
+import iconSearch from '../../assets/icons/icon-search.svg'
+import iconVoucher from '../../assets/icons/icon-voucher.svg'
+
 // components
 import CustomTable from '@/components/customTable'
 
@@ -56,11 +57,11 @@ export default {
           action: [
             {
               icon: iconFiled,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             },
             {
               icon: iconMessage,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             }
           ]
         },
@@ -71,11 +72,11 @@ export default {
           action: [
             {
               icon: iconFiled,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             },
             {
               icon: iconMessage,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             }
           ]
         },
@@ -86,11 +87,11 @@ export default {
           action: [
             {
               icon: iconFiled,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             },
             {
               icon: iconMessage,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             }
           ]
         },
@@ -101,11 +102,11 @@ export default {
           action: [
             {
               icon: iconFiled,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             },
             {
               icon: iconMessage,
-              handler: () => console.log('Função do item 1')
+              handler: () => alert('Função do item 1')
             }
           ]
         }
@@ -132,7 +133,7 @@ export default {
   },
   methods: {
     handleCustomTableAction(item) {
-      console.log('Ação do item:', item)
+      alert('Ação do item:', item)
       // Realize a lógica desejada com o item
     }
   }

@@ -38,14 +38,15 @@
 
 <script>
 // components
+import { useToast } from 'vue-toastification'
+import { mapActions } from 'vuex'
+
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
 
 // plugins
-import { useToast } from 'vue-toastification'
 
 // vuex
-import { mapActions } from 'vuex'
 
 export default {
   name: 'ConsultantDoctorInvitationForm',

@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
-import App from '@/App'
 import Toast from 'vue-toastification'
+
+import App from '@/App'
 import 'vue-toastification/dist/index.css'
 
 import './toastification.css'

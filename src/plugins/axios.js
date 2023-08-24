@@ -1,8 +1,9 @@
 import axios from 'axios'
 import * as rax from 'retry-axios'
-import store from '../store/index'
+
 import { deleteCookie, getAuthCookieName } from '../helpers/auth'
 import { errorMessageHandler } from '../helpers/errors'
+import store from '../store/index'
 
 const contextsCache = {}
 const servicesContext = require.context('!@/services', true, /\.js$/i)

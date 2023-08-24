@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import Header from '@/features/menu/header/Header'
 import Footer from '@/features/menu/footer/Footer'
+import Header from '@/features/menu/header/Header'
 
 export default {
   name: 'Layout',

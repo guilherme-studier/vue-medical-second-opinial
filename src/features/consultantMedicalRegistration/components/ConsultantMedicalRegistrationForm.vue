@@ -230,17 +230,18 @@
 
 <script>
 // components
-import InputWrapper from '@/components/inputWrapper'
-import InputGroup from '@/components/inputGroup'
-import Title from '@/components/title'
-import Modal from '@/components/modal'
 import vSelect from 'vue-select'
-
-// vuex
+import { useToast } from 'vue-toastification'
 import { mapActions, mapGetters } from 'vuex'
 
+import InputGroup from '@/components/inputGroup'
+import InputWrapper from '@/components/inputWrapper'
+import Modal from '@/components/modal'
+import Title from '@/components/title'
+
+// vuex
+
 // plugins
-import { useToast } from 'vue-toastification'
 
 export default {
   name: 'Doctor Registration',

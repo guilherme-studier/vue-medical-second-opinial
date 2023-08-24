@@ -9,10 +9,14 @@
 </template>
 
 <script>
+// vuex
+import { mapActions, mapGetters, mapState } from 'vuex'
+
+// components
 import SidebarMenu from './features/menu/sidebar'
 
+// styles
 import '@/assets/scss/global.scss'
-import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -37,6 +41,12 @@ export default {
 
   created() {
     this.fetchTokenStatus()
+  },
+
+  watch: {
+    $route() {
+      this.fetchTokenStatus()
+    }
   },
 
   methods: {

@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 import store from '@/store'
 
 const BASE_URL = 'https://meso.poatech.com.br:450/clinical-case/api/1.0'

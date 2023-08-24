@@ -40,11 +40,12 @@
 </template>
 
 <script>
-import InputWrapper from '@/components/inputWrapper'
-import iconVoucher from '@/assets/icons/icon-voucher.svg'
-import InputGroup from '@/components/inputGroup'
-import CustomTable from '@/components/customTable'
 import vSelect from 'vue-select'
+
+import iconVoucher from '@/assets/icons/icon-voucher.svg'
+import CustomTable from '@/components/customTable'
+import InputGroup from '@/components/inputGroup'
+import InputWrapper from '@/components/inputWrapper'
 
 export default {
   name: 'Consulta Casos Clínicos',

@@ -7,6 +7,7 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint'
   },
+  plugins: ['import'],
   rules: {
     'no-console': 'warn',
     'no-debugger': 'warn',
@@ -16,7 +17,18 @@ module.exports = {
     'prefer-const': 'error',
     eqeqeq: ['error', 'always'],
     camelcase: 'error',
-    'vue/multi-word-component-names': 0
+    'vue/multi-word-component-names': 0,
+    'import/order': [
+      'error',
+      {
+        groups: [
+          ['builtin', 'external'],
+          ['parent', 'sibling', 'index']
+        ],
+        'newlines-between': 'always',
+        alphabetize: { order: 'asc', caseInsensitive: true }
+      }
+    ]
   },
   overrides: [
     {
