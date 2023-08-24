@@ -239,7 +239,7 @@ import Modal from '@/components/modal'
 import Title from '@/components/title'
 
 export default {
-  name: 'Doctor Registration',
+  name: 'ConsultantMedicalRegistrationForm',
   components: {
     InputGroup,
     InputWrapper,
@@ -258,6 +258,7 @@ export default {
       titleRegistration: 'Dados Cadastrais',
       titleSpecialty: 'Especialidade',
       modalTermsVisible: false,
+      corporateName: null,
       termsAgreed: false,
       newPassword: null,
       complement: null,
@@ -269,6 +270,7 @@ export default {
       place: null,
       name: null,
       city: null,
+      cnpj: null,
       cpf: null,
       crm: null,
       cep: null,

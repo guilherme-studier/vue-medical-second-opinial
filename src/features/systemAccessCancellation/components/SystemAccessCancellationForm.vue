@@ -1,6 +1,5 @@
 <template>
   <div id="system-access">
-    <Title :title="tituloComponente" />
     <div class="form">
       <InputGroup>
         <InputWrapper>

@@ -126,6 +126,7 @@ export default {
       specialtyModalVisible: false,
       diseaseModalVisible: false,
       toggleIcon: faCirclePlus,
+      iconColor: '$green-500',
       cpf: null,
       specialtyName: null,
       specialtyId: null,

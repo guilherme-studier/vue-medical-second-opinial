@@ -2,7 +2,7 @@
   <div id="home">
     <signature v-if="getDoctorName" :name="getDoctorName" class="signature" />
 
-    <div class="data-box-container">
+    <div v-if="getDataBoxes" class="data-box-container">
       <data-box
         v-for="(box, index) in getDataBoxes"
         :key="index"
@@ -10,20 +10,25 @@
         :quantity="box.quantity"
       />
     </div>
+    <div v-else>
+      <base-loader />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
+import BaseLoader from '@/components/baseLoader'
 import DataBox from '@/features/home/components/dataBox/DataBox'
 import Signature from '@/features/home/components/signature/Signature'
 
 export default {
   name: 'Home',
   components: {
-    DataBox,
-    Signature
+    BaseLoader,
+    Signature,
+    DataBox
   },
   computed: {
     ...mapGetters('home', ['getDoctorName', 'getDataBoxes'])

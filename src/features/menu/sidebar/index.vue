@@ -139,7 +139,7 @@ export default {
         }
       ],
       toggleIcon: faChevronLeft,
-      iconColor: 'white'
+      iconColor: '$green-500'
     }
   },
 

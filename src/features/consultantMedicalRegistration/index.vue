@@ -8,7 +8,7 @@
 import ConsultantMedicalRegistrationForm from '../consultantMedicalRegistration/components/ConsultantMedicalRegistrationForm'
 
 export default {
-  name: 'ConsultatntMedicalRegistration',
+  name: 'ConsultantMedicalRegistration',
   components: {
     ConsultantMedicalRegistrationForm
   },
