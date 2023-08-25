@@ -1,7 +1,7 @@
 <template>
   <div>
     <Title :title="tituloComponente" />
-    <div class="form">
+    <div class="form" :class="{ 'form-loading': getLoading }">
       <InputGroup>
         <InputWrapper>
           <v-select
@@ -102,6 +102,9 @@
         </button>
       </div>
     </div>
+    <div v-if="getLoading">
+      <loader-spinner />
+    </div>
     <Modal
       v-if="specialtyModalVisible"
       @close="closeSpecialtyModal"
@@ -130,6 +133,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
+import LoaderSpinner from '@/components/loaderSpinner'
 import Modal from '@/components/modal'
 import RadioContent from '@/components/radioContent'
 import Title from '@/components/title'
@@ -138,8 +142,9 @@ export default {
   name: 'RegistrationClinicalCasesData',
   components: {
     FontAwesomeIcon,
-    InputWrapper,
+    LoaderSpinner,
     RadioContent,
+    InputWrapper,
     InputGroup,
     vSelect,
     Title,
@@ -173,6 +178,7 @@ export default {
   computed: {
     ...mapGetters('specialty', ['getSpecialties']),
     ...mapGetters('disease', ['getDiseases']),
+    ...mapGetters('registrationClinicalCases', ['getLoading']),
 
     isSaveDisabled() {
       return (

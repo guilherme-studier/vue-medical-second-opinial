@@ -56,7 +56,7 @@
       </InputGroup>
 
       <div class="save">
-        <button @click="handleSave" :disabled="!isSaveDisabled">Salvar</button>
+        <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
       </div>
     </div>
     <div v-if="getLoading">
