@@ -10,8 +10,11 @@
         :quantity="box.quantity"
       />
     </div>
-    <div v-else>
+    <div v-else-if="getLoading">
       <base-loader />
+    </div>
+    <div v-else-if="getError">
+      <base-error />
     </div>
   </div>
 </template>
@@ -19,6 +22,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import BaseError from '@/components/baseError'
 import BaseLoader from '@/components/baseLoader'
 import DataBox from '@/features/home/components/dataBox/DataBox'
 import Signature from '@/features/home/components/signature/Signature'
@@ -27,11 +31,17 @@ export default {
   name: 'Home',
   components: {
     BaseLoader,
+    BaseError,
     Signature,
     DataBox
   },
   computed: {
-    ...mapGetters('home', ['getDoctorName', 'getDataBoxes'])
+    ...mapGetters('home', [
+      'getDoctorName',
+      'getDataBoxes',
+      'getLoading',
+      'getError'
+    ])
   }
 }
 </script>

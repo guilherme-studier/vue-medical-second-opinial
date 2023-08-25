@@ -115,18 +115,13 @@ export default {
   },
   actions: {
     fetchTableData({ commit }) {
-      // Simule uma requisição à API aqui
-      // Em seguida, chame as mutações conforme necessário
       commit('setLoading', true)
       setTimeout(() => {
-        const dataFromApi = [
-          // Dados da API aqui
-        ]
+        const dataFromApi = []
         commit('setTableData', dataFromApi)
         commit('setLoading', false)
       }, 1000)
     }
-    // Você pode adicionar outras actions conforme necessário
   },
   getters: {
     getDoctor: (state) => state.doctor,
