@@ -10,8 +10,8 @@
         :quantity="box.quantity"
       />
     </div>
-    <div v-else-if="getLoading">
-      <base-loader />
+    <div class="loader-spinner" v-else-if="getLoading">
+      <loader-spinner />
     </div>
     <div v-else-if="getError">
       <base-error />
@@ -23,14 +23,14 @@
 import { mapGetters } from 'vuex'
 
 import BaseError from '@/components/baseError'
-import BaseLoader from '@/components/baseLoader'
+import LoaderSpinner from '@/components/loaderSpinner'
 import DataBox from '@/features/home/components/dataBox/DataBox'
 import Signature from '@/features/home/components/signature/Signature'
 
 export default {
   name: 'Home',
   components: {
-    BaseLoader,
+    LoaderSpinner,
     BaseError,
     Signature,
     DataBox

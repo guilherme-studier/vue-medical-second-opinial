@@ -1,7 +1,7 @@
 <template>
   <div id="industry">
     <Title :title="tituloComponente" />
-    <div class="form">
+    <div class="form" :class="{ 'form-loading': getLoading }">
       <InputGroup>
         <InputWrapper>
           <input
@@ -56,24 +56,29 @@
       </InputGroup>
 
       <div class="save">
-        <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
+        <button @click="handleSave" :disabled="!isSaveDisabled">Salvar</button>
       </div>
+    </div>
+    <div v-if="getLoading">
+      <loader-spinner />
     </div>
   </div>
 </template>
 
 <script>
 import { useToast } from 'vue-toastification'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
+import LoaderSpinner from '@/components/loaderSpinner'
 import Title from '@/components/title'
 
 export default {
   name: 'IndustryRegistration',
   components: {
     Title,
+    LoaderSpinner,
     InputGroup,
     InputWrapper
   },
@@ -94,6 +99,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('industryRegistration', ['getLoading']),
     isSaveDisabled() {
       return (
         !this.corporateName ||
