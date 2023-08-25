@@ -15,15 +15,19 @@
       <InputWrapper>
         <v-select
           v-model="selectedSpecialty"
-          :options="specialtyOptions"
+          :options="getSpecialties"
+          :reduce="(item) => item.name"
           placeholder="Especialidade"
-        ></v-select>
+          label="name"
+        />
       </InputWrapper>
       <InputWrapper>
         <v-select
           v-model="selectedIllness"
-          :options="illnessOptions"
+          :options="getDiseases"
+          :reduce="(item) => item.name"
           placeholder="Doença"
+          label="name"
         ></v-select>
       </InputWrapper>
       <InputWrapper>
@@ -41,6 +45,7 @@
 
 <script>
 import vSelect from 'vue-select'
+import { mapActions, mapGetters } from 'vuex'
 
 import iconVoucher from '@/assets/icons/icon-voucher.svg'
 import CustomTable from '@/components/customTable'
@@ -66,17 +71,7 @@ export default {
         { label: 'Ind. Farmacêutica 3', value: 'Ind. Farmacêutica 3' }
       ],
       selectedSpecialty: null,
-      specialtyOptions: [
-        { label: 'Pneumologia', value: 'Pneumologia' },
-        { label: 'Pneumologia', value: 'Pneumologia' },
-        { label: 'Pneumologia', value: 'Pneumologia' }
-      ],
       selectedIllness: null,
-      illnessOptions: [
-        { label: 'Doença 1', value: 'Doença 1' },
-        { label: 'Doença 1', value: 'Doença 1' },
-        { label: 'Doença 1', value: 'Doença 1' }
-      ],
       selectedDoctor: null,
       doctorOptions: [
         { label: 'Paulo Pitrez', value: 'Paulo Pitrez' },
@@ -129,32 +124,33 @@ export default {
           date: '2016-05-03',
           status: 'Avaliação'
         }
-      ],
-      dateOptions: [
-        { label: '2016-05-03', value: '2016-05-03' },
-        { label: '2016-05-04', value: '2016-05-04' },
-        { label: '2016-05-05', value: '2016-05-05' },
-        { label: '2016-05-06', value: '2016-05-06' }
       ]
     }
   },
+  mounted() {
+    this.fetchSpecialties()
+    this.fetchDiseases()
+  },
   computed: {
+    ...mapGetters('specialty', ['getSpecialties']),
+    ...mapGetters('disease', ['getDiseases']),
+
     filteredTableData() {
       const filters = [
         {
-          property: 'industry',
+          field: 'industry',
           selectedValue: this.selectedInduster
         },
         {
-          property: 'specialty',
+          field: 'specialty',
           selectedValue: this.selectedSpecialty
         },
         {
-          property: 'illness',
+          field: 'illness',
           selectedValue: this.selectedIllness
         },
         {
-          property: 'doctor',
+          field: 'doctor',
           selectedValue: this.selectedDoctor
         }
       ]
@@ -162,16 +158,21 @@ export default {
       let filteredData = this.tableData
 
       filters.forEach((filter) => {
-        const { property, selectedValue } = filter
+        const { field, selectedValue } = filter
         if (selectedValue) {
+          // Use === para comparações estritas
           filteredData = filteredData.filter(
-            (item) => item[property] === selectedValue.value
+            (item) => item[field] === selectedValue
           )
         }
       })
 
       return filteredData
     }
+  },
+  methods: {
+    ...mapActions('specialty', ['fetchSpecialties']),
+    ...mapActions('disease', ['fetchDiseases'])
   }
 }
 </script>
