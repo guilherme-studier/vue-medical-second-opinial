@@ -126,7 +126,7 @@ const routes = [
       },
       {
         path: '/clinical-cases-evaluation',
-        name: 'VouchersEvaluation',
+        name: 'clinicalCasesEvaluation',
         component: ClinicalCasesEvaluation,
         meta: {
           title: 'Casos Clínicos Designados'

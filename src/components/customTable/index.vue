@@ -144,6 +144,7 @@ export default {
       color: $gray-600;
       padding: 20px;
       vertical-align: middle;
+      text-align: center;
     }
 
     .custom-th {

@@ -102,7 +102,7 @@
         </button>
       </div>
     </div>
-    <div v-if="getLoading">
+    <div v-if="getLoading && getSpecialties && getDiseases">
       <loader-spinner />
     </div>
     <Modal
@@ -179,6 +179,10 @@ export default {
     ...mapGetters('specialty', ['getSpecialties']),
     ...mapGetters('disease', ['getDiseases']),
     ...mapGetters('registrationClinicalCases', ['getLoading']),
+
+    isLoading() {
+      return this.getLoading
+    },
 
     isSaveDisabled() {
       return (

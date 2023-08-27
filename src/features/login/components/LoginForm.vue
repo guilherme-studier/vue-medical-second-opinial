@@ -81,7 +81,7 @@ export default {
             password: this.password
           })
         } catch (error) {
-          alert('Erro na chamada à API (vindo do Vuex):', error.message)
+          console.error('Erro na chamada à API (vindo do Vuex):', error.message)
         }
       }
     },
@@ -94,5 +94,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/index.scss';
-</style>
+@import '../styles/index.scss';</style
+>s

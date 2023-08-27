@@ -37,7 +37,7 @@ export default {
   },
 
   created() {
-    this.fetchTokenStatus()
+    if (this.$store.getters.isLoggedIn) this.fetchTokenStatus()
   },
 
   methods: {
