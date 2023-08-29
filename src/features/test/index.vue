@@ -29,6 +29,7 @@
           <v-select
             v-model="selectedSpecialty"
             :options="getSpecialties"
+            :reduce="(item) => item.id"
             label="name"
             placeholder="Escolha uma especialidade para excluir"
           />

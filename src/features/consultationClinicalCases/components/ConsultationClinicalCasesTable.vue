@@ -16,7 +16,7 @@
         <v-select
           v-model="selectedSpecialty"
           :options="getSpecialties"
-          :reduce="(item) => item.name"
+          :reduce="(item) => item.id"
           placeholder="Especialidade"
           label="name"
         />
@@ -25,7 +25,7 @@
         <v-select
           v-model="selectedIllness"
           :options="getDiseases"
-          :reduce="(item) => item.name"
+          :reduce="(item) => item.id"
           placeholder="Doença"
           label="name"
         ></v-select>
