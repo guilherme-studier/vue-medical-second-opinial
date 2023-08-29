@@ -44,10 +44,11 @@
             </input-wrapper>
             <input-wrapper>
               <input
-                type="number"
+                type="text"
                 placeholder="Telefone"
                 class="flexible-input"
                 v-model="phone"
+                v-mask="['(##) ####-####', '(##) # ####-####']"
               />
             </input-wrapper>
           </input-group>
@@ -194,6 +195,8 @@
             <v-select
               v-model="specialty"
               :options="getSpecialties"
+              :reduce="(item) => item.id"
+              label="name"
               placeholder="Selecione uma especialidade"
             />
           </input-wrapper>
