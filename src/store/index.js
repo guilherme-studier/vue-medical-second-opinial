@@ -6,6 +6,7 @@ import { getCurrentUserAccess } from '../helpers/auth'
 
 import admClinicalCases from '@/features/admClinicalCases/store/index'
 import allocationClinicalCases from '@/features/allocationClinicalCases/store/index'
+import clinicalCasesEvaluation from '@/features/clinicalCasesEvaluation/store/index'
 import consultantDoctorInvitation from '@/features/consultantDoctorInvitation/store/index'
 import home from '@/features/home/stores/index'
 import industryRegistration from '@/features/industryRegistration/store/index'
@@ -61,6 +62,7 @@ const store = createStore({
     registration,
     admClinicalCases,
     industryRegistration,
+    clinicalCasesEvaluation,
     systemAccessCancellation,
     allocationClinicalCases,
     registrationClinicalCases,

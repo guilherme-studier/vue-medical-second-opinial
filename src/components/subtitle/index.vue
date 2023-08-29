@@ -25,7 +25,7 @@ export default {
 #subtitle {
   background-color: #eee;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   border-radius: 5px;
   display: flex;
   padding: 10px;

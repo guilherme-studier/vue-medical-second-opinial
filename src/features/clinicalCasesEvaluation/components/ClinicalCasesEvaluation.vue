@@ -2,25 +2,25 @@
   <div id="clinical-cases-evaluation">
     <div class="title">
       <div class="voucher-doctor">
-        <img class="icon-voucher" :src="icon" />
-        <h1>{{ doctor }} <span>possui</span> {{ vouchers }} ativos</h1>
+        <img class="icon-voucher" :src="getIcon" />
+        <h1>{{ getDoctor }} <span>possui</span> {{ getVouchers }} ativos</h1>
       </div>
       <div class="voucher-search">
-        <input type="text" v-model="searchTerm" placeholder="Buscar" />
-        <img class="search-icon" :src="iconSearch" alt="" />
+        <input type="text" v-model="getSearchTerm" placeholder="Buscar" />
+        <img class="search-icon" :src="getIconSearch" alt="" />
       </div>
     </div>
 
     <custom-table
-      :tableHeader="tableHeader"
-      :tableData="filteredTableData"
+      :tableHeader="getTableHeader"
+      :tableData="getFilteredTableData"
       @action="handleCustomTableAction"
     >
       <template v-slot:action="{ item }">
         <img
           :src="value.icon"
           alt="Ícone de Ação"
-          @click="value.action(item)"
+          @click="value.handler(item)"
         />
       </template>
     </custom-table>
@@ -28,10 +28,8 @@
 </template>
 
 <script>
-import iconFiled from '@/assets/icons/icon-filed.svg'
-import iconMessage from '@/assets/icons/icon-message.svg'
-import iconSearch from '@/assets/icons/icon-search.svg'
-import iconVoucher from '@/assets/icons/icon-voucher.svg'
+import { mapGetters } from 'vuex'
+
 import CustomTable from '@/components/customTable'
 
 export default {
@@ -39,94 +37,17 @@ export default {
   components: {
     CustomTable
   },
-  data() {
-    return {
-      icon: iconVoucher,
-      iconSearch: iconSearch,
-      doctor: 'Dr. Guilherme Studier',
-      vouchers: 4,
-      tableHeader: ['Casos clínicos', 'Doença', 'Médico', 'Ação'],
-      tableData: [
-        {
-          voucher: '23011014002',
-          illness: 'Doença 1',
-          doctor: 'Olavo Pereira',
-          action: [
-            {
-              icon: iconFiled,
-              handler: () => alert('Função do item 1')
-            },
-            {
-              icon: iconMessage,
-              handler: () => alert('Função do item 1')
-            }
-          ]
-        },
-        {
-          voucher: '23011014002',
-          illness: 'Doença 2',
-          doctor: 'Emilia Souza',
-          action: [
-            {
-              icon: iconFiled,
-              handler: () => alert('Função do item 1')
-            },
-            {
-              icon: iconMessage,
-              handler: () => alert('Função do item 1')
-            }
-          ]
-        },
-        {
-          voucher: '23011014002',
-          illness: 'Doença 3',
-          doctor: 'Eduardo Pereira',
-          action: [
-            {
-              icon: iconFiled,
-              handler: () => alert('Função do item 1')
-            },
-            {
-              icon: iconMessage,
-              handler: () => alert('Função do item 1')
-            }
-          ]
-        },
-        {
-          voucher: '23011014002',
-          illness: 'Doença 4',
-          doctor: 'Fernando Moura',
-          action: [
-            {
-              icon: iconFiled,
-              handler: () => alert('Função do item 1')
-            },
-            {
-              icon: iconMessage,
-              handler: () => alert('Função do item 1')
-            }
-          ]
-        }
-      ],
-      searchTerm: ''
-    }
-  },
   computed: {
-    filteredTableData() {
-      if (!this.searchTerm) {
-        return this.tableData
-      }
-
-      const searchTerm = this.searchTerm.toLowerCase()
-      return this.tableData.filter((item) => {
-        return Object.values(item).some((value) => {
-          if (typeof value === 'string') {
-            return value.toLowerCase().includes(searchTerm)
-          }
-          return false
-        })
-      })
-    }
+    ...mapGetters('clinicalCasesEvaluation', [
+      'getIcon',
+      'getDoctor',
+      'getVouchers',
+      'getTableData',
+      'getSearchTerm',
+      'getIconSearch',
+      'getTableHeader',
+      'getFilteredTableData'
+    ])
   },
   methods: {
     handleCustomTableAction(item) {
