@@ -1,0 +1,161 @@
+.v-select {
+  color: $gray-700;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:not(.vs--disabled) {
+    .vs__dropdown-toggle {
+      background-color: $white;
+    }
+  }
+
+  &.vs--disabled {
+    > div {
+      background-color: #eee;
+      color: #bbb;
+      cursor: not-allowed;
+    }
+
+    span.vs__selected {
+      background-color: #eee;
+      color: #bbb;
+      & + input.vs__search {
+        background-color: inherit;
+      }
+    }
+
+    input.vs__search {
+      &:disabled {
+        background-color: #eee;
+        border: none;
+      }
+    }
+  }
+
+  &.vs--open {
+    z-index: 2;
+    .vs__dropdown-toggle {
+    }
+    .vs__dropdown-menu {
+      z-index: -1;
+    }
+  }
+
+  .vs__dropdown-toggle {
+    cursor: pointer;
+    border-radius: 25px;
+    height: 34px;
+    border: 1px solid $gray-500;
+  }
+
+  .vs__selected-options {
+    max-width: calc(100% - 30px);
+  }
+
+  .vs__selected {
+    border-radius: 25px;
+    background-color: $white;
+    color: $gray-800;
+    line-height: 24px;
+    padding: 0 0 0 10px;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
+
+  .vs__search {
+    padding: 0 10px;
+    max-width: 155px;
+    font-weight: 600;
+    &:focus {
+      border: none !important;
+    }
+    &::placeholder {
+      color: $gray-600;
+    }
+  }
+
+  .vs__spinner {
+    margin-right: 10px;
+  }
+
+  .vs__no-options {
+    padding-top: 5px;
+  }
+
+  .vs__actions {
+    padding: 5px 0 3px;
+  }
+
+  .vs__dropdown-menu {
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.07);
+    border: 1px solid #bbbbbb;
+    border-top: none;
+    border-radius: 0 0 18px 18px;
+    padding-top: 14px;
+    margin-top: -12px;
+    overflow-x: hidden;
+    min-width: auto;
+
+    .vs__dropdown-option {
+      color: $gray-800;
+      padding: 10px 15px;
+    }
+    .vs__dropdown-option--highlight {
+      background-color: $gray-400;
+    }
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    &::-webkit-scrollbar-button {
+      width: 0px;
+      height: 0px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: $gray-400;
+      border-radius: 5px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: $gray-400;
+    }
+    &::-webkit-scrollbar-thumb:active {
+      background: $gray-400;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+      padding-right: 3px;
+      border-radius: 50px;
+    }
+    &::-webkit-scrollbar-track:hover {
+      background: $white;
+    }
+    &::-webkit-scrollbar-track:active {
+      background: $white;
+    }
+    &::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+  }
+
+  .vs__open-indicator {
+    &.icon {
+      transform: rotate(0);
+    }
+    &.icon-search {
+      color: #bbb;
+    }
+    &.arrow-down {
+      margin: 4px 10px 0;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid $gray-600;
+      transform: rotate(0);
+    }
+  }
+}

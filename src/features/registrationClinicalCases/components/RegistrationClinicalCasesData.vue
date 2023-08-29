@@ -1,7 +1,7 @@
 <template>
   <div>
     <Title :title="tituloComponente" />
-    <div class="form">
+    <div class="form" :class="{ 'form-loading': getLoading }">
       <InputGroup>
         <InputWrapper>
           <v-select
@@ -102,6 +102,9 @@
         </button>
       </div>
     </div>
+    <div v-if="getLoading && getSpecialties && getDiseases">
+      <loader-spinner />
+    </div>
     <Modal
       v-if="specialtyModalVisible"
       @close="closeSpecialtyModal"
@@ -122,30 +125,26 @@
 </template>
 
 <script>
-// components
-import RadioContent from '@/components/radioContent'
-import InputWrapper from '@/components/inputWrapper'
-import InputGroup from '@/components/inputGroup'
-import Title from '@/components/title'
-import Modal from '@/components/modal'
-import vSelect from 'vue-select'
-
-// fonts
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
-
-// plugins
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import vSelect from 'vue-select'
 import { useToast } from 'vue-toastification'
-
-// vuex
 import { mapGetters, mapActions } from 'vuex'
+
+import InputGroup from '@/components/inputGroup'
+import InputWrapper from '@/components/inputWrapper'
+import LoaderSpinner from '@/components/loaderSpinner'
+import Modal from '@/components/modal'
+import RadioContent from '@/components/radioContent'
+import Title from '@/components/title'
 
 export default {
   name: 'RegistrationClinicalCasesData',
   components: {
     FontAwesomeIcon,
-    InputWrapper,
+    LoaderSpinner,
     RadioContent,
+    InputWrapper,
     InputGroup,
     vSelect,
     Title,
@@ -160,16 +159,17 @@ export default {
     return {
       toggleIcon: faCirclePlus,
       tituloComponente: 'Dados Cadastrais',
-      name: '',
-      quantity: '',
+      name: null,
+      quantity: null,
       specialtyName: null,
+      iconColor: '$green-500',
       specialtyId: null,
       diseaseName: null,
       diseaseId: null,
       industry: null,
-      startDate: '',
-      expirationDate: '',
-      fees: '',
+      startDate: null,
+      expirationDate: null,
+      fees: null,
       industryOptions: ['Astrazeneca', 'GlaxoSmithKline', 'Pfizer'],
       specialtyModalVisible: false,
       diseaseModalVisible: false
@@ -178,6 +178,11 @@ export default {
   computed: {
     ...mapGetters('specialty', ['getSpecialties']),
     ...mapGetters('disease', ['getDiseases']),
+    ...mapGetters('registrationClinicalCases', ['getLoading']),
+
+    isLoading() {
+      return this.getLoading
+    },
 
     isSaveDisabled() {
       return (

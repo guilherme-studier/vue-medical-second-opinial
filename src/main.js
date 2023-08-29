@@ -1,11 +1,12 @@
+import { ElSelect, ElOption } from 'element-plus'
+import { createApp } from 'vue'
 import VueTheMask from 'vue-the-mask'
 
-import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+
 import store from '@/store'
 
-import { ElSelect, ElOption } from 'element-plus'
 import 'vue-toastification/dist/index.css'
 import '../src/assets/scss/global.scss'
 import '@/plugins/toast/toast'

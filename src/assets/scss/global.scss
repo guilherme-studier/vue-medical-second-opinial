@@ -5,6 +5,7 @@
 @import './resets';
 @import './fonts';
 @import './colors';
+@import './v-select';
 
 body {
   font-family: 'Roboto', sans-serif;
@@ -110,7 +111,8 @@ body {
     }
     
     .vs__actions {
-      padding: 5px;
+      cursor: pointer;
+      padding: 20px 5px 5px 5px;
 
       .vs__clear {
         margin: 0 3px 3px 0;

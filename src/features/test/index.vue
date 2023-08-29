@@ -89,10 +89,11 @@
 </template>
 
 <script>
-import InputGroup from '@/components/inputGroup'
-import { mapGetters, mapActions } from 'vuex'
-import Title from '@/components/title'
 import vSelect from 'vue-select'
+import { mapGetters, mapActions } from 'vuex'
+
+import InputGroup from '@/components/inputGroup'
+import Title from '@/components/title'
 
 export default {
   name: 'IndustryRegistration',

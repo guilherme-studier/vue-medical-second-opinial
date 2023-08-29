@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import { useToast } from 'vue-toastification'
+
 import {
   updateDisease,
   createDisease,
@@ -6,8 +8,6 @@ import {
   getDiseases,
   getDisease
 } from '../../../services/disease/index.js'
-
-import { useToast } from 'vue-toastification'
 
 const toast = useToast()
 
@@ -27,7 +27,7 @@ export default {
         const response = await getDiseases()
         commit('setDiseases', response.data.content)
       } catch (error) {
-        console.error('Erro ao buscar as doenças:', error)
+        alert('Erro ao buscar as doenças:', error)
         toast.warning('Erro ao buscar as doenças')
       }
     },
@@ -37,7 +37,7 @@ export default {
         dispatch('fetchDiseases')
         toast.success('Doença criada com sucesso!')
       } catch (error) {
-        console.error('Erro ao criar a doença:', error)
+        alert('Erro ao criar a doença:', error)
         toast.warning('Erro ao criar a doença')
       }
     },
@@ -47,7 +47,7 @@ export default {
         dispatch('fetchDiseases')
         toast.success('Doença removida com sucesso!')
       } catch (error) {
-        console.error('Erro ao deletar a doença:', error)
+        alert('Erro ao deletar a doença:', error)
         toast.warning('Erro ao deletar a doença')
       }
     },
@@ -57,7 +57,7 @@ export default {
         dispatch('fetchDiseases')
         toast.success('Doença atualizada com sucesso!')
       } catch (error) {
-        console.error('Erro ao atualizar a doença:', error)
+        alert('Erro ao atualizar a doença:', error)
         toast.warning('Erro ao atualizar a doença')
       }
     },
@@ -66,7 +66,7 @@ export default {
         await getDisease(diseaseId)
         dispatch('fetchDiseases')
       } catch (error) {
-        console.error('Erro ao buscar a doença:', error)
+        alert('Erro ao buscar a doença:', error)
         toast.warning('Erro ao buscar a doença')
       }
     }

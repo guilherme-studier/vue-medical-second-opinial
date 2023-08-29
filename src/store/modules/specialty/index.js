@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import { useToast } from 'vue-toastification'
+
 import {
   updateSpecialty,
   createSpecialty,
@@ -6,8 +8,6 @@ import {
   getSpecialties,
   getSpecialty
 } from '../../../services/specialty/index.js'
-
-import { useToast } from 'vue-toastification'
 
 const toast = useToast()
 
@@ -27,7 +27,7 @@ export default {
         const response = await getSpecialties()
         commit('setSpecialties', response.data.content)
       } catch (error) {
-        console.error('Erro ao buscar as especialidades:', error)
+        alert('Erro ao buscar as especialidades:', error)
         toast.warning('Erro ao buscar as especialidades')
       }
     },
@@ -37,7 +37,7 @@ export default {
         dispatch('fetchSpecialties')
         toast.success('Especialidade criada com sucesso!')
       } catch (error) {
-        console.error('Erro ao criar a especialidade:', error)
+        alert('Erro ao criar a especialidade:', error)
         toast.warning('Erro ao criar a especialidade')
       }
     },
@@ -47,7 +47,7 @@ export default {
         dispatch('fetchSpecialties')
         toast.success('Especialidade removida com sucesso!')
       } catch (error) {
-        console.error('Erro ao deletar a especialidade:', error)
+        alert('Erro ao deletar a especialidade:', error)
         toast.warning('Erro ao deletar a especialidade')
       }
     },
@@ -57,7 +57,7 @@ export default {
         dispatch('fetchSpecialties')
         toast.success('Especialidade atualizada com sucesso!')
       } catch (error) {
-        console.error('Erro ao atualizar a especialidade:', error)
+        alert('Erro ao atualizar a especialidade:', error)
         toast.warning('Erro ao atualizar a especialidade')
       }
     },
@@ -66,7 +66,7 @@ export default {
         await getSpecialty(specialtyId)
         dispatch('fetchSpecialties')
       } catch (error) {
-        console.error('Erro ao buscar a especialidade:', error)
+        alert('Erro ao buscar a especialidade:', error)
         toast.warning('Erro ao buscar a especialidade')
       }
     }

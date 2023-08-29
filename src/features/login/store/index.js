@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
+import { useToast } from 'vue-toastification'
+
 import { validateToken, logoutUser, login, reset } from '../services/index'
 
 import * as h from '@/helpers/auth'
 import router from '@/router'
-
-import { useToast } from 'vue-toastification'
 
 const toast = useToast()
 

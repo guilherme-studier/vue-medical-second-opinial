@@ -1,0 +1,54 @@
+#consultation-clinical-cases {
+  justify-content: center;
+  height: fit-content;
+  flex-wrap: wrap;
+  display: flex;
+  width: 100% !important;
+
+  .title {
+    display: flex;
+    place-items: end;
+    text-align: left;
+    color: $green-500;
+    width: 100%;
+    margin-bottom: 20px;
+
+    h1 {
+      margin-left: 10px;
+    }
+  }
+
+  .input-group {
+    height: fit-content;
+  }
+}
+
+.custom-th {
+  text-transform: uppercase;
+  border: 1px solid $white;
+  background: $green-500;
+  padding: 20px;
+  text-align: center;
+  color: white;
+
+  &.custom-th-top-left {
+    border-top-left-radius: 10px;
+  }
+
+  &.custom-th-top-right {
+    border-top-right-radius: 10px;
+  }
+}
+
+.custom-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+
+  tbody td {
+    border: 1px solid $gray-400;
+    text-align: center;
+    color: $gray-600;
+    padding: 20px;
+  }
+}

@@ -1,29 +1,26 @@
-// src/router/index.js
+//router
 import { createRouter, createWebHistory } from 'vue-router'
 
-// store
-import store from '@/store'
-
 // childrens
-import Tests from '@/features/test/index.vue'
-import Home from '@/features/home/index.vue'
-import IndustryRegistration from '@/features/industryRegistration'
-import RegistrationClinicalCases from '@/features/registrationClinicalCases'
-import ConsultantDoctorInvitation from '@/features/consultantDoctorInvitation'
-import SystemAccessCancellation from '@/features/systemAccessCancellation'
-import ConsultationClinicalCases from '@/features/consultationClinicalCases'
-import ConsultantMedicalRegistration from '@/features/consultantMedicalRegistration'
-import Registration from '@/features/registration'
 import AdmClinicalCases from '@/features/admClinicalCases'
 import AllocationClinicalCases from '@/features/allocationClinicalCases'
-import RepresentativeRegistration from '@/features/representativeRegistration'
 import ClinicalCasesEvaluation from '@/features/clinicalCasesEvaluation'
-import Specialties from '@/features/specialties'
+import ConsultantDoctorInvitation from '@/features/consultantDoctorInvitation'
+import ConsultantMedicalRegistration from '@/features/consultantMedicalRegistration'
+import ConsultationClinicalCases from '@/features/consultationClinicalCases'
+import Home from '@/features/home/index.vue'
 import Illnesses from '@/features/illnesses'
-
+import IndustryRegistration from '@/features/industryRegistration'
 // rotas
-import Layout from '@/views/layout'
 import Login from '@/features/login'
+import Registration from '@/features/registration'
+import RegistrationClinicalCases from '@/features/registrationClinicalCases'
+import RepresentativeRegistration from '@/features/representativeRegistration'
+import Specialties from '@/features/specialties'
+import SystemAccessCancellation from '@/features/systemAccessCancellation'
+import Tests from '@/features/test/index.vue'
+import store from '@/store'
+import Layout from '@/views/layout'
 
 const routes = [
   {
@@ -129,7 +126,7 @@ const routes = [
       },
       {
         path: '/clinical-cases-evaluation',
-        name: 'VouchersEvaluation',
+        name: 'clinicalCasesEvaluation',
         component: ClinicalCasesEvaluation,
         meta: {
           title: 'Casos Clínicos Designados'

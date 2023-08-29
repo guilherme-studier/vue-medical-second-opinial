@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// components
 import RegistrationClinicalCasesData from '../registrationClinicalCases/components/RegistrationClinicalCasesData.vue'
 
 export default {

@@ -9,10 +9,11 @@
 </template>
 
 <script>
+import { mapActions, mapGetters, mapState } from 'vuex'
+
 import SidebarMenu from './features/menu/sidebar'
 
 import '@/assets/scss/global.scss'
-import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -36,7 +37,7 @@ export default {
   },
 
   created() {
-    this.fetchTokenStatus()
+    if (this.$store.getters.isLoggedIn) this.fetchTokenStatus()
   },
 
   methods: {
@@ -44,9 +45,7 @@ export default {
     ...mapActions(['validateToken', 'setAuthToken']),
 
     fetchTokenStatus() {
-      const currentRoute = this.$route.path
-
-      if (!currentRoute === '/login') this.validateToken()
+      this.validateToken()
     }
   }
 }

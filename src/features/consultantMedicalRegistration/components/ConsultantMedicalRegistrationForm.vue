@@ -229,21 +229,17 @@
 </template>
 
 <script>
-// components
-import InputWrapper from '@/components/inputWrapper'
-import InputGroup from '@/components/inputGroup'
-import Title from '@/components/title'
-import Modal from '@/components/modal'
 import vSelect from 'vue-select'
-
-// vuex
+import { useToast } from 'vue-toastification'
 import { mapActions, mapGetters } from 'vuex'
 
-// plugins
-import { useToast } from 'vue-toastification'
+import InputGroup from '@/components/inputGroup'
+import InputWrapper from '@/components/inputWrapper'
+import Modal from '@/components/modal'
+import Title from '@/components/title'
 
 export default {
-  name: 'Doctor Registration',
+  name: 'ConsultantMedicalRegistrationForm',
   components: {
     InputGroup,
     InputWrapper,
@@ -262,6 +258,7 @@ export default {
       titleRegistration: 'Dados Cadastrais',
       titleSpecialty: 'Especialidade',
       modalTermsVisible: false,
+      corporateName: null,
       termsAgreed: false,
       newPassword: null,
       complement: null,
@@ -273,6 +270,7 @@ export default {
       place: null,
       name: null,
       city: null,
+      cnpj: null,
       cpf: null,
       crm: null,
       cep: null,
