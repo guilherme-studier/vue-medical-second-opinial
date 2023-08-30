@@ -47,7 +47,7 @@
           </input-wrapper>
           <input-wrapper>
             <input
-              type="number"
+              type="text"
               placeholder="Telefone"
               class="flexible-input"
               v-mask="['(##) ####-####', '(##) # ####-####']"

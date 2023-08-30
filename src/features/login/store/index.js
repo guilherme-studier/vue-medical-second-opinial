@@ -34,15 +34,24 @@ export default {
         name: 'Patrocinador',
         background: 'background-sponsor'
       }
-    ]
+    ],
+    loading: false,
+    error: false
   }),
   mutations: {
     setUser(state, user) {
       state.user = user
+    },
+    setLoading(state, loading) {
+      state.loading = loading // Update loading state
+    },
+    setError(state, error) {
+      state.error = error // Update error state
     }
   },
   actions: {
     async loginUser({ commit }, { username, password }) {
+      commit('setLoading', true)
       try {
         const toast = useToast()
         const response = await login({ email: username, password })
@@ -65,6 +74,8 @@ export default {
       } catch (error) {
         toast.warning('Não foi possível realizar o login')
         console.error(error)
+      } finally {
+        commit('setLoading', false)
       }
     },
     async validateToken({ dispatch, commit }, token) {
@@ -104,6 +115,9 @@ export default {
     getUserLastname: (state) => (state.user ? state.user.lastname : ''),
     getUserEmail: (state) => (state.user ? state.user.email : ''),
     getUserToken: (state) => (state.user ? state.user.token : ''),
-    isLoggedIn: (state) => (state.user ? state.user.token && state.user.id : '')
+    isLoggedIn: (state) =>
+      state.user ? state.user.token && state.user.id : '',
+    getLoading: (state) => state.loading,
+    getError: (state) => state.error
   }
 }
