@@ -1,3 +1,5 @@
+import store from '@/store'
+
 export default {
   namespaced: true,
   state: () => ({
@@ -14,7 +16,12 @@ export default {
         action: [
           {
             icon: require('@/assets/icons/icon-filed.svg'),
-            handler: () => alert('Função do item 1')
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handleModalSeem',
+                '23011014002'
+              )
+            }
           },
           {
             icon: require('@/assets/icons/icon-message.svg'),
@@ -29,7 +36,12 @@ export default {
         action: [
           {
             icon: require('@/assets/icons/icon-filed.svg'),
-            handler: () => alert('Função do item 1')
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handleModalSeem',
+                '23011014002'
+              )
+            }
           },
           {
             icon: require('@/assets/icons/icon-message.svg'),
@@ -44,7 +56,12 @@ export default {
         action: [
           {
             icon: require('@/assets/icons/icon-filed.svg'),
-            handler: () => alert('Função do item 1')
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handleModalSeem',
+                '23011014002'
+              )
+            }
           },
           {
             icon: require('@/assets/icons/icon-message.svg'),
@@ -59,7 +76,12 @@ export default {
         action: [
           {
             icon: require('@/assets/icons/icon-filed.svg'),
-            handler: () => alert('Função do item 1')
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handleModalSeem',
+                '23011014002'
+              )
+            }
           },
           {
             icon: require('@/assets/icons/icon-message.svg'),
@@ -68,6 +90,12 @@ export default {
         ]
       }
     ],
+    isModalSeem: false,
+    modalSeemContent: {
+      voucher: '30082023',
+      seem:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunteos, enim veritatis odit laudantium dolores necessitatibus mollitia'
+    },
     searchTerm: '',
     loading: false,
     error: false
@@ -75,13 +103,18 @@ export default {
   mutations: {
     updateSearchTerm(state, searchTerm) {
       state.searchTerm = searchTerm
+    },
+    toggleIsModalSeem(state) {
+      state.isModalSeem = !state.isModalSeem
     }
   },
   getters: {
     getIcon: (state) => state.icon,
+    getVouchers: (state) => state.vouchers,
+    getIsModalSeem: (state) => state.isModalSeem,
+    getModalSeemContent: (state) => state.modalSeemContent,
     getIconSearch: (state) => state.iconSearch,
     getDoctor: (state) => state.doctor,
-    getVouchers: (state) => state.vouhchers,
     getTableHeader: (state) => state.tableHeader,
     getTableData: (state) => state.tableData,
     getSearchTerm: (state) => state.searchTerm,
@@ -104,6 +137,9 @@ export default {
     }
   },
   actions: {
-    // Aqui você pode definir ações se necessário
+    handleModalSeem(context, voucher) {
+      console.log(voucher)
+      context.commit('toggleIsModalSeem', voucher)
+    }
   }
 }

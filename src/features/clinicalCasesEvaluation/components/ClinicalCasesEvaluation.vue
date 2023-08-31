@@ -14,7 +14,6 @@
     <custom-table
       :tableHeader="getTableHeader"
       :tableData="getFilteredTableData"
-      @action="handleCustomTableAction"
     >
       <template v-slot:action="{ item }">
         <img
@@ -24,18 +23,50 @@
         />
       </template>
     </custom-table>
+    <!-- parecer modal -->
+    <modal
+      :title="titleModalSeem"
+      @close="closeModalSeem"
+      v-if="getIsModalSeem"
+    >
+      <div class="container-modal-seem">
+        <h2>
+          Caso clínico: <span>{{ getModalSeemContent.voucher }}</span>
+        </h2>
+        <div class="seem-text">
+          <p>{{ getModalSeemContent.seem }}</p>
+        </div>
+        <div class="seem-send">
+          <div class="seem-print-out">
+            <h3>Imprimir Parecer</h3>
+          </div>
+          <div class="seem-button">
+            <button @click="sendSeem">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </modal>
+
+    <!-- mensagens modal -->
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 import CustomTable from '@/components/customTable'
+import Modal from '@/components/modal'
 
 export default {
   name: 'ClinicalCasesEvaluation',
   components: {
-    CustomTable
+    CustomTable,
+    Modal
+  },
+  data() {
+    return {
+      titleModalSeem: 'Registrar Parecer'
+    }
   },
   computed: {
     ...mapGetters('clinicalCasesEvaluation', [
@@ -43,16 +74,19 @@ export default {
       'getDoctor',
       'getVouchers',
       'getTableData',
-      'getSearchTerm',
       'getIconSearch',
+      'getSearchTerm',
+      'getIsModalSeem',
       'getTableHeader',
+      'getModalSeemContent',
       'getFilteredTableData'
     ])
   },
   methods: {
-    handleCustomTableAction(item) {
-      alert('Ação do item:', item)
-      // Realize a lógica desejada com o item
+    ...mapActions('clinicalCasesEvaluation', ['handleModalSeem']),
+
+    closeModalSeem() {
+      this.handleModalSeem()
     }
   }
 }

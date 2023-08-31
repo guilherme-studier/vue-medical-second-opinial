@@ -5,6 +5,66 @@
   display: flex;
   width: 100%;
 
+  .container-modal-seem {
+    h2 {
+      color: $green-500;
+
+      span {
+        color: $gray-600;
+        font-weight: 400;
+      }
+    }
+    
+    .seem-text {
+      border: 1px solid $gray-500;
+      border-radius: 10px;
+      line-height: 23px;
+      text-align: left;
+      margin: 20px 0;
+      padding: 15px;
+      height: 100%;
+      
+      p {
+        max-height: 300px;
+        padding-right: 20px;
+        overflow-x: auto;
+      }
+    }
+
+    .seem-text p::-webkit-scrollbar {
+      width: 8px;
+      background-color: $gray;
+    }
+  
+    .seem-text p::-webkit-scrollbar-thumb {
+      background-color: $gray-400;
+      border-radius: 5px;
+    }
+  
+    .seem-text p::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    .seem-send {
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+      display: flex;
+      width: 100%;
+      
+      .seem-print-out {
+        h3 {
+          font-weight: 700;
+        }
+      }
+
+      .seem-button {
+        width: 150px;
+      }
+    }
+  
+  }
+
   .title {
     display: flex;
     place-items: flex-end;

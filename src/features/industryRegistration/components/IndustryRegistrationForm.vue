@@ -24,7 +24,7 @@
       <InputGroup>
         <InputWrapper>
           <input
-            type="text"
+            type="email"
             placeholder="E-mail"
             class="flexible-input"
             v-model="email"
