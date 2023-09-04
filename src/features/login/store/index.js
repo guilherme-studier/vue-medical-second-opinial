@@ -73,7 +73,7 @@ export default {
         router.push('/')
       } catch (error) {
         toast.warning('Não foi possível realizar o login')
-        console.error(error)
+        alert(error)
       } finally {
         commit('setLoading', false)
       }
@@ -93,7 +93,7 @@ export default {
         localStorage.clear()
         router.push('/login')
       } catch (error) {
-        console.error('Erro ao fazer logout:', error.message)
+        alert('Erro ao fazer logout:', error.message)
       }
     },
     async resetPassword({ commit }, email) {
@@ -101,9 +101,9 @@ export default {
         const response = await reset({ email })
 
         // Exiba uma mensagem de sucesso no console
-        console.log('E-mail enviado com sucesso:', response)
+        alert('E-mail enviado com sucesso:', response)
       } catch (error) {
-        console.error('Erro ao redefinir a senha:', error.message)
+        alert('Erro ao redefinir a senha:', error.message)
       }
     }
   },

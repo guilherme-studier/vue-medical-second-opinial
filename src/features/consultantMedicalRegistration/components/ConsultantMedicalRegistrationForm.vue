@@ -57,9 +57,10 @@
               <input-group>
                 <input-wrapper>
                   <input
-                    type="number"
+                    type="text"
                     placeholder="CRM"
                     class="flexible-input"
+                    v-mask="'####-###'"
                     v-model="crm"
                   />
                 </input-wrapper>
@@ -85,8 +86,9 @@
           <input-group>
             <input-wrapper>
               <input
-                type="number"
+                type="text"
                 placeholder="CEP"
+                v-mask="'#####-###'"
                 class="flexible-input"
                 v-model="cep"
               />
@@ -321,8 +323,10 @@ export default {
       this.closeModal()
     },
     async handleSave() {
+      // verificar dados obrigatórios
       const userData = {
-        terms: this.termsAgreed,
+        username: 'teste',
+        term: this.termsAgreed,
         newPassword: this.newPassword,
         camplement: this.complement,
         specialty: this.specialty,
@@ -331,7 +335,7 @@ export default {
         email: this.email,
         phone: this.phone,
         place: this.place,
-        username: this.name,
+        name: this.name,
         city: this.city,
         cpf: this.cpf,
         crm: this.crm,

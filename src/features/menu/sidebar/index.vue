@@ -128,6 +128,11 @@ export default {
           route: '/clinical-cases-evaluation'
         },
         {
+          id: 14,
+          name: 'Ativação de Caso Clínico',
+          route: '/active-clinical-case'
+        },
+        {
           id: 12,
           name: 'Especialidades',
           route: '/specialties'

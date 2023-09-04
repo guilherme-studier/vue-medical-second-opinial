@@ -25,7 +25,12 @@ export default {
           },
           {
             icon: require('@/assets/icons/icon-message.svg'),
-            handler: () => alert('Função do item 1')
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handleActiveVoucher',
+                '23011014002'
+              )
+            }
           }
         ]
       },
@@ -96,6 +101,7 @@ export default {
       seem:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunteos, enim veritatis odit laudantium dolores necessitatibus mollitia'
     },
+    isActiveClinicalCase: false,
     searchTerm: '',
     loading: false,
     error: false
@@ -106,6 +112,9 @@ export default {
     },
     toggleIsModalSeem(state) {
       state.isModalSeem = !state.isModalSeem
+    },
+    toggleIsActiveClinicalCase(state) {
+      state.isActiveClinicalCase = !state.isActiveClinicalCase
     }
   },
   getters: {
@@ -113,6 +122,7 @@ export default {
     getVouchers: (state) => state.vouchers,
     getIsModalSeem: (state) => state.isModalSeem,
     getModalSeemContent: (state) => state.modalSeemContent,
+    getActiveClinicalCase: (state) => state.getActiveClinicalCase,
     getIconSearch: (state) => state.iconSearch,
     getDoctor: (state) => state.doctor,
     getTableHeader: (state) => state.tableHeader,
@@ -138,8 +148,10 @@ export default {
   },
   actions: {
     handleModalSeem(context, voucher) {
-      console.log(voucher)
       context.commit('toggleIsModalSeem', voucher)
+    },
+    handleActiveVoucher(context, voucher) {
+      context.commit('toggleIsActiveClinicalCase', voucher)
     }
   }
 }
