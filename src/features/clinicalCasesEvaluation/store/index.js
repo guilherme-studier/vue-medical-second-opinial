@@ -1,3 +1,5 @@
+import store from '@/store'
+
 export default {
   namespaced: true,
   state: () => ({
@@ -14,11 +16,21 @@ export default {
         action: [
           {
             icon: require('@/assets/icons/icon-filed.svg'),
-            handler: () => alert('Função do item 1')
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handleModalSeem',
+                '23011014002'
+              )
+            }
           },
           {
             icon: require('@/assets/icons/icon-message.svg'),
-            handler: () => alert('Função do item 1')
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handleActiveVoucher',
+                '23011014002'
+              )
+            }
           }
         ]
       },
@@ -29,7 +41,12 @@ export default {
         action: [
           {
             icon: require('@/assets/icons/icon-filed.svg'),
-            handler: () => alert('Função do item 1')
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handleModalSeem',
+                '23011014002'
+              )
+            }
           },
           {
             icon: require('@/assets/icons/icon-message.svg'),
@@ -44,7 +61,12 @@ export default {
         action: [
           {
             icon: require('@/assets/icons/icon-filed.svg'),
-            handler: () => alert('Função do item 1')
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handleModalSeem',
+                '23011014002'
+              )
+            }
           },
           {
             icon: require('@/assets/icons/icon-message.svg'),
@@ -59,7 +81,12 @@ export default {
         action: [
           {
             icon: require('@/assets/icons/icon-filed.svg'),
-            handler: () => alert('Função do item 1')
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handleModalSeem',
+                '23011014002'
+              )
+            }
           },
           {
             icon: require('@/assets/icons/icon-message.svg'),
@@ -68,6 +95,13 @@ export default {
         ]
       }
     ],
+    isModalSeem: false,
+    modalSeemContent: {
+      voucher: '30082023',
+      seem:
+        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.'
+    },
+    isActiveClinicalCase: false,
     searchTerm: '',
     loading: false,
     error: false
@@ -75,13 +109,22 @@ export default {
   mutations: {
     updateSearchTerm(state, searchTerm) {
       state.searchTerm = searchTerm
+    },
+    toggleIsModalSeem(state) {
+      state.isModalSeem = !state.isModalSeem
+    },
+    toggleIsActiveClinicalCase(state) {
+      state.isActiveClinicalCase = !state.isActiveClinicalCase
     }
   },
   getters: {
     getIcon: (state) => state.icon,
+    getVouchers: (state) => state.vouchers,
+    getIsModalSeem: (state) => state.isModalSeem,
+    getModalSeemContent: (state) => state.modalSeemContent,
+    getActiveClinicalCase: (state) => state.getActiveClinicalCase,
     getIconSearch: (state) => state.iconSearch,
     getDoctor: (state) => state.doctor,
-    getVouchers: (state) => state.vouhchers,
     getTableHeader: (state) => state.tableHeader,
     getTableData: (state) => state.tableData,
     getSearchTerm: (state) => state.searchTerm,
@@ -104,6 +147,11 @@ export default {
     }
   },
   actions: {
-    // Aqui você pode definir ações se necessário
+    handleModalSeem(context, voucher) {
+      context.commit('toggleIsModalSeem', voucher)
+    },
+    handleActiveVoucher(context, voucher) {
+      context.commit('toggleIsActiveClinicalCase', voucher)
+    }
   }
 }

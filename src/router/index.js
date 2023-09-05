@@ -2,6 +2,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // childrens
+import ActiveClinicalCases from '@/features/activeClinicalCases'
 import AdmClinicalCases from '@/features/admClinicalCases'
 import AllocationClinicalCases from '@/features/allocationClinicalCases'
 import ClinicalCasesEvaluation from '@/features/clinicalCasesEvaluation'
@@ -130,6 +131,14 @@ const routes = [
         component: ClinicalCasesEvaluation,
         meta: {
           title: 'Casos Clínicos Designados'
+        }
+      },
+      {
+        path: '/active-clinical-case',
+        name: 'activeClinicalCase',
+        component: ActiveClinicalCases,
+        meta: {
+          title: 'Ativação de Caso Clínico'
         }
       },
       {

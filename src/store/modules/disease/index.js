@@ -28,37 +28,37 @@ export default {
         commit('setDiseases', response.data.content)
       } catch (error) {
         alert('Erro ao buscar as doenças:', error)
-        toast.warning('Erro ao buscar as doenças')
+        toast.warning('Erro ao buscar as doenças', { timeout: 5000 })
       }
     },
     async createNewDisease({ commit, dispatch }, diseaseName) {
       try {
         await createDisease(diseaseName)
         dispatch('fetchDiseases')
-        toast.success('Doença criada com sucesso!')
+        toast.success('Doença criada com sucesso!', { timeout: 5000 })
       } catch (error) {
         alert('Erro ao criar a doença:', error)
-        toast.warning('Erro ao criar a doença')
+        toast.warning('Erro ao criar a doença', { timeout: 5000 })
       }
     },
     async deleteDiseaseById({ commit, dispatch }, diseaseId) {
       try {
         await deleteDisease(diseaseId)
         dispatch('fetchDiseases')
-        toast.success('Doença removida com sucesso!')
+        toast.success('Doença removida com sucesso!', { timeout: 5000 })
       } catch (error) {
         alert('Erro ao deletar a doença:', error)
-        toast.warning('Erro ao deletar a doença')
+        toast.warning('Erro ao deletar a doença', { timeout: 5000 })
       }
     },
     async updateDiseaseById({ commit, dispatch }, data) {
       try {
         await updateDisease(data.id, data.name)
         dispatch('fetchDiseases')
-        toast.success('Doença atualizada com sucesso!')
+        toast.success('Doença atualizada com sucesso!', { timeout: 5000 })
       } catch (error) {
         alert('Erro ao atualizar a doença:', error)
-        toast.warning('Erro ao atualizar a doença')
+        toast.warning('Erro ao atualizar a doença', { timeout: 5000 })
       }
     },
     async getDiseaseById({ commit, dispatch }, diseaseId) {
@@ -67,7 +67,7 @@ export default {
         dispatch('fetchDiseases')
       } catch (error) {
         alert('Erro ao buscar a doença:', error)
-        toast.warning('Erro ao buscar a doença')
+        toast.warning('Erro ao buscar a doença', { timeout: 5000 })
       }
     }
   },

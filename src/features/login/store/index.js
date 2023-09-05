@@ -34,15 +34,24 @@ export default {
         name: 'Patrocinador',
         background: 'background-sponsor'
       }
-    ]
+    ],
+    loading: false,
+    error: false
   }),
   mutations: {
     setUser(state, user) {
       state.user = user
+    },
+    setLoading(state, loading) {
+      state.loading = loading // Update loading state
+    },
+    setError(state, error) {
+      state.error = error // Update error state
     }
   },
   actions: {
     async loginUser({ commit }, { username, password }) {
+      commit('setLoading', true)
       try {
         const toast = useToast()
         const response = await login({ email: username, password })
@@ -63,8 +72,10 @@ export default {
         localStorage.setItem('user', JSON.stringify(userData))
         router.push('/')
       } catch (error) {
-        toast.warning('Não foi possível realizar o login')
-        console.error(error)
+        toast.warning('Não foi possível realizar o login', { timeout: 5000 })
+        alert(error)
+      } finally {
+        commit('setLoading', false)
       }
     },
     async validateToken({ dispatch, commit }, token) {
@@ -72,7 +83,9 @@ export default {
         const response = await validateToken(token)
       } catch (error) {
         dispatch('logoutUser')
-        toast.warning('Não foi possível validar o usuário logado')
+        toast.warning('Não foi possível validar o usuário logado', {
+          timeout: 5000
+        })
       }
     },
     async logoutUser({ commit }) {
@@ -82,7 +95,7 @@ export default {
         localStorage.clear()
         router.push('/login')
       } catch (error) {
-        console.error('Erro ao fazer logout:', error.message)
+        alert('Erro ao fazer logout:', error.message)
       }
     },
     async resetPassword({ commit }, email) {
@@ -90,9 +103,9 @@ export default {
         const response = await reset({ email })
 
         // Exiba uma mensagem de sucesso no console
-        console.log('E-mail enviado com sucesso:', response)
+        alert('E-mail enviado com sucesso:', response)
       } catch (error) {
-        console.error('Erro ao redefinir a senha:', error.message)
+        alert('Erro ao redefinir a senha:', error.message)
       }
     }
   },
@@ -104,6 +117,9 @@ export default {
     getUserLastname: (state) => (state.user ? state.user.lastname : ''),
     getUserEmail: (state) => (state.user ? state.user.email : ''),
     getUserToken: (state) => (state.user ? state.user.token : ''),
-    isLoggedIn: (state) => (state.user ? state.user.token && state.user.id : '')
+    isLoggedIn: (state) =>
+      state.user ? state.user.token && state.user.id : '',
+    getLoading: (state) => state.loading,
+    getError: (state) => state.error
   }
 }

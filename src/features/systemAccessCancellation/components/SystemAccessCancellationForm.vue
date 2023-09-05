@@ -1,6 +1,6 @@
 <template>
   <div id="system-access">
-    <div class="form">
+    <div class="form" :class="{ 'form-loading': getLoading }">
       <InputGroup>
         <InputWrapper>
           <input
@@ -37,21 +37,26 @@
         <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
       </div>
     </div>
+    <div v-if="getLoading">
+      <loader-spinner />
+    </div>
   </div>
 </template>
 
 <script>
 import { useToast } from 'vue-toastification'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
+import LoaderSpinner from '@/components/loaderSpinner'
 
 export default {
   name: 'SystemAccessCancellationForm',
   components: {
     InputGroup,
-    InputWrapper
+    InputWrapper,
+    LoaderSpinner
   },
   setup() {
     const toast = useToast()
@@ -66,6 +71,8 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('systemAccessCancellation', ['getLoading']),
+
     enabledInput() {
       return this.cpf === null
     },
@@ -86,11 +93,13 @@ export default {
       try {
         await this.createUser(userData)
         this.toast.success(
-          'Cancelamento de acesso ao sistema efetuado com sucesso'
+          'Cancelamento de acesso ao sistema efetuado com sucesso',
+          { timeout: 5000 }
         )
       } catch (error) {
         this.toast.warning(
-          'Não foi possível realizar cancelamento de acesso ao sistema'
+          'Não foi possível realizar cancelamento de acesso ao sistema',
+          { timeout: 5000 }
         )
       }
       this.clearForm()

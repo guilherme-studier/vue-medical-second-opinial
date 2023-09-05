@@ -57,9 +57,10 @@
               <input-group>
                 <input-wrapper>
                   <input
-                    type="number"
+                    type="text"
                     placeholder="CRM"
                     class="flexible-input"
+                    v-mask="'####-###'"
                     v-model="crm"
                   />
                 </input-wrapper>
@@ -85,8 +86,9 @@
           <input-group>
             <input-wrapper>
               <input
-                type="number"
+                type="text"
                 placeholder="CEP"
+                v-mask="'#####-###'"
                 class="flexible-input"
                 v-model="cep"
               />
@@ -277,7 +279,8 @@ export default {
       cpf: null,
       crm: null,
       cep: null,
-      uf: null
+      uf: null,
+      type: 'consultant_doctor'
     }
   },
   computed: {
@@ -321,8 +324,10 @@ export default {
       this.closeModal()
     },
     async handleSave() {
+      // verificar dados obrigatórios
       const userData = {
-        terms: this.termsAgreed,
+        username: 'teste',
+        term: this.termsAgreed,
         newPassword: this.newPassword,
         camplement: this.complement,
         specialty: this.specialty,
@@ -331,7 +336,7 @@ export default {
         email: this.email,
         phone: this.phone,
         place: this.place,
-        username: this.name,
+        name: this.name,
         city: this.city,
         cpf: this.cpf,
         crm: this.crm,
@@ -342,11 +347,15 @@ export default {
       try {
         await this.createUser(userData)
         this.toast.success(
-          'Geração de convite para médico consultor efetuada com sucesso'
+          'Geração de convite para médico consultor efetuada com sucesso',
+          {
+            timeout: 5000
+          }
         )
       } catch (error) {
         this.toast.warning(
-          'Erro ao realizar a geração de convite para médico consultor'
+          'Erro ao realizar a geração de convite para médico consultor',
+          { timeout: 5000 }
         )
       }
       this.clearForm()

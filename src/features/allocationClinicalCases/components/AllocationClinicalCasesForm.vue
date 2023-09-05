@@ -197,10 +197,13 @@ export default {
 
       try {
         await this.createUser(userData)
-        this.toast.success('Atribuição de caso clínico efetuado com sucesso')
+        this.toast.success('Atribuição de caso clínico efetuado com sucesso', {
+          timeout: 5000
+        })
       } catch (error) {
         this.toast.warning(
-          'Não foi possível efetuar a atribuição de caso clínico'
+          'Não foi possível efetuar a atribuição de caso clínico',
+          { timeout: 5000 }
         )
       }
       this.clearForm()
