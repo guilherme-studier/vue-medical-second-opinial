@@ -72,7 +72,7 @@ export default {
         localStorage.setItem('user', JSON.stringify(userData))
         router.push('/')
       } catch (error) {
-        toast.warning('Não foi possível realizar o login')
+        toast.warning('Não foi possível realizar o login', { timeout: 5000 })
         alert(error)
       } finally {
         commit('setLoading', false)
@@ -83,7 +83,9 @@ export default {
         const response = await validateToken(token)
       } catch (error) {
         dispatch('logoutUser')
-        toast.warning('Não foi possível validar o usuário logado')
+        toast.warning('Não foi possível validar o usuário logado', {
+          timeout: 5000
+        })
       }
     },
     async logoutUser({ commit }) {

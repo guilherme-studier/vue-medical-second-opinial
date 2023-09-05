@@ -346,11 +346,15 @@ export default {
       try {
         await this.createUser(userData)
         this.toast.success(
-          'Geração de convite para médico consultor efetuada com sucesso'
+          'Geração de convite para médico consultor efetuada com sucesso',
+          {
+            timeout: 5000
+          }
         )
       } catch (error) {
         this.toast.warning(
-          'Erro ao realizar a geração de convite para médico consultor'
+          'Erro ao realizar a geração de convite para médico consultor',
+          { timeout: 5000 }
         )
       }
       this.clearForm()

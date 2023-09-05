@@ -231,9 +231,13 @@ export default {
 
       try {
         await this.createUser(userData)
-        this.toast.success('Cadastro efetuado criado com sucesso')
+        this.toast.success('Cadastro efetuado criado com sucesso', {
+          timeout: 5000
+        })
       } catch (error) {
-        this.toast.warning('Não foi possível realizar o cadastro')
+        this.toast.warning('Não foi possível realizar o cadastro', {
+          timeout: 5000
+        })
       }
       this.clearForm()
     },
