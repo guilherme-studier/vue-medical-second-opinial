@@ -89,6 +89,12 @@ body {
       font-weight: bold;
       color: $gray-600;
     }
+
+    &:focus {
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); 
+      border: 2px solid $green-500;
+      outline: none;
+    }
   }
 
   .v-select {
