@@ -218,9 +218,11 @@ export default {
     },
     async handleSave() {
       const userData = {
+        username: 'teste',
+        type: 'client_doctor',
         newPassword: this.newPassword,
         password: this.password,
-        terms: this.termsAgreed,
+        term: this.termsAgreed,
         email: this.email,
         phone: this.phone,
         cpf: this.cpf,

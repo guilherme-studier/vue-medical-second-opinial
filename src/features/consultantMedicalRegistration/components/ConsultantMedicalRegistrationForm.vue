@@ -279,7 +279,8 @@ export default {
       cpf: null,
       crm: null,
       cep: null,
-      uf: null
+      uf: null,
+      type: 'consultant_doctor'
     }
   },
   computed: {
