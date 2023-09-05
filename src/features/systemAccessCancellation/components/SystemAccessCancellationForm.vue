@@ -1,7 +1,6 @@
 <template>
   <div id="system-access">
     <div class="form" :class="{ 'form-loading': getLoading }">
-      {{ getLoading }}
       <InputGroup>
         <InputWrapper>
           <input

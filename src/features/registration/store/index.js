@@ -4,15 +4,20 @@ import { createUser } from '../../../services/user/index'
 export default {
   namespaced: true,
   state: () => ({
-    user: null
+    user: null,
+    loading: false
   }),
   mutations: {
     setUser(state, user) {
       state.user = user
+    },
+    setLoading(state, value) {
+      state.loading = value
     }
   },
   actions: {
     async createUser({ commit }, userData) {
+      commit('setLoading', true)
       return createUser(userData)
         .then((response) => {
           commit('setUser', response.data)
@@ -21,9 +26,13 @@ export default {
         .catch((error) => {
           throw error
         })
+        .finally(() => {
+          commit('setLoading', false)
+        })
     }
   },
   getters: {
-    getUser: (state) => state.user
+    getUser: (state) => state.user,
+    getLoading: (state) => state.loading
   }
 }

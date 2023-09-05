@@ -1,7 +1,7 @@
 <template>
   <div id="registration-data">
     <div id="doctor-registration">
-      <div class="form">
+      <div class="form" :class="{ 'form-loading': getLoading }">
         <input-group>
           <input-wrapper>
             <input
@@ -23,7 +23,7 @@
         </input-group>
       </div>
     </div>
-    <div class="form">
+    <div class="form" :class="{ 'form-loading': getLoading }">
       <Title :title="titleComponent" />
       <div class="form">
         <input-group>
@@ -139,21 +139,26 @@
         </div>
       </div>
     </div>
+    <div v-if="getLoading">
+      <loader-spinner />
+    </div>
   </div>
 </template>
 
 <script>
 import { useToast } from 'vue-toastification'
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
+import LoaderSpinner from '@/components/loaderSpinner'
 import Modal from '@/components/modal'
 import Title from '@/components/title'
 
 export default {
   name: 'Registration Data',
   components: {
+    LoaderSpinner,
     InputWrapper,
     InputGroup,
     Modal,
@@ -169,19 +174,21 @@ export default {
       titleComponent: 'Dados Cadastrais',
       modalTermsVisible: false,
       termsAgreed: false,
-      newPassword: '',
-      password: '',
-      number: '',
-      phone: '',
-      email: '',
-      city: '',
-      name: '',
-      crm: '',
-      cpf: '',
-      uf: ''
+      newPassword: null,
+      password: null,
+      number: null,
+      phone: null,
+      email: null,
+      city: null,
+      name: null,
+      crm: null,
+      cpf: null,
+      uf: null
     }
   },
   computed: {
+    ...mapGetters('registration', ['getLoading']),
+
     isSaveDisabled() {
       return (
         !this.newPassword ||
@@ -231,14 +238,16 @@ export default {
       this.clearForm()
     },
     clearForm() {
+      this.cpf = null
+      this.password = null
       this.termsAgreed = false
-      this.newPassword = ''
-      this.number = ''
-      this.phone = ''
-      this.email = ''
-      this.name = ''
-      this.crm = ''
-      this.uf = ''
+      this.newPassword = null
+      this.number = null
+      this.phone = null
+      this.email = null
+      this.name = null
+      this.crm = null
+      this.uf = null
     }
   }
 }
