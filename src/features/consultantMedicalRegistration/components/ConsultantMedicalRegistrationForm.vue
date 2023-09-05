@@ -383,4 +383,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/index.scss';
+
+.v-select {
+  .vs__search {
+    width: 100%;
+  }
+}
 </style>

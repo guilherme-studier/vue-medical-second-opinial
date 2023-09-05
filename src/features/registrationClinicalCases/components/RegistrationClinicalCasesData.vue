@@ -92,6 +92,7 @@
             placeholder="Honorários Médico Consultor"
             class="flexible-input"
             v-model="fees"
+            v-mask="'R$ ###.###.###,##'"
           />
         </InputWrapper>
         <InputWrapper></InputWrapper>

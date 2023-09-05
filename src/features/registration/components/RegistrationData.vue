@@ -60,10 +60,11 @@
             <input-group>
               <input-wrapper>
                 <input
-                  type="number"
+                  type="text"
                   placeholder="CRM"
                   class="flexible-input"
                   v-model="crm"
+                  v-mask="'####-###'"
                 />
               </input-wrapper>
               <input-wrapper>
