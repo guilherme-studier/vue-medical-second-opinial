@@ -219,8 +219,8 @@ export default {
     },
     async handleSave() {
       const userData = {
-        username: 'teste',
         type: 'client_doctor',
+        username: this.name.replace(/\s/g, '').toLowerCase(),
         newPassword: this.newPassword,
         password: this.password,
         term: this.termsAgreed,
