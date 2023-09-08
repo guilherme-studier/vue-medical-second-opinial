@@ -34,7 +34,7 @@
         :seem="getModalSeemContent.seem"
       />
     </modal>
-    <modal :title="titleModalMessage" @close="closeModalMessage"> </modal>
+    <!-- <modal :title="titleModalMessage" @close="closeModalMessage"> </modal> -->
   </div>
 </template>
 
