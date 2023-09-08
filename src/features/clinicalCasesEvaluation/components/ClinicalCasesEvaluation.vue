@@ -29,30 +29,19 @@
       @close="closeModalSeem"
       v-if="getIsModalSeem"
     >
-      <div class="container-modal-seem">
-        <h2>
-          Caso clínico: <span>{{ getModalSeemContent.voucher }}</span>
-        </h2>
-        <div class="seem-text">
-          <p>{{ getModalSeemContent.seem }}</p>
-        </div>
-        <div class="seem-send">
-          <div class="seem-print-out">
-            <h3>Imprimir Parecer</h3>
-          </div>
-          <div class="seem-button">
-            <button @click="sendSeem">Enviar</button>
-          </div>
-        </div>
-      </div>
+      <seem-modal
+        :voucher="getModalSeemContent.voucher"
+        :seem="getModalSeemContent.seem"
+      />
     </modal>
-
-    <!-- mensagens modal -->
+    <modal :title="titleModalMessage" @close="closeModalMessage"> </modal>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+
+import SeemModal from './SeemModal.vue'
 
 import CustomTable from '@/components/customTable'
 import Modal from '@/components/modal'
@@ -61,11 +50,13 @@ export default {
   name: 'ClinicalCasesEvaluation',
   components: {
     CustomTable,
+    SeemModal,
     Modal
   },
   data() {
     return {
-      titleModalSeem: 'Registrar Parecer'
+      titleModalSeem: 'Registrar Parecer',
+      titleModalMessage: 'Mensagens'
     }
   },
   computed: {
@@ -83,7 +74,7 @@ export default {
     ])
   },
   methods: {
-    ...mapActions('clinicalCasesEvaluation', ['handleModalSeem']),
+    ...mapActions('clinicalCasesEvaluation', ['s']),
 
     closeModalSeem() {
       this.handleModalSeem()
