@@ -6,6 +6,7 @@
         <div class="form-group">
           <input
             v-model="username"
+            class="input--login"
             type="text"
             id="username"
             name="username"
@@ -15,6 +16,7 @@
         <div class="form-group">
           <input
             v-model="password"
+            class="input--password"
             type="password"
             id="password"
             name="password"
@@ -26,6 +28,7 @@
         <div class="form-group">
           <input
             v-model="email"
+            class="input--reset-password"
             type="email"
             id="email"
             name="email"
@@ -94,5 +97,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/index.scss';</style
->s
+@import '../styles/index.scss';
+
+.input--login {
+  padding-left: 4em;
+  background: url('../../../assets/icons/icon-filed.svg') 1em center / 1.5em
+      1.5em no-repeat,
+    linear-gradient(
+      to right,
+      $green-500 3.5em,
+      hsl(0, 0%, 70%) 2.5em,
+      hsl(0, 0%, 70%) calc(2.5em + 1px),
+      transparent calc(2.5em + 1px)
+    );
+}
+
+.input--password {
+  padding-left: 4em;
+  background: url('../../../assets/icons/icon-filed.svg') 1em center / 1.5em
+      1.5em no-repeat,
+    linear-gradient(
+      to right,
+      $green-500 3.5em,
+      hsl(0, 0%, 70%) 2.5em,
+      hsl(0, 0%, 70%) calc(2.5em + 1px),
+      transparent calc(2.5em + 1px)
+    );
+}
+
+.input--reset-password {
+  padding-left: 4em;
+  background: url('../../../assets/icons/icon-filed.svg') 1em center / 1.5em
+      1.5em no-repeat,
+    linear-gradient(
+      to right,
+      $green-500 3.5em,
+      hsl(0, 0%, 70%) 2.5em,
+      hsl(0, 0%, 70%) calc(2.5em + 1px),
+      transparent calc(2.5em + 1px)
+    );
+}
+</style>
