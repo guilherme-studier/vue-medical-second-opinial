@@ -6,7 +6,9 @@
         <InputWrapper>
           <v-select
             v-model="industry"
-            :options="industryOptions"
+            :options="getIndustries"
+            :reduce="(item) => item.id"
+            label="name"
             placeholder="Indústria"
           />
         </InputWrapper>
@@ -158,8 +160,8 @@ export default {
   },
   data() {
     return {
-      toggleIcon: faCirclePlus,
       tituloComponente: 'Dados Cadastrais',
+      toggleIcon: faCirclePlus,
       name: null,
       quantity: null,
       specialtyName: null,
@@ -171,15 +173,15 @@ export default {
       startDate: null,
       expirationDate: null,
       fees: null,
-      industryOptions: ['Astrazeneca', 'GlaxoSmithKline', 'Pfizer'],
       specialtyModalVisible: false,
       diseaseModalVisible: false
     }
   },
   computed: {
-    ...mapGetters('specialty', ['getSpecialties']),
-    ...mapGetters('disease', ['getDiseases']),
     ...mapGetters('registrationClinicalCases', ['getLoading']),
+    ...mapGetters('specialty', ['getSpecialties']),
+    ...mapGetters('industry', ['getIndustries']),
+    ...mapGetters('disease', ['getDiseases']),
 
     isLoading() {
       return this.getLoading
@@ -202,12 +204,15 @@ export default {
   },
   mounted() {
     this.fetchSpecialties()
+    this.fetchIndustries()
     this.fetchDiseases()
   },
   methods: {
-    ...mapActions('specialty', ['fetchSpecialties']),
-    ...mapActions('disease', ['fetchDiseases']),
     ...mapActions('registrationClinicalCases', ['createUser']),
+    ...mapActions('specialty', ['fetchSpecialties']),
+    ...mapActions('industry', ['fetchIndustries']),
+    ...mapActions('disease', ['fetchDiseases']),
+
     handleIllnessSelected(item) {
       this.diseaseName = item?.name
       this.diseaseId = item?.id

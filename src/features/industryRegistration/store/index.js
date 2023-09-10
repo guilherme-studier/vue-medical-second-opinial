@@ -1,26 +1,40 @@
 /* eslint-disable no-unused-vars */
-import { createUser } from '../../../services/user/index'
+import { useToast } from 'vue-toastification'
+
+import {
+  createIndustry,
+  getIndustries,
+  deleteIndustry,
+  updateIndustry,
+  getIndustry
+} from '../../../services/industry/index'
+
+const toast = useToast()
 
 export default {
   namespaced: true,
   state: () => ({
-    industryUser: null,
+    industry: null,
+    industries: [],
     loading: false
   }),
   mutations: {
-    setIndustryUser(state, industryUser) {
-      state.industryUser = industryUser
+    setIndustry(state, industries) {
+      state.industries = industries
+    },
+    setIndustries(state, industries) {
+      state.industries = industries
     },
     setLoading(state, value) {
       state.loading = value
     }
   },
   actions: {
-    async createUser({ commit }, userData) {
+    async createIndustry({ commit }, userData) {
       commit('setLoading', true)
-      return createUser(userData)
+      return createIndustry(userData)
         .then((response) => {
-          commit('setIndustryUser', response.data)
+          commit('setIndustry', response.data)
           return response
         })
         .catch((error) => {
@@ -29,10 +43,50 @@ export default {
         .finally(() => {
           commit('setLoading', false)
         })
+    },
+    async fetchIndustries({ commit }) {
+      try {
+        const response = await getIndustries()
+        commit('setIndustries', response.data)
+      } catch (error) {
+        toast.warning('Erro ao buscar as indústrias', { timeout: 5000 })
+      }
+    },
+    async deleteIndustryById({ commit, dispatch }, industryId) {
+      try {
+        await deleteIndustry(industryId)
+        dispatch('fetchIndustries')
+        toast.success('Indústria removida com sucesso!', { timeout: 5000 })
+      } catch (error) {
+        alert('Erro ao deletar a indústria:', error)
+        toast.warning('Erro ao deletar a indústria', { timeout: 5000 })
+      }
+    },
+    async updateIndustryById({ commit, dispatch }, data) {
+      try {
+        await updateIndustry(data.id, data.name)
+        dispatch('fetchIndustries')
+        toast.success('Indústria atualizada com sucesso!', {
+          timeout: 5000
+        })
+      } catch (error) {
+        alert('Erro ao atualizar a indústria:', error)
+        toast.warning('Erro ao atualizar a indústria', { timeout: 5000 })
+      }
+    },
+    async getIndustryById({ commit, dispatch }, industryId) {
+      try {
+        const response = await getIndustry(industryId)
+        commit('setIndustry', response.data.content)
+      } catch (error) {
+        alert('Erro ao buscar a indústria:', error)
+        toast.warning('Erro ao buscar a indústria', { timeout: 5000 })
+      }
     }
   },
   getters: {
-    getIndustryUser: (state) => state.industryUser,
+    getIndustries: (state) => state.industries,
+    getIndustry: (state) => state.industry,
     getLoading: (state) => state.loading
   }
 }

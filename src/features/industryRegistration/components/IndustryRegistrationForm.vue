@@ -17,7 +17,7 @@
             type="text"
             placeholder="Razão Social"
             class="flexible-input"
-            v-model="corporateName"
+            v-model="name"
           />
         </InputWrapper>
       </InputGroup>
@@ -45,14 +45,14 @@
           type="text"
           placeholder="Contato"
           class="full-width"
-          v-model="contato"
+          v-model="contact"
         />
       </InputGroup>
       <InputGroup>
         <textarea
           placeholder="Observação"
           class="full-width"
-          v-model="observacao"
+          v-model="observation"
         ></textarea>
       </InputGroup>
 
@@ -91,41 +91,41 @@ export default {
   data() {
     return {
       tituloComponente: 'Dados Cadastrais',
-      corporateName: null,
-      observacao: null,
-      contato: null,
+      name: null,
+      cnpj: null,
       email: null,
       phone: null,
-      cnpj: null
+      contact: null,
+      observation: null
     }
   },
   computed: {
     ...mapGetters('industryRegistration', ['getLoading']),
     isSaveDisabled() {
       return (
-        !this.corporateName ||
-        !this.observacao ||
-        !this.contato ||
+        !this.name ||
+        !this.cnpj ||
         !this.email ||
         !this.phone ||
-        !this.cnpj
+        !this.contact ||
+        !this.observation
       )
     }
   },
   methods: {
-    ...mapActions('industryRegistration', ['createUser']),
+    ...mapActions('industryRegistration', ['createIndustry']),
     async handleSave() {
       const userData = {
-        corporateName: this.corporateName,
-        observacao: this.observacao,
-        contato: this.contato,
+        name: this.name,
+        cnpj: this.cnpj,
         email: this.email,
         phone: this.phone,
-        cnpj: this.cnpj
+        contact: this.contact,
+        observation: this.observation
       }
 
       try {
-        await this.createUser(userData)
+        await this.createIndustry(userData)
         this.toast.success('Cadastro efetuado criado com sucesso', {
           timeout: 5000
         })
@@ -137,13 +137,12 @@ export default {
       this.clearForm()
     },
     clearForm() {
-      this.corporateName = null
-      this.observacao = null
-      this.contato = null
-      this.phone = null
+      this.name = null
+      this.cnpj = null
       this.email = null
       this.phone = null
-      this.cnpj = null
+      this.contact = null
+      this.observation = null
     }
   }
 }
