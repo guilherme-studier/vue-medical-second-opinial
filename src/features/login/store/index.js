@@ -43,10 +43,10 @@ export default {
       state.user = user
     },
     setLoading(state, loading) {
-      state.loading = loading // Update loading state
+      state.loading = loading
     },
     setError(state, error) {
-      state.error = error // Update error state
+      state.error = error
     }
   },
   actions: {

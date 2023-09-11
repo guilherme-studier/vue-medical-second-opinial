@@ -100,7 +100,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('industryRegistration', ['getLoading']),
+    ...mapGetters('industry', ['getLoading']),
     isSaveDisabled() {
       return (
         !this.name ||
@@ -113,7 +113,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('industryRegistration', ['createIndustry']),
+    ...mapActions('industry', ['createIndustry']),
     async handleSave() {
       const userData = {
         name: this.name,
