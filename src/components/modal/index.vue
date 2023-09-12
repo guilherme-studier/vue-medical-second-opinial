@@ -53,7 +53,9 @@ export default {
 
   .modal-content {
     border: none;
-    width: 882px;
+    width: fit-content;
+    min-width: 300px;
+    max-width: 882px;
     background-color: white;
     padding: 0;
     border-radius: 20px;

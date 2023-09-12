@@ -9,7 +9,7 @@ import allocationClinicalCases from '@/features/allocationClinicalCases/store/in
 import clinicalCasesEvaluation from '@/features/clinicalCasesEvaluation/store/index'
 import consultantDoctorInvitation from '@/features/consultantDoctorInvitation/store/index'
 import home from '@/features/home/stores/index'
-import industryRegistration from '@/features/industryRegistration/store/index'
+import industry from '@/features/industryRegistration/store/index'
 import login from '@/features/login/store/index'
 import registration from '@/features/registration/store/index'
 import registrationClinicalCases from '@/features/registrationClinicalCases/store/index'
@@ -58,10 +58,10 @@ const store = createStore({
     home,
     login,
     disease,
+    industry,
     specialty,
     registration,
     admClinicalCases,
-    industryRegistration,
     clinicalCasesEvaluation,
     systemAccessCancellation,
     allocationClinicalCases,

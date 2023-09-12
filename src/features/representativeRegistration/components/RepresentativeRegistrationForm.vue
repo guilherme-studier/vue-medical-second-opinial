@@ -105,6 +105,8 @@ export default {
 
     async handleSave() {
       const userData = {
+        type: 'agent',
+        username: this.name.replace(/\s/g, '').toLowerCase(),
         newPassword: this.newPassword,
         email: this.email,
         phone: this.phone,

@@ -21,21 +21,6 @@
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
 }
-
-.radio-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-
-  .btn-save {
-    text-align: left;
-    grid-column: 1 / -1;
-    width: 150px;
-    place-self: flex-end;
-    display: flex;
-    margin-top: 15px;
-  }
-}
-
 .input-with-icon {
   display: flex;
   align-items: center;

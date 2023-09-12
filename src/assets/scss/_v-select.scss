@@ -1,5 +1,5 @@
 .v-select {
-  color: $gray-700;
+  color: $gray-600;
   font-weight: 600;
   cursor: pointer;
 
@@ -34,8 +34,6 @@
 
   &.vs--open {
     z-index: 2;
-    .vs__dropdown-toggle {
-    }
     .vs__dropdown-menu {
       z-index: -1;
     }
@@ -57,7 +55,8 @@
     background-color: $white;
     color: $gray-800;
     line-height: 24px;
-    padding: 0 0 0 10px;
+    padding: 0;
+    margin: 0;
     white-space: nowrap;
     max-width: 100%;
     overflow: hidden;
@@ -67,7 +66,7 @@
 
   .vs__search {
     padding: 0 10px;
-    max-width: 155px;
+    max-width: 300px;
     font-weight: 600;
     &:focus {
       border: none !important;
@@ -100,7 +99,7 @@
     min-width: auto;
 
     .vs__dropdown-option {
-      color: $gray-800;
+      color: $gray-600;
       padding: 10px 15px;
     }
     .vs__dropdown-option--highlight {

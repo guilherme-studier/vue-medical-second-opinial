@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import SidebarMenu from './features/menu/sidebar'
 
@@ -42,8 +42,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getIsTokenExpired', 'getLoading']),
-    ...mapState('consultantDoctorInvitation', ['cpf'])
+    ...mapGetters(['getIsTokenExpired', 'getLoading'])
   },
 
   created() {

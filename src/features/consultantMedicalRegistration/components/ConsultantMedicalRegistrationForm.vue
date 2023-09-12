@@ -67,9 +67,9 @@
                 <input-wrapper>
                   <input
                     type="text"
-                    placeholder="UF"
+                    placeholder="UF CRM"
                     class="flexible-input"
-                    v-model="uf"
+                    v-model="ufCrm"
                   />
                 </input-wrapper>
               </input-group>
@@ -134,7 +134,7 @@
                 type="text"
                 placeholder="UF"
                 class="flexible-input"
-                v-model="uf"
+                v-model="state"
               />
             </input-wrapper>
           </input-group>
@@ -278,8 +278,9 @@ export default {
       cnpj: null,
       cpf: null,
       crm: null,
+      ufCrm: null,
       cep: null,
-      uf: null,
+      state: null,
       type: 'consultant_doctor'
     }
   },
@@ -301,8 +302,11 @@ export default {
         !this.city ||
         !this.cpf ||
         !this.crm ||
+        !this.ufCrm ||
+        !this.state ||
         !this.cep ||
-        !this.uf
+        !this.cnpj ||
+        !this.corporateName
       )
     }
   },
@@ -324,9 +328,9 @@ export default {
       this.closeModal()
     },
     async handleSave() {
-      // verificar dados obrigatórios
       const userData = {
-        username: 'teste',
+        type: this.type,
+        username: this.name.replace(/\s/g, '').toLowerCase(),
         term: this.termsAgreed,
         newPassword: this.newPassword,
         camplement: this.complement,
@@ -340,8 +344,12 @@ export default {
         city: this.city,
         cpf: this.cpf,
         crm: this.crm,
+        // eslint-disable-next-line camelcase
+        uf_crm: this.ufCrm,
         cep: this.cep,
-        uf: this.uf
+        state: this.state,
+        cnpj: this.cnpj,
+        corporateName: this.corporateName
       }
 
       try {
@@ -374,8 +382,11 @@ export default {
         (this.city = null),
         (this.cpf = null),
         (this.crm = null),
+        (this.ufCrm = null),
         (this.cep = null),
-        (this.uf = null)
+        (this.state = null),
+        (this.cnpj = null),
+        (this.corporateName = null)
     }
   }
 }
@@ -384,9 +395,11 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/index.scss';
 
-.v-select {
-  .vs__search {
-    width: 100%;
+#doctor-registration {
+  .v-select {
+    .vs__search {
+      background: red !important;
+    }
   }
 }
 </style>
