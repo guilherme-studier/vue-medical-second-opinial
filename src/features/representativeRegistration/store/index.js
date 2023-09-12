@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { createUser } from '@/services/user/index'
+import { createIndustryRepresentative } from '@/services/industryRepresentative/index'
 
 export default {
   namespaced: true,
@@ -13,7 +13,7 @@ export default {
   },
   actions: {
     async createUser({ commit }, userData) {
-      return createUser(userData)
+      return createIndustryRepresentative(userData)
         .then((response) => {
           commit('setUser', response.data)
           return response

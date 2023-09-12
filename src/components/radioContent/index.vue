@@ -50,6 +50,10 @@ export default {
     flex-wrap: nowrap;
     align-items: start;
     width: 50px;
+
+    label {
+      cursor: pointer;
+    }
   }
 
   .btn-save {
