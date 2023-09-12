@@ -29,7 +29,7 @@ export const reset = ({ email }) => {
   return axios({
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    url: `${BASE_URL}/password`,
+    url: `${BASE_URL}/user/password`,
     data: {
       email
     }
