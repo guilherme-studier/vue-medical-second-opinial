@@ -39,26 +39,33 @@ export default {
 
 <style lang="scss" scoped>
 .radio-content {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  padding: 25px;
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
 
   .radio-items {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    flex-basis: calc(50%);
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: start;
+    width: 50px;
   }
 
   .btn-save {
-    grid-column: 1 / -1;
-    margin-top: 15px;
-    text-align: left;
-    place-self: flex-end;
+    place-content: end;
+    margin-top: 30px;
     display: flex;
-    width: 150px;
+    width: 100%;
+
+    button {
+      width: 100px;
+    }
   }
 }
 
 input[type='radio'] {
-  margin-right: 10px;
+  margin: 3px 10px 0 0;
   cursor: pointer;
 }
 </style>
