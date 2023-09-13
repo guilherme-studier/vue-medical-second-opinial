@@ -112,13 +112,14 @@ export default {
   getters: {
     getLoginOptions: (state) => state.loginOptions,
     getUserId: (state) => (state.user ? state.user.id : null),
-    getUsername: (state) => (state.user ? state.user.username : ''),
-    getUserFirstname: (state) => (state.user ? state.user.firstname : ''),
-    getUserLastname: (state) => (state.user ? state.user.lastname : ''),
-    getUserEmail: (state) => (state.user ? state.user.email : ''),
-    getUserToken: (state) => (state.user ? state.user.token : ''),
+    getUsername: (state) => (state.user ? state.user.username : null),
+    getUserFirstname: (state) => (state.user ? state.user.firstname : null),
+    getUserLastname: (state) => (state.user ? state.user.lastname : null),
+    getUserEmail: (state) => (state.user ? state.user.email : null),
+    getUserToken: (state) => (state.user ? state.user.token : null),
+    getRole: (state) => (state.user ? state.user.role : null),
     isLoggedIn: (state) =>
-      state.user ? state.user.token && state.user.id : '',
+      state.user ? state.user.token && state.user.id && state.user.role : null,
     getLoading: (state) => state.loading,
     getError: (state) => state.error
   }
