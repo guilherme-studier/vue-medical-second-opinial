@@ -33,7 +33,7 @@ export default {
   computed: {
     ...mapGetters(['getRole']),
     banner() {
-      const userType = this.getRole.replace('_', '')
+      const userType = this.getRole?.replace('_', '')
       return this.bannerOptions[userType] || []
     },
 

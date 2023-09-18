@@ -80,7 +80,7 @@ export default {
       return this.getRole
     },
     menuItems() {
-      const userType = this.getRole.replace('_', '')
+      const userType = this.getRole?.replace('_', '')
       return routes[userType] || []
     }
   },

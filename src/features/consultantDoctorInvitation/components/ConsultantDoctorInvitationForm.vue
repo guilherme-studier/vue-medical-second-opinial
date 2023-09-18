@@ -74,7 +74,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('consultantDoctorInvitation', ['createUser']),
+    ...mapActions('consultantDoctorInvitation', ['consultantDoctor']),
 
     async handleSave() {
       const userData = {
@@ -84,7 +84,7 @@ export default {
       }
 
       try {
-        await this.createUser(userData)
+        await this.consultantDoctor(userData)
         this.toast.success(
           'Geração de convite para médico consultor efetuada com sucesso',
           { timeout: 5000 }
