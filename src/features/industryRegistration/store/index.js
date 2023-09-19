@@ -58,7 +58,6 @@ export default {
         dispatch('fetchIndustries')
         toast.success('Indústria removida com sucesso!', { timeout: 5000 })
       } catch (error) {
-        alert('Erro ao deletar a indústria:', error)
         toast.warning('Erro ao deletar a indústria', { timeout: 5000 })
       }
     },
@@ -70,7 +69,6 @@ export default {
           timeout: 5000
         })
       } catch (error) {
-        alert('Erro ao atualizar a indústria:', error)
         toast.warning('Erro ao atualizar a indústria', { timeout: 5000 })
       }
     },
@@ -79,7 +77,6 @@ export default {
         const response = await getIndustry(industryId)
         commit('setIndustry', response.data.content)
       } catch (error) {
-        alert('Erro ao buscar a indústria:', error)
         toast.warning('Erro ao buscar a indústria', { timeout: 5000 })
       }
     }

@@ -52,7 +52,7 @@ export default {
   border: none !important;
 
   .modal-content {
-    border: none;
+    border: none !important;
     width: fit-content;
     min-width: 300px;
     max-width: 882px;

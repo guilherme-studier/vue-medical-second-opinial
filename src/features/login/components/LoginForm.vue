@@ -84,7 +84,7 @@ export default {
             password: this.password
           })
         } catch (error) {
-          alert('Erro na chamada à API (vindo do Vuex):', error.message)
+          console.warn('Erro na chamada à API (vindo do Vuex):', error.message)
         }
       }
     },
