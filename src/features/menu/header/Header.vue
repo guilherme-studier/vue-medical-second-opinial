@@ -11,18 +11,32 @@
 </template>
 
 <script>
-import Banner from '../../../assets/ceos-header.png'
+import { mapGetters } from 'vuex'
+
+import bannerAdmin from '../../../assets/ceos-header.png'
+import bannerConsultantdoctor from '../../../assets/ceos-header.png'
+import bannerClientdoctor from '../../../assets/ceos-header.png'
+import bannerAgent from '../../../assets/ceos-header.png'
 
 export default {
   name: 'Header',
-
   data() {
     return {
-      banner: Banner
+      bannerOptions: {
+        admin: bannerAdmin,
+        consultantdoctor: bannerConsultantdoctor,
+        clientdoctor: bannerClientdoctor,
+        agent: bannerAgent
+      }
     }
   },
-
   computed: {
+    ...mapGetters(['getRole']),
+    banner() {
+      const userType = this.getRole?.replace('_', '')
+      return this.bannerOptions[userType] || []
+    },
+
     title() {
       return this.$route?.meta?.title
     }

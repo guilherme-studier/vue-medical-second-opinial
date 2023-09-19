@@ -100,7 +100,6 @@ body {
   .v-select {
     border: 1px solid $gray-400;
     margin-bottom: 15px;
-    border-radius: 10px;
     min-height: 50px;
     min-width: 200px;
     height: 46.46px;
@@ -132,9 +131,6 @@ body {
         display: none;
       }
     }
-
-
-
   
     &::placeholder {
       font-weight: bold;
@@ -142,14 +138,11 @@ body {
     }
 
     .vs__dropdown-menu {
-      border-top-right-radius: 0;
-      border-top-left-radius: 0;
-      border-bottom-right-radius: 10px;
-      border-bottom-left-radius: 10px;
+      border-radius: 10px;
       padding: 0;
-      margin: 0;
-      margin-top: 2px;
+      margin-top: 10px;
       z-index: 1;
+      border-bottom: 1px solid #bbb;
 
       li {
         height: 50px;
