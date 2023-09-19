@@ -27,7 +27,6 @@ export default {
         const response = await getDiseases()
         commit('setDiseases', response.data.content)
       } catch (error) {
-        alert('Erro ao buscar as doenças:', error)
         toast.warning('Erro ao buscar as doenças', { timeout: 5000 })
       }
     },
@@ -37,7 +36,6 @@ export default {
         dispatch('fetchDiseases')
         toast.success('Doença criada com sucesso!', { timeout: 5000 })
       } catch (error) {
-        alert('Erro ao criar a doença:', error)
         toast.warning('Erro ao criar a doença', { timeout: 5000 })
       }
     },
@@ -47,7 +45,6 @@ export default {
         dispatch('fetchDiseases')
         toast.success('Doença removida com sucesso!', { timeout: 5000 })
       } catch (error) {
-        alert('Erro ao deletar a doença:', error)
         toast.warning('Erro ao deletar a doença', { timeout: 5000 })
       }
     },
@@ -57,7 +54,6 @@ export default {
         dispatch('fetchDiseases')
         toast.success('Doença atualizada com sucesso!', { timeout: 5000 })
       } catch (error) {
-        alert('Erro ao atualizar a doença:', error)
         toast.warning('Erro ao atualizar a doença', { timeout: 5000 })
       }
     },
@@ -66,7 +62,6 @@ export default {
         await getDisease(diseaseId)
         dispatch('fetchDiseases')
       } catch (error) {
-        alert('Erro ao buscar a doença:', error)
         toast.warning('Erro ao buscar a doença', { timeout: 5000 })
       }
     }

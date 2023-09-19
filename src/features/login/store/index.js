@@ -73,7 +73,6 @@ export default {
         router.push('/')
       } catch (error) {
         toast.warning('Não foi possível realizar o login', { timeout: 5000 })
-        alert(error)
       } finally {
         commit('setLoading', false)
       }
@@ -95,17 +94,22 @@ export default {
         localStorage.clear()
         router.push('/login')
       } catch (error) {
-        alert('Erro ao fazer logout:', error.message)
+        toast.warning('Não foi possível realizar o logout do usuário', {
+          timeout: 5000
+        })
       }
     },
     async resetPassword({ commit }, email) {
       try {
         const response = await reset({ email })
 
-        // Exiba uma mensagem de sucesso no console
-        alert('E-mail enviado com sucesso:', response)
+        toast.success('E-mail de reset de senha enviado com sucesso', {
+          timeout: 5000
+        })
       } catch (error) {
-        alert('Erro ao redefinir a senha:', error.message)
+        toast.warning('Não foi possível realizar o reset da senha', {
+          timeout: 5000
+        })
       }
     }
   },

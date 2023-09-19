@@ -27,7 +27,6 @@ export default {
         const response = await getSpecialties()
         commit('setSpecialties', response.data.content)
       } catch (error) {
-        alert('Erro ao buscar as especialidades:', error)
         toast.warning('Erro ao buscar as especialidades', { timeout: 5000 })
       }
     },
@@ -37,7 +36,6 @@ export default {
         dispatch('fetchSpecialties')
         toast.success('Especialidade criada com sucesso!', { timeout: 5000 })
       } catch (error) {
-        alert('Erro ao criar a especialidade:', error)
         toast.warning('Erro ao criar a especialidade', { timeout: 5000 })
       }
     },
@@ -47,7 +45,6 @@ export default {
         dispatch('fetchSpecialties')
         toast.success('Especialidade removida com sucesso!', { timeout: 5000 })
       } catch (error) {
-        alert('Erro ao deletar a especialidade:', error)
         toast.warning('Erro ao deletar a especialidade', { timeout: 5000 })
       }
     },
@@ -59,7 +56,6 @@ export default {
           timeout: 5000
         })
       } catch (error) {
-        alert('Erro ao atualizar a especialidade:', error)
         toast.warning('Erro ao atualizar a especialidade', { timeout: 5000 })
       }
     },
@@ -68,7 +64,6 @@ export default {
         await getSpecialty(specialtyId)
         dispatch('fetchSpecialties')
       } catch (error) {
-        alert('Erro ao buscar a especialidade:', error)
         toast.warning('Erro ao buscar a especialidade', { timeout: 5000 })
       }
     }

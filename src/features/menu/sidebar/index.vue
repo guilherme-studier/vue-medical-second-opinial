@@ -84,11 +84,6 @@ export default {
       return routes[userType] || []
     }
   },
-
-  mounted() {
-    console.log(this.getRole)
-  },
-
   methods: {
     toggleMenu() {
       this.active = !this.active
