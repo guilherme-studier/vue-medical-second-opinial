@@ -98,7 +98,7 @@
                 type="text"
                 placeholder="Lagradouro"
                 class="flexible-input"
-                v-model="place"
+                v-model="street"
               />
             </input-wrapper>
           </input-group>
@@ -227,7 +227,7 @@
         </input-group>
       </div>
       <div id="save">
-        <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
+        <button @click="handleSave">Salvar</button>
       </div>
     </div>
   </div>
@@ -272,7 +272,7 @@ export default {
       number: null,
       email: null,
       phone: null,
-      place: null,
+      street: null,
       name: null,
       city: null,
       cnpj: null,
@@ -297,7 +297,7 @@ export default {
         !this.number ||
         !this.email ||
         !this.phone ||
-        !this.place ||
+        !this.street ||
         !this.name ||
         !this.city ||
         !this.cpf ||
@@ -314,7 +314,7 @@ export default {
     this.fetchSpecialties()
   },
   methods: {
-    ...mapActions('consultantDoctorInvitation', ['createUser']),
+    ...mapActions('consultantMedicalRegistration', ['updateConsultantMedical']),
     ...mapActions('specialty', ['fetchSpecialties']),
     openModal() {
       this.modalTermsVisible = true
@@ -330,7 +330,7 @@ export default {
     async handleSave() {
       const userData = {
         type: this.type,
-        username: this.name.replace(/\s/g, '').toLowerCase(),
+        username: this.name?.replace(/\s/g, '')?.toLowerCase(),
         term: this.termsAgreed,
         newPassword: this.newPassword,
         camplement: this.complement,
@@ -339,7 +339,7 @@ export default {
         number: this.number,
         email: this.email,
         phone: this.phone,
-        place: this.place,
+        street: this.street,
         name: this.name,
         city: this.city,
         cpf: this.cpf,
@@ -353,20 +353,19 @@ export default {
       }
 
       try {
-        await this.createUser(userData)
+        await this.updateConsultantMedical(userData)
         this.toast.success(
-          'Geração de convite para médico consultor efetuada com sucesso',
+          'Atualização do cadastro de médico consultor efetuado com sucesso',
           {
             timeout: 5000
           }
         )
+        this.clearForm()
       } catch (error) {
-        this.toast.warning(
-          'Erro ao realizar a geração de convite para médico consultor',
-          { timeout: 5000 }
-        )
+        this.toast.warning('Erro ao realizar a atualização de cadastro', {
+          timeout: 5000
+        })
       }
-      this.clearForm()
     },
     clearForm() {
       ;(this.termsAgreed = null),
@@ -377,7 +376,7 @@ export default {
         (this.number = null),
         (this.email = null),
         (this.phone = null),
-        (this.place = null),
+        (this.street = null),
         (this.name = null),
         (this.city = null),
         (this.cpf = null),

@@ -1,4 +1,4 @@
-import { createUser } from '../../../services/user/index'
+import { updateUser } from '../../../services/user/index'
 
 export default {
   namespaced: true,
@@ -11,10 +11,10 @@ export default {
     }
   },
   actions: {
-    async createUser({ commit }, userData) {
-      return createUser(userData)
+    async updateConsultantMedical({ commit }, userData) {
+      return updateUser(userData)
         .then((response) => {
-          commit('setIndustryUser', response.data)
+          commit('setDoctorConsultant', response.data)
           return response
         })
         .catch((error) => {

@@ -8,6 +8,7 @@ import admClinicalCases from '@/features/admClinicalCases/store/index'
 import allocationClinicalCases from '@/features/allocationClinicalCases/store/index'
 import clinicalCasesEvaluation from '@/features/clinicalCasesEvaluation/store/index'
 import consultantDoctorInvitation from '@/features/consultantDoctorInvitation/store/index'
+import consultantMedicalRegistration from '@/features/consultantMedicalRegistration/store/index'
 import home from '@/features/home/stores/index'
 import industry from '@/features/industryRegistration/store/index'
 import login from '@/features/login/store/index'
@@ -67,7 +68,8 @@ const store = createStore({
     allocationClinicalCases,
     registrationClinicalCases,
     representativeRegistration,
-    consultantDoctorInvitation
+    consultantDoctorInvitation,
+    consultantMedicalRegistration
   },
   getters: {
     getAuthToken: (state) => state.authToken,

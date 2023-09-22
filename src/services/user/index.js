@@ -1,7 +1,10 @@
 import axios from 'axios'
 
+import store from '@/store'
+
 const BASE_URL = 'https://meso.poatech.com.br:450/user/api/1.0'
-const token = 'seu_token_de_autenticacao' // Substitua pelo seu token de autenticação
+const getToken = () => store?.getters?.getUserToken
+const getUserId = () => store?.getters?.getUserId
 
 /**
  * Cria um usuário na plataforma.
@@ -13,7 +16,7 @@ export const createUser = (userData) => {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${getToken()}`
     },
     url: `${BASE_URL}/users`,
     data: userData
@@ -32,7 +35,7 @@ export const activateUser = (activationToken) => {
     method: 'GET',
     headers: {
       'content-type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${getToken()}`
     },
     url
   })
@@ -50,7 +53,7 @@ export const approveUser = (userId) => {
     method: 'POST', // Ou o método apropriado para aprovar usuários na sua API
     headers: {
       'content-type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${getToken()}`
     },
     url
   })
@@ -68,7 +71,7 @@ export const blockUser = (userId) => {
     method: 'POST', // Ou o método apropriado para bloquear usuários na sua API
     headers: {
       'content-type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${getToken()}`
     },
     url
   })
@@ -85,7 +88,7 @@ export const getUsers = (page, size) => {
     method: 'GET',
     headers: {
       'content-type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${getToken()}`
     },
     url
   })
@@ -103,7 +106,7 @@ export const getUserById = (userId) => {
     method: 'GET',
     headers: {
       'content-type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${getToken()}`
     },
     url
   })
@@ -115,16 +118,14 @@ export const getUserById = (userId) => {
  * @param {object} userData - Dados do usuário a serem atualizados.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const updateUser = (userId, userData) => {
-  const url = `${BASE_URL}/users/${userId}`
-
+export const updateUser = (userData) => {
   return axios({
     method: 'PUT',
     headers: {
       'content-type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${getToken()}`
     },
-    url,
+    url: `${BASE_URL}/users/${getUserId()}`,
     data: userData
   })
 }
@@ -141,7 +142,7 @@ export const deleteUser = (userId) => {
     method: 'DELETE',
     headers: {
       'content-type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${getToken()}`
     },
     url
   })
