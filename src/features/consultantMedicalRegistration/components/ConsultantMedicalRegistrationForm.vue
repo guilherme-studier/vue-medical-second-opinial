@@ -355,17 +355,16 @@ export default {
       try {
         await this.updateConsultantMedical(userData)
         this.toast.success(
-          'Geração de convite para médico consultor efetuada com sucesso',
+          'Atualização do cadastro de médico consultor efetuado com sucesso',
           {
             timeout: 5000
           }
         )
         this.clearForm()
       } catch (error) {
-        this.toast.warning(
-          'Erro ao realizar a geração de convite para médico consultor',
-          { timeout: 5000 }
-        )
+        this.toast.warning('Erro ao realizar a atualização de cadastro', {
+          timeout: 5000
+        })
       }
     },
     clearForm() {
