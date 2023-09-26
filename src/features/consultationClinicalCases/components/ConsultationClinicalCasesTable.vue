@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{ 'form-loading': isLoading }">
     <div class="title">
       <img class="icon-voucher" :src="icon" />
       <h1>{{ clinicalCases }} casos clínicos ativos</h1>
@@ -8,8 +8,10 @@
       <InputWrapper>
         <v-select
           v-model="selectedInduster"
-          :options="industerOptions"
+          :options="getIndustries"
+          :reduce="(item) => item.id"
           placeholder="Indústria"
+          label="name"
         ></v-select>
       </InputWrapper>
       <InputWrapper>
@@ -40,6 +42,10 @@
     </InputGroup>
 
     <custom-table :tableHeader="tableHeader" :tableData="tableData" />
+
+    <div v-if="isLoading">
+      <loader-spinner />
+    </div>
   </div>
 </template>
 
@@ -51,11 +57,13 @@ import iconVoucher from '@/assets/icons/icon-voucher.svg'
 import CustomTable from '@/components/customTable'
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
+import LoaderSpinner from '@/components/loaderSpinner'
 
 export default {
   name: 'Consulta Casos Clínicos',
   components: {
     InputWrapper,
+    LoaderSpinner,
     CustomTable,
     InputGroup,
     vSelect
@@ -65,11 +73,6 @@ export default {
       clinicalCases: 3,
       icon: iconVoucher,
       selectedInduster: null,
-      industerOptions: [
-        { label: 'Ind. Farmacêutica', value: 'Ind. Farmacêutica' },
-        { label: 'Ind. Farmacêutica 2', value: 'Ind. Farmacêutica 2' },
-        { label: 'Ind. Farmacêutica 3', value: 'Ind. Farmacêutica 3' }
-      ],
       selectedSpecialty: null,
       selectedIllness: null,
       selectedDoctor: null,
@@ -129,11 +132,21 @@ export default {
   },
   mounted() {
     this.fetchSpecialties()
+    this.fetchIndustries()
     this.fetchDiseases()
   },
   computed: {
-    ...mapGetters('specialty', ['getSpecialties']),
-    ...mapGetters('disease', ['getDiseases']),
+    ...mapGetters('specialty', ['getSpecialties', 'getLoadingSpecialtys']),
+    ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
+    ...mapGetters('disease', ['getDiseases', 'getLoadingDiseases']),
+
+    isLoading() {
+      return (
+        this.getLoadingSpecialtys ||
+        this.getLoadingDiseases ||
+        this.getLoadingIndustry
+      )
+    },
 
     filteredTableData() {
       const filters = [
@@ -172,6 +185,7 @@ export default {
   },
   methods: {
     ...mapActions('specialty', ['fetchSpecialties']),
+    ...mapActions('industry', ['fetchIndustries']),
     ...mapActions('disease', ['fetchDiseases'])
   }
 }

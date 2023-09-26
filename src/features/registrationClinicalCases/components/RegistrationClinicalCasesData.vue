@@ -105,7 +105,7 @@
         </button>
       </div>
     </div>
-    <div v-if="isLoading && getSpecialties && getDiseases">
+    <div v-if="isLoading">
       <loader-spinner />
     </div>
     <Modal
