@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useToast } from 'vue-toastification'
 
 import {
@@ -30,7 +29,7 @@ export default {
     }
   },
   actions: {
-    async createIndustry({ commit }, userData) {
+    createIndustry({ commit }, userData) {
       commit('setLoading', true)
       return createIndustry(userData)
         .then((response) => {
@@ -44,46 +43,70 @@ export default {
           commit('setLoading', false)
         })
     },
-    async fetchIndustries({ commit }) {
-      try {
-        const response = await getIndustries()
-        commit('setIndustries', response.data)
-      } catch (error) {
-        toast.warning('Erro ao buscar as indústrias', { timeout: 5000 })
-      }
-    },
-    async deleteIndustryById({ commit, dispatch }, industryId) {
-      try {
-        await deleteIndustry(industryId)
-        dispatch('fetchIndustries')
-        toast.success('Indústria removida com sucesso!', { timeout: 5000 })
-      } catch (error) {
-        toast.warning('Erro ao deletar a indústria', { timeout: 5000 })
-      }
-    },
-    async updateIndustryById({ commit, dispatch }, data) {
-      try {
-        await updateIndustry(data.id, data.name)
-        dispatch('fetchIndustries')
-        toast.success('Indústria atualizada com sucesso!', {
-          timeout: 5000
+    fetchIndustries({ commit }) {
+      commit('setLoading', true)
+      return getIndustries()
+        .then((response) => {
+          commit('setIndustries', response.data)
         })
-      } catch (error) {
-        toast.warning('Erro ao atualizar a indústria', { timeout: 5000 })
-      }
+        .catch((error) => {
+          toast.warning('Erro ao buscar as indústrias', { timeout: 5000 })
+          throw error
+        })
+        .finally(() => {
+          commit('setLoading', false)
+        })
     },
-    async getIndustryById({ commit, dispatch }, industryId) {
-      try {
-        const response = await getIndustry(industryId)
-        commit('setIndustry', response.data.content)
-      } catch (error) {
-        toast.warning('Erro ao buscar a indústria', { timeout: 5000 })
-      }
+    deleteIndustryById({ commit, dispatch }, industryId) {
+      commit('setLoading', true)
+      return deleteIndustry(industryId)
+        .then(() => {
+          dispatch('fetchIndustries')
+          toast.success('Indústria removida com sucesso!', { timeout: 5000 })
+        })
+        .catch((error) => {
+          toast.warning('Erro ao deletar a indústria', { timeout: 5000 })
+          throw error
+        })
+        .finally(() => {
+          commit('setLoading', false)
+        })
+    },
+    updateIndustryById({ commit, dispatch }, data) {
+      commit('setLoading', true)
+      return updateIndustry(data.id, data.name)
+        .then(() => {
+          dispatch('fetchIndustries')
+          toast.success('Indústria atualizada com sucesso!', {
+            timeout: 5000
+          })
+        })
+        .catch((error) => {
+          toast.warning('Erro ao atualizar a indústria', { timeout: 5000 })
+          throw error
+        })
+        .finally(() => {
+          commit('setLoading', false)
+        })
+    },
+    getIndustryById({ commit }, industryId) {
+      commit('setLoading', true)
+      return getIndustry(industryId)
+        .then((response) => {
+          commit('setIndustry', response.data.content)
+        })
+        .catch((error) => {
+          toast.warning('Erro ao buscar a indústria', { timeout: 5000 })
+          throw error
+        })
+        .finally(() => {
+          commit('setLoading', false)
+        })
     }
   },
   getters: {
     getIndustries: (state) => state.industries,
     getIndustry: (state) => state.industry,
-    getLoading: (state) => state.loading
+    getLoadingIndustry: (state) => state.loading
   }
 }
