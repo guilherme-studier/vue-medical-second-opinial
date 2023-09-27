@@ -36,8 +36,8 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  position: absolute;
-  top: 0;
+  position: relative;
+  bottom: 250px;
   left: 0;
   z-index: 1;
 }

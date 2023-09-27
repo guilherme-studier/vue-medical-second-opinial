@@ -56,9 +56,9 @@ export default {
   data() {
     return {
       forgotPassword: false,
-      username: '',
-      password: '',
-      email: ''
+      username: null,
+      password: null,
+      email: null
     }
   },
   methods: {
@@ -67,26 +67,18 @@ export default {
     handlePassword() {
       this.forgotPassword = !this.forgotPassword
       if (this.forgotPassword) {
-        this.username = ''
-        this.password = ''
-      } else {
-        this.email = ''
-      }
+        this.username = null
+        this.password = null
+      } else this.email = null
     },
 
     async handleButtonClick() {
-      if (this.forgotPassword) {
-        this.resetPassword({ email: this.email })
-      } else {
-        try {
-          await this.loginUser({
-            username: this.username,
-            password: this.password
-          })
-        } catch (error) {
-          console.warn('Erro na chamada à API (vindo do Vuex):', error.message)
-        }
-      }
+      if (this.forgotPassword) this.resetPassword({ email: this.email })
+      else
+        this.loginUser({
+          username: this.username,
+          password: this.password
+        })
     },
 
     handleSubmit() {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <Title :title="tituloComponente" />
-    <div class="form" :class="{ 'form-loading': getLoading }">
+    <div class="form" :class="{ 'form-loading': isLoading }">
       <InputGroup>
         <InputWrapper>
           <v-select
@@ -105,7 +105,7 @@
         </button>
       </div>
     </div>
-    <div v-if="getLoading && getSpecialties && getDiseases">
+    <div v-if="isLoading">
       <loader-spinner />
     </div>
     <Modal
@@ -179,12 +179,17 @@ export default {
   },
   computed: {
     ...mapGetters('registrationClinicalCases', ['getLoading']),
-    ...mapGetters('specialty', ['getSpecialties']),
-    ...mapGetters('industry', ['getIndustries']),
-    ...mapGetters('disease', ['getDiseases']),
+    ...mapGetters('specialty', ['getSpecialties', 'getLoadingSpecialtys']),
+    ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
+    ...mapGetters('disease', ['getDiseases', 'getLoadingDiseases']),
 
     isLoading() {
-      return this.getLoading
+      return (
+        this.getLoading ||
+        this.getLoadingSpecialtys ||
+        this.getLoadingDiseases ||
+        this.getLoadingIndustry
+      )
     },
 
     isSaveDisabled() {

@@ -1,17 +1,11 @@
 <template>
   <div class="app-container" :class="{ 'reduced-opacity': getLoading }">
-    <div :class="{ 'reduced-opacity': getLoading }">
-      <!-- Your content here -->
-    </div>
     <!-- MENU LATERAL -->
     <sidebar-menu v-if="$route.name !== 'Login'" />
 
     <!-- ROTAS -->
     <router-view />
-
-    <div v-if="getLoading">
-      <loader-spinner />
-    </div>
+    <loader-spinner v-if="getLoading" />
   </div>
 </template>
 
@@ -68,5 +62,11 @@ export default {
 
 .reduced-opacity {
   opacity: 0.6;
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>
