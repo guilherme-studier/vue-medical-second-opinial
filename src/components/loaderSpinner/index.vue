@@ -37,7 +37,7 @@ export default {
   justify-content: center;
   flex-direction: column;
   position: relative;
-  bottom: 200px;
+  bottom: 250px;
   left: 0;
   z-index: 1;
 }
