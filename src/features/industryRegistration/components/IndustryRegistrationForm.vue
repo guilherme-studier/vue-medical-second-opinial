@@ -124,16 +124,7 @@ export default {
         observation: this.observation
       }
 
-      try {
-        await this.createIndustry(userData)
-        this.toast.success('Cadastro efetuado criado com sucesso', {
-          timeout: 5000
-        })
-      } catch (error) {
-        this.toast.warning('Não foi possível realizar o cadastro', {
-          timeout: 5000
-        })
-      }
+      await this.createIndustry(userData)
       this.clearForm()
     },
     clearForm() {

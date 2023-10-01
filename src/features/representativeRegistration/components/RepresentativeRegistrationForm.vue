@@ -130,25 +130,9 @@ export default {
         cpf: this.cpf
       }
 
-      this.getUser()
-        .then(() => {
-          return this.updateRepresentativeIndustry(userData)
-        })
-        .then(() => {
-          this.toast.success('Cadastro efetuado criado com sucesso', {
-            timeout: 5000
-          })
-          this.clearForm()
-          this.getUser()
-        })
-        .catch(() => {
-          this.toast.warning(
-            'Não foi possível realizar a atualização do cadastro do Representante',
-            {
-              timeout: 5000
-            }
-          )
-        })
+      await this.updateRepresentativeIndustry(userData)
+      await this.getUser()
+      this.clearForm()
     },
     clearForm() {
       this.newPassword = null
