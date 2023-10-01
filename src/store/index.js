@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
 import { createStore } from 'vuex'
 
-import user from './modules/user'
 import { getCurrentUserAccess } from '../helpers/auth'
 
 import admClinicalCases from '@/features/admClinicalCases/store/index'
@@ -18,6 +17,7 @@ import representativeRegistration from '@/features/representativeRegistration/st
 import systemAccessCancellation from '@/features/systemAccessCancellation/store/index'
 import disease from '@/store/modules/disease/index'
 import specialty from '@/store/modules/specialty/index'
+import user from '@/store/modules/user/index'
 
 const store = createStore({
   state: {

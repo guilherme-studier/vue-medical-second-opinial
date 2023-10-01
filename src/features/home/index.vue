@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 import BaseError from '@/components/baseError'
 import LoaderSpinner from '@/components/loaderSpinner'
@@ -42,6 +42,12 @@ export default {
       'getLoading',
       'getError'
     ])
+  },
+  mounted() {
+    this.getUser()
+  },
+  methods: {
+    ...mapActions('user', ['getUser'])
   }
 }
 </script>
