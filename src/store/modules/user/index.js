@@ -8,64 +8,48 @@ const toast = useToast()
 export default {
   namespaced: true,
   state: () => ({
-    id: null,
-    hashid: null,
-    type: null,
-    username: null,
-    email: null,
-    name: null,
-    password: null,
-    term: null,
-    cpf: null,
-    phone: null,
-    crm: null,
-    // eslint-disable-next-line camelcase
-    uf_crm: null,
-    cep: null,
-    street: null,
-    number: null,
-    complement: null,
-    city: null,
-    state: null,
-    cnpj: null,
-    // eslint-disable-next-line camelcase
-    corporate_name: null,
-    category: null,
-    specialty: null
+    userData: {
+      id: null,
+      hashid: null,
+      type: null,
+      username: null,
+      email: null,
+      name: null,
+      password: null,
+      term: null,
+      cpf: null,
+      phone: null,
+      crm: null,
+      // eslint-disable-next-line camelcase
+      uf_crm: null,
+      cep: null,
+      street: null,
+      number: null,
+      complement: null,
+      city: null,
+      state: null,
+      cnpj: null,
+      // eslint-disable-next-line camelcase
+      corporate_name: null,
+      category: null,
+      specialty: null
+    },
+    loading: false
   }),
   mutations: {
-    userData(state, data) {
-      state.id = data.id
-      state.hashid = data.hashid
-      state.type = data.type
-      state.username = data.username
-      state.email = data.email
-      state.name = data.name
-      state.password = data.password
-      state.term = data.term
-      state.cpf = data.cpf
-      state.phone = data.phone
-      state.crm = data.crm
-      // eslint-disable-next-line camelcase
-      state.uf_crm = data.uf_crm
-      state.cep = data.cep
-      state.street = data.street
-      state.number = data.number
-      state.complement = data.complement
-      state.city = data.city
-      state.state = data.state
-      state.cnpj = data.cnpj
-      // eslint-disable-next-line camelcase
-      state.corporate_name = data.corporate_name
-      state.category = data.category
-      state.specialty = data.specialty
+    setUserData(state, data) {
+      state.userData = data
+    },
+    setLoading(state, value) {
+      state.loading = value
     }
   },
   actions: {
-    async getUser({ commit }) {
-      return getUserById()
+    async getUser({ commit }, userId) {
+      commit('setLoading', true)
+      return getUserById({ userId })
         .then((response) => {
-          commit('userData', response.data)
+          commit('setUserData', response.data)
           localStorage.setItem('user', JSON.stringify(response.data))
 
           return response.data
@@ -75,30 +59,35 @@ export default {
             timeout: 5000
           })
         })
+        .finally(() => {
+          commit('setLoading', false)
+        })
     }
   },
   getters: {
-    getId: (state) => state.id,
-    getHashId: (state) => state.hashid,
-    getType: (state) => state.type,
-    getUsername: (state) => state.username,
-    getEmail: (state) => state.email,
-    getName: (state) => state.name,
-    getPassword: (state) => state.password,
-    getTerm: (state) => state.term,
-    getCpf: (state) => state.cpf,
-    getPhone: (state) => state.phone,
-    getCrm: (state) => state.crm,
-    getUfCrm: (state) => state.uf_crm,
-    getCep: (state) => state.cep,
-    getStreet: (state) => state.street,
-    getNumber: (state) => state.number,
-    getComplement: (state) => state.complement,
-    getCity: (state) => state.city,
-    getState: (state) => state.state,
-    getCnpj: (state) => state.cnpj,
-    getCorporateName: (state) => state.corporate_name,
-    getCategory: (state) => state.category,
-    getSpecialty: (state) => state.specialty
+    getUserData: (state) => state.userData,
+    getId: (state) => state.userData.id,
+    getHashId: (state) => state.userData.hashid,
+    getType: (state) => state.userData.type,
+    getUsername: (state) => state.userData.username,
+    getEmail: (state) => state.userData.email,
+    getName: (state) => state.userData.name,
+    getPassword: (state) => state.userData.password,
+    getTerm: (state) => state.userData.term,
+    getCpf: (state) => state.userData.cpf,
+    getPhone: (state) => state.userData.phone,
+    getCrm: (state) => state.userData.crm,
+    getUfCrm: (state) => state.userData.uf_crm,
+    getCep: (state) => state.userData.cep,
+    getStreet: (state) => state.userData.street,
+    getNumber: (state) => state.userData.number,
+    getComplement: (state) => state.userData.complement,
+    getCity: (state) => state.userData.city,
+    getState: (state) => state.userData.state,
+    getCnpj: (state) => state.userData.cnpj,
+    getCorporateName: (state) => state.userData.corporate_name,
+    getCategory: (state) => state.userData.category,
+    getSpecialty: (state) => state.userData.specialty,
+    getLoadingUser: (state) => state.loading
   }
 }

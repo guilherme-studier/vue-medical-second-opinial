@@ -1,7 +1,7 @@
 <template>
   <div id="representative-registration">
     <Title :title="tituloComponente" />
-    <div class="form">
+    <div class="form" :class="{ 'form-loading': getLoadingForm }">
       <InputGroup>
         <InputWrapper>
           <input
@@ -56,15 +56,19 @@
         <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
       </div>
     </div>
+    <div v-if="getLoadingForm">
+      <loader-spinner />
+    </div>
   </div>
 </template>
 
 <script>
 import { useToast } from 'vue-toastification'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
+import LoaderSpinner from '@/components/loaderSpinner'
 import Title from '@/components/title'
 
 export default {
@@ -72,7 +76,8 @@ export default {
   components: {
     Title,
     InputGroup,
-    InputWrapper
+    InputWrapper,
+    LoaderSpinner
   },
   setup() {
     const toast = useToast()
@@ -82,14 +87,21 @@ export default {
   data() {
     return {
       tituloComponente: 'Dados Cadastrais',
+      name: null,
       newPassword: null,
       phone: null,
       email: null,
-      name: null,
       cpf: null
     }
   },
   computed: {
+    ...mapGetters('user', ['getLoadingUser']),
+    ...mapGetters('representativeRegistration', ['getLoadingRepresentative']),
+
+    getLoadingForm() {
+      return this.getLoadingUser || this.getLoadingRepresentative
+    },
+
     isSaveDisabled() {
       return (
         !this.newPassword ||
@@ -101,12 +113,16 @@ export default {
     }
   },
   methods: {
-    ...mapActions('representativeRegistration', ['createUser']),
+    ...mapActions('representativeRegistration', [
+      'updateRepresentativeIndustry'
+    ]),
+
+    ...mapActions('user', ['getUser']),
 
     async handleSave() {
       const userData = {
         type: 'agent',
-        username: this.name.replace(/\s/g, '').toLowerCase(),
+        username: this.name?.replace(/\s/g, '').toLowerCase(),
         newPassword: this.newPassword,
         email: this.email,
         phone: this.phone,
@@ -114,17 +130,25 @@ export default {
         cpf: this.cpf
       }
 
-      try {
-        await this.createUser(userData)
-        this.toast.success('Cadastro efetuado criado com sucesso', {
-          timeout: 5000
+      this.getUser()
+        .then(() => {
+          return this.updateRepresentativeIndustry(userData)
         })
-      } catch (error) {
-        this.toast.warning('Não foi possível realizar o cadastro', {
-          timeout: 5000
+        .then(() => {
+          this.toast.success('Cadastro efetuado criado com sucesso', {
+            timeout: 5000
+          })
+          this.clearForm()
+          this.getUser()
         })
-      }
-      this.clearForm()
+        .catch(() => {
+          this.toast.warning(
+            'Não foi possível realizar a atualização do cadastro do Representante',
+            {
+              timeout: 5000
+            }
+          )
+        })
     },
     clearForm() {
       this.newPassword = null
