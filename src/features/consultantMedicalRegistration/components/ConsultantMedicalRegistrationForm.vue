@@ -312,6 +312,7 @@ export default {
   },
   mounted() {
     this.fetchSpecialties()
+    this.getUser()
   },
   methods: {
     ...mapActions('consultantMedicalRegistration', ['updateConsultantMedical']),

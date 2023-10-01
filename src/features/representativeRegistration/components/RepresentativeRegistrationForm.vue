@@ -112,6 +112,9 @@ export default {
       )
     }
   },
+  mounted() {
+    this.getUser()
+  },
   methods: {
     ...mapActions('representativeRegistration', [
       'updateRepresentativeIndustry'

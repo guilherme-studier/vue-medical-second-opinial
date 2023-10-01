@@ -20,12 +20,9 @@ export default {
       return updateUser(userData)
         .then((response) => {
           commit('setDoctorConsultant', response.data)
-          toast.success(
-            'Atualização do cadastro de médico consultor efetuado com sucesso',
-            {
-              timeout: 5000
-            }
-          )
+          toast.success('Cadastro de Médico Consultor atualizado com sucesso', {
+            timeout: 5000
+          })
           return response
         })
         .catch((error) => {

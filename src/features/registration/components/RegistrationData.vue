@@ -191,9 +191,10 @@ export default {
   },
   computed: {
     ...mapGetters('registration', ['getLoadingRegistration']),
+    ...mapGetters('user', ['getLoadingUser']),
 
     getLoading() {
-      return this.getLoadingRegistration
+      return this.getLoadingRegistration || this.getLoadingUser
     },
 
     isSaveDisabled() {
@@ -209,6 +210,9 @@ export default {
         !this.termsAgreed
       )
     }
+  },
+  mounted() {
+    this.getUser()
   },
   methods: {
     ...mapActions('registration', ['updateClientDoctor']),
