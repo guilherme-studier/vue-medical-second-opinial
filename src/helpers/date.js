@@ -3,7 +3,11 @@
  * @param {Date} date Date obj da data a ser formatada
  * @returns {String}
  */
-export const formatDate = (date = 'dd/MM/yyyy') => {
-  const dArr = date.split('-')
-  return dArr[2] + '/' + dArr[1] + '/' + dArr[0]
+
+export const formatDate = (isoDate) => {
+  const date = new Date(isoDate)
+  const day = date.getDate()
+  const month = date.getMonth() + 1
+  const year = date.getFullYear()
+  return `${day}/${month}/${year}`
 }

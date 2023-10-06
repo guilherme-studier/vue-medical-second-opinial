@@ -8,6 +8,7 @@ import allocationClinicalCases from '@/features/allocationClinicalCases/store/in
 import clinicalCasesEvaluation from '@/features/clinicalCasesEvaluation/store/index'
 import consultantDoctorInvitation from '@/features/consultantDoctorInvitation/store/index'
 import consultantMedicalRegistration from '@/features/consultantMedicalRegistration/store/index'
+import consultationClinicalCases from '@/features/consultationClinicalCases/store/index'
 import home from '@/features/home/stores/index'
 import industry from '@/features/industryRegistration/store/index'
 import login from '@/features/login/store/index'
@@ -66,6 +67,7 @@ const store = createStore({
     clinicalCasesEvaluation,
     systemAccessCancellation,
     allocationClinicalCases,
+    consultationClinicalCases,
     registrationClinicalCases,
     representativeRegistration,
     consultantDoctorInvitation,
