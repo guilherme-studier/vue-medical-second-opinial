@@ -95,10 +95,10 @@ export default {
 
     logoutUser({ commit }) {
       logoutUser()
-        .then((response) => {
+        .then(async (response) => {
           localStorage.clear('token')
           localStorage.clear('user')
-          router.push('/login')
+          await window.location.reload()
         })
         .catch((error) => {
           toast.warning('Não foi possível realizar o logout do usuário', {

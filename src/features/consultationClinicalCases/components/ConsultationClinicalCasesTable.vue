@@ -2,7 +2,7 @@
   <div :class="{ 'form-loading': isLoading }">
     <div class="title">
       <img class="icon-voucher" :src="icon" />
-      <h1>{{ clinicalCases }} casos clínicos ativos</h1>
+      <h1>{{ clinicalCases ? clinicalCases : '0' }} casos clínicos ativos</h1>
     </div>
     <InputGroup>
       <InputWrapper>
@@ -41,7 +41,11 @@
       </InputWrapper>
     </InputGroup>
 
-    <custom-table :tableHeader="tableHeader" :tableData="tableData" />
+    <custom-table
+      :tableHeader="tableHeader"
+      :tableData="tableData"
+      :loading="isLoading"
+    />
 
     <div v-if="isLoading">
       <loader-spinner />
@@ -72,7 +76,6 @@ export default {
   },
   data() {
     return {
-      clinicalCases: 3,
       icon: iconVoucher,
       selectedInduster: null,
       selectedSpecialty: null,
@@ -109,6 +112,10 @@ export default {
     ...mapGetters('specialty', ['getSpecialties', 'getLoadingSpecialtys']),
     ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
     ...mapGetters('disease', ['getDiseases', 'getLoadingDiseases']),
+
+    clinicalCases() {
+      return this.getContracts?.length
+    },
 
     isLoading() {
       return (
@@ -178,4 +185,9 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/index.scss';
+.content {
+  position: absolute;
+  top: -60px;
+  left: 0;
+}
 </style>

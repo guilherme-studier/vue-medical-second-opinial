@@ -13,6 +13,15 @@
           />
         </InputWrapper>
         <InputWrapper>
+          <v-select
+            v-model="doctor"
+            :options="getDoctors"
+            :reduce="(item) => item.id"
+            label="name"
+            placeholder="Médico Consultor"
+          />
+        </InputWrapper>
+        <InputWrapper>
           <div class="input-with-icon">
             <input
               type="text"
@@ -94,7 +103,7 @@
             placeholder="Honorários Médico Consultor"
             class="flexible-input"
             v-model="fees"
-            v-mask="'R$ ###.###.###,##'"
+            v-mask="'R$ ##0,' || 'R$ ##0'"
           />
         </InputWrapper>
         <InputWrapper></InputWrapper>
@@ -140,6 +149,7 @@ import LoaderSpinner from '@/components/loaderSpinner'
 import Modal from '@/components/modal'
 import RadioContent from '@/components/radioContent'
 import Title from '@/components/title'
+import { convertDateToISOFormat } from '@/helpers/date'
 
 export default {
   name: 'RegistrationClinicalCasesData',
@@ -169,6 +179,7 @@ export default {
       specialtyId: null,
       diseaseName: null,
       diseaseId: null,
+      doctor: null,
       industry: null,
       startDate: null,
       expirationDate: null,
@@ -192,6 +203,19 @@ export default {
       )
     },
 
+    getDoctors() {
+      return [
+        {
+          id: '123',
+          name: 'Médico Guilherme'
+        },
+        {
+          id: '456',
+          name: 'Médico Thiago'
+        }
+      ]
+    },
+
     isSaveDisabled() {
       return (
         !this.name ||
@@ -213,7 +237,7 @@ export default {
     this.fetchDiseases()
   },
   methods: {
-    ...mapActions('registrationClinicalCases', ['createUser']),
+    ...mapActions('registrationClinicalCases', ['createClinicalCase']),
     ...mapActions('specialty', ['fetchSpecialties']),
     ...mapActions('industry', ['fetchIndustries']),
     ...mapActions('disease', ['fetchDiseases']),
@@ -245,18 +269,18 @@ export default {
     },
     async handleSave() {
       const userData = {
-        name: this.name,
-        quantity: this.quantity,
-        specialty: this.specialtyId,
-        disease: this.diseaseId,
-        industry: this.industry?.id,
-        startDate: this.startDate,
-        expirateDate: this.expirationDate,
-        fees: this.fees
+        vouchersQuantity: parseInt(this.quantity),
+        specialtyId: this.specialtyId,
+        diseaseId: this.diseaseId,
+        industryId: this.industry,
+        consultantDoctorId: this.doctor,
+        startDate: convertDateToISOFormat(this.startDate),
+        endDate: convertDateToISOFormat(this.expirationDate),
+        consultantDoctorFees: this.fees
       }
 
       try {
-        await this.createUser(userData)
+        await this.createClinicalCase(userData)
         this.toast.success('Cadastro efetuado criado com sucesso', {
           timeout: 5000
         })

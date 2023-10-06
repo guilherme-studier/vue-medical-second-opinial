@@ -1,7 +1,7 @@
 <template>
   <div id="industry">
     <Title :title="tituloComponente" />
-    <div class="form" :class="{ 'form-loading': getLoading }">
+    <div class="form" :class="{ 'form-loading': getLoadingIndustry }">
       <InputGroup>
         <InputWrapper>
           <input
@@ -60,7 +60,7 @@
         <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
       </div>
     </div>
-    <div v-if="getLoading">
+    <div v-if="getLoadingIndustry">
       <loader-spinner />
     </div>
   </div>
@@ -100,7 +100,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('industry', ['getLoading']),
+    ...mapGetters('industry', ['getLoadingIndustry']),
     isSaveDisabled() {
       return (
         !this.name ||

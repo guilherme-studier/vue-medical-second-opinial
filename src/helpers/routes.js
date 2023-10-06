@@ -102,11 +102,6 @@ export const routes = {
       id: 5,
       name: 'Geração de Convite para Médico Consultor',
       route: '/consultant-doctor'
-    },
-    {
-      id: 6,
-      name: 'Cancelamento de Acesso ao Sistema',
-      route: '/access-cancellation'
     }
   ],
   consultantdoctor: [

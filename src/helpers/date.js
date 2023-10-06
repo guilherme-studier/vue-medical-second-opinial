@@ -11,3 +11,8 @@ export const formatDate = (isoDate) => {
   const year = date.getFullYear()
   return `${day}/${month}/${year}`
 }
+
+export const convertDateToISOFormat = (dateString) => {
+  const [day, month, year] = dateString.split('/')
+  return `${year}-${month}-${day}`
+}

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { createUser } from '@/services/user/index'
+import { createContract } from '@/services/contract/index.js'
 
 export default {
   namespaced: true,
@@ -16,9 +16,9 @@ export default {
     }
   },
   actions: {
-    async createUser({ commit }, userData) {
+    async createClinicalCase({ commit }, userData) {
       commit('setLoading', true)
-      return createUser(userData)
+      return createContract(userData)
         .then((response) => {
           commit('setUser', response.data)
           return response
