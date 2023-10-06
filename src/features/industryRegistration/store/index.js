@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useToast } from 'vue-toastification'
 
 import {
@@ -29,21 +30,26 @@ export default {
     }
   },
   actions: {
-    createIndustry({ commit }, userData) {
+    async createIndustry({ commit }, userData) {
       commit('setLoading', true)
       return createIndustry(userData)
         .then((response) => {
           commit('setIndustry', response.data)
+          toast.success('Cadastro Indústria efetuado criado com sucesso', {
+            timeout: 5000
+          })
           return response
         })
         .catch((error) => {
-          throw error
+          toast.warning('Não foi possível realizar o cadastro', {
+            timeout: 5000
+          })
         })
         .finally(() => {
           commit('setLoading', false)
         })
     },
-    fetchIndustries({ commit }) {
+    async fetchIndustries({ commit }) {
       commit('setLoading', true)
       return getIndustries()
         .then((response) => {
@@ -57,7 +63,7 @@ export default {
           commit('setLoading', false)
         })
     },
-    deleteIndustryById({ commit, dispatch }, industryId) {
+    async deleteIndustryById({ commit, dispatch }, industryId) {
       commit('setLoading', true)
       return deleteIndustry(industryId)
         .then(() => {
@@ -72,7 +78,7 @@ export default {
           commit('setLoading', false)
         })
     },
-    updateIndustryById({ commit, dispatch }, data) {
+    async updateIndustryById({ commit, dispatch }, data) {
       commit('setLoading', true)
       return updateIndustry(data.id, data.name)
         .then(() => {
@@ -89,7 +95,7 @@ export default {
           commit('setLoading', false)
         })
     },
-    getIndustryById({ commit }, industryId) {
+    async getIndustryById({ commit }, industryId) {
       commit('setLoading', true)
       return getIndustry(industryId)
         .then((response) => {

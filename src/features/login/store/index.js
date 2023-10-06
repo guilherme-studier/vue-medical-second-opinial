@@ -10,8 +10,8 @@ const toast = useToast()
 
 export default {
   state: () => ({
-    user: h.getFromStorage('user')
-      ? JSON.parse(h.getFromStorage('user'))
+    user: h.getFromStorage('token')
+      ? JSON.parse(h.getFromStorage('token'))
       : null,
     loginOptions: [
       {
@@ -50,33 +50,38 @@ export default {
     }
   },
   actions: {
-    async loginUser({ commit }, { username, password }) {
+    loginUser({ commit }, { username, password }) {
       commit('setLoading', true)
-      try {
-        const toast = useToast()
-        const response = await login({ email: username, password })
 
-        const userData = {
-          id: response.data.id,
-          username: response.data.username,
-          firstname: response.data.firstname,
-          lastname: response.data.lastname,
-          phone: response.data.phone,
-          email: response.data.email,
-          token: response.data.token,
-          role: response.data.role
-        }
+      const toast = useToast()
 
-        commit('setUser', userData)
+      login({ email: username, password })
+        .then((response) => {
+          const userData = {
+            id: response.data.id,
+            username: response.data.username,
+            firstname: response.data.firstname,
+            lastname: response.data.lastname,
+            phone: response.data.phone,
+            email: response.data.email,
+            token: response.data.token,
+            role: response.data.role
+          }
 
-        localStorage.setItem('user', JSON.stringify(userData))
-        router.push('/')
-      } catch (error) {
-        toast.warning('Não foi possível realizar o login', { timeout: 5000 })
-      } finally {
-        commit('setLoading', false)
-      }
+          commit('setUser', userData)
+
+          localStorage.setItem('token', JSON.stringify(userData))
+
+          router.push('/')
+        })
+        .catch((error) => {
+          toast.warning('Não foi possível realizar o login', { timeout: 5000 })
+        })
+        .finally(() => {
+          commit('setLoading', false)
+        })
     },
+
     async validateToken({ dispatch, commit }, token) {
       try {
         const response = await validateToken(token)
@@ -87,30 +92,33 @@ export default {
         })
       }
     },
-    async logoutUser({ commit }) {
-      try {
-        const response = await logoutUser()
 
-        localStorage.clear()
-        router.push('/login')
-      } catch (error) {
-        toast.warning('Não foi possível realizar o logout do usuário', {
-          timeout: 5000
+    logoutUser({ commit }) {
+      logoutUser()
+        .then((response) => {
+          localStorage.clear('token')
+          localStorage.clear('user')
+          router.push('/login')
         })
-      }
+        .catch((error) => {
+          toast.warning('Não foi possível realizar o logout do usuário', {
+            timeout: 5000
+          })
+        })
     },
-    async resetPassword({ commit }, email) {
-      try {
-        const response = await reset({ email })
 
-        toast.success('E-mail de reset de senha enviado com sucesso', {
-          timeout: 5000
+    resetPassword({ commit }, email) {
+      reset({ email })
+        .then((response) => {
+          toast.success('E-mail de reset de senha enviado com sucesso', {
+            timeout: 5000
+          })
         })
-      } catch (error) {
-        toast.warning('Não foi possível realizar o reset da senha', {
-          timeout: 5000
+        .catch((error) => {
+          toast.warning('Não foi possível realizar o reset da senha', {
+            timeout: 5000
+          })
         })
-      }
     }
   },
   getters: {

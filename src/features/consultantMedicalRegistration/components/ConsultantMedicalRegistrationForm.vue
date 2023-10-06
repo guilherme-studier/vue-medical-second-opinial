@@ -312,10 +312,13 @@ export default {
   },
   mounted() {
     this.fetchSpecialties()
+    this.getUser()
   },
   methods: {
     ...mapActions('consultantMedicalRegistration', ['updateConsultantMedical']),
     ...mapActions('specialty', ['fetchSpecialties']),
+    ...mapActions('user', ['getUser']),
+
     openModal() {
       this.modalTermsVisible = true
     },
@@ -352,20 +355,9 @@ export default {
         corporateName: this.corporateName
       }
 
-      try {
-        await this.updateConsultantMedical(userData)
-        this.toast.success(
-          'Atualização do cadastro de médico consultor efetuado com sucesso',
-          {
-            timeout: 5000
-          }
-        )
-        this.clearForm()
-      } catch (error) {
-        this.toast.warning('Erro ao realizar a atualização de cadastro', {
-          timeout: 5000
-        })
-      }
+      await this.updateConsultantMedical(userData)
+      await this.getUser()
+      this.clearForm()
     },
     clearForm() {
       ;(this.termsAgreed = null),

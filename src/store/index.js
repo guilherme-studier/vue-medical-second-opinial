@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
 import { createStore } from 'vuex'
 
-import user from './modules/user'
 import { getCurrentUserAccess } from '../helpers/auth'
 
 import admClinicalCases from '@/features/admClinicalCases/store/index'
@@ -9,6 +8,7 @@ import allocationClinicalCases from '@/features/allocationClinicalCases/store/in
 import clinicalCasesEvaluation from '@/features/clinicalCasesEvaluation/store/index'
 import consultantDoctorInvitation from '@/features/consultantDoctorInvitation/store/index'
 import consultantMedicalRegistration from '@/features/consultantMedicalRegistration/store/index'
+import consultationClinicalCases from '@/features/consultationClinicalCases/store/index'
 import home from '@/features/home/stores/index'
 import industry from '@/features/industryRegistration/store/index'
 import login from '@/features/login/store/index'
@@ -18,6 +18,7 @@ import representativeRegistration from '@/features/representativeRegistration/st
 import systemAccessCancellation from '@/features/systemAccessCancellation/store/index'
 import disease from '@/store/modules/disease/index'
 import specialty from '@/store/modules/specialty/index'
+import user from '@/store/modules/user/index'
 
 const store = createStore({
   state: {
@@ -66,6 +67,7 @@ const store = createStore({
     clinicalCasesEvaluation,
     systemAccessCancellation,
     allocationClinicalCases,
+    consultationClinicalCases,
     registrationClinicalCases,
     representativeRegistration,
     consultantDoctorInvitation,

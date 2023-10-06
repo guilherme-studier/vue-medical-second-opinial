@@ -136,7 +136,9 @@
           </div>
         </modal>
         <div id="save">
-          <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
+          <button @click="handleSave" :disabled="isSaveDisabled">
+            Salvar
+          </button>
         </div>
       </div>
     </div>
@@ -188,7 +190,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('registration', ['getLoading']),
+    ...mapGetters('registration', ['getLoadingRegistration']),
+    ...mapGetters('user', ['getLoadingUser']),
+
+    getLoading() {
+      return this.getLoadingRegistration || this.getLoadingUser
+    },
 
     isSaveDisabled() {
       return (
@@ -204,8 +211,12 @@ export default {
       )
     }
   },
+  mounted() {
+    this.getUser()
+  },
   methods: {
-    ...mapActions('registration', ['createUser']),
+    ...mapActions('registration', ['updateClientDoctor']),
+    ...mapActions('user', ['getUser']),
 
     openModal() {
       this.modalTermsVisible = true
@@ -220,7 +231,7 @@ export default {
     async handleSave() {
       const userData = {
         type: 'client_doctor',
-        username: this.name.replace(/\s/g, '').toLowerCase(),
+        username: this.name?.replace(/\s/g, '').toLowerCase(),
         newPassword: this.newPassword,
         password: this.password,
         term: this.termsAgreed,
@@ -232,16 +243,8 @@ export default {
         uf: this.uf
       }
 
-      try {
-        await this.createUser(userData)
-        this.toast.success('Cadastro efetuado criado com sucesso', {
-          timeout: 5000
-        })
-      } catch (error) {
-        this.toast.warning('Não foi possível realizar o cadastro', {
-          timeout: 5000
-        })
-      }
+      await this.updateClientDoctor(userData)
+      await this.getUser()
       this.clearForm()
     },
     clearForm() {

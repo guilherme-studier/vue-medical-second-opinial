@@ -58,6 +58,8 @@ import CustomTable from '@/components/customTable'
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
 import LoaderSpinner from '@/components/loaderSpinner'
+import { formatDate } from '@/helpers/date'
+import { formatStatus } from '@/helpers/status'
 
 export default {
   name: 'Consulta Casos Clínicos',
@@ -90,52 +92,20 @@ export default {
         'Data',
         'Status'
       ],
-      tableData: [
-        {
-          voucher: '542132486',
-          industry: 'Ind. Farmacêutica',
-          specialty: 'Pneumologia',
-          illness: 'Doença 1',
-          doctor: 'Paulo Pitrez',
-          date: '2016-05-03',
-          status: 'Avaliação'
-        },
-        {
-          voucher: '542132486',
-          industry: 'Ind. Farmacêutica 2',
-          specialty: 'Pneumologia',
-          illness: 'Doença 1',
-          doctor: 'Paulo Pitrez',
-          date: '2016-05-03',
-          status: 'Avaliação'
-        },
-        {
-          voucher: '542132486',
-          industry: 'Ind. Farmacêutica 3',
-          specialty: 'Pneumologia',
-          illness: 'Doença 1',
-          doctor: 'Paulo Pitrez',
-          date: '2016-05-03',
-          status: 'Avaliação'
-        },
-        {
-          voucher: '542132486',
-          industry: 'Ind. Farmacêutica 4',
-          specialty: 'Pneumologia',
-          illness: 'Doença 1',
-          doctor: 'Paulo Pitrez',
-          date: '2016-05-03',
-          status: 'Avaliação'
-        }
-      ]
+      tableData: []
     }
   },
   mounted() {
     this.fetchSpecialties()
     this.fetchIndustries()
+    this.fetchContracts()
     this.fetchDiseases()
   },
   computed: {
+    ...mapGetters('consultationClinicalCases', [
+      'getContracts',
+      'getLoadingContracts'
+    ]),
     ...mapGetters('specialty', ['getSpecialties', 'getLoadingSpecialtys']),
     ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
     ...mapGetters('disease', ['getDiseases', 'getLoadingDiseases']),
@@ -144,7 +114,8 @@ export default {
       return (
         this.getLoadingSpecialtys ||
         this.getLoadingDiseases ||
-        this.getLoadingIndustry
+        this.getLoadingIndustry ||
+        this.getLoadingContracts
       )
     },
 
@@ -184,9 +155,23 @@ export default {
     }
   },
   methods: {
+    ...mapActions('consultationClinicalCases', ['fetchContracts']),
     ...mapActions('specialty', ['fetchSpecialties']),
     ...mapActions('industry', ['fetchIndustries']),
     ...mapActions('disease', ['fetchDiseases'])
+  },
+  watch: {
+    getContracts(newContracts) {
+      this.tableData = newContracts.map((contract) => ({
+        voucher: contract.contractId,
+        industry: contract.industryId,
+        specialty: contract.specialtyId,
+        illness: contract.diseaseId,
+        doctor: contract.consultantDoctorId,
+        date: formatDate(contract.startDate),
+        status: formatStatus(contract.status)
+      }))
+    }
   }
 }
 </script>

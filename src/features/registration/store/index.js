@@ -1,5 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { createUser } from '../../../services/user/index'
+import { useToast } from 'vue-toastification'
+
+import { updateUser } from '../../../services/user/index'
+
+const toast = useToast()
 
 export default {
   namespaced: true,
@@ -8,7 +12,7 @@ export default {
     loading: false
   }),
   mutations: {
-    setUser(state, user) {
+    setClientDoctor(state, user) {
       state.user = user
     },
     setLoading(state, value) {
@@ -16,15 +20,21 @@ export default {
     }
   },
   actions: {
-    async createUser({ commit }, userData) {
+    async updateClientDoctor({ commit }, userData) {
       commit('setLoading', true)
-      return createUser(userData)
+      return updateUser(userData)
         .then((response) => {
-          commit('setUser', response.data)
+          commit('setClientDoctor', response.data)
+          toast.success('Cadastro atualizado com sucesso', { timeout: 5000 })
           return response
         })
         .catch((error) => {
-          throw error
+          toast.warning(
+            'Não foi possível realizar a atualização do cadastro Médico Cliente',
+            {
+              timeout: 5000
+            }
+          )
         })
         .finally(() => {
           commit('setLoading', false)
@@ -33,6 +43,6 @@ export default {
   },
   getters: {
     getUser: (state) => state.user,
-    getLoading: (state) => state.loading
+    getLoadingRegistration: (state) => state.loading
   }
 }

@@ -1,4 +1,9 @@
+/* eslint-disable no-unused-vars */
+import { useToast } from 'vue-toastification'
+
 import { updateUser } from '../../../services/user/index'
+
+const toast = useToast()
 
 export default {
   namespaced: true,
@@ -15,10 +20,15 @@ export default {
       return updateUser(userData)
         .then((response) => {
           commit('setDoctorConsultant', response.data)
+          toast.success('Cadastro de Médico Consultor atualizado com sucesso', {
+            timeout: 5000
+          })
           return response
         })
         .catch((error) => {
-          throw error
+          toast.warning('Erro ao realizar a atualização de cadastro', {
+            timeout: 5000
+          })
         })
     }
   },

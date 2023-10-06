@@ -99,8 +99,8 @@ export const getUsers = (page, size) => {
  * @param {string} userId - O ID do usuário a ser buscado.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const getUserById = (userId) => {
-  const url = `${BASE_URL}/users/${userId}`
+export const getUserById = () => {
+  const url = `${BASE_URL}/users/${getUserId()}`
 
   return axios({
     method: 'GET',

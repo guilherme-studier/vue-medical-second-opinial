@@ -44,7 +44,6 @@ export default {
   },
 
   methods: {
-    ...mapActions('user', ['requestUserData']),
     ...mapActions(['validateToken', 'setAuthToken']),
 
     fetchTokenStatus() {
