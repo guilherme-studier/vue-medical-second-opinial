@@ -16,10 +16,11 @@
         <div class="scrollMenuItems">
           <div
             class="menu-item-divider"
-            v-for="item in menuItems"
-            :key="item.id"
+            v-for="(item, index) in menuItemsWithLogout"
+            :key="item.id || index"
           >
             <router-link
+              v-if="item.route"
               :to="item.route"
               class="menu-item"
               :class="{
@@ -31,6 +32,19 @@
                 <div class="menu-item-text">{{ item.name }}</div>
               </div>
             </router-link>
+            <a
+              v-else
+              @click="item.action === 'logout' ? logout() : null"
+              :class="{
+                'menu-item': true,
+                'collapsed-menu': !active,
+                'logout-item': item.action === 'logout' // Adicione uma classe específica para o item de Logout
+              }"
+            >
+              <div class="menu-item-content">
+                <div class="menu-item-text">{{ item.name }}</div>
+              </div>
+            </a>
           </div>
           <button class="toggle-button" @click="toggleMenu">
             <font-awesome-icon
@@ -50,7 +64,7 @@ import {
   faChevronRight
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 import logo from '../../../assets/logo-ceos.png'
 import { routes } from '../../../helpers/routes'
@@ -79,12 +93,17 @@ export default {
     typeUser() {
       return this.getRole
     },
-    menuItems() {
+    menuItemsWithLogout() {
       const userType = this.getRole?.replace('_', '')
-      return routes[userType] || []
+      const menuItems = routes[userType] || []
+      // Adicione o item de logout ao final da lista
+      menuItems.push({ name: 'Logout', action: 'logout' })
+      return menuItems
     }
   },
   methods: {
+    ...mapActions(['logoutUser']),
+
     toggleMenu() {
       this.active = !this.active
       this.toggleIcon = this.active ? faChevronLeft : faChevronRight
@@ -92,6 +111,10 @@ export default {
 
     goHome() {
       return router.push('/')
+    },
+
+    logout() {
+      return this.logoutUser()
     }
   }
 }
