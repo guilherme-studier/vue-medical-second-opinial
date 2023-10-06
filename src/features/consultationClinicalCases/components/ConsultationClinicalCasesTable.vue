@@ -92,7 +92,7 @@ export default {
         'Data',
         'Status'
       ],
-      tableData: [] // Inicialmente, a tabela está vazia
+      tableData: []
     }
   },
   mounted() {
@@ -162,7 +162,6 @@ export default {
   },
   watch: {
     getContracts(newContracts) {
-      // Atualize a tabela com os valores de getContracts
       this.tableData = newContracts.map((contract) => ({
         voucher: contract.contractId,
         industry: contract.industryId,
