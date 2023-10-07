@@ -1,6 +1,6 @@
 <template>
   <div id="doctor-registration">
-    <div class="form">
+    <div class="form" :class="{ 'form-loading': isLoading }">
       <input-group>
         <input-wrapper>
           <input
@@ -9,6 +9,7 @@
             class="flexible-input"
             v-model="cpf"
             v-mask="'###.###.###-##'"
+            @input="validatePassword"
           />
         </input-wrapper>
         <input-wrapper>
@@ -17,217 +18,226 @@
             placeholder="Senha inicial"
             class="flexible-input"
             v-model="password"
+            @input="validatePassword"
           />
         </input-wrapper>
       </input-group>
-      <div id="registration-data">
-        <Title :title="titleRegistration" />
-        <div class="form">
-          <input-group>
-            <input-wrapper>
-              <input
-                type="text"
-                placeholder="Nome"
-                class="flexible-input"
-                v-model="name"
-              />
-            </input-wrapper>
-          </input-group>
-          <input-group>
-            <input-wrapper>
-              <input
-                type="email"
-                placeholder="E-mail"
-                class="flexible-input"
-                v-model="email"
-              />
-            </input-wrapper>
-            <input-wrapper>
-              <input
-                type="text"
-                placeholder="Telefone"
-                class="flexible-input"
-                v-model="phone"
-                v-mask="['(##) ####-####', '(##) # ####-####']"
-              />
-            </input-wrapper>
-          </input-group>
-          <input-group>
-            <input-wrapper>
-              <input-group>
-                <input-wrapper>
-                  <input
-                    type="text"
-                    placeholder="CRM"
-                    class="flexible-input"
-                    v-mask="'####-###'"
-                    v-model="crm"
-                  />
-                </input-wrapper>
-                <input-wrapper>
-                  <input
-                    type="text"
-                    placeholder="UF CRM"
-                    class="flexible-input"
-                    v-model="ufCrm"
-                  />
-                </input-wrapper>
-              </input-group>
-            </input-wrapper>
-            <input-wrapper>
-              <input
-                type="password"
-                placeholder="Nova senha"
-                class="flexible-input"
-                v-model="newPassword"
-              />
-            </input-wrapper>
-          </input-group>
-          <input-group>
-            <input-wrapper>
-              <input
-                type="text"
-                placeholder="CEP"
-                v-mask="'#####-###'"
-                class="flexible-input"
-                v-model="cep"
-              />
-            </input-wrapper>
-            <input-wrapper>
-              <input
-                type="text"
-                placeholder="Lagradouro"
-                class="flexible-input"
-                v-model="street"
-              />
-            </input-wrapper>
-          </input-group>
-          <input-group>
-            <input-wrapper>
-              <input
-                type="number"
-                placeholder="Número"
-                class="flexible-input"
-                v-model="number"
-              />
-            </input-wrapper>
-            <input-wrapper>
-              <input
-                type="text"
-                placeholder="Complemento"
-                class="flexible-input"
-                v-model="complement"
-              />
-            </input-wrapper>
-          </input-group>
-          <input-group>
-            <input-wrapper>
-              <input
-                type="text"
-                placeholder="Cidade"
-                class="flexible-input"
-                v-model="city"
-              />
-            </input-wrapper>
-            <input-wrapper>
-              <input
-                type="text"
-                placeholder="UF"
-                class="flexible-input"
-                v-model="state"
-              />
-            </input-wrapper>
-          </input-group>
-        </div>
-        <div class="terms-agreement">
-          <input type="checkbox" id="termsCheckbox" v-model="termsAgreed" />
-          <label>
-            Li e estou de acordo com o
-            <span @click="openModal">Termo de Responsabilidade</span> sobre a
-            Execução dos Serviços
-          </label>
-          <modal
-            v-if="modalTermsVisible"
-            @close="closeModal"
-            title="Termo de Responsabilidade"
-          >
-            <div class="modal-content">
-              <div class="modal-text">
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum.
-                </p>
-                <p>
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using 'Content
-                  here, content here', making it look like readable English.
-                  Many desktop publishing packages and web page editors now use
-                  Lorem Ipsum as their default model text, and a search for
-                  'lorem ipsum' will uncover many web sites still in their
-                  infancy. Various versions have evolved over the years,
-                  sometimes by accident, sometimes on purpose (injected humour
-                  and the like).
-                </p>
-                <p>
-                  Contrary to popular belief, Lorem Ipsum is not simply random
-                  text. It has roots in a piece of classical Latin literature
-                  from 45 BC, making it over 2000 years old. Richard McClintock.
-                </p>
-              </div>
+      <div :class="{ 'content-block': !getValidatePassword }">
+        <div id="registration-data">
+          <Title :title="titleRegistration" />
+          <div class="form">
+            <input-group>
+              <input-wrapper>
+                <input
+                  type="text"
+                  placeholder="Nome"
+                  class="flexible-input"
+                  v-model="name"
+                />
+              </input-wrapper>
+            </input-group>
+            <input-group>
+              <input-wrapper>
+                <input
+                  type="email"
+                  placeholder="E-mail"
+                  class="flexible-input"
+                  v-model="email"
+                />
+              </input-wrapper>
+              <input-wrapper>
+                <input
+                  type="text"
+                  placeholder="Telefone"
+                  class="flexible-input"
+                  v-model="phone"
+                  v-mask="['(##) ####-####', '(##) # ####-####']"
+                />
+              </input-wrapper>
+            </input-group>
+            <input-group>
+              <input-wrapper>
+                <input-group>
+                  <input-wrapper>
+                    <input
+                      type="text"
+                      placeholder="CRM"
+                      class="flexible-input"
+                      v-mask="'####-###'"
+                      v-model="crm"
+                    />
+                  </input-wrapper>
+                  <input-wrapper>
+                    <input
+                      type="text"
+                      placeholder="UF CRM"
+                      class="flexible-input"
+                      v-model="ufCrm"
+                    />
+                  </input-wrapper>
+                </input-group>
+              </input-wrapper>
+              <input-wrapper>
+                <input
+                  type="password"
+                  placeholder="Nova senha"
+                  class="flexible-input"
+                  v-model="newPassword"
+                />
+              </input-wrapper>
+            </input-group>
+            <input-group>
+              <input-wrapper>
+                <input
+                  type="text"
+                  placeholder="CEP"
+                  v-mask="'#####-###'"
+                  class="flexible-input"
+                  v-model="cep"
+                />
+              </input-wrapper>
+              <input-wrapper>
+                <input
+                  type="text"
+                  placeholder="Lagradouro"
+                  class="flexible-input"
+                  v-model="street"
+                />
+              </input-wrapper>
+            </input-group>
+            <input-group>
+              <input-wrapper>
+                <input
+                  type="number"
+                  placeholder="Número"
+                  class="flexible-input"
+                  v-model="number"
+                />
+              </input-wrapper>
+              <input-wrapper>
+                <input
+                  type="text"
+                  placeholder="Complemento"
+                  class="flexible-input"
+                  v-model="complement"
+                />
+              </input-wrapper>
+            </input-group>
+            <input-group>
+              <input-wrapper>
+                <input
+                  type="text"
+                  placeholder="Cidade"
+                  class="flexible-input"
+                  v-model="city"
+                />
+              </input-wrapper>
+              <input-wrapper>
+                <input
+                  type="text"
+                  placeholder="UF"
+                  class="flexible-input"
+                  v-model="state"
+                />
+              </input-wrapper>
+            </input-group>
+          </div>
+          <div class="terms-agreement">
+            <input type="checkbox" id="termsCheckbox" v-model="termsAgreed" />
+            <label>
+              Li e estou de acordo com o
+              <span @click="openModal">Termo de Responsabilidade</span> sobre a
+              Execução dos Serviços
+            </label>
+            <modal
+              v-if="modalTermsVisible"
+              @close="closeModal"
+              title="Termo de Responsabilidade"
+            >
+              <div class="modal-content">
+                <div class="modal-text">
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a
+                    type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining
+                    essentially unchanged. It was popularised in the 1960s with
+                    the release of Letraset sheets containing Lorem Ipsum
+                    passages, and more recently with desktop publishing software
+                    like Aldus PageMaker including versions of Lorem Ipsum.
+                  </p>
+                  <p>
+                    It is a long established fact that a reader will be
+                    distracted by the readable content of a page when looking at
+                    its layout. The point of using Lorem Ipsum is that it has a
+                    more-or-less normal distribution of letters, as opposed to
+                    using 'Content here, content here', making it look like
+                    readable English. Many desktop publishing packages and web
+                    page editors now use Lorem Ipsum as their default model
+                    text, and a search for 'lorem ipsum' will uncover many web
+                    sites still in their infancy. Various versions have evolved
+                    over the years, sometimes by accident, sometimes on purpose
+                    (injected humour and the like).
+                  </p>
+                  <p>
+                    Contrary to popular belief, Lorem Ipsum is not simply random
+                    text. It has roots in a piece of classical Latin literature
+                    from 45 BC, making it over 2000 years old. Richard
+                    McClintock.
+                  </p>
+                </div>
 
-              <button class="modal-btn" @click="handleTerms">De acordo</button>
-            </div>
-          </modal>
+                <button class="modal-btn" @click="handleTerms">
+                  De acordo
+                </button>
+              </div>
+            </modal>
+          </div>
+        </div>
+        <div id="specialty">
+          <Title :title="titleSpecialty" />
+          <input-group>
+            <input-wrapper>
+              <v-select
+                v-model="specialty"
+                :options="getSpecialties"
+                :reduce="(item) => item.id"
+                label="name"
+                placeholder="Selecione uma especialidade"
+              />
+            </input-wrapper>
+          </input-group>
+        </div>
+        <div id="data-payments">
+          <Title :title="titlePayments" />
+          <input-group>
+            <input-wrapper>
+              <input
+                type="text"
+                placeholder="CNPJ"
+                class="flexible-input"
+                v-model="cnpj"
+                v-mask="'##.###.###/####-##'"
+              />
+            </input-wrapper>
+            <input-wrapper>
+              <input
+                type="text"
+                placeholder="Razão Social"
+                class="flexible-input"
+                v-model="corporateName"
+              />
+            </input-wrapper>
+          </input-group>
+        </div>
+        <div id="save">
+          <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
         </div>
       </div>
-      <div id="specialty">
-        <Title :title="titleSpecialty" />
-        <input-group>
-          <input-wrapper>
-            <v-select
-              v-model="specialty"
-              :options="getSpecialties"
-              :reduce="(item) => item.id"
-              label="name"
-              placeholder="Selecione uma especialidade"
-            />
-          </input-wrapper>
-        </input-group>
-      </div>
-      <div id="data-payments">
-        <Title :title="titlePayments" />
-        <input-group>
-          <input-wrapper>
-            <input
-              type="text"
-              placeholder="CNPJ"
-              class="flexible-input"
-              v-model="cnpj"
-              v-mask="'##.###.###/####-##'"
-            />
-          </input-wrapper>
-          <input-wrapper>
-            <input
-              type="text"
-              placeholder="Razão Social"
-              class="flexible-input"
-              v-model="corporateName"
-            />
-          </input-wrapper>
-        </input-group>
-      </div>
-      <div id="save">
-        <button @click="handleSave">Salvar</button>
+      <div v-if="isLoading">
+        <loader-spinner />
       </div>
     </div>
   </div>
@@ -240,6 +250,7 @@ import { mapActions, mapGetters } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
+import LoaderSpinner from '@/components/loaderSpinner'
 import Modal from '@/components/modal'
 import Title from '@/components/title'
 
@@ -248,6 +259,7 @@ export default {
   components: {
     InputGroup,
     InputWrapper,
+    LoaderSpinner,
     Title,
     Modal,
     vSelect
@@ -277,6 +289,7 @@ export default {
       city: null,
       cnpj: null,
       cpf: null,
+      fieldTimeout: null,
       crm: null,
       ufCrm: null,
       cep: null,
@@ -285,7 +298,14 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('user', ['getEmail']),
+    ...mapGetters(['getValidatePassword']),
     ...mapGetters('specialty', ['getSpecialties']),
+    ...mapGetters('consultantMedicalRegistration', ['getLoadingConsultant']),
+
+    isLoading() {
+      return this.getLoadingConsultant
+    },
 
     isSaveDisabled() {
       return (
@@ -314,10 +334,16 @@ export default {
     this.fetchSpecialties()
     this.getUser()
   },
+  watch: {
+    getValidatePassword() {
+      if (!this.getValidatePassword) this.clearForm()
+    }
+  },
   methods: {
     ...mapActions('consultantMedicalRegistration', ['updateConsultantMedical']),
     ...mapActions('specialty', ['fetchSpecialties']),
     ...mapActions('user', ['getUser']),
+    ...mapActions(['loginUser']),
 
     openModal() {
       this.modalTermsVisible = true
@@ -358,26 +384,40 @@ export default {
       await this.updateConsultantMedical(userData)
       await this.getUser()
       this.clearForm()
+
+      this.password = null
+      this.cpf = null
     },
     clearForm() {
       ;(this.termsAgreed = null),
         (this.newPassword = null),
         (this.complement = null),
         (this.specialty = null),
-        (this.password = null),
         (this.number = null),
         (this.email = null),
         (this.phone = null),
         (this.street = null),
         (this.name = null),
         (this.city = null),
-        (this.cpf = null),
         (this.crm = null),
         (this.ufCrm = null),
         (this.cep = null),
         (this.state = null),
         (this.cnpj = null),
         (this.corporateName = null)
+    },
+    verifyPassword() {
+      this.loginUser({
+        username: this.getEmail,
+        password: this.password
+      })
+    },
+    validatePassword() {
+      clearTimeout(this.fieldTimeout)
+
+      this.fieldTimeout = setTimeout(() => {
+        if (this.cpf && this.password) this.verifyPassword()
+      }, 1000)
     }
   }
 }
@@ -392,5 +432,11 @@ export default {
       background: red !important;
     }
   }
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>

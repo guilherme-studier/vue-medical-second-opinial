@@ -36,7 +36,8 @@ export default {
       }
     ],
     loading: false,
-    error: false
+    error: false,
+    validatePassword: false
   }),
   mutations: {
     setUser(state, user) {
@@ -47,6 +48,9 @@ export default {
     },
     setError(state, error) {
       state.error = error
+    },
+    setValidatePassword(state, value) {
+      state.validatePassword = value
     }
   },
   actions: {
@@ -55,31 +59,51 @@ export default {
 
       const toast = useToast()
 
-      login({ email: username, password })
-        .then((response) => {
-          const userData = {
-            id: response.data.id,
-            username: response.data.username,
-            firstname: response.data.firstname,
-            lastname: response.data.lastname,
-            phone: response.data.phone,
-            email: response.data.email,
-            token: response.data.token,
-            role: response.data.role
-          }
+      // se o usuário já estiver logado, a função de login será chamada para validar a atualização dos dados do usuário
+      if (!this.getters.getUserToken) {
+        login({ email: username, password })
+          .then((response) => {
+            const userData = {
+              id: response.data.id,
+              username: response.data.username,
+              firstname: response.data.firstname,
+              lastname: response.data.lastname,
+              phone: response.data.phone,
+              email: response.data.email,
+              token: response.data.token,
+              role: response.data.role
+            }
 
-          commit('setUser', userData)
+            commit('setUser', userData)
 
-          localStorage.setItem('token', JSON.stringify(userData))
+            localStorage.setItem('token', JSON.stringify(userData))
 
-          router.push('/')
-        })
-        .catch((error) => {
-          toast.warning('Não foi possível realizar o login', { timeout: 5000 })
-        })
-        .finally(() => {
-          commit('setLoading', false)
-        })
+            router.push('/')
+          })
+          .catch((error) => {
+            toast.warning('Não foi possível realizar o login', {
+              timeout: 5000
+            })
+          })
+          .finally(() => {
+            commit('setLoading', false)
+          })
+      } else {
+        login({ email: username, password })
+          .then(() => {
+            commit('setValidatePassword', true)
+          })
+          .catch((error) => {
+            commit('setValidatePassword', false)
+            toast.warning(
+              'Não foi possível validar a senha do usuário para realizar a atualização dos dados cadastrais',
+              { timeout: 5000 }
+            )
+          })
+          .finally(() => {
+            commit('setLoading', false)
+          })
+      }
     },
 
     async validateToken({ dispatch, commit }, token) {
@@ -133,6 +157,7 @@ export default {
     isLoggedIn: (state) =>
       state.user ? state.user.token && state.user.id && state.user.role : null,
     getLoading: (state) => state.loading,
-    getError: (state) => state.error
+    getError: (state) => state.error,
+    getValidatePassword: (state) => state.validatePassword
   }
 }

@@ -95,6 +95,11 @@ body {
       border: 2px solid $green-500;
       outline: none;
     }
+
+    &:disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
   }
 
   .v-select {
@@ -172,6 +177,11 @@ body {
 }
 
 .form-loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.content-block {
   opacity: 0.6;
   pointer-events: none;
 }

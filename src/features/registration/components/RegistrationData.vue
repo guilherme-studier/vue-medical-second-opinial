@@ -1,7 +1,7 @@
 <template>
   <div id="registration-data">
     <div id="doctor-registration">
-      <div class="form" :class="{ 'form-loading': getLoading }">
+      <div class="form" :class="{ 'form-loading': isLoading }">
         <input-group>
           <input-wrapper>
             <input
@@ -10,6 +10,7 @@
               class="flexible-input"
               v-model="cpf"
               v-mask="'###.###.###-##'"
+              @input="validatePassword"
             />
           </input-wrapper>
           <input-wrapper>
@@ -18,12 +19,13 @@
               placeholder="Senha inicial"
               class="flexible-input"
               v-model="password"
+              @input="validatePassword"
             />
           </input-wrapper>
         </input-group>
       </div>
     </div>
-    <div class="form" :class="{ 'form-loading': getLoading }">
+    <div class="form" :class="{ 'content-block': !getValidatePassword }">
       <Title :title="titleComponent" />
       <div class="form">
         <input-group>
@@ -142,7 +144,7 @@
         </div>
       </div>
     </div>
-    <div v-if="getLoading">
+    <div v-if="isLoading">
       <loader-spinner />
     </div>
   </div>
@@ -190,10 +192,11 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['getValidatePassword']),
     ...mapGetters('registration', ['getLoadingRegistration']),
-    ...mapGetters('user', ['getLoadingUser']),
+    ...mapGetters('user', ['getEmail', 'getLoadingUser']),
 
-    getLoading() {
+    isLoading() {
       return this.getLoadingRegistration || this.getLoadingUser
     },
 
@@ -217,6 +220,7 @@ export default {
   methods: {
     ...mapActions('registration', ['updateClientDoctor']),
     ...mapActions('user', ['getUser']),
+    ...mapActions(['loginUser']),
 
     openModal() {
       this.modalTermsVisible = true
@@ -246,10 +250,11 @@ export default {
       await this.updateClientDoctor(userData)
       await this.getUser()
       this.clearForm()
+
+      this.password = null
+      this.cpf = null
     },
     clearForm() {
-      this.cpf = null
-      this.password = null
       this.termsAgreed = false
       this.newPassword = null
       this.number = null
@@ -258,6 +263,19 @@ export default {
       this.name = null
       this.crm = null
       this.uf = null
+    },
+    verifyPassword() {
+      this.loginUser({
+        username: this.getEmail,
+        password: this.password
+      })
+    },
+    validatePassword() {
+      clearTimeout(this.fieldTimeout)
+
+      this.fieldTimeout = setTimeout(() => {
+        if (this.cpf && this.password) this.verifyPassword()
+      }, 1000)
     }
   }
 }
