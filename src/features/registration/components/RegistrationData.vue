@@ -25,7 +25,7 @@
         </input-group>
       </div>
     </div>
-    <div class="form" :class="{ 'content-block': !getValidatePassword }">
+    <div class="form" :class="{ 'content-block': !isFormEnabled }">
       <Title :title="titleComponent" />
       <div class="form">
         <input-group>
@@ -198,6 +198,10 @@ export default {
 
     isLoading() {
       return this.getLoadingRegistration || this.getLoadingUser
+    },
+
+    isFormEnabled() {
+      return this.getValidatePassword && this.cpf && this.password
     },
 
     isSaveDisabled() {
