@@ -149,6 +149,7 @@ export default {
 
     .custom-th {
       text-transform: uppercase;
+      font-weight: bold;
       border: 1px solid $white;
       background: $green-500;
       padding: 20px;

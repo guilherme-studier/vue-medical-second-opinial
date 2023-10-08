@@ -73,6 +73,12 @@ export const all = [
     id: 13,
     name: 'Doenças',
     route: '/illnesses'
+  },
+  // Casos clínicos designados - Representante Indústria
+  {
+    id: 14,
+    name: 'Casos Clínicos Designados',
+    route: '/clinical-cases-industry'
   }
 ]
 
@@ -102,6 +108,11 @@ export const routes = {
       id: 5,
       name: 'Geração de Convite para Médico Consultor',
       route: '/consultant-doctor'
+    },
+    {
+      id: 6,
+      name: 'Cancelamento de Acesso ao Sistema',
+      route: '/access-cancellation'
     }
   ],
   consultantdoctor: [
@@ -160,9 +171,9 @@ export const routes = {
       route: '/allocation-clinical-cases'
     },
     {
-      id: 11,
+      id: 14,
       name: 'Casos Clínicos Designados',
-      route: '/clinical-cases-evaluation'
+      route: '/clinical-cases-industry'
     }
   ]
 }

@@ -6,6 +6,7 @@ import ActiveClinicalCases from '@/features/activeClinicalCases'
 import AdmClinicalCases from '@/features/admClinicalCases'
 import AllocationClinicalCases from '@/features/allocationClinicalCases'
 import ClinicalCasesEvaluation from '@/features/clinicalCasesEvaluation'
+import ClinicalCasesIndustry from '@/features/clinicalCasesIndustry'
 import ConsultantDoctorInvitation from '@/features/consultantDoctorInvitation'
 import ConsultantMedicalRegistration from '@/features/consultantMedicalRegistration'
 import ConsultationClinicalCases from '@/features/consultationClinicalCases'
@@ -129,6 +130,14 @@ const routes = [
         path: '/clinical-cases-evaluation',
         name: 'clinicalCasesEvaluation',
         component: ClinicalCasesEvaluation,
+        meta: {
+          title: 'Casos Clínicos Designados'
+        }
+      },
+      {
+        path: '/clinical-cases-industry',
+        name: 'clinicalCasesIndustry',
+        component: ClinicalCasesIndustry,
         meta: {
           title: 'Casos Clínicos Designados'
         }

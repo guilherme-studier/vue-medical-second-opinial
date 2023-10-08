@@ -1,17 +1,31 @@
 <template>
   <div id="representative-registration">
-    <Title :title="tituloComponente" />
-    <div class="form" :class="{ 'form-loading': getLoadingForm }">
-      <InputGroup>
-        <InputWrapper>
+    <div class="form" :class="{ 'form-loading': isLoading }">
+      <input-group>
+        <input-wrapper>
           <input
             type="text"
             placeholder="CPF"
             class="flexible-input"
             v-model="cpf"
             v-mask="'###.###.###-##'"
+            @input="validatePassword"
           />
-        </InputWrapper>
+        </input-wrapper>
+        <input-wrapper>
+          <input
+            type="password"
+            placeholder="Senha inicial"
+            class="flexible-input"
+            v-model="password"
+            @input="validatePassword"
+          />
+        </input-wrapper>
+      </input-group>
+    </div>
+    <div class="form" :class="{ 'content-block': !getValidatePassword }">
+      <Title :title="tituloComponente" />
+      <InputGroup>
         <InputWrapper>
           <input
             type="text"
@@ -20,8 +34,6 @@
             v-model="name"
           />
         </InputWrapper>
-      </InputGroup>
-      <InputGroup>
         <InputWrapper>
           <input
             type="text"
@@ -30,6 +42,8 @@
             v-model="email"
           />
         </InputWrapper>
+      </InputGroup>
+      <InputGroup>
         <InputWrapper>
           <input
             type="text"
@@ -39,8 +53,6 @@
             v-model="phone"
           />
         </InputWrapper>
-      </InputGroup>
-      <InputGroup>
         <InputWrapper>
           <input
             type="password"
@@ -49,14 +61,13 @@
             v-model="newPassword"
           />
         </InputWrapper>
-        <InputWrapper> </InputWrapper>
       </InputGroup>
 
       <div class="save">
         <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
       </div>
     </div>
-    <div v-if="getLoadingForm">
+    <div v-if="isLoading">
       <loader-spinner />
     </div>
   </div>
@@ -91,14 +102,16 @@ export default {
       newPassword: null,
       phone: null,
       email: null,
-      cpf: null
+      cpf: null,
+      password: null
     }
   },
   computed: {
-    ...mapGetters('user', ['getLoadingUser']),
+    ...mapGetters(['getValidatePassword']),
+    ...mapGetters('user', ['getEmail', 'getLoadingUser']),
     ...mapGetters('representativeRegistration', ['getLoadingRepresentative']),
 
-    getLoadingForm() {
+    isLoading() {
       return this.getLoadingUser || this.getLoadingRepresentative
     },
 
@@ -108,7 +121,8 @@ export default {
         !this.phone ||
         !this.email ||
         !this.name ||
-        !this.cpf
+        !this.cpf ||
+        !this.password
       )
     }
   },
@@ -116,11 +130,11 @@ export default {
     this.getUser()
   },
   methods: {
+    ...mapActions(['loginUser']),
+    ...mapActions('user', ['getUser']),
     ...mapActions('representativeRegistration', [
       'updateRepresentativeIndustry'
     ]),
-
-    ...mapActions('user', ['getUser']),
 
     async handleSave() {
       const userData = {
@@ -136,13 +150,28 @@ export default {
       await this.updateRepresentativeIndustry(userData)
       await this.getUser()
       this.clearForm()
+
+      this.password = null
+      this.cpf = null
     },
     clearForm() {
       this.newPassword = null
       this.phone = null
       this.email = null
       this.name = null
-      this.cpf = null
+    },
+    verifyPassword() {
+      this.loginUser({
+        username: this.getEmail,
+        password: this.password
+      })
+    },
+    validatePassword() {
+      clearTimeout(this.fieldTimeout)
+
+      this.fieldTimeout = setTimeout(() => {
+        if (this.cpf && this.password) this.verifyPassword()
+      }, 1000)
     }
   }
 }
