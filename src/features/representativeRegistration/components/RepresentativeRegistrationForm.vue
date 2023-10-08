@@ -169,6 +169,8 @@ export default {
         username: this.getEmail,
         password: this.password
       })
+
+      if (!this.getValidatePassword) return this.clearForm()
     },
     validatePassword() {
       clearTimeout(this.fieldTimeout)
