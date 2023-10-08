@@ -73,6 +73,12 @@ export const all = [
     id: 13,
     name: 'Doenças',
     route: '/illnesses'
+  },
+  // Casos clínicos designados - Representante Indústria
+  {
+    id: 14,
+    name: 'Casos Clínicos Designados',
+    route: '/clinical-cases-industry'
   }
 ]
 
@@ -165,9 +171,9 @@ export const routes = {
       route: '/allocation-clinical-cases'
     },
     {
-      id: 11,
+      id: 14,
       name: 'Casos Clínicos Designados',
-      route: '/clinical-cases-evaluation'
+      route: '/clinical-cases-industry'
     }
   ]
 }

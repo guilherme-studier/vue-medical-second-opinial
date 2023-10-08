@@ -46,10 +46,6 @@
       :tableData="tableData"
       :loading="isLoading"
     />
-
-    <div v-if="isLoading">
-      <loader-spinner />
-    </div>
   </div>
 </template>
 
@@ -61,7 +57,6 @@ import iconVoucher from '@/assets/icons/icon-voucher.svg'
 import CustomTable from '@/components/customTable'
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
-import LoaderSpinner from '@/components/loaderSpinner'
 import { formatDate } from '@/helpers/date'
 import { formatStatus } from '@/helpers/status'
 
@@ -69,7 +64,6 @@ export default {
   name: 'Consulta Casos Clínicos',
   components: {
     InputWrapper,
-    LoaderSpinner,
     CustomTable,
     InputGroup,
     vSelect
