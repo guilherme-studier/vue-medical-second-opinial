@@ -5,6 +5,7 @@ import { getCurrentUserAccess } from '../helpers/auth'
 
 import admClinicalCases from '@/features/admClinicalCases/store/index'
 import allocationClinicalCases from '@/features/allocationClinicalCases/store/index'
+import clinicalCasesConsultationDoctor from '@/features/clinicalCasesConsultationDoctor/store/index'
 import clinicalCasesEvaluation from '@/features/clinicalCasesEvaluation/store/index'
 import clinicalCasesIndustry from '@/features/clinicalCasesIndustry/store/index'
 import consultantDoctorInvitation from '@/features/consultantDoctorInvitation/store/index'
@@ -73,7 +74,8 @@ const store = createStore({
     registrationClinicalCases,
     representativeRegistration,
     consultantDoctorInvitation,
-    consultantMedicalRegistration
+    consultantMedicalRegistration,
+    clinicalCasesConsultationDoctor
   },
   getters: {
     getAuthToken: (state) => state.authToken,

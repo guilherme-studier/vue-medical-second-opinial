@@ -55,11 +55,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('clinicalCasesIndustry', ['s']),
-
-    closeModalSeem() {
-      this.handleModalSeem()
-    }
+    ...mapActions('clinicalCasesIndustry', ['s'])
   }
 }
 </script>

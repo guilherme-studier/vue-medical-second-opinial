@@ -23,7 +23,7 @@
         </input-wrapper>
       </input-group>
     </div>
-    <div class="form" :class="{ 'content-block': !getValidatePassword }">
+    <div class="form" :class="{ 'content-block': !isFormEnabled }">
       <Title :title="tituloComponente" />
       <InputGroup>
         <InputWrapper>
@@ -115,6 +115,10 @@ export default {
       return this.getLoadingUser || this.getLoadingRepresentative
     },
 
+    isFormEnabled() {
+      return this.getValidatePassword && this.cpf && this.password
+    },
+
     isSaveDisabled() {
       return (
         !this.newPassword ||
@@ -165,6 +169,8 @@ export default {
         username: this.getEmail,
         password: this.password
       })
+
+      if (!this.getValidatePassword) return this.clearForm()
     },
     validatePassword() {
       clearTimeout(this.fieldTimeout)
