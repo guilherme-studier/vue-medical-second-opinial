@@ -5,6 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ActiveClinicalCases from '@/features/activeClinicalCases'
 import AdmClinicalCases from '@/features/admClinicalCases'
 import AllocationClinicalCases from '@/features/allocationClinicalCases'
+import ClinicalCasesConsultationDoctor from '@/features/clinicalCasesConsultationDoctor'
 import ClinicalCasesEvaluation from '@/features/clinicalCasesEvaluation'
 import ClinicalCasesIndustry from '@/features/clinicalCasesIndustry'
 import ConsultantDoctorInvitation from '@/features/consultantDoctorInvitation'
@@ -138,6 +139,14 @@ const routes = [
         path: '/clinical-cases-industry',
         name: 'clinicalCasesIndustry',
         component: ClinicalCasesIndustry,
+        meta: {
+          title: 'Casos Clínicos Designados'
+        }
+      },
+      {
+        path: '/clinical-cases-consultation-doctor',
+        name: 'clinicalCasesConsultationDoctor',
+        component: ClinicalCasesConsultationDoctor,
         meta: {
           title: 'Casos Clínicos Designados'
         }

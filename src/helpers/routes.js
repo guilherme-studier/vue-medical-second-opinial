@@ -132,9 +132,9 @@ export const routes = {
       route: '/adm-clinical-cases'
     },
     {
-      id: 11,
+      id: 15,
       name: 'Casos Clínicos Designados',
-      route: '/clinical-cases-evaluation'
+      route: '/clinical-cases-consultation-doctor'
     }
   ],
   clientdoctor: [
