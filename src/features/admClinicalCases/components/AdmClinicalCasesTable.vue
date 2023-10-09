@@ -3,7 +3,10 @@
     <div class="title">
       <div class="voucher-doctor">
         <img class="icon-voucher" :src="icon" />
-        <h1>{{ getDoctor }} <span>possui</span> {{ getVouchers }} ativos</h1>
+        <h1>
+          {{ getName }} <span>possui</span> {{ getVouchers }} casos clínicos
+          ativos
+        </h1>
       </div>
       <div class="voucher-search">
         <input type="text" v-model="searchTerm" placeholder="Buscar" />
@@ -48,6 +51,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('user', ['getName']),
     ...mapGetters('admClinicalCases', [
       'getTableHeader',
       'getTableData',

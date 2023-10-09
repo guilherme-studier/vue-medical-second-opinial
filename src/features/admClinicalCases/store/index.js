@@ -9,7 +9,6 @@ export default {
   namespaced: true,
   state: () => ({
     doctor: 'Dr. Guilherme Studier',
-    vouchers: 2,
     tableHeader: ['Casos Clínicos', 'ID', 'Doença', 'Data', 'Status', 'Ação'],
     tableData: [
       {
@@ -125,7 +124,7 @@ export default {
   },
   getters: {
     getDoctor: (state) => state.doctor,
-    getVouchers: (state) => state.vouchers,
+    getVouchers: (state) => state.tableData.length,
     getTableData: (state) => state.tableData,
     getTableHeader: (state) => state.tableHeader,
     getLoading: (state) => state.loading,
