@@ -34,6 +34,14 @@
     >
       <seem-modal :voucher="getModalSeemContent.voucher" />
     </modal>
+    <!-- message modal -->
+    <modal
+      :title="titleModalMessage"
+      @close="closeModalMessage"
+      v-if="getIsModalMessage"
+    >
+      <seem-modal :voucher="getModalMessageContent.voucher" />
+    </modal>
     <!-- <modal :title="titleModalMessage" @close="closeModalMessage"> </modal> -->
   </div>
 </template>
@@ -69,19 +77,26 @@ export default {
       'getIconSearch',
       'getSearchTerm',
       'getIsModalSeem',
+      'getIsModalMessage',
       'getTableHeader',
       'getModalSeemContent',
+      'getModalMessageContent',
       'getFilteredTableData'
     ])
   },
   methods: {
     ...mapActions('clinicalCasesConsultationDoctor', [
       'handleModalSeem',
+      'handleModalMessage',
       'sendSeem'
     ]),
 
     closeModalSeem() {
       this.handleModalSeem()
+    },
+
+    closeModalMessage() {
+      this.handleModalMessage()
     }
   }
 }

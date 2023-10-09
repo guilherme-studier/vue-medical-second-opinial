@@ -28,7 +28,7 @@ export default {
             icon: require('@/assets/icons/icon-message.svg'),
             handler: () => {
               store.dispatch(
-                'clinicalCasesConsultationDoctor/handleActiveVoucher',
+                'clinicalCasesConsultationDoctor/handleModalMessage',
                 '23011014002'
               )
             }
@@ -100,11 +100,15 @@ export default {
       }
     ],
     isModalSeem: false,
+    isModalMessage: false,
     modalSeemContent: {
       voucher: '30082023',
       seem: null
     },
-    isActiveClinicalCase: false,
+    modalMessageContent: {
+      voucher: '30082023',
+      message: null
+    },
     searchTerm: '',
     loading: false,
     error: false
@@ -116,15 +120,17 @@ export default {
     toggleIsModalSeem(state) {
       state.isModalSeem = !state.isModalSeem
     },
-    toggleIsActiveClinicalCase(state) {
-      state.isActiveClinicalCase = !state.isActiveClinicalCase
+    toggleIsModalMessage(state) {
+      state.isModalMessage = !state.isModalMessage
     }
   },
   getters: {
     getIcon: (state) => state.icon,
     getVouchers: (state) => state.vouchers,
     getIsModalSeem: (state) => state.isModalSeem,
+    getIsModalMessage: (state) => state.isModalMessage,
     getModalSeemContent: (state) => state.modalSeemContent,
+    getModalMessageContent: (state) => state.modalMessageContent,
     getActiveClinicalCase: (state) => state.getActiveClinicalCase,
     getIconSearch: (state) => state.iconSearch,
     getDoctor: (state) => state.doctor,
@@ -153,11 +159,13 @@ export default {
     handleModalSeem(context, voucher) {
       context.commit('toggleIsModalSeem', voucher)
     },
-    handleActiveVoucher(context, voucher) {
-      context.commit('toggleIsActiveClinicalCase', voucher)
+    handleModalMessage(context, voucher) {
+      context.commit('toggleIsModalMessage', voucher)
     },
     handleSeem(context, text) {
-      // adicionar lógica para envio do parecer
+      alert(text)
+    },
+    handleMessage(content, text) {
       alert(text)
     }
   }

@@ -14,71 +14,69 @@
         font-weight: 400;
       }
     }
-    
-    .seem-text {
+
+    .seem {
       border: 1px solid $gray-500;
       border-radius: 10px;
-      line-height: 23px;
-      text-align: left;
-      margin: 20px 0;
       padding: 15px;
-      height: 100%;
-      min-height: 300px;
-      min-width: 800px;
-      overflow: auto;
-      padding-right: 15px;
-      position: relative;
-    
-      scrollbar-width: thin; 
-      scrollbar-color: $gray-400 $gray;
-    
-      &::-webkit-scrollbar {
-        width: 8px;
-        position: absolute;
-        right: 5px;
-        top: 5px;
-      }
-    
-      &::-webkit-scrollbar-thumb {
-        background-color: $gray-400;
-        border-radius: 5px;
-      }
-    
-      &::-webkit-scrollbar-track {
-        background-color: transparent;
-      }
-    
-      p {
-        max-height: 300px;
-        padding-right: 20px;
-        overflow-x: auto;
-      }
-    }
-    
-
-    .seem-text::placeholder {
-      font-weight: normal;
-    }
-
-    .seem-send {
-      justify-content: space-between;
-      place-content: flex-end;
-      align-items: center;
-      margin-top: 30px;
-      display: flex;
-      width: 100%;
+      margin: 20px 0;
+      .seem-text {
+        border: none;
+        line-height: 23px;
+        text-align: left;
+        height: 100%;
+        min-height: 300px;
+        min-width: 800px;
+        overflow: auto;
+        position: relative;
       
-      .seem-print-out {
-        h3 {
-          font-weight: 700;
-          cursor: pointer;
+        scrollbar-width: thin; 
+        scrollbar-color: $gray-400 $gray;
+      
+        &::-webkit-scrollbar {
+          width: 8px;
+          position: absolute;
+          right: 5px;
+          top: 5px;
+        }
+      
+        &::-webkit-scrollbar-thumb {
+          background-color: $gray-400;
+          border-radius: 5px;
+        }
+      
+        &::-webkit-scrollbar-track {
+          background-color: transparent;
+        }
+      
+        p {
+          max-height: 300px;
+          padding-right: 20px;
+          overflow-x: auto;
         }
       }
 
-      .seem-button {
-        width: 150px;
+      textarea:focus {
+      box-shadow: none; 
+      border: none;
+      outline: none;
+      }
+      
+  
+      .seem-text::placeholder {
+        font-weight: normal;
       }
     }
+    
+    .seem-send {
+      display: flex;
+      place-content: end;
+
+      .seem-btn {
+        width: 150px !important;
+      }
+    }
+    
   
   }
 
