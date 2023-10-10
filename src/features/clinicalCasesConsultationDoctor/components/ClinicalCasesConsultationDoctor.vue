@@ -40,7 +40,10 @@
       @close="closeModalMessage"
       v-if="getIsModalMessage"
     >
-      <seem-modal :voucher="getModalMessageContent.voucher" />
+      <message-modal
+        :voucher="getModalMessageContent.voucher"
+        :messages="getModalMessageContent.messages"
+      />
     </modal>
     <!-- <modal :title="titleModalMessage" @close="closeModalMessage"> </modal> -->
   </div>
@@ -49,6 +52,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 
+import MessageModal from './MessageModal.vue'
 import SeemModal from './SeemModal.vue'
 
 import CustomTable from '@/components/customTable'
@@ -58,6 +62,7 @@ export default {
   name: 'ClinicalCasesConsultationDoctor',
   components: {
     CustomTable,
+    MessageModal,
     SeemModal,
     Modal
   },
