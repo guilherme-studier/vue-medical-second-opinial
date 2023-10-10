@@ -28,7 +28,7 @@ export default {
             icon: require('@/assets/icons/icon-message.svg'),
             handler: () => {
               store.dispatch(
-                'clinicalCasesConsultationDoctor/handleActiveVoucher',
+                'clinicalCasesConsultationDoctor/handleModalMessage',
                 '23011014002'
               )
             }
@@ -52,7 +52,12 @@ export default {
           },
           {
             icon: require('@/assets/icons/icon-message.svg'),
-            handler: () => alert('Função do item 1')
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesConsultationDoctor/handleModalMessage',
+                '23011014002'
+              )
+            }
           }
         ]
       },
@@ -73,7 +78,12 @@ export default {
           },
           {
             icon: require('@/assets/icons/icon-message.svg'),
-            handler: () => alert('Função do item 1')
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesConsultationDoctor/handleModalMessage',
+                '23011014002'
+              )
+            }
           }
         ]
       },
@@ -94,17 +104,49 @@ export default {
           },
           {
             icon: require('@/assets/icons/icon-message.svg'),
-            handler: () => alert('Função do item 1')
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesConsultationDoctor/handleModalMessage',
+                '23011014002'
+              )
+            }
           }
         ]
       }
     ],
     isModalSeem: false,
+    isModalMessage: false,
     modalSeemContent: {
       voucher: '30082023',
       seem: null
     },
-    isActiveClinicalCase: false,
+    modalMessageContent: {
+      voucher: '30082023',
+      messages: [
+        {
+          id: '52',
+          name: 'Dra. Cristina Flores',
+          date: '01/02/2023 14:15',
+          message:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
+        },
+        {
+          id: '53',
+          name: 'Médico Cliente',
+          date: '01/02/2023 14:15',
+          message:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+        },
+        {
+          id: '52',
+          name: 'Dra. Cristina Flores',
+          date: '01/02/2023 14:15',
+          message:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+        }
+        // Outras mensagens aqui
+      ]
+    },
     searchTerm: '',
     loading: false,
     error: false
@@ -116,15 +158,17 @@ export default {
     toggleIsModalSeem(state) {
       state.isModalSeem = !state.isModalSeem
     },
-    toggleIsActiveClinicalCase(state) {
-      state.isActiveClinicalCase = !state.isActiveClinicalCase
+    toggleIsModalMessage(state) {
+      state.isModalMessage = !state.isModalMessage
     }
   },
   getters: {
     getIcon: (state) => state.icon,
     getVouchers: (state) => state.vouchers,
     getIsModalSeem: (state) => state.isModalSeem,
+    getIsModalMessage: (state) => state.isModalMessage,
     getModalSeemContent: (state) => state.modalSeemContent,
+    getModalMessageContent: (state) => state.modalMessageContent,
     getActiveClinicalCase: (state) => state.getActiveClinicalCase,
     getIconSearch: (state) => state.iconSearch,
     getDoctor: (state) => state.doctor,
@@ -153,11 +197,13 @@ export default {
     handleModalSeem(context, voucher) {
       context.commit('toggleIsModalSeem', voucher)
     },
-    handleActiveVoucher(context, voucher) {
-      context.commit('toggleIsActiveClinicalCase', voucher)
+    handleModalMessage(context, voucher) {
+      context.commit('toggleIsModalMessage', voucher)
     },
     handleSeem(context, text) {
-      // adicionar lógica para envio do parecer
+      alert(text)
+    },
+    handleMessage(content, text) {
       alert(text)
     }
   }

@@ -3,7 +3,7 @@
     <h2>
       Caso clínico: <span>{{ voucher }}</span>
     </h2>
-    <div>
+    <div class="seem">
       <textarea
         class="seem-text"
         v-model="seemText"
@@ -11,9 +11,9 @@
       ></textarea>
     </div>
     <div class="seem-send">
-      <div class="seem-button">
-        <button @click="sendSeem" :disabled="!enabledSendSeem">Enviar</button>
-      </div>
+      <button class="seem-btn" @click="sendSeem" :disabled="!enabledSendSeem">
+        Enviar
+      </button>
     </div>
   </div>
 </template>

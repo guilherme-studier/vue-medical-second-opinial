@@ -3,7 +3,10 @@
     <div class="title">
       <div class="voucher-doctor">
         <img class="icon-voucher" :src="getIcon" />
-        <h1>{{ getDoctor }} <span>possui</span> {{ getVouchers }} ativos</h1>
+        <h1>
+          {{ getName }} <span>possui</span> {{ getVouchers }} casos clínicos
+          ativos
+        </h1>
       </div>
       <div class="voucher-search">
         <input type="text" v-model="getSearchTerm" placeholder="Buscar" />
@@ -31,6 +34,17 @@
     >
       <seem-modal :voucher="getModalSeemContent.voucher" />
     </modal>
+    <!-- message modal -->
+    <modal
+      :title="titleModalMessage"
+      @close="closeModalMessage"
+      v-if="getIsModalMessage"
+    >
+      <message-modal
+        :voucher="getModalMessageContent.voucher"
+        :messages="getModalMessageContent.messages"
+      />
+    </modal>
     <!-- <modal :title="titleModalMessage" @close="closeModalMessage"> </modal> -->
   </div>
 </template>
@@ -38,6 +52,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 
+import MessageModal from './MessageModal.vue'
 import SeemModal from './SeemModal.vue'
 
 import CustomTable from '@/components/customTable'
@@ -47,6 +62,7 @@ export default {
   name: 'ClinicalCasesConsultationDoctor',
   components: {
     CustomTable,
+    MessageModal,
     SeemModal,
     Modal
   },
@@ -57,6 +73,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('user', ['getName']),
     ...mapGetters('clinicalCasesConsultationDoctor', [
       'getIcon',
       'getDoctor',
@@ -65,19 +82,26 @@ export default {
       'getIconSearch',
       'getSearchTerm',
       'getIsModalSeem',
+      'getIsModalMessage',
       'getTableHeader',
       'getModalSeemContent',
+      'getModalMessageContent',
       'getFilteredTableData'
     ])
   },
   methods: {
     ...mapActions('clinicalCasesConsultationDoctor', [
       'handleModalSeem',
+      'handleModalMessage',
       'sendSeem'
     ]),
 
     closeModalSeem() {
       this.handleModalSeem()
+    },
+
+    closeModalMessage() {
+      this.handleModalMessage()
     }
   }
 }
