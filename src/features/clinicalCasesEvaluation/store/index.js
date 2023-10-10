@@ -7,12 +7,13 @@ export default {
     iconSearch: require('@/assets/icons/icon-search.svg'),
     doctor: 'Dr. Guilherme Studier',
     vouchers: 4,
-    tableHeader: ['Casos clínicos', 'Doença', 'Médico', 'Ação'],
+    tableHeader: ['Casos clínicos', 'Doença', 'Data', 'Status', 'Ação'],
     tableData: [
       {
-        voucher: '23011014002',
+        name: 'Tratamento Doença XYZ',
         illness: 'Doença 1',
-        doctor: 'Olavo Pereira',
+        date: '02/01/2023',
+        status: 'Aguardando Ativação',
         action: [
           {
             icon: require('@/assets/icons/icon-filed.svg'),
@@ -27,7 +28,7 @@ export default {
             icon: require('@/assets/icons/icon-message.svg'),
             handler: () => {
               store.dispatch(
-                'clinicalCasesEvaluation/handleActiveVoucher',
+                'clinicalCasesEvaluation/handleModalMessage',
                 '23011014002'
               )
             }
@@ -35,29 +36,10 @@ export default {
         ]
       },
       {
-        voucher: '23011014002',
-        illness: 'Doença 2',
-        doctor: 'Emilia Souza',
-        action: [
-          {
-            icon: require('@/assets/icons/icon-filed.svg'),
-            handler: () => {
-              store.dispatch(
-                'clinicalCasesEvaluation/handleModalSeem',
-                '23011014002'
-              )
-            }
-          },
-          {
-            icon: require('@/assets/icons/icon-message.svg'),
-            handler: () => alert('Função do item 1')
-          }
-        ]
-      },
-      {
-        voucher: '23011014002',
+        name: 'Tratamento Doença ABC',
         illness: 'Doença 3',
-        doctor: 'Eduardo Pereira',
+        date: '02/05/2023',
+        status: 'Em avaliação',
         action: [
           {
             icon: require('@/assets/icons/icon-filed.svg'),
@@ -70,14 +52,20 @@ export default {
           },
           {
             icon: require('@/assets/icons/icon-message.svg'),
-            handler: () => alert('Função do item 1')
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handleModalMessage',
+                '23011014002'
+              )
+            }
           }
         ]
       },
       {
-        voucher: '23011014002',
-        illness: 'Doença 4',
-        doctor: 'Fernando Moura',
+        name: 'Tratamento Enfermidade DBC',
+        illness: 'Doença 3',
+        date: '04/10/2023',
+        status: 'Ativado',
         action: [
           {
             icon: require('@/assets/icons/icon-filed.svg'),
@@ -90,18 +78,76 @@ export default {
           },
           {
             icon: require('@/assets/icons/icon-message.svg'),
-            handler: () => alert('Função do item 1')
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handleModalMessage',
+                '23011014002'
+              )
+            }
+          }
+        ]
+      },
+      {
+        name: 'Tratamento Enfermidade XYZ',
+        illness: 'Doença 4',
+        date: '13/11/2023',
+        status: 'Ativado',
+        action: [
+          {
+            icon: require('@/assets/icons/icon-filed.svg'),
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handleModalSeem',
+                '23011014002'
+              )
+            }
+          },
+          {
+            icon: require('@/assets/icons/icon-message.svg'),
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handleModalMessage',
+                '23011014002'
+              )
+            }
           }
         ]
       }
     ],
     isModalSeem: false,
+    isModalMessage: false,
     modalSeemContent: {
       voucher: '30082023',
       seem:
         'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.'
     },
-    isActiveClinicalCase: false,
+    modalMessageContent: {
+      voucher: '30082023',
+      messages: [
+        {
+          id: '52',
+          name: 'Dra. Cristina Flores',
+          date: '01/02/2023 14:15',
+          message:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
+        },
+        {
+          id: '53',
+          name: 'Médico Cliente',
+          date: '01/02/2023 14:15',
+          message:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+        },
+        {
+          id: '52',
+          name: 'Dra. Cristina Flores',
+          date: '01/02/2023 14:15',
+          message:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+        }
+        // Outras mensagens aqui
+      ]
+    },
     searchTerm: '',
     loading: false,
     error: false
@@ -113,15 +159,17 @@ export default {
     toggleIsModalSeem(state) {
       state.isModalSeem = !state.isModalSeem
     },
-    toggleIsActiveClinicalCase(state) {
-      state.isActiveClinicalCase = !state.isActiveClinicalCase
+    toggleIsModalMessage(state) {
+      state.isModalMessage = !state.isModalMessage
     }
   },
   getters: {
     getIcon: (state) => state.icon,
     getVouchers: (state) => state.vouchers,
     getIsModalSeem: (state) => state.isModalSeem,
+    getIsModalMessage: (state) => state.isModalMessage,
     getModalSeemContent: (state) => state.modalSeemContent,
+    getModalMessageContent: (state) => state.modalMessageContent,
     getActiveClinicalCase: (state) => state.getActiveClinicalCase,
     getIconSearch: (state) => state.iconSearch,
     getDoctor: (state) => state.doctor,
@@ -150,8 +198,14 @@ export default {
     handleModalSeem(context, voucher) {
       context.commit('toggleIsModalSeem', voucher)
     },
-    handleActiveVoucher(context, voucher) {
-      context.commit('toggleIsActiveClinicalCase', voucher)
+    handleModalMessage(context, voucher) {
+      context.commit('toggleIsModalMessage', voucher)
+    },
+    handleSeem(context, text) {
+      alert(text)
+    },
+    handleMessage(content, text) {
+      alert(text)
     }
   }
 }

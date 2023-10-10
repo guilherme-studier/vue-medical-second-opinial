@@ -45,7 +45,6 @@
         :messages="getModalMessageContent.messages"
       />
     </modal>
-    <!-- <modal :title="titleModalMessage" @close="closeModalMessage"> </modal> -->
   </div>
 </template>
 

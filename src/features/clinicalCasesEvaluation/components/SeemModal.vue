@@ -19,6 +19,7 @@
 
 <script>
 import jsPDF from 'jspdf'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'SeemModal',
@@ -33,14 +34,17 @@ export default {
     }
   },
   methods: {
+    ...mapActions('clinicalCasesEvaluation', ['handleSeem']),
+
     printSeem() {
       const pdf = new jsPDF()
 
       pdf.text(this.seem, 10, 10)
       pdf.save('parecer.pdf')
     },
+
     sendSeem() {
-      // Lógica para enviar o parecer
+      this.handleSeem(this.seem)
     }
   }
 }
