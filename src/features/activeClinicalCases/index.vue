@@ -248,6 +248,39 @@
         </input-wrapper>
       </input-group>
     </div>
+    <div class="exams">
+      <h1>Exames complementares à avaliação atual e atuais</h1>
+      <table class="exams-table">
+        <tbody>
+          <tr v-for="(item, index) in examList" :key="index">
+            <td class="label-column">
+              {{ item.label }}
+            </td>
+            <td>
+              <input v-model="item.value" type="text" />
+            </td>
+            <td>
+              <input v-model="item.value2" type="text" />
+            </td>
+            <td>
+              <input v-model="item.value3" type="text" />
+            </td>
+            <td>
+              <input v-model="item.value4" type="text" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="obervations">
+      <div class="content-title">
+        <h1 class="title">{{ titleObservations }}</h1>
+        <span class="line"></span>
+      </div>
+      <div class="observation-text">
+        <textarea v-model="observations" placeholder="Descreva..."></textarea>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -352,7 +385,80 @@ export default {
           interruptionReason: null,
           editableRow: false
         }
-      ]
+      ],
+      examList: [
+        {
+          label: 'Data',
+          value: null,
+          value2: null,
+          value3: null,
+          value4: null
+        },
+        { label: 'Hb', value: null, value2: null, value3: null, value4: null },
+        { label: 'VCM', value: null, value2: null, value3: null, value4: null },
+        { label: 'RDW', value: null, value2: null, value3: null, value4: null },
+        {
+          label: 'Leucócitos',
+          value: null,
+          value2: null,
+          value3: null,
+          value4: null
+        },
+        {
+          label: 'Neutrófilos',
+          value: null,
+          value2: null,
+          value3: null,
+          value4: null
+        },
+        {
+          label: 'Linfócitos',
+          value: null,
+          value2: null,
+          value3: null,
+          value4: null
+        },
+        {
+          label: 'Eosinófilos',
+          value: null,
+          value2: null,
+          value3: null,
+          value4: null
+        },
+        {
+          label: 'Plaquetas',
+          value: null,
+          value2: null,
+          value3: null,
+          value4: null
+        },
+        {
+          label: 'Proteína C Reativa',
+          value: null,
+          value2: null,
+          value3: null,
+          value4: null
+        },
+        { label: 'TGO', value: null, value2: null, value3: null, value4: null },
+        { label: 'TGP', value: null, value2: null, value3: null, value4: null },
+        { label: 'GGT', value: null, value2: null, value3: null, value4: null },
+        {
+          label: 'Calprotectína Fecal',
+          value: null,
+          value2: null,
+          value3: null,
+          value4: null
+        },
+        {
+          label: 'Creatinina',
+          value: null,
+          value2: null,
+          value3: null,
+          value4: null
+        }
+      ],
+      titleObservations: 'Observações adicionais',
+      observations: null
     }
   },
   computed: {
@@ -360,6 +466,10 @@ export default {
 
     isLoading() {
       return false
+    },
+
+    itemPlaceholder() {
+      return 'Valor'
     }
   },
   methods: {
@@ -429,7 +539,6 @@ export default {
   table th,
   table td {
     border: 1px solid $gray-500;
-    padding: 5px;
     text-align: center;
   }
 
@@ -457,6 +566,138 @@ export default {
     background-color: #f0f0f0;
     color: #ccc;
     cursor: not-allowed;
+  }
+}
+
+.exams {
+  h1 {
+    font-size: 16px;
+    padding: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+
+    tbody {
+      border-radius: 8px;
+    }
+  }
+
+  table th,
+  table td {
+    border: 1px solid $gray-500;
+    text-align: center;
+  }
+
+  table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    border-radius: 8px 8px 0 0;
+    padding: 20px 0;
+  }
+
+  table input[type='text'] {
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    text-align: left;
+    margin-bottom: 0;
+  }
+
+  table input[type='text']:focus {
+    border: none;
+    box-shadow: none;
+  }
+
+  .disabled-input {
+    background-color: #f0f0f0;
+    color: #ccc;
+    cursor: not-allowed;
+  }
+
+  .label-column {
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+}
+
+.obervations {
+  .content-title {
+    flex-direction: column;
+    margin-bottom: 25px;
+    align-items: left;
+    text-align: left;
+    display: flex;
+    padding: 20px;
+
+    .title {
+      color: $green-500;
+    }
+
+    .line {
+      background-color: $green-500;
+      margin-top: 15px;
+      bottom: -15px;
+      width: 60px;
+      height: 5px;
+    }
+  }
+
+  .observation-text {
+    border: 1px solid $gray-500;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    textarea {
+      resize: none;
+      border: none;
+      line-height: 23px;
+      text-align: left;
+      height: 100%;
+      min-height: 50px;
+      width: 100%;
+      overflow: auto;
+      position: relative;
+
+      scrollbar-width: thin;
+      scrollbar-color: $gray-400 $gray;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $gray-400;
+        border-radius: 5px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+
+      p {
+        max-height: 300px;
+        padding-right: 20px;
+        overflow-x: auto;
+      }
+    }
+
+    textarea:focus {
+      box-shadow: none;
+      border: none;
+      outline: none;
+    }
+
+    .seem-text::placeholder {
+      font-weight: normal;
+    }
   }
 }
 </style>
