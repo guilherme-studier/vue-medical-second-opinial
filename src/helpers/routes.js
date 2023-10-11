@@ -60,7 +60,7 @@ export const all = [
     route: '/clinical-cases-evaluation'
   },
   {
-    id: 14,
+    id: 16,
     name: 'Ativação de Caso Clínico',
     route: '/active-clinical-case'
   },
@@ -152,6 +152,11 @@ export const routes = {
       id: 11,
       name: 'Casos Clínicos Designados',
       route: '/clinical-cases-evaluation'
+    },
+    {
+      id: 16,
+      name: 'Ativação de Caso Clínico',
+      route: '/active-clinical-case'
     }
   ],
   agent: [

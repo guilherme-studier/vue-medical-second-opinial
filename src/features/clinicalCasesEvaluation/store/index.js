@@ -19,6 +19,15 @@ export default {
             icon: require('@/assets/icons/icon-filed.svg'),
             handler: () => {
               store.dispatch(
+                'clinicalCasesEvaluation/handlePageActiveVoucher',
+                '23011014002'
+              )
+            }
+          },
+          {
+            icon: require('@/assets/icons/icon-filed.svg'),
+            handler: () => {
+              store.dispatch(
                 'clinicalCasesEvaluation/handleModalSeem',
                 '23011014002'
               )
@@ -116,6 +125,7 @@ export default {
     ],
     isModalSeem: false,
     isModalMessage: false,
+    isActiveVoucher: false,
     modalSeemContent: {
       voucher: '30082023',
       seem:
@@ -148,6 +158,9 @@ export default {
         // Outras mensagens aqui
       ]
     },
+    clinicalCaseContent: {
+      voucher: '30082023'
+    },
     searchTerm: '',
     loading: false,
     error: false
@@ -161,6 +174,9 @@ export default {
     },
     toggleIsModalMessage(state) {
       state.isModalMessage = !state.isModalMessage
+    },
+    toggleIsActiveVoucher(state) {
+      state.isActiveVoucher = !state.isActiveVoucher
     }
   },
   getters: {
@@ -168,9 +184,11 @@ export default {
     getVouchers: (state) => state.vouchers,
     getIsModalSeem: (state) => state.isModalSeem,
     getIsModalMessage: (state) => state.isModalMessage,
+    getIsActiveVoucher: (state) => state.isActiveVoucher,
     getModalSeemContent: (state) => state.modalSeemContent,
     getModalMessageContent: (state) => state.modalMessageContent,
-    getActiveClinicalCase: (state) => state.getActiveClinicalCase,
+    getActiveClinicalCase: (state) => state.isActiveVoucher,
+    getClinicalCaseContent: (state) => state.clinicalCaseContent,
     getIconSearch: (state) => state.iconSearch,
     getDoctor: (state) => state.doctor,
     getTableHeader: (state) => state.tableHeader,
@@ -206,6 +224,9 @@ export default {
     },
     handleMessage(content, text) {
       alert(text)
+    },
+    handlePageActiveVoucher(context, voucher) {
+      context.commit('toggleIsActiveVoucher', voucher)
     }
   }
 }

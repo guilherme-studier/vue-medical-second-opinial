@@ -29,7 +29,9 @@
               }"
             >
               <div class="menu-item-content">
-                <div class="menu-item-text">{{ item.name }}</div>
+                <div class="menu-item-text">
+                  {{ item.name }}
+                </div>
               </div>
             </router-link>
             <a
@@ -88,6 +90,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters('clinicalCasesEvaluation', ['getIsActiveVoucher']),
     ...mapGetters(['getRole']),
 
     typeUser() {
@@ -95,9 +98,17 @@ export default {
     },
     menuItemsWithLogout() {
       const userType = this.getRole?.replace('_', '')
-      const menuItems = routes[userType] || []
-      // Adicione o item de logout ao final da lista
-      menuItems.push({ name: 'Logout', action: 'logout' })
+      let menuItems = routes[userType] || []
+
+      if (!this.getIsActiveVoucher) {
+        menuItems = menuItems.filter((item) => item.id !== 16)
+      }
+
+      const hasLogoutItem = menuItems.some((item) => item.action === 'logout')
+      if (!hasLogoutItem) {
+        menuItems.push({ name: 'Logout', action: 'logout' })
+      }
+
       return menuItems
     }
   },
