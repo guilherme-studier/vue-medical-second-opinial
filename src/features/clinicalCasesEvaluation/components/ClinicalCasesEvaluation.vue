@@ -85,13 +85,15 @@ export default {
       'getIsModalMessage',
       'getModalSeemContent',
       'getFilteredTableData',
-      'getModalMessageContent'
+      'getModalMessageContent',
+      'getIsActiveVoucher'
     ])
   },
   methods: {
     ...mapActions('clinicalCasesEvaluation', [
       'handleModalSeem',
-      'handleModalMessage'
+      'handleModalMessage',
+      'handlePageActiveVoucher'
     ]),
 
     closeModalSeem() {
