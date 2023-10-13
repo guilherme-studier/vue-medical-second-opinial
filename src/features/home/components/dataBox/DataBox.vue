@@ -3,9 +3,7 @@
     <div class="data-title">
       <h2 class="title">{{ title }}</h2>
     </div>
-    <div class="data-quantity">
-      <p class="quantity">{{ quantity }}</p>
-    </div>
+    <div class="data-quantity">{{ quantity }}</div>
   </div>
 </template>
 

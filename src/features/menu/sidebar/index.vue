@@ -30,7 +30,7 @@
             >
               <div class="menu-item-content">
                 <div class="menu-item-text">
-                  {{ item.name }}
+                  <h3>{{ item.name }}</h3>
                 </div>
               </div>
             </router-link>
@@ -44,7 +44,9 @@
               }"
             >
               <div class="menu-item-content">
-                <div class="menu-item-text">{{ item.name }}</div>
+                <div class="menu-item-text">
+                  <h3>{{ item.name }}</h3>
+                </div>
               </div>
             </a>
           </div>

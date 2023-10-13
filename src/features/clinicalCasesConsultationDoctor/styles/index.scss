@@ -93,7 +93,7 @@
     .seem {
       border: 1px solid $gray-500;
       border-radius: 10px;
-      padding: 10px;
+      padding: 5px;
       .seem-text {
         border: none;
         line-height: 23px;
@@ -102,6 +102,7 @@
         min-width: 800px;
         overflow: auto;
         position: relative;
+        font-size: 12px;
       
         scrollbar-width: thin; 
         scrollbar-color: $gray-400 $gray;
@@ -154,10 +155,10 @@
   }
 
   .messages {
-    padding: 20px 0;
+    padding: 10px 0;
   
     .chat-message-container {
-      max-height: 400px;
+      max-height: 310px;
       overflow-y: auto;
       padding: 10px;
   
@@ -206,19 +207,26 @@
           text-align: right;
         }
       }
-  
+
       .message-content {
-        padding: 20px;
-        background: $grayLoading;
-        border-radius: 10px;
+        &.not-user {
+          text-align: right;
+        }
+
         p {
+          background: $grayLoading;
+          width: auto; 
+          border-radius: 10px;
+          padding: 15px;
           line-height: 21px;
+          display: inline-block;
         }
       }
-  
+
       .seem {
         textarea {
-          min-height: 50px;
+          max-height: 30px;
+          font-size: 12px !important;
         }
       }
     }
@@ -227,6 +235,10 @@
   .message-send {
     display: flex;
     place-content: end;
+
+    h2 {
+      font-weight: bold;
+    }
   
     .message-btn {
       width: 150px;

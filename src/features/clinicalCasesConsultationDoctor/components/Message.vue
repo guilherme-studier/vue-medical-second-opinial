@@ -11,7 +11,7 @@
         </div>
       </div>
     </div>
-    <div class="message-content">
+    <div :class="{ 'not-user': isUserMessage }" class="message-content">
       <p>{{ message.message }}</p>
     </div>
   </div>
