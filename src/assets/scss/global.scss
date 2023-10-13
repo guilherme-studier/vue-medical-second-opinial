@@ -26,17 +26,24 @@ body {
 
   h1 {
     font-weight: 600;
-    font-size: 20px;
+    font-size: 18px;
   }
 
   h2 {
     font-weight: 500;
-    font-size: 18px;
+    font-size: 16px;
   }
   
   h3 {
-    font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  a {
+    font-size: 12px;
   }
 
   button {
@@ -44,7 +51,7 @@ body {
     background: $green-500;
     border-radius: 10px;
     color: $white;
-    height: 45px;
+    height: 40px;
     border: none;
     width: 100%;
     transition: 0.3s ease;
@@ -179,6 +186,10 @@ body {
 .form-loading {
   opacity: 0.6;
   pointer-events: none;
+}
+
+.container {
+  //max-width: 1000px;
 }
 
 .content-block {

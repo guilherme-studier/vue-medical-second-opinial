@@ -93,7 +93,7 @@ export default {
 
 .input--login {
   padding-left: 4em;
-  background: url('../../../assets/icons/icon-filed.svg') 1em center / 1.5em
+  background: url('../../../assets/icons/icon-user.svg') 1em center / 1.5em
       1.5em no-repeat,
     linear-gradient(
       to right,
@@ -106,7 +106,7 @@ export default {
 
 .input--password {
   padding-left: 4em;
-  background: url('../../../assets/icons/icon-filed.svg') 1em center / 1.5em
+  background: url('../../../assets/icons/icon-password.svg') 1em center / 1.5em
       1.5em no-repeat,
     linear-gradient(
       to right,
@@ -119,7 +119,7 @@ export default {
 
 .input--reset-password {
   padding-left: 4em;
-  background: url('../../../assets/icons/icon-filed.svg') 1em center / 1.5em
+  background: url('../../../assets/icons/icon-email.svg') 1em center / 1.5em
       1.5em no-repeat,
     linear-gradient(
       to right,

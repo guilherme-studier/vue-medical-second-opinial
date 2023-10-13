@@ -16,7 +16,7 @@ export default {
         status: 'Aguardando Ativação',
         action: [
           {
-            icon: require('@/assets/icons/icon-filed.svg'),
+            icon: require('@/assets/icons/icon-check.png'),
             handler: () => {
               store.dispatch(
                 'clinicalCasesEvaluation/handlePageActiveVoucher',

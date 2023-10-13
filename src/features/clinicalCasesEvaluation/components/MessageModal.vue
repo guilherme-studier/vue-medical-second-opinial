@@ -16,7 +16,7 @@
         <textarea
           class="seem-text"
           v-model="messageText"
-          placeholder="Escrever parecer..."
+          placeholder="Escreva mensagem..."
         ></textarea>
       </div>
     </div>
@@ -35,12 +35,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import Message from './Message.vue' // Importe o componente Message
+import Message from './Message.vue'
 
 export default {
   name: 'MessageModal',
   components: {
-    Message // Registre o componente Message
+    Message
   },
   props: {
     voucher: {

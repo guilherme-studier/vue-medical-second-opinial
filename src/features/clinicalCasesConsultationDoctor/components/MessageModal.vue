@@ -16,7 +16,7 @@
         <textarea
           class="seem-text"
           v-model="messageText"
-          placeholder="Escrever parecer..."
+          placeholder="Escreva mensagem..."
         ></textarea>
       </div>
     </div>

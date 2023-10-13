@@ -14,9 +14,9 @@
 import { mapGetters } from 'vuex'
 
 import bannerAdmin from '../../../assets/ceos-header.png'
-import bannerConsultantdoctor from '../../../assets/ceos-header.png'
-import bannerClientdoctor from '../../../assets/ceos-header.png'
-import bannerAgent from '../../../assets/ceos-header.png'
+import bannerConsultantdoctor from '../../../assets/consultant-header.png'
+import bannerClientdoctor from '../../../assets/doctor-header.png'
+import bannerAgent from '../../../assets/representant-header.png'
 
 export default {
   name: 'Header',

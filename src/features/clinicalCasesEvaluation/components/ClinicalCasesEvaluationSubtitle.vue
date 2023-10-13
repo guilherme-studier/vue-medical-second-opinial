@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import iconCheckActive from '@/assets/icons/icon-check-active.svg'
+import iconCheckActive from '@/assets/icons/icon-checked-legend.svg'
 import iconFiled from '@/assets/icons/icon-filed.svg'
 import iconMessage from '@/assets/icons/icon-message.svg'
 import Subtitle from '@/components/subtitle'
