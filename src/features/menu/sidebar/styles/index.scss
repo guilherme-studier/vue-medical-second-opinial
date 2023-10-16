@@ -27,6 +27,22 @@
     z-index: 101;
     flex: 1;
     overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: $gray-400;
+      border-radius: 5px;
+    }
+  
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
   }
 
   .header-logo {
@@ -64,7 +80,7 @@
     height: calc(100vh - 135px);
     .scrollMenuItems {
       align-self: center;
-      height: 90%;
+      height: 100%;
     }
 
     &.active {

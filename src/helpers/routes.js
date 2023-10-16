@@ -66,12 +66,12 @@ export const all = [
   },
   {
     id: 12,
-    name: 'Especialidades',
+    name: 'Gestão de Especialidades',
     route: '/specialties'
   },
   {
     id: 13,
-    name: 'Doenças',
+    name: 'Gestão de Doenças',
     route: '/illnesses'
   },
   // Casos clínicos designados - Representante Indústria
@@ -113,6 +113,16 @@ export const routes = {
       id: 6,
       name: 'Cancelamento de Acesso ao Sistema',
       route: '/access-cancellation'
+    },
+    {
+      id: 12,
+      name: 'Gestão Especialidades',
+      route: '/specialties'
+    },
+    {
+      id: 13,
+      name: 'Gestão de Doenças',
+      route: '/illnesses'
     }
   ],
   consultantdoctor: [

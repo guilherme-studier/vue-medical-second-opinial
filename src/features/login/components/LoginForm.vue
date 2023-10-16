@@ -2,7 +2,7 @@
   <div class="login-form">
     <form @submit.prevent="handleSubmit">
       <!-- Exibe o campo de e-mail e senha quando forgotPassword for falso -->
-      <div v-if="!forgotPassword">
+      <div class="form-input" v-if="!forgotPassword">
         <div class="form-group">
           <input
             v-model="username"
@@ -92,12 +92,12 @@ export default {
 @import '../styles/index.scss';
 
 .input--login {
-  padding-left: 4em;
-  background: url('../../../assets/icons/icon-user.svg') 1em center / 1.5em
-      1.5em no-repeat,
+  padding-left: 3.5em;
+  background: url('../../../assets/icons/icon-user.svg') 1em center / 1em 1em
+      no-repeat,
     linear-gradient(
       to right,
-      $green-500 3.5em,
+      $green-500 3em,
       hsl(0, 0%, 70%) 2.5em,
       hsl(0, 0%, 70%) calc(2.5em + 1px),
       transparent calc(2.5em + 1px)
@@ -105,12 +105,12 @@ export default {
 }
 
 .input--password {
-  padding-left: 4em;
-  background: url('../../../assets/icons/icon-password.svg') 1em center / 1.5em
-      1.5em no-repeat,
+  padding-left: 3.5em;
+  background: url('../../../assets/icons/icon-password.svg') 1em center / 1em
+      1em no-repeat,
     linear-gradient(
       to right,
-      $green-500 3.5em,
+      $green-500 3em,
       hsl(0, 0%, 70%) 2.5em,
       hsl(0, 0%, 70%) calc(2.5em + 1px),
       transparent calc(2.5em + 1px)
@@ -118,12 +118,12 @@ export default {
 }
 
 .input--reset-password {
-  padding-left: 4em;
-  background: url('../../../assets/icons/icon-email.svg') 1em center / 1.5em
-      1.5em no-repeat,
+  padding-left: 3.5em;
+  background: url('../../../assets/icons/icon-email.svg') 1em center / 1em 1em
+      no-repeat,
     linear-gradient(
       to right,
-      $green-500 3.5em,
+      $green-500 3em,
       hsl(0, 0%, 70%) 2.5em,
       hsl(0, 0%, 70%) calc(2.5em + 1px),
       transparent calc(2.5em + 1px)
