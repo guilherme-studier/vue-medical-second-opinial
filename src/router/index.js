@@ -164,7 +164,7 @@ const routes = [
         name: 'Specialties',
         component: Specialties,
         meta: {
-          title: 'Especialidades'
+          title: 'Gestão de Especialidades'
         }
       },
       {
@@ -172,7 +172,7 @@ const routes = [
         name: 'Illnesses',
         component: Illnesses,
         meta: {
-          title: 'Doenças'
+          title: 'Gestão de Doenças'
         }
       }
     ],

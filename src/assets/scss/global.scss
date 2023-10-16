@@ -7,6 +7,10 @@
 @import './colors';
 @import './v-select';
 
+html {
+  font-size: 16px; /* Defina o tamanho base (1rem) aqui */
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   background: $white;
@@ -16,8 +20,7 @@ body {
   text-rendering: optimizeLegibility;
   background-color: $white;
   color: $grayDark;
-  font-size: 16px;
-
+  font-size: 1rem; /* 16px */
   overflow-x: hidden;
 
   &.overflow-hidden {
@@ -26,48 +29,47 @@ body {
 
   h1 {
     font-weight: 600;
-    font-size: 18px;
+    font-size: 1.125rem; /* 18px */
   }
 
   h2 {
     font-weight: 500;
-    font-size: 16px;
+    font-size: 1rem; /* 16px */
   }
-  
+
   h3 {
-    font-size: 14px;
+    font-size: 0.875rem; /* 14px */
   }
 
   p {
-    font-size: 12px;
+    font-size: 0.75rem; /* 12px */
   }
 
   a {
-    font-size: 12px;
+    font-size: 0.75rem; /* 12px */
   }
 
   button {
     text-transform: uppercase;
     background: $green-500;
-    border-radius: 10px;
+    border-radius: 0.625rem; /* 10px */
     color: $white;
-    height: 40px;
+    height: 2.1875rem; /* 35px */
     border: none;
     width: 100%;
-    transition: 0.3s ease;
+    transition: 0.5s ease;
 
     &:hover {
-      border: 1.5px solid $green-500;
-      background-color: $white;
-      color: $green-500;
+      border: 0.09375rem solid $green-600; /* 1.5px */
+      background-color: $green-600;
     }
 
     &.outline {
-      border: 1.5px solid $green-500;
+      border: 0.09375rem solid $green-500; /* 1.5px */
       background-color: $white;
       color: $green-500;
     }
-    
+
     &:disabled {
       background: $gray-500;
       color: $white;
@@ -76,19 +78,20 @@ body {
     }
   }
 
-  textarea, 
+  textarea,
+  input,
   input[type=text],
   input[type="number"],
   input[type="password"],
-  input[type="email"] {
-    border: 1px solid $gray-400;
-    max-height: 100px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    min-height: 50px;
-    min-width: 200px;
-    height: 46.46px;
-    padding: 10px;
+  input[type="email"],
+  select {
+    font-size: 1rem;
+    border: 0.0625rem solid $gray-400; /* 1px */
+    max-height: 2.5rem; /* 100px */
+    margin-bottom: 0.5rem; /* 15px */
+    border-radius: 0.625rem; /* 10px */
+    height: 2.890625rem; /* 46.46px */
+    padding: 0.625rem; /* 10px */
     width: 100%;
     opacity: 1;
   
@@ -98,8 +101,8 @@ body {
     }
 
     &:focus {
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); 
-      border: 2px solid $green-500;
+      box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.3); /* 5px */
+      border: 0.125rem solid $green-500; /* 2px */
       outline: none;
     }
 
@@ -107,6 +110,11 @@ body {
       opacity: 0.6;
       pointer-events: none;
     }
+  }
+
+  select {
+    font-weight: bold;
+    color: $gray-600;
   }
 
   .v-select {
@@ -150,17 +158,17 @@ body {
     }
 
     .vs__dropdown-menu {
-      border-radius: 10px;
+      border-radius: 0.625rem; /* 10px */
       padding: 0;
-      margin-top: 10px;
+      margin-top: 0.625rem; /* 10px */
       z-index: 1;
-      border-bottom: 1px solid #bbb;
+      border-bottom: 0.0625rem solid #bbb; /* 1px */
 
       li {
-        height: 50px;
+        height: 3.125rem; /* 50px */
         display: flex;
-        padding: 10px;
-        border-bottom: 1px solid $gray-500;
+        padding: 0.625rem; /* 10px */
+        border-bottom: 0.0625rem solid $gray-500; /* 1px */
       }
 
       li:last-child {
@@ -171,14 +179,14 @@ body {
     .vs__dropdown-toggle {
       padding: 0;
       border: none;
-      max-height: 50px;
+      max-height: 3.125rem; /* 50px */
       display: flex;
       justify-content: space-between;
     }
 
     .vs__selected-options {
-      padding: 10px;
-      max-width: 250px;
+      padding: 0.625rem; /* 10px */
+      max-width: 15.625rem; /* 250px */
     }
   }
 }
@@ -189,7 +197,7 @@ body {
 }
 
 .container {
-  //max-width: 1000px;
+  //max-width: 62.5rem; /* 1000px */
 }
 
 .content-block {
@@ -201,4 +209,3 @@ body {
   position: relative;
   height: 100%;
 }
-

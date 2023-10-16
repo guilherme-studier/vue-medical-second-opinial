@@ -40,7 +40,7 @@
               :class="{
                 'menu-item': true,
                 'collapsed-menu': !active,
-                'logout-item': item.action === 'logout' // Adicione uma classe específica para o item de Logout
+                'logout-item': item.action === 'logout'
               }"
             >
               <div class="menu-item-content">
