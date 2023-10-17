@@ -4,26 +4,22 @@
     <div class="form" :class="{ 'form-loading': isLoading }">
       <InputGroup>
         <InputWrapper>
-          <select v-model="industry">
-            <option :value="null">Indústria</option>
-            <option
-              v-for="item in getIndustries"
-              :value="item.id"
-              :key="item.id"
-              >{{ item.name }}</option
-            >
-          </select>
+          <v-select
+            v-model="industry"
+            :options="getIndustries"
+            :reduce="(item) => item.id"
+            placeholder="Indústria"
+            label="name"
+          />
         </InputWrapper>
         <InputWrapper>
-          <select v-model="doctor">
-            <option :value="null">Médico Consultor</option>
-            <option
-              v-for="item in getDoctors"
-              :value="item.id"
-              :key="item.id"
-              >{{ item.name }}</option
-            >
-          </select>
+          <v-select
+            v-model="doctor"
+            :options="getDoctors"
+            :reduce="(item) => item.id"
+            placeholder="Médico Consultor"
+            label="name"
+          />
         </InputWrapper>
         <InputWrapper>
           <div class="input-with-icon">
@@ -143,6 +139,7 @@
 <script>
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import vSelect from 'vue-select'
 import { useToast } from 'vue-toastification'
 import { mapGetters, mapActions } from 'vuex'
 
@@ -162,6 +159,7 @@ export default {
     RadioContent,
     InputWrapper,
     InputGroup,
+    vSelect,
     Title,
     Modal
   },

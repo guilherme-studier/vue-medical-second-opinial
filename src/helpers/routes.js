@@ -79,6 +79,11 @@ export const all = [
     id: 14,
     name: 'Casos Clínicos Designados',
     route: '/clinical-cases-industry'
+  },
+  {
+    id: 17,
+    name: 'Gestão de Indústrias',
+    route: '/industries'
   }
 ]
 
@@ -118,6 +123,11 @@ export const routes = {
       id: 12,
       name: 'Gestão Especialidades',
       route: '/specialties'
+    },
+    {
+      id: 17,
+      name: 'Gestão de Indústrias',
+      route: '/industries'
     },
     {
       id: 13,

@@ -71,5 +71,10 @@ export default {
 input[type='radio'] {
   margin: 3px 10px 0 0;
   cursor: pointer;
+
+  height: 100%;
+  width: 100%;
+  max-height: 10px;
+  max-width: 10px;
 }
 </style>

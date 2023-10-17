@@ -1,0 +1,95 @@
+.illnesses {
+  width: 100%;
+
+  .title {
+    display: flex;
+    place-items: flex-end;
+    text-align: left;
+    color: $green-500;
+    width: 100%;
+    margin-bottom: 20px;
+
+    h1 {
+      margin-left: 10px;
+
+      span {
+        color: $gray-600;
+        font-weight: 400;
+      }
+    }
+  }
+
+  &--form {
+    margin-bottom: 20px;
+  }
+
+  &--row {
+    display: flex;
+    flex-wrap: nowrap;
+    place-items: flex-end;
+    text-align: left;
+    color: $green-500;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 20px;
+
+    .search {
+      position: relative;
+      max-width: 280px;
+      width: 100%;
+
+      input {
+        background-color: $gray;
+        padding-right: 30px;
+        outline: none;
+        border: none;
+        margin: 0;
+      }
+
+      input::placeholder {
+        font-weight: 500;
+      }
+
+      .search-icon {
+        transform: translateY(-50%);
+        position: absolute;
+        filter: hue-rotate(180deg);
+        right: 10px;
+        top: 50%;
+      }
+    }
+  }
+  .input-group {
+    height: fit-content;
+  }
+}
+
+.custom-th {
+  text-transform: uppercase;
+  border: 1px solid $white;
+  background: $green-500;
+  padding: 20px;
+  text-align: center;
+  color: white;
+
+  &.custom-th-top-left {
+    border-top-left-radius: 10px;
+  }
+
+  &.custom-th-top-right {
+    border-top-right-radius: 10px;
+  }
+}
+
+.custom-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+
+  tbody td {
+    border: 1px solid $gray-400;
+    text-align: center;
+    color: $gray-600;
+    padding: 20px;
+  }
+}

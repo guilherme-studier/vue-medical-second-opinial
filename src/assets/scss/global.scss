@@ -83,7 +83,7 @@ body {
   input[type=text],
   input[type="number"],
   input[type="password"],
-  input[type="email"],
+  input[type="email"]
   select {
     font-size: 1rem;
     border: 0.0625rem solid $gray-400; /* 1px */
@@ -96,7 +96,7 @@ body {
     opacity: 1;
   
     &::placeholder {
-      font-weight: bold;
+      font-weight: 450;
       color: $gray-600;
     }
 
@@ -112,81 +112,148 @@ body {
     }
   }
 
-  select {
-    font-weight: bold;
-    color: $gray-600;
+  textarea {
+    font-size: 1rem;
+    border: 0.0625rem solid $gray-400; /* 1px */
+    max-height: 5rem; /* 100px */
+    margin-bottom: 0.5rem; /* 15px */
+    border-radius: 0.625rem; /* 10px */
+    height: 2.890625rem; /* 46.46px */
+    padding: 0.625rem; /* 10px */
+    width: 100%;
+    opacity: 1;
+
+    scrollbar-width: thin;
+      scrollbar-color: $gray-400 $gray;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $gray-400;
+        border-radius: 5px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+
+      p {
+        max-height: 300px;
+        padding-right: 20px;
+        overflow-x: auto;
+      }
+  
+    &::placeholder {
+      font-weight: 450;
+      color: $gray-600;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.3); /* 5px */
+      border: 0.125rem solid $green-500; /* 2px */
+      outline: none;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
   }
 
   .v-select {
-    border: 1px solid $gray-400;
-    margin-bottom: 15px;
-    min-height: 50px;
-    min-width: 200px;
-    height: 46.46px;
+    font-size: 1rem;
+    border: 0.0625rem solid $gray-400; /* 1px */
+    max-height: 2.5rem; /* 100px */
+    margin-bottom: 0.5rem; /* 15px */
+    border-radius: 0.625rem !important; /* 10px */
+    height: 2.890625rem; /* 46.46px */
     width: 100%;
     opacity: 1;
-    
+    cursor: pointer;
+
+    .vs__dropdown-toggle {
+      border: none;
+    }
+
+    .vs--searchable {}
+
     .vs__search {
-      font-weight: bold;
+      margin: 0 0 0 4px;
+      font-size: 1rem;
       color: $gray-600;
-      padding: 0;
-      margin: 0;
-      position: relative;
-      top: 3px;
     }
-    
-    .vs__actions {
-      cursor: pointer;
-      padding: 20px 5px 5px 5px;
 
-      .vs__clear {
-        margin: 0 3px 3px 0;
-      }
-
-      .vs__clear:hover {
-        border: none;
-      }
-
-      .vs__clear:not([style*="display: none"]) ~ .vs__open-indicator {
-        display: none;
-      }
-    }
-  
-    &::placeholder {
-      font-weight: bold;
+    .vs__selected {
+      margin: 0 0 0 4px;
+      font-size: 1rem;
+      font-weight: 450;
       color: $gray-600;
+    }
+
+    button {
+      background-color: none !important;
+      &:hover {
+        border: none !important;
+        background-color: transparent !important;
+      }
     }
 
     .vs__dropdown-menu {
-      border-radius: 0.625rem; /* 10px */
+      box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.07);
+      border: 1px solid #bbbbbb;
+      border-top: none;
+      margin-top: 10px;
+      overflow-x: hidden;
+      min-width: auto;
+      border-radius: 10px;
       padding: 0;
-      margin-top: 0.625rem; /* 10px */
-      z-index: 1;
-      border-bottom: 0.0625rem solid #bbb; /* 1px */
-
-      li {
-        height: 3.125rem; /* 50px */
-        display: flex;
-        padding: 0.625rem; /* 10px */
-        border-bottom: 0.0625rem solid $gray-500; /* 1px */
+  
+      .vs__dropdown-option {
+        color: $gray-600;
+        padding: 10px 15px;
       }
-
-      li:last-child {
-        border-bottom: 0;
+      .vs__dropdown-option--highlight {
+        background-color: $gray-400;
       }
-    }
-    
-    .vs__dropdown-toggle {
-      padding: 0;
-      border: none;
-      max-height: 3.125rem; /* 50px */
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .vs__selected-options {
-      padding: 0.625rem; /* 10px */
-      max-width: 15.625rem; /* 250px */
+  
+      &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+        padding: 15px;
+      }
+      &::-webkit-scrollbar-button {
+        width: 0px;
+        height: 0px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: $gray-400;
+        border-radius: 5px;
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background: $gray-400;
+      }
+      &::-webkit-scrollbar-thumb:active {
+        background: $gray-400;
+      }
+      &::-webkit-scrollbar-track {
+        background: transparent;
+        padding-right: 3px;
+        border-radius: 50px;
+      }
+      &::-webkit-scrollbar-track:hover {
+        background: $white;
+      }
+      &::-webkit-scrollbar-track:active {
+        background: $white;
+      }
+      &::-webkit-scrollbar-corner {
+        background: transparent;
+      }
     }
   }
 }
