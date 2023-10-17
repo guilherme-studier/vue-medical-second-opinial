@@ -157,9 +157,9 @@ export default {
       handler(newContracts) {
         this.tableData = newContracts.map((contract) => ({
           voucher: contract.contractId,
-          industry: contract.industryId,
-          specialty: contract.specialtyId,
-          illness: contract.diseaseId,
+          industry: contract.industryName,
+          specialty: contract.specialtyName,
+          illness: contract.diseaseName,
           doctor: contract.consultantDoctorId,
           date: formatDate(contract.startDate),
           status: formatStatus(contract.status)
