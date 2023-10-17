@@ -13,6 +13,7 @@ import ConsultantMedicalRegistration from '@/features/consultantMedicalRegistrat
 import ConsultationClinicalCases from '@/features/consultationClinicalCases'
 import Home from '@/features/home/index.vue'
 import Illnesses from '@/features/illnesses'
+import Industries from '@/features/industries'
 import IndustryRegistration from '@/features/industryRegistration'
 // rotas
 import Login from '@/features/login'
@@ -173,6 +174,14 @@ const routes = [
         component: Illnesses,
         meta: {
           title: 'Gestão de Doenças'
+        }
+      },
+      {
+        path: '/industries',
+        name: 'Industries',
+        component: Industries,
+        meta: {
+          title: 'Gestão de Indústrias'
         }
       }
     ],

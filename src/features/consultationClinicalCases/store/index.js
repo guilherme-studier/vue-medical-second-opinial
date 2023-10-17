@@ -24,9 +24,15 @@ export default {
     }
   },
   actions: {
-    async fetchContracts({ commit }) {
+    async fetchContracts({ commit }, params) {
       commit('setLoading', true)
-      getContracts()
+      getContracts(
+        params.page,
+        params.size,
+        params.diseaseId,
+        params.specialtyId,
+        params.industryId
+      )
         .then((response) => {
           commit('setContracts', response.data.content)
         })

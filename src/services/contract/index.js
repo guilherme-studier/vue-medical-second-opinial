@@ -27,8 +27,14 @@ export const createContract = (userData) => {
  * @param {number} size - Quantidade de casos clínicos por página.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const getContracts = (page = 1, size = 100) => {
-  const url = `${BASE_URL}/contract?page=${page}&size=${size}`
+export const getContracts = (
+  page = 1,
+  size = 100,
+  diseaseId,
+  specialtyId,
+  industryId
+) => {
+  const url = `${BASE_URL}/contract?page=${page}&size=${size}&diseaseId=${diseaseId}&specialtyId=${specialtyId}&industryId=${industryId}`
 
   return axios({
     method: 'GET',
