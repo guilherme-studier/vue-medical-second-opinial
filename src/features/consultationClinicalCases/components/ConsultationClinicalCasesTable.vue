@@ -12,6 +12,7 @@
           :reduce="(item) => item.id"
           placeholder="Indústria"
           label="name"
+          @option:selected="selectIndustryId"
         ></v-select>
       </InputWrapper>
       <InputWrapper>
@@ -21,6 +22,7 @@
           :reduce="(item) => item.id"
           placeholder="Especialidade"
           label="name"
+          @option:selected="selectedSpecialtyId"
         />
       </InputWrapper>
       <InputWrapper>
@@ -30,6 +32,7 @@
           :reduce="(item) => item.id"
           placeholder="Doença"
           label="name"
+          @option:selected="selectedIllnessId"
         ></v-select>
       </InputWrapper>
       <InputWrapper>
@@ -97,18 +100,24 @@ export default {
     this.fetchIndustries()
     this.fetchContracts()
     this.fetchDiseases()
+    this.setIndustryId()
+    this.setSpecialtyId()
+    this.setIllnessId()
   },
   computed: {
     ...mapGetters('consultationClinicalCases', [
       'getContracts',
-      'getLoadingContracts'
+      'getLoadingContracts',
+      'getIndustry',
+      'getSpecialty',
+      'getIllness'
     ]),
     ...mapGetters('specialty', ['getSpecialties', 'getLoadingSpecialtys']),
     ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
     ...mapGetters('disease', ['getDiseases', 'getLoadingDiseases']),
 
     clinicalCases() {
-      return this.getContracts?.length
+      return this.getContracts.length
     },
 
     isLoading() {
@@ -118,65 +127,52 @@ export default {
         this.getLoadingIndustry ||
         this.getLoadingContracts
       )
-    },
-
-    filteredTableData() {
-      const filters = [
-        {
-          field: 'industry',
-          selectedValue: this.selectedInduster
-        },
-        {
-          field: 'specialty',
-          selectedValue: this.selectedSpecialty
-        },
-        {
-          field: 'illness',
-          selectedValue: this.selectedIllness
-        },
-        {
-          field: 'doctor',
-          selectedValue: this.selectedDoctor
-        }
-      ]
-
-      let filteredData = this.tableData
-
-      filters.forEach((filter) => {
-        const { field, selectedValue } = filter
-        if (selectedValue) {
-          // Use === para comparações estritas
-          filteredData = filteredData.filter(
-            (item) => item[field] === selectedValue
-          )
-        }
-      })
-
-      return filteredData
     }
   },
   methods: {
-    ...mapActions('consultationClinicalCases', ['fetchContracts']),
+    ...mapActions('consultationClinicalCases', [
+      'fetchContracts',
+      'setIndustryId',
+      'setSpecialtyId',
+      'setIllnessId'
+    ]),
     ...mapActions('specialty', ['fetchSpecialties']),
     ...mapActions('industry', ['fetchIndustries']),
-    ...mapActions('disease', ['fetchDiseases'])
+    ...mapActions('disease', ['fetchDiseases']),
+
+    selectIndustryId(industry) {
+      if (industry) this.setIndustryId(industry.id)
+    },
+
+    selectedSpecialtyId(specialty) {
+      if (specialty) this.setSpecialtyId(specialty.id)
+    },
+
+    selectedIllnessId(illness) {
+      if (illness) this.setIllnessId(illness.id)
+    }
   },
   watch: {
-    getContracts(newContracts) {
-      this.tableData = newContracts.map((contract) => ({
-        voucher: contract.contractId,
-        industry: contract.industryId,
-        specialty: contract.specialtyId,
-        illness: contract.diseaseId,
-        doctor: contract.consultantDoctorId,
-        date: formatDate(contract.startDate),
-        status: formatStatus(contract.status)
-      }))
-    }
+    getContracts: {
+      handler(newContracts) {
+        this.tableData = newContracts.map((contract) => ({
+          voucher: contract.contractId,
+          industry: contract.industryId,
+          specialty: contract.specialtyId,
+          illness: contract.diseaseId,
+          doctor: contract.consultantDoctorId,
+          date: formatDate(contract.startDate),
+          status: formatStatus(contract.status)
+        }))
+      },
+      deep: true
+    },
+    getIndustry: 'fetchContracts',
+    getSpecialty: 'fetchContracts',
+    getIllness: 'fetchContracts'
   }
 }
 </script>
-
 <style lang="scss" scoped>
 @import '../styles/index.scss';
 .content {

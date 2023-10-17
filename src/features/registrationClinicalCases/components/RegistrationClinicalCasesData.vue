@@ -14,32 +14,23 @@
         </InputWrapper>
         <InputWrapper>
           <v-select
-            v-model="doctor"
-            :options="getDoctors"
+            v-model="disease"
+            :options="getDiseases"
             :reduce="(item) => item.id"
-            placeholder="Médico Consultor"
+            placeholder="Doença"
             label="name"
           />
         </InputWrapper>
         <InputWrapper>
-          <div class="input-with-icon">
-            <input
-              type="text"
-              v-model="diseaseName"
-              placeholder="Doença"
-              class="flexible-input"
-              @click="openIllnessModal"
-              readonly
-            />
-            <span class="icon" aria-hidden="true">
-              <font-awesome-icon
-                :icon="toggleIcon"
-                :style="{ color: iconColor }"
-              />
-            </span>
-          </div>
+          <v-select
+            v-model="specialty"
+            :options="getSpecialties"
+            :reduce="(item) => item.id"
+            placeholder="Especialidade"
+            label="name"
+          />
         </InputWrapper>
-        <InputWrapper>
+        <!-- <InputWrapper>
           <div class="input-with-icon">
             <input
               type="text"
@@ -56,7 +47,7 @@
               />
             </span>
           </div>
-        </InputWrapper>
+        </InputWrapper> -->
       </InputGroup>
       <InputGroup>
         <InputWrapper>
@@ -117,7 +108,7 @@
     <div v-if="isLoading">
       <loader-spinner />
     </div>
-    <Modal
+    <!-- <Modal
       v-if="specialtyModalVisible"
       @close="closeSpecialtyModal"
       title="Especialidade"
@@ -132,13 +123,12 @@
         :items="getDiseases"
         @item-selected="handleIllnessSelected"
       />
-    </Modal>
+    </Modal> -->
   </div>
 </template>
 
 <script>
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import vSelect from 'vue-select'
 import { useToast } from 'vue-toastification'
 import { mapGetters, mapActions } from 'vuex'
@@ -146,22 +136,17 @@ import { mapGetters, mapActions } from 'vuex'
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
 import LoaderSpinner from '@/components/loaderSpinner'
-import Modal from '@/components/modal'
-import RadioContent from '@/components/radioContent'
 import Title from '@/components/title'
 import { convertDateToISOFormat } from '@/helpers/date'
 
 export default {
   name: 'RegistrationClinicalCasesData',
   components: {
-    FontAwesomeIcon,
     LoaderSpinner,
-    RadioContent,
     InputWrapper,
     InputGroup,
     vSelect,
-    Title,
-    Modal
+    Title
   },
   setup() {
     const toast = useToast()
@@ -174,12 +159,10 @@ export default {
       toggleIcon: faCirclePlus,
       name: null,
       quantity: null,
-      specialtyName: null,
+      specialty: null,
       iconColor: '$green-500',
-      specialtyId: null,
-      diseaseName: null,
+      disease: null,
       diseaseId: null,
-      doctor: null,
       industry: null,
       startDate: null,
       expirationDate: null,
@@ -203,26 +186,11 @@ export default {
       )
     },
 
-    getDoctors() {
-      return [
-        {
-          id: '123',
-          name: 'Médico Guilherme'
-        },
-        {
-          id: '456',
-          name: 'Médico Thiago'
-        }
-      ]
-    },
-
     isSaveDisabled() {
       return (
         !this.name ||
         !this.quantity ||
-        !this.specialtyName ||
         !this.specialtyId ||
-        !this.diseaseName ||
         !this.diseaseId ||
         !this.industry ||
         !this.startDate ||
@@ -273,7 +241,6 @@ export default {
         specialtyId: this.specialtyId,
         diseaseId: this.diseaseId,
         industryId: this.industry,
-        consultantDoctorId: this.doctor,
         startDate: convertDateToISOFormat(this.startDate),
         endDate: convertDateToISOFormat(this.expirationDate),
         consultantDoctorFees: this.fees
