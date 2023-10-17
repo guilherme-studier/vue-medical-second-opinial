@@ -7,7 +7,7 @@
     <InputGroup>
       <InputWrapper>
         <v-select
-          v-model="selectedInduster"
+          v-model="selectedIndustry"
           :options="getIndustries"
           :reduce="(item) => item.id"
           placeholder="Indústria"
@@ -74,7 +74,7 @@ export default {
   data() {
     return {
       icon: iconVoucher,
-      selectedInduster: null,
+      selectedIndustry: null,
       selectedSpecialty: null,
       selectedIllness: null,
       selectedDoctor: null,
@@ -142,14 +142,18 @@ export default {
 
     selectIndustryId(industry) {
       if (industry) this.setIndustryId(industry.id)
+      else this.setIndustryId()
     },
 
     selectedSpecialtyId(specialty) {
       if (specialty) this.setSpecialtyId(specialty.id)
+      else this.setSpecialtyId()
     },
 
     selectedIllnessId(illness) {
-      if (illness) this.setIllnessId(illness.id)
+      if (illness) {
+        this.setIllnessId(illness.id)
+      } else this.setIllnessId()
     }
   },
   watch: {
@@ -169,7 +173,16 @@ export default {
     },
     getIndustry: 'fetchContracts',
     getSpecialty: 'fetchContracts',
-    getIllness: 'fetchContracts'
+    getIllness: 'fetchContracts',
+    selectedIndustry() {
+      if (!this.selectedIndustry) this.setIndustryId()
+    },
+    selectedSpecialty() {
+      if (!this.selectedSpecialty) this.setSpecialtyId()
+    },
+    selectedIllness() {
+      if (!this.selectedIllness) this.setIllnessId()
+    }
   }
 }
 </script>
