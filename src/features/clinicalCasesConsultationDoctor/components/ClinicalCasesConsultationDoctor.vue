@@ -19,9 +19,9 @@
       :tableData="getFilteredTableData"
     >
       <template v-slot:action="{ item }">
-        <img
-          :src="value.icon"
-          alt="Ícone de Ação"
+        <font-awesome-icon
+          :icon="icon"
+          style="color: #008B8F;"
           @click="value.handler(item)"
         />
       </template>
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mapGetters, mapActions } from 'vuex'
 
 import MessageModal from './MessageModal.vue'
@@ -62,6 +63,7 @@ export default {
   components: {
     CustomTable,
     MessageModal,
+    FontAwesomeIcon,
     SeemModal,
     Modal
   },

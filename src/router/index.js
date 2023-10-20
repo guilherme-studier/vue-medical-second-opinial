@@ -5,6 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ActiveClinicalCases from '@/features/activeClinicalCases'
 import AdmClinicalCases from '@/features/admClinicalCases'
 import AllocationClinicalCases from '@/features/allocationClinicalCases'
+import AuthorizedDistributeClinicalCases from '@/features/authorizedDistributeClinicalCases'
 import ClinicalCasesConsultationDoctor from '@/features/clinicalCasesConsultationDoctor'
 import ClinicalCasesEvaluation from '@/features/clinicalCasesEvaluation'
 import ClinicalCasesIndustry from '@/features/clinicalCasesIndustry'
@@ -85,7 +86,7 @@ const routes = [
         name: 'SystemAccessCancellation',
         component: SystemAccessCancellation,
         meta: {
-          title: 'Cancelamento de Acesso ao Sistema'
+          title: 'Cancelamento de Acesso ao Sistema por Representante da Indústria'
         }
       },
       {
@@ -182,6 +183,14 @@ const routes = [
         component: Industries,
         meta: {
           title: 'Gestão de Indústrias'
+        }
+      },
+      {
+        path: '/authorized-distribute-clinical-cases',
+        name: 'AuthorizedDistributeClinicalCases',
+        component: AuthorizedDistributeClinicalCases,
+        meta: {
+          title: 'Registro de Pessoas Autorizadas a Distribuir Casos Clínicos'
         }
       }
     ],

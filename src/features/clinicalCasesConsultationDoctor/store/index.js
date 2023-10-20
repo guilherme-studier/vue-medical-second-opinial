@@ -1,3 +1,5 @@
+import { faFile, faComment } from '@fortawesome/free-solid-svg-icons'
+
 import store from '@/store'
 
 export default {
@@ -16,7 +18,7 @@ export default {
         doctor: 'Olavo Pereira',
         action: [
           {
-            icon: require('@/assets/icons/icon-filed.svg'),
+            icon: faFile,
             handler: () => {
               store.dispatch(
                 'clinicalCasesConsultationDoctor/handleModalSeem',
@@ -25,7 +27,7 @@ export default {
             }
           },
           {
-            icon: require('@/assets/icons/icon-message.svg'),
+            icon: faComment,
             handler: () => {
               store.dispatch(
                 'clinicalCasesConsultationDoctor/handleModalMessage',
@@ -42,7 +44,7 @@ export default {
         doctor: 'Emilia Souza',
         action: [
           {
-            icon: require('@/assets/icons/icon-filed.svg'),
+            icon: faFile,
             handler: () => {
               store.dispatch(
                 'clinicalCasesConsultationDoctor/handleModalSeem',
@@ -51,7 +53,7 @@ export default {
             }
           },
           {
-            icon: require('@/assets/icons/icon-message.svg'),
+            icon: faComment,
             handler: () => {
               store.dispatch(
                 'clinicalCasesConsultationDoctor/handleModalMessage',
@@ -68,7 +70,7 @@ export default {
         doctor: 'Eduardo Pereira',
         action: [
           {
-            icon: require('@/assets/icons/icon-filed.svg'),
+            icon: faFile,
             handler: () => {
               store.dispatch(
                 'clinicalCasesConsultationDoctor/handleModalSeem',
@@ -77,7 +79,7 @@ export default {
             }
           },
           {
-            icon: require('@/assets/icons/icon-message.svg'),
+            icon: faComment,
             handler: () => {
               store.dispatch(
                 'clinicalCasesConsultationDoctor/handleModalMessage',
@@ -94,7 +96,7 @@ export default {
         doctor: 'Fernando Moura',
         action: [
           {
-            icon: require('@/assets/icons/icon-filed.svg'),
+            icon: faFile,
             handler: () => {
               store.dispatch(
                 'clinicalCasesConsultationDoctor/handleModalSeem',
@@ -103,7 +105,7 @@ export default {
             }
           },
           {
-            icon: require('@/assets/icons/icon-message.svg'),
+            icon: faComment,
             handler: () => {
               store.dispatch(
                 'clinicalCasesConsultationDoctor/handleModalMessage',

@@ -7,9 +7,12 @@
 </template>
 
 <script>
-import iconCheckActive from '@/assets/icons/icon-checked-legend.svg'
-import iconFiled from '@/assets/icons/icon-filed.svg'
-import iconMessage from '@/assets/icons/icon-message.svg'
+import {
+  faSquareCheck,
+  faFile,
+  faComment
+} from '@fortawesome/free-solid-svg-icons'
+
 import Subtitle from '@/components/subtitle'
 
 export default {
@@ -21,16 +24,16 @@ export default {
     return {
       susbtitleClinicalCases: [
         {
-          icon: iconCheckActive,
+          icon: faSquareCheck,
           text: 'Para ativar seu caso clínico, por favor clique no botão acima.'
         },
         {
-          icon: iconFiled,
+          icon: faFile,
           text:
             'O parecer estará disponível para consulta e/ou impressão quando o médico consultor finalizar a avaliação do caso clínico. O status mudará automaticamente para "avaliado"'
         },
         {
-          icon: iconMessage,
+          icon: faComment,
           text:
             'O sistema de mensagens finará habilitado para interação após ativação pelo médico consultor, caso haja dúvidas fundamentais que precisem ser respondidas para conclusão do parecer'
         }

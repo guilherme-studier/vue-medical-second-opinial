@@ -1,3 +1,9 @@
+import {
+  faSquareCheck,
+  faFile,
+  faComment
+} from '@fortawesome/free-solid-svg-icons'
+
 import store from '@/store'
 
 export default {
@@ -16,7 +22,7 @@ export default {
         status: 'Aguardando Ativação',
         action: [
           {
-            icon: require('@/assets/icons/icon-check.png'),
+            icon: faSquareCheck,
             handler: () => {
               store.dispatch(
                 'clinicalCasesEvaluation/handlePageActiveVoucher',
@@ -25,7 +31,7 @@ export default {
             }
           },
           {
-            icon: require('@/assets/icons/icon-filed.svg'),
+            icon: faFile,
             handler: () => {
               store.dispatch(
                 'clinicalCasesEvaluation/handleModalSeem',
@@ -34,7 +40,7 @@ export default {
             }
           },
           {
-            icon: require('@/assets/icons/icon-message.svg'),
+            icon: faComment,
             handler: () => {
               store.dispatch(
                 'clinicalCasesEvaluation/handleModalMessage',
@@ -51,7 +57,16 @@ export default {
         status: 'Em avaliação',
         action: [
           {
-            icon: require('@/assets/icons/icon-filed.svg'),
+            icon: faSquareCheck,
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handlePageActiveVoucher',
+                '23011014002'
+              )
+            }
+          },
+          {
+            icon: faFile,
             handler: () => {
               store.dispatch(
                 'clinicalCasesEvaluation/handleModalSeem',
@@ -60,7 +75,7 @@ export default {
             }
           },
           {
-            icon: require('@/assets/icons/icon-message.svg'),
+            icon: faComment,
             handler: () => {
               store.dispatch(
                 'clinicalCasesEvaluation/handleModalMessage',
@@ -77,7 +92,16 @@ export default {
         status: 'Ativado',
         action: [
           {
-            icon: require('@/assets/icons/icon-filed.svg'),
+            icon: faSquareCheck,
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handlePageActiveVoucher',
+                '23011014002'
+              )
+            }
+          },
+          {
+            icon: faFile,
             handler: () => {
               store.dispatch(
                 'clinicalCasesEvaluation/handleModalSeem',
@@ -86,7 +110,7 @@ export default {
             }
           },
           {
-            icon: require('@/assets/icons/icon-message.svg'),
+            icon: faComment,
             handler: () => {
               store.dispatch(
                 'clinicalCasesEvaluation/handleModalMessage',
@@ -103,7 +127,16 @@ export default {
         status: 'Ativado',
         action: [
           {
-            icon: require('@/assets/icons/icon-filed.svg'),
+            icon: faSquareCheck,
+            handler: () => {
+              store.dispatch(
+                'clinicalCasesEvaluation/handlePageActiveVoucher',
+                '23011014002'
+              )
+            }
+          },
+          {
+            icon: faFile,
             handler: () => {
               store.dispatch(
                 'clinicalCasesEvaluation/handleModalSeem',
@@ -112,7 +145,7 @@ export default {
             }
           },
           {
-            icon: require('@/assets/icons/icon-message.svg'),
+            icon: faComment,
             handler: () => {
               store.dispatch(
                 'clinicalCasesEvaluation/handleModalMessage',

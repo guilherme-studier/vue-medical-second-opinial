@@ -26,7 +26,7 @@ export const all = [
   },
   {
     id: 6,
-    name: 'Cancelamento de Acesso ao Sistema',
+    name: 'Cancelamento de Acesso ao Sistema por Representante da Indústria',
     route: '/access-cancellation'
   },
   {
@@ -84,6 +84,11 @@ export const all = [
     id: 17,
     name: 'Gestão de Indústrias',
     route: '/industries'
+  },
+  {
+    id: 18,
+    name: 'Registro de Pessoas Autorizadas a Distribuir Casos Clínicos',
+    route: '/authorized-distribute-clinical-cases'
   }
 ]
 
@@ -105,6 +110,11 @@ export const routes = {
       route: '/registration-clinical-cases'
     },
     {
+      id: 18,
+      name: 'Registro de Pessoas Autorizadas a Distribuir Casos Clínicos',
+      route: '/authorized-distribute-clinical-cases'
+    },
+    {
       id: 4,
       name: 'Consulta Casos Clínicos',
       route: '/cosultation-clinical-cases'
@@ -116,7 +126,7 @@ export const routes = {
     },
     {
       id: 6,
-      name: 'Cancelamento de Acesso ao Sistema',
+      name: 'Cancelamento de Acesso ao Sistema por Representante da Indústria',
       route: '/access-cancellation'
     },
     {

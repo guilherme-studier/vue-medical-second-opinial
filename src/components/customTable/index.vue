@@ -64,9 +64,9 @@
                     :key="iconIndex"
                     class="action-icons--item"
                   >
-                    <img
-                      :src="iconItem.icon"
-                      alt="Ícone de Ação"
+                    <font-awesome-icon
+                      :icon="iconItem.icon"
+                      style="color: #707070;"
                       @click="iconItem.handler(item)"
                     />
                   </div>
@@ -84,8 +84,13 @@
 </template>
 
 <script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 export default {
   name: 'CustomTable',
+  components: {
+    FontAwesomeIcon
+  },
   props: {
     tableHeader: {
       type: Array,
@@ -170,14 +175,18 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
 
     &--item {
       display: inline-block;
       cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
 
-      img {
-        max-height: 22px;
+    .action-icons--item {
+      svg {
+        font-size: 22px;
       }
     }
   }

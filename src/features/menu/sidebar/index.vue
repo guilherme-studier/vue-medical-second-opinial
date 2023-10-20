@@ -104,7 +104,7 @@ export default {
 
       if (!this.getIsActiveVoucher) {
         menuItems = menuItems.filter((item) => item.id !== 16)
-      }
+      } else router.push('/active-clinical-case')
 
       const hasLogoutItem = menuItems.some((item) => item.action === 'logout')
       if (!hasLogoutItem) {
