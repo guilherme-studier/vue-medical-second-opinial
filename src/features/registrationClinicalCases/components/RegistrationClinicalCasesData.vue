@@ -60,7 +60,7 @@
         </InputWrapper>
         <InputWrapper>
           <input
-            type="text"
+            type="number"
             placeholder="Quantidade de Casos Clínicos"
             class="flexible-input"
             v-model="quantity"
@@ -90,11 +90,10 @@
       <InputGroup>
         <InputWrapper>
           <input
-            type="text"
+            type="number"
             placeholder="Honorários Médico Consultor"
             class="flexible-input"
             v-model="fees"
-            v-mask="'R$ ##0,' || 'R$ ##0'"
           />
         </InputWrapper>
         <InputWrapper></InputWrapper>
@@ -190,8 +189,8 @@ export default {
       return (
         !this.name ||
         !this.quantity ||
-        !this.specialtyId ||
-        !this.diseaseId ||
+        !this.specialty ||
+        !this.disease ||
         !this.industry ||
         !this.startDate ||
         !this.expirationDate ||
@@ -238,12 +237,13 @@ export default {
     async handleSave() {
       const userData = {
         vouchersQuantity: parseInt(this.quantity),
-        specialtyId: this.specialtyId,
-        diseaseId: this.diseaseId,
+        specialtyId: this.specialty,
+        diseaseId: this.disease,
         industryId: this.industry,
         startDate: convertDateToISOFormat(this.startDate),
         endDate: convertDateToISOFormat(this.expirationDate),
-        consultantDoctorFees: this.fees
+        consultantDoctorFees: this.fees,
+        contractName: this.name
       }
 
       try {
@@ -252,9 +252,12 @@ export default {
           timeout: 5000
         })
       } catch (error) {
-        this.toast.warning('Não foi possível realizar o cadastro', {
-          timeout: 5000
-        })
+        this.toast.warning(
+          'Não foi possível realizar o Registro de Caso Clínico',
+          {
+            timeout: 5000
+          }
+        )
       }
       this.clearForm()
     },
