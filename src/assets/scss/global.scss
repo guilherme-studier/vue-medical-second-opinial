@@ -81,6 +81,7 @@ body {
   textarea,
   input,
   input[type=text],
+  input[type=email],
   input[type="number"],
   input[type="password"],
   input[type="email"]
@@ -110,6 +111,13 @@ body {
       opacity: 0.6;
       pointer-events: none;
     }
+  }
+
+  input[type="checkbox"] {
+    cursor: pointer;
+    margin-right: 10px;
+    max-height: 0.7rem;
+    max-width: 0.7rem;
   }
 
   textarea {
