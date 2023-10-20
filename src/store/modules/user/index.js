@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useToast } from 'vue-toastification'
 
-import { getUserById } from '../../../services/user/index'
+import { getUserById, getUsers } from '../../../services/user/index'
 
 const toast = useToast()
 
@@ -58,6 +58,27 @@ export default {
           toast.warning('Não foi possível carregar as informações do usuário', {
             timeout: 5000
           })
+        })
+        .finally(() => {
+          commit('setLoading', false)
+        })
+    },
+    async fetchUsers({ commit }) {
+      commit('setLoading', true)
+
+      return getUsers()
+        .then((response) => {
+          commit('setUserData', response.data)
+          localStorage.setItem('user', JSON.stringify(response.data))
+          return response.data
+        })
+        .catch((error) => {
+          toast.warning(
+            'Não foi possível carregar as informações dos usuários',
+            {
+              timeout: 5000
+            }
+          )
         })
         .finally(() => {
           commit('setLoading', false)

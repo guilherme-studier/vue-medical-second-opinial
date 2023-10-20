@@ -32,9 +32,10 @@ export const getContracts = ({
   size = 100,
   diseaseId,
   specialtyId,
-  industryId
+  industryId,
+  consultantDoctorId
 }) => {
-  const url = `${BASE_URL}/contract?page=${page}&size=${size}&diseaseId=${diseaseId}&specialtyId=${specialtyId}&industryId=${industryId}`
+  const url = `${BASE_URL}/contract?page=${page}&size=${size}&diseaseId=${diseaseId}&specialtyId=${specialtyId}&industryId=${industryId}&consultantDoctorId=${consultantDoctorId}`
 
   return axios({
     method: 'GET',
