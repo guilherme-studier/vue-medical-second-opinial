@@ -6,10 +6,9 @@
         <InputWrapper>
           <input
             type="text"
-            placeholder="CPF do médico"
+            placeholder="Nome do médico"
             class="flexible-input"
-            v-model="cpf"
-            v-mask="'###.###.###-##'"
+            v-model="name"
           />
         </InputWrapper>
         <InputWrapper>
@@ -31,89 +30,40 @@
           />
         </InputWrapper>
         <InputWrapper>
-          <div class="input-with-icon">
-            <input
-              type="text"
-              v-model="specialtyName"
-              placeholder="Especialidade"
-              class="flexible-input"
-              @click="openSpecialtyModal"
-              readonly
-            />
-            <span class="icon" aria-hidden="true">
-              <font-awesome-icon
-                :icon="toggleIcon"
-                :style="{ color: iconColor }"
-              />
-            </span>
-          </div>
+          <v-select
+            v-model="gender"
+            :options="getContracts"
+            :reduce="(item) => item.id"
+            label="name"
+            placeholder="Casos Clínicos"
+          />
         </InputWrapper>
       </InputGroup>
-      <InputGroup>
-        <InputWrapper>
-          <div class="input-with-icon">
-            <input
-              type="text"
-              v-model="diseaseName"
-              placeholder="Doença"
-              class="flexible-input"
-              @click="openIllnessModal"
-              readonly
-            />
-            <span class="icon" aria-hidden="true">
-              <font-awesome-icon
-                :icon="toggleIcon"
-                :style="{ color: iconColor }"
-              />
-            </span>
-          </div>
-        </InputWrapper>
-        <InputWrapper> </InputWrapper>
-      </InputGroup>
+      <InputGroup> </InputGroup>
       <div class="save">
         <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
       </div>
     </div>
-    <Modal
-      v-if="specialtyModalVisible"
-      @close="closeSpecialtyModal"
-      title="Especialidade"
-    >
-      <RadioContent
-        :items="getSpecialties"
-        @item-selected="handleSpecialtySelected"
-      />
-    </Modal>
-    <Modal v-if="diseaseModalVisible" @close="closeIllnessModal" title="Doença">
-      <RadioContent
-        :items="getDiseases"
-        @item-selected="handleIllnessSelected"
-      />
-    </Modal>
   </div>
 </template>
 
 <script>
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import vSelect from 'vue-select'
 import { useToast } from 'vue-toastification'
 import { mapActions, mapGetters } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
-import Modal from '@/components/modal'
-import RadioContent from '@/components/radioContent'
 import Title from '@/components/title'
 
 export default {
   name: 'AllocationClinicalCasesForm',
   components: {
-    FontAwesomeIcon,
     InputWrapper,
-    RadioContent,
     InputGroup,
     Title,
-    Modal
+    vSelect
   },
   setup() {
     const toast = useToast()
@@ -127,7 +77,7 @@ export default {
       diseaseModalVisible: false,
       toggleIcon: faCirclePlus,
       iconColor: '$green-500',
-      cpf: null,
+      name: null,
       specialtyName: null,
       specialtyId: null,
       diseaseName: null,
@@ -137,12 +87,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('specialty', ['getSpecialties']),
-    ...mapGetters('disease', ['getDiseases']),
+    ...mapGetters('consultationClinicalCases', ['getContracts']),
 
     isSaveDisabled() {
       return (
-        !this.cpf ||
+        !this.name ||
         !this.email ||
         !this.quantity ||
         !this.specialtyName ||
@@ -153,19 +102,12 @@ export default {
     }
   },
   mounted() {
-    this.fetchSpecialties()
-    this.fetchDiseases()
+    this.fetchConsultantDoctors()
   },
   methods: {
     ...mapActions('allocationClinicalCases', ['createUser']),
-    ...mapActions('specialty', ['fetchSpecialties']),
-    ...mapActions('disease', ['fetchDiseases']),
+    ...mapActions('consultationClinicalCases', ['fetchConsultantDoctors']),
 
-    handleIllnessSelected(item) {
-      this.diseaseName = item?.name
-      this.diseaseId = item?.id
-      this.closeIllnessModal()
-    },
     handleSpecialtySelected(item) {
       this.specialtyName = item?.name
       this.specialtyId = item?.id
@@ -188,7 +130,7 @@ export default {
     },
     async handleSave() {
       const userData = {
-        cpf: this.cpf,
+        name: this.name,
         email: this.email,
         quantity: this.quantity,
         specialty: this.specialtyId,
@@ -209,7 +151,7 @@ export default {
       this.clearForm()
     },
     clearForm() {
-      this.cpf = null
+      this.name = null
       this.email = null
       this.quantity = null
       this.specialtyName = null

@@ -1,16 +1,21 @@
 <template>
   <div id="subtitle">
-    <img :src="icon" alt="icon" />
+    <font-awesome-icon :icon="icon" style="color: #008B8F;" />
     <p>{{ text }}</p>
   </div>
 </template>
 
 <script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 export default {
   name: 'Subtitle',
+  components: {
+    FontAwesomeIcon
+  },
   props: {
     icon: {
-      type: String,
+      type: Object,
       default: null
     },
     text: {
@@ -34,7 +39,7 @@ export default {
     font-size: 12px;
   }
 
-  img {
+  svg {
     margin-right: 10px;
     width: 15px;
   }

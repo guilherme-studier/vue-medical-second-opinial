@@ -86,7 +86,7 @@ const routes = [
         name: 'SystemAccessCancellation',
         component: SystemAccessCancellation,
         meta: {
-          title: 'Cancelamento de Acesso ao Sistema'
+          title: 'Cancelamento de Acesso ao Sistema por Representante da Indústria'
         }
       },
       {

@@ -8,21 +8,24 @@
     </div>
     <div class="seem-send">
       <div class="seem-print-out">
+        <font-awesome-icon :icon="iconPrint" style="color: #008B8F;" key="" />
         <h3 @click="printSeem">Imprimir Parecer</h3>
-      </div>
-      <div class="seem-button">
-        <button @click="sendSeem">Enviar</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { faPrint } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import jsPDF from 'jspdf'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'SeemModal',
+  components: {
+    FontAwesomeIcon
+  },
   props: {
     voucher: {
       type: String,
@@ -31,6 +34,11 @@ export default {
     seem: {
       type: String,
       default: null
+    }
+  },
+  data() {
+    return {
+      iconPrint: faPrint
     }
   },
   methods: {

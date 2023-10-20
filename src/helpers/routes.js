@@ -26,7 +26,7 @@ export const all = [
   },
   {
     id: 6,
-    name: 'Cancelamento de Acesso ao Sistema',
+    name: 'Cancelamento de Acesso ao Sistema por Representante da Indústria',
     route: '/access-cancellation'
   },
   {
@@ -126,7 +126,7 @@ export const routes = {
     },
     {
       id: 6,
-      name: 'Cancelamento de Acesso ao Sistema',
+      name: 'Cancelamento de Acesso ao Sistema por Representante da Indústria',
       route: '/access-cancellation'
     },
     {
