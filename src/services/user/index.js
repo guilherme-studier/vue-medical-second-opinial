@@ -77,12 +77,13 @@ export const blockUser = (userId) => {
   })
 }
 
-/**
- * Buscar todos os usuários cadastrados.
- * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
- */
-export const getUsers = (page, size) => {
-  const url = `${BASE_URL}/users?page=${page}&size=${size}`
+export const getUsers = ({ page = 1, size = 100, type }) => {
+  let url = `${BASE_URL}/users?page=${page}&size=${size}`
+
+  // Verifica se 'data' é definido e se 'type' está definido em 'data'
+  if (type) {
+    url += `&type=${type}`
+  }
 
   return axios({
     method: 'GET',

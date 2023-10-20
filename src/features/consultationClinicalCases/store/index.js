@@ -2,6 +2,7 @@
 import { useToast } from 'vue-toastification'
 
 import { getContracts } from '../../../services/contract/index.js'
+import { getUsers } from '../../../services/user/index'
 
 const toast = useToast()
 
@@ -13,7 +14,9 @@ export default {
     contract: {},
     industry: null,
     specialty: null,
-    illness: null
+    illness: null,
+    doctors: [],
+    doctor: null
   }),
   mutations: {
     setContracts(state, contracts) {
@@ -33,6 +36,12 @@ export default {
     },
     setIllness(state, illness) {
       state.illness = !illness ? null : illness
+    },
+    setDoctors(state, doctors) {
+      state.doctors = doctors
+    },
+    setDoctor(state, doctor) {
+      state.doctor = !doctor ? null : doctor
     }
   },
   actions: {
@@ -41,7 +50,8 @@ export default {
       const params = {
         diseaseId: state.illness,
         specialtyId: state.specialty,
-        industryId: state.industry
+        industryId: state.industry,
+        consultantDoctorId: state.doctor
       }
 
       try {
@@ -54,6 +64,26 @@ export default {
         commit('setLoading', false)
       }
     },
+    async fetchConsultantDoctors({ commit }) {
+      commit('setLoading', true)
+
+      return getUsers({ type: 'consultant_doctor' })
+        .then((response) => {
+          commit('setDoctors', response?.data?.content)
+          return response.data
+        })
+        .catch((error) => {
+          toast.warning(
+            'Não foi possível carregar as informações dos usuários',
+            {
+              timeout: 5000
+            }
+          )
+        })
+        .finally(() => {
+          commit('setLoading', false)
+        })
+    },
     setIndustryId({ commit }, industry) {
       commit('setIndustry', industry)
     },
@@ -62,6 +92,9 @@ export default {
     },
     setIllnessId({ commit }, illness) {
       commit('setIllness', illness)
+    },
+    setDoctorId({ commit }, doctor) {
+      commit('setDoctor', doctor)
     }
   },
   getters: {
@@ -70,6 +103,8 @@ export default {
     getLoadingContracts: (state) => state.loading,
     getIndustry: (state) => state.industry,
     getSpecialty: (state) => state.specialty,
-    getIllness: (state) => state.illness
+    getIllness: (state) => state.illness,
+    getDoctors: (state) => state.doctors,
+    getDoctor: (state) => state.doctor
   }
 }

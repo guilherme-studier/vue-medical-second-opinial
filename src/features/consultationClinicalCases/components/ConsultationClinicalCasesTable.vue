@@ -38,8 +38,11 @@
       <InputWrapper>
         <v-select
           v-model="selectedDoctor"
-          :options="doctorOptions"
+          :options="getDoctors"
           placeholder="Médico Consultor"
+          :reduce="(item) => item.id"
+          label="name"
+          @option:selected="selectedDoctorId"
         ></v-select>
       </InputWrapper>
     </InputGroup>
@@ -78,11 +81,6 @@ export default {
       selectedSpecialty: null,
       selectedIllness: null,
       selectedDoctor: null,
-      doctorOptions: [
-        { label: 'Paulo Pitrez', value: 'Paulo Pitrez' },
-        { label: 'Paulo Pitrez', value: 'Paulo Pitrez' },
-        { label: 'Paulo Pitrez', value: 'Paulo Pitrez' }
-      ],
       tableHeader: [
         'Caso clínico/ID',
         'Indústria',
@@ -100,9 +98,12 @@ export default {
     this.fetchIndustries()
     this.fetchContracts()
     this.fetchDiseases()
+    this.fetchConsultantDoctors()
+
     this.setIndustryId()
     this.setSpecialtyId()
     this.setIllnessId()
+    this.setDoctorId()
   },
   computed: {
     ...mapGetters('consultationClinicalCases', [
@@ -110,7 +111,9 @@ export default {
       'getLoadingContracts',
       'getIndustry',
       'getSpecialty',
-      'getIllness'
+      'getIllness',
+      'getDoctors',
+      'getDoctor'
     ]),
     ...mapGetters('specialty', ['getSpecialties', 'getLoadingSpecialtys']),
     ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
@@ -134,12 +137,13 @@ export default {
       'fetchContracts',
       'setIndustryId',
       'setSpecialtyId',
-      'setIllnessId'
+      'setIllnessId',
+      'fetchConsultantDoctors',
+      'setDoctorId'
     ]),
     ...mapActions('specialty', ['fetchSpecialties']),
     ...mapActions('industry', ['fetchIndustries']),
     ...mapActions('disease', ['fetchDiseases']),
-
     selectIndustryId(industry) {
       if (industry) this.setIndustryId(industry.id)
       else this.setIndustryId()
@@ -154,6 +158,12 @@ export default {
       if (illness) {
         this.setIllnessId(illness.id)
       } else this.setIllnessId()
+    },
+
+    selectedDoctorId(doctor) {
+      if (doctor) {
+        this.setDoctorId(doctor.id)
+      } else this.setDoctorId()
     }
   },
   watch: {
@@ -174,6 +184,7 @@ export default {
     getIndustry: 'fetchContracts',
     getSpecialty: 'fetchContracts',
     getIllness: 'fetchContracts',
+    getDoctor: 'fetchContracts',
     selectedIndustry() {
       if (!this.selectedIndustry) this.setIndustryId()
     },
@@ -182,6 +193,9 @@ export default {
     },
     selectedIllness() {
       if (!this.selectedIllness) this.setIllnessId()
+    },
+    selectedDoctor() {
+      if (!this.selectedDoctor) this.selectedDoctorId()
     }
   }
 }
