@@ -26,8 +26,8 @@ export const all = [
   },
   {
     id: 6,
-    name: 'Cancelamento de Acesso ao Sistema por Representante da Indústria',
-    route: '/access-cancellation'
+    name: 'Gestão de Representantes da Indústria',
+    route: '/industry-representant-management'
   },
   {
     id: 7,
@@ -126,8 +126,8 @@ export const routes = {
     },
     {
       id: 6,
-      name: 'Cancelamento de Acesso ao Sistema por Representante da Indústria',
-      route: '/access-cancellation'
+      name: 'Gestão de Representantes da Indústria',
+      route: '/industry-representant-management'
     },
     {
       id: 12,

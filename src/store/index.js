@@ -5,6 +5,7 @@ import { getCurrentUserAccess } from '../helpers/auth'
 
 import admClinicalCases from '@/features/admClinicalCases/store/index'
 import allocationClinicalCases from '@/features/allocationClinicalCases/store/index'
+import authorizedDistributeClinicalCases from '@/features/authorizedDistributeClinicalCases/store/index'
 import clinicalCasesConsultationDoctor from '@/features/clinicalCasesConsultationDoctor/store/index'
 import clinicalCasesEvaluation from '@/features/clinicalCasesEvaluation/store/index'
 import clinicalCasesIndustry from '@/features/clinicalCasesIndustry/store/index'
@@ -13,11 +14,11 @@ import consultantMedicalRegistration from '@/features/consultantMedicalRegistrat
 import consultationClinicalCases from '@/features/consultationClinicalCases/store/index'
 import home from '@/features/home/stores/index'
 import industry from '@/features/industryRegistration/store/index'
+import industryRepresentantMan from '@/features/industryRepresentantMan/store/index'
 import login from '@/features/login/store/index'
 import registration from '@/features/registration/store/index'
 import registrationClinicalCases from '@/features/registrationClinicalCases/store/index'
 import representativeRegistration from '@/features/representativeRegistration/store/index'
-import systemAccessCancellation from '@/features/systemAccessCancellation/store/index'
 import disease from '@/store/modules/disease/index'
 import specialty from '@/store/modules/specialty/index'
 import user from '@/store/modules/user/index'
@@ -68,14 +69,15 @@ const store = createStore({
     admClinicalCases,
     clinicalCasesIndustry,
     clinicalCasesEvaluation,
-    systemAccessCancellation,
+    industryRepresentantMan,
     allocationClinicalCases,
     consultationClinicalCases,
     registrationClinicalCases,
     representativeRegistration,
     consultantDoctorInvitation,
     consultantMedicalRegistration,
-    clinicalCasesConsultationDoctor
+    clinicalCasesConsultationDoctor,
+    authorizedDistributeClinicalCases
   },
   getters: {
     getAuthToken: (state) => state.authToken,

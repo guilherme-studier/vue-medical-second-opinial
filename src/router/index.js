@@ -17,12 +17,12 @@ import Illnesses from '@/features/illnesses'
 import Industries from '@/features/industries'
 import IndustryRegistration from '@/features/industryRegistration'
 // rotas
+import IndustryRepresentantMan from '@/features/industryRepresentantMan'
 import Login from '@/features/login'
 import Registration from '@/features/registration'
 import RegistrationClinicalCases from '@/features/registrationClinicalCases'
 import RepresentativeRegistration from '@/features/representativeRegistration'
 import Specialties from '@/features/specialties'
-import SystemAccessCancellation from '@/features/systemAccessCancellation'
 import Tests from '@/features/test/index.vue'
 import store from '@/store'
 import Layout from '@/views/layout'
@@ -82,11 +82,11 @@ const routes = [
         }
       },
       {
-        path: '/access-cancellation',
-        name: 'SystemAccessCancellation',
-        component: SystemAccessCancellation,
+        path: '/industry-representant-management',
+        name: 'IndustryRepresentantMan',
+        component: IndustryRepresentantMan,
         meta: {
-          title: 'Cancelamento de Acesso ao Sistema por Representante da Indústria'
+          title: 'Gestão de Representantes da Indústria'
         }
       },
       {

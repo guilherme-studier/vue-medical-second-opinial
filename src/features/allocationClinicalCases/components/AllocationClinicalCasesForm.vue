@@ -39,7 +39,6 @@
           />
         </InputWrapper>
       </InputGroup>
-      <InputGroup> </InputGroup>
       <div class="save">
         <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
       </div>
