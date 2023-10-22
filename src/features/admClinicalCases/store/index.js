@@ -1,9 +1,4 @@
-import iconCheckActive from '@/assets/icons/icon-check-active.svg'
-import iconCheckInactive from '@/assets/icons/icon-check-inactive.svg'
-import iconCloseActive from '@/assets/icons/icon-close-active.svg'
-import iconCloseInactive from '@/assets/icons/icon-close-inactive.svg'
-import iconTrashActive from '@/assets/icons/icon-trash-active.svg'
-import iconTrashInactive from '@/assets/icons/icon-trash-inactive.svg'
+import { faCheck, faXmark, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 export default {
   namespaced: true,
@@ -19,15 +14,18 @@ export default {
         status: 'Em avaliação',
         action: [
           {
-            icon: iconCheckActive,
+            icon: faCheck,
+            status: 1,
             handler: () => alert('Função do item 1')
           },
           {
-            icon: iconCloseActive,
+            icon: faXmark,
+            status: 0,
             handler: () => alert('Função do item 1')
           },
           {
-            icon: iconTrashActive,
+            icon: faTrash,
+            status: 1,
             handler: () => alert('Função do item 1')
           }
         ]
@@ -40,15 +38,18 @@ export default {
         status: 'Em avaliação',
         action: [
           {
-            icon: iconCheckActive,
+            icon: faCheck,
+            status: 0,
             handler: () => alert('Função do item 1')
           },
           {
-            icon: iconCloseInactive,
+            icon: faXmark,
+            status: 1,
             handler: () => alert('Função do item 1')
           },
           {
-            icon: iconTrashInactive,
+            icon: faTrash,
+            status: 1,
             handler: () => alert('Função do item 1')
           }
         ]
@@ -61,15 +62,18 @@ export default {
         status: 'Em avaliação',
         action: [
           {
-            icon: iconCheckInactive,
+            icon: faCheck,
+            status: 0,
             handler: () => alert('Função do item 1')
           },
           {
-            icon: iconCloseActive,
+            icon: faXmark,
+            status: 1,
             handler: () => alert('Função do item 1')
           },
           {
-            icon: iconTrashInactive,
+            icon: faTrash,
+            status: 1,
             handler: () => alert('Função do item 1')
           }
         ]
@@ -82,15 +86,18 @@ export default {
         status: 'Em avaliação',
         action: [
           {
-            icon: iconCheckActive,
+            icon: faCheck,
+            status: 1,
             handler: () => alert('Função do item 1')
           },
           {
-            icon: iconCloseActive,
+            icon: faXmark,
+            status: 1,
             handler: () => alert('Função do item 1')
           },
           {
-            icon: iconTrashActive,
+            icon: faTrash,
+            status: 1,
             handler: () => alert('Função do item 1')
           }
         ]

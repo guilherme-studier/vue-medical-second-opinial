@@ -1,6 +1,6 @@
 <template>
-  <div id="system-access">
-    <div class="form" :class="{ 'form-loading': getLoading }">
+  <div class="container">
+    <div class="form" :class="{ 'form-loading': isLoading }">
       <InputGroup>
         <InputWrapper>
           <input
@@ -37,7 +37,7 @@
         <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
       </div>
     </div>
-    <div v-if="getLoading">
+    <div v-if="isLoading">
       <loader-spinner />
     </div>
   </div>
@@ -52,7 +52,7 @@ import InputWrapper from '@/components/inputWrapper'
 import LoaderSpinner from '@/components/loaderSpinner'
 
 export default {
-  name: 'SystemAccessCancellationForm',
+  name: 'IndustryRepresentantManForm',
   components: {
     InputGroup,
     InputWrapper,
@@ -71,17 +71,22 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('systemAccessCancellation', ['getLoading']),
+    ...mapGetters('industryRepresentantMan', [
+      'getLoadingRepresentantIndustryMan'
+    ]),
 
     enabledInput() {
       return this.cpf === null
     },
     isSaveDisabled() {
       return !this.cpf || !this.name || !this.industry
+    },
+    isLoading() {
+      return this.getLoadingRepresentantIndustryMan
     }
   },
   methods: {
-    ...mapActions('systemAccessCancellation', ['createUser']),
+    ...mapActions('industryRepresentantMan', ['createUser']),
 
     async handleSave() {
       const userData = {

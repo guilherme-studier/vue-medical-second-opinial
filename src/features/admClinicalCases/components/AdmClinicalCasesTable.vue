@@ -21,17 +21,14 @@
       :error="getError"
     >
       <template v-slot:action="{ item }">
-        <img
-          @click="value.action(item)"
-          alt="Ícone de Ação"
-          :src="value.icon"
-        />
+        <font-awesome-icon :icon="icon" @click="value.action(item)" />
       </template>
     </custom-table>
   </div>
 </template>
 
 <script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mapGetters } from 'vuex'
 
 import iconSearch from '@/assets/icons/icon-search.svg'
@@ -41,7 +38,8 @@ import CustomTable from '@/components/customTable'
 export default {
   name: 'AdmClinicalCasesTable',
   components: {
-    CustomTable
+    CustomTable,
+    FontAwesomeIcon
   },
   data() {
     return {

@@ -66,8 +66,13 @@
                   >
                     <font-awesome-icon
                       :icon="iconItem.icon"
-                      style="color: #707070;"
-                      @click="iconItem.handler(item)"
+                      :color="getIconColor(iconItem.status)"
+                      :style="{
+                        cursor: iconItem.status === 0 ? 'auto' : 'pointer'
+                      }"
+                      @click="
+                        handleIconClick(iconItem.status, iconItem.handler, item)
+                      "
                     />
                   </div>
                 </div>
@@ -105,11 +110,28 @@ export default {
     },
     error: {
       type: Boolean
+    },
+    color: {
+      type: String
+    }
+  },
+  computed: {
+    getIconColor() {
+      return (status) => {
+        if (status === 1) {
+          return '#666'
+        } else if (status === 0) {
+          return '#ddd'
+        } else {
+          return '#666'
+        }
+      }
     }
   },
   methods: {
-    handleActionClick(item) {
-      this.$emit('action', item)
+    handleIconClick(status, handler, item) {
+      if (status === 0) return
+      handler(item)
     }
   }
 }
@@ -182,6 +204,10 @@ export default {
       cursor: pointer;
       width: 100%;
       height: 100%;
+
+      &:hover {
+        box-shadow: 0.1px 0.1px 0.1px rgba(0.1, 0.1, 0.1, 0.1);
+      }
     }
 
     .action-icons--item {
