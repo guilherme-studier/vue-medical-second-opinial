@@ -47,11 +47,7 @@
     <!-- TABELA -->
     <custom-table :tableHeader="tableHeader" :tableData="filteredTableData">
       <template v-slot:action="{ item }">
-        <img
-          :src="value.icon"
-          alt="Ícone de Ação"
-          @click="value.action(item)"
-        />
+        <font-awesome-icon :icon="icon" @click="value.handler(item)" />
       </template>
     </custom-table>
   </div>
@@ -59,11 +55,11 @@
 
 <script>
 /** Ícones */
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mapActions, mapGetters } from 'vuex'
 
-import iconEdit from '@/assets/icons/icon-edit.svg'
 import iconSearch from '@/assets/icons/icon-search.svg'
-import iconTrash from '@/assets/icons/icon-trash-active.svg'
 // eslint-disable-next-line import/order
 import iconVoucher from '@/assets/icons/icon-voucher.svg'
 
@@ -78,7 +74,8 @@ export default {
 
   components: {
     CustomTable,
-    InputGroup
+    InputGroup,
+    FontAwesomeIcon
   },
 
   data() {
@@ -112,11 +109,11 @@ export default {
           name: item.name,
           action: [
             {
-              icon: iconEdit,
+              icon: faPenToSquare,
               handler: () => this.selectSpecialty(item.id, item.name)
             },
             {
-              icon: iconTrash,
+              icon: faTrash,
               handler: () => this.deleteSpecialtyById(item.id)
             }
           ]

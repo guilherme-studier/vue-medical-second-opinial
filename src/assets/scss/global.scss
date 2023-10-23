@@ -87,7 +87,7 @@ body {
   input[type="email"]
   select {
     font-size: 1rem;
-    border: 0.0625rem solid $gray-400; /* 1px */
+    border: 0.0625rem solid #ddd; /* 1px */
     max-height: 2.5rem; /* 100px */
     margin-bottom: 0.5rem; /* 15px */
     border-radius: 0.625rem; /* 10px */
@@ -175,7 +175,7 @@ body {
 
   .v-select {
     font-size: 1rem;
-    border: 0.0625rem solid $gray-400; /* 1px */
+    border: 0.0625rem solid #ddd; /* 1px */
     max-height: 2.5rem; /* 100px */
     margin-bottom: 0.5rem; /* 15px */
     border-radius: 0.625rem !important; /* 10px */

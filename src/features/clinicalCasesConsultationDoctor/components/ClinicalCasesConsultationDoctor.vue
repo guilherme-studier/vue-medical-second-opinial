@@ -19,11 +19,7 @@
       :tableData="getFilteredTableData"
     >
       <template v-slot:action="{ item }">
-        <font-awesome-icon
-          :icon="icon"
-          style="color: #008B8F;"
-          @click="value.handler(item)"
-        />
+        <font-awesome-icon :icon="icon" @click="value.handler(item)" />
       </template>
     </custom-table>
     <!-- parecer modal -->
