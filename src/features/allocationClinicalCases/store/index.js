@@ -1,28 +1,42 @@
-import { createUser } from '../../../services/user/index'
+import { useToast } from 'vue-toastification'
+
+import { putClientDoctor } from '../services/index'
+
+const toast = useToast()
 
 export default {
   namespaced: true,
   state: () => ({
-    allocationClinicalCase: null
+    loading: null
   }),
   mutations: {
-    setAllocationClinicalCase(state, allocationClinicalCase) {
-      state.allocationClinicalCase = allocationClinicalCase
+    setLoading(state, value) {
+      state.loading = value
     }
   },
   actions: {
-    async createUser({ commit }, userData) {
-      return createUser(userData)
-        .then((response) => {
-          commit('setIndustryUser', response.data)
-          return response
+    async addClientDoctor({ commit }, userData) {
+      commit('setLoading', true)
+      return putClientDoctor(userData)
+        .then(() => {
+          return toast.success(
+            'Atribuição de caso clínico efetuada com sucesso'
+          )
         })
-        .catch((error) => {
-          throw error
+        .catch(() => {
+          toast.warning(
+            'Não foi possível efetuar a atribuição de caso clínico',
+            {
+              timeout: 5000
+            }
+          )
+        })
+        .finally(() => {
+          commit('setLoading', false)
         })
     }
   },
   getters: {
-    getAllocationClinicalCase: (state) => state.allocationClinicalCase
+    getLoadingAllocationClinicalCase: (state) => state.loading
   }
 }
