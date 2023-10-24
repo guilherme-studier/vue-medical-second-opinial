@@ -1,119 +1,110 @@
 <template>
-  <div class="container">
-    <div class="form" :class="{ 'form-loading': isLoading }">
-      <InputGroup>
-        <InputWrapper>
-          <input
-            type="text"
-            placeholder="CPF"
-            class="flexible-input"
-            v-model="cpf"
-            v-mask="'###.###.###-##'"
-            pattern="[0-9]*"
-            inputmode="numeric"
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <input
-            type="text"
-            placeholder="Nome"
-            class="flexible-input"
-            v-model="name"
-            :disabled="enabledInput"
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <input
-            type="text"
-            placeholder="Indústria"
-            class="flexible-input"
-            v-model="industry"
-            :disabled="enabledInput"
-          />
-        </InputWrapper>
-      </InputGroup>
-
-      <div class="save">
-        <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
-      </div>
-    </div>
-    <div v-if="isLoading">
-      <loader-spinner />
-    </div>
+  <div class="industry-representant-man-form">
+    <!-- TABELA -->
+    <custom-table
+      :tableHeader="tableHeader"
+      :tableData="filteredTableData"
+      :loading="isLoading"
+    >
+      <template v-slot:action="{ item }">
+        <font-awesome-icon
+          :icon="icon"
+          @click="cancelIndustryRepresentant(item.id)"
+        />
+      </template>
+    </custom-table>
   </div>
 </template>
 
 <script>
-import { useToast } from 'vue-toastification'
-import { mapActions, mapGetters } from 'vuex'
+/** Ícones */
+import { faBan } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+/** Vuex */
+import { mapGetters, mapActions } from 'vuex'
 
-import InputGroup from '@/components/inputGroup'
-import InputWrapper from '@/components/inputWrapper'
-import LoaderSpinner from '@/components/loaderSpinner'
+/** Componentes */
+import CustomTable from '@/components/customTable'
 
 export default {
-  name: 'IndustryRepresentantManForm',
-  components: {
-    InputGroup,
-    InputWrapper,
-    LoaderSpinner
-  },
-  setup() {
-    const toast = useToast()
+  name: 'Especilidades',
 
-    return { toast }
+  components: {
+    CustomTable,
+    FontAwesomeIcon
   },
+
   data() {
     return {
-      industry: null,
-      name: null,
-      cpf: null
+      /** Dados da tabela */
+      tableHeader: [
+        'Nome do Representante da Indústria',
+        'Email',
+        'Cancelamento de Acesso'
+      ],
+      searchTerm: '',
+
+      /** Dados das especialidades */
+      specialtyId: null,
+      specialtyName: null
     }
   },
+
+  mounted() {
+    /** Buscar as especialidades */
+    this.fetchIndustryRepresentants()
+  },
+
   computed: {
+    ...mapGetters('industry', ['getLoadingIndustry']),
     ...mapGetters('industryRepresentantMan', [
-      'getLoadingRepresentantIndustryMan'
+      'getIndustryRepresentants',
+      'getLoadingRepresentantIndustry'
     ]),
 
-    enabledInput() {
-      return this.cpf === null
-    },
-    isSaveDisabled() {
-      return !this.cpf || !this.name || !this.industry
-    },
     isLoading() {
-      return this.getLoadingRepresentantIndustryMan
+      return this.getLoadingRepresentantIndustry || this.getLoadingIndustry
+    },
+
+    /** Dados de especialidades */
+    tableData() {
+      return this.getIndustryRepresentants.map((item) => {
+        return {
+          name: item.name,
+          email: item.email,
+          action: [
+            {
+              icon: faBan,
+              handler: () => this.cancelIndustryRepresentant(item.id)
+            }
+          ]
+        }
+      })
+    },
+
+    /** Filtrar os dados da tabela */
+    filteredTableData() {
+      if (!this.searchTerm) {
+        return this.tableData
+      }
+
+      const searchTerm = this.searchTerm.toLowerCase()
+      return this.tableData.filter((item) => {
+        return Object.values(item).some((value) => {
+          if (typeof value === 'string') {
+            return value.toLowerCase().includes(searchTerm)
+          }
+          return false
+        })
+      })
     }
   },
+
   methods: {
-    ...mapActions('industryRepresentantMan', ['createUser']),
-
-    async handleSave() {
-      const userData = {
-        industry: this.industry,
-        name: this.name,
-        cpf: this.cpf
-      }
-
-      try {
-        await this.createUser(userData)
-        this.toast.success(
-          'Cancelamento de acesso ao sistema efetuado com sucesso',
-          { timeout: 5000 }
-        )
-      } catch (error) {
-        this.toast.warning(
-          'Não foi possível realizar cancelamento de acesso ao sistema',
-          { timeout: 5000 }
-        )
-      }
-      this.clearForm()
-    },
-    clearForm() {
-      this.cpf = null
-      this.name = null
-      this.industry = null
-    }
+    ...mapActions('industryRepresentantMan', [
+      'fetchIndustryRepresentants',
+      'cancelIndustryRepresentant'
+    ])
   }
 }
 </script>

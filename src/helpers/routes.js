@@ -84,12 +84,12 @@ export const all = [
     id: 17,
     name: 'Gestão de Indústrias',
     route: '/industries'
-  },
-  {
-    id: 18,
-    name: 'Registro de Pessoas Autorizadas a Distribuir Casos Clínicos',
-    route: '/authorized-distribute-clinical-cases'
   }
+  // {
+  //   id: 18,
+  //   name: 'Registro de Pessoas Autorizadas a Distribuir Casos Clínicos',
+  //   route: '/authorized-distribute-clinical-cases'
+  // }
 ]
 
 export const routes = {
@@ -109,11 +109,11 @@ export const routes = {
       name: 'Registro de Contrato e Geração de Casos Clínicos',
       route: '/registration-clinical-cases'
     },
-    {
-      id: 18,
-      name: 'Registro de Pessoas Autorizadas a Distribuir Casos Clínicos',
-      route: '/authorized-distribute-clinical-cases'
-    },
+    // {
+    //   id: 18,
+    //   name: 'Registro de Pessoas Autorizadas a Distribuir Casos Clínicos',
+    //   route: '/authorized-distribute-clinical-cases'
+    // },
     {
       id: 4,
       name: 'Consulta Casos Clínicos',

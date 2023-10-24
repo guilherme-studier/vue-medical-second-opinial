@@ -44,7 +44,7 @@ export const createIndustryRepresentant = (userData) => {
  */
 export const cancelIndustryRepresentant = (representantId) => {
   return axios({
-    method: 'POST',
+    method: 'PATCH',
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${getToken()}`

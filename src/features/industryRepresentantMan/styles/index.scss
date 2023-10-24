@@ -3,7 +3,52 @@
   flex-wrap: wrap;
   display: block;
   width: 100%;
-}
+
+    
+    .title-cpf {
+      display: flex;
+      align-items: center;
+      padding-bottom: 15px;
+      place-items: self-end;
+      margin: 20px 0;
+  
+      h1 {
+        padding-left: 15px;
+        color: $green-500;
+      }
+    }
+  
+    .icon-plus-container {
+      display: flex;
+      justify-content: start;
+      margin: 10px 0;
+      cursor: pointer;
+  
+      .fa-circle-plus {
+        font-size: 27px;
+      }
+    }
+  
+    .remove-form {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      position: absolute;
+      top: 13px;
+      right: -15px;
+    }
+  
+    .save {
+      display: flex;
+      place-content: end;
+      margin: 20px 0;
+  
+      button {
+        max-width: 150px;
+      }
+    }
+  }
+
 
 .form {
   flex-direction: column;

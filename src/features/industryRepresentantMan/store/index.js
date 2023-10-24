@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
+// Seu arquivo Vuex
+
 import { useToast } from 'vue-toastification'
 
 import {
+  createIndustryRepresentant,
   getIndustryRepresentant,
   cancelIndustryRepresentant
 } from '@/services/industryRepresentant/index'
@@ -11,7 +14,8 @@ const toast = useToast()
 export default {
   namespaced: true,
   state: () => ({
-    industryRepresentants: []
+    industryRepresentants: [],
+    loading: false
   }),
   mutations: {
     setLoading(state, value) {
@@ -37,11 +41,28 @@ export default {
           commit('setLoading', false)
         })
     },
-    async cancelIndustryRepresentant({ commit }, representantId) {
+    async createIndustryRepresentant({ commit, dispatch }, userData) {
+      commit('setLoading', true)
+      return createIndustryRepresentant(userData)
+        .then(() => {
+          toast.success('Representante da indústria criado com sucesso')
+          dispatch('fetchIndustryRepresentants')
+        })
+        .catch((error) => {
+          toast.warning('Erro ao criar o representante da indústria', {
+            timeout: 5000
+          })
+        })
+        .finally(() => {
+          commit('setLoading', false)
+        })
+    },
+    async cancelIndustryRepresentant({ commit, dispatch }, representantId) {
       commit('setLoading', true)
       return cancelIndustryRepresentant(representantId)
         .then(() => {
           toast.success('Representante da indústria cancelado com sucesso')
+          dispatch('fetchIndustryRepresentants')
         })
         .catch((error) => {
           toast.warning('Erro ao cancelar o representante da indústria', {
@@ -54,7 +75,7 @@ export default {
     }
   },
   getters: {
-    getLoadingRepresentantIndustryMan: (state) => state.loading,
+    getLoadingRepresentantIndustry: (state) => state.loading,
     getIndustryRepresentants: (state) => state.industryRepresentants
   }
 }

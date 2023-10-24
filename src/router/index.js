@@ -5,7 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ActiveClinicalCases from '@/features/activeClinicalCases'
 import AdmClinicalCases from '@/features/admClinicalCases'
 import AllocationClinicalCases from '@/features/allocationClinicalCases'
-import AuthorizedDistributeClinicalCases from '@/features/authorizedDistributeClinicalCases'
+// import AuthorizedDistributeClinicalCases from '@/features/authorizedDistributeClinicalCases'
 import ClinicalCasesConsultationDoctor from '@/features/clinicalCasesConsultationDoctor'
 import ClinicalCasesEvaluation from '@/features/clinicalCasesEvaluation'
 import ClinicalCasesIndustry from '@/features/clinicalCasesIndustry'
@@ -184,15 +184,15 @@ const routes = [
         meta: {
           title: 'Gestão de Indústrias'
         }
-      },
-      {
-        path: '/authorized-distribute-clinical-cases',
-        name: 'AuthorizedDistributeClinicalCases',
-        component: AuthorizedDistributeClinicalCases,
-        meta: {
-          title: 'Registro de Pessoas Autorizadas a Distribuir Casos Clínicos'
-        }
       }
+      // {
+      //   path: '/authorized-distribute-clinical-cases',
+      //   name: 'AuthorizedDistributeClinicalCases',
+      //   component: AuthorizedDistributeClinicalCases,
+      //   meta: {
+      //     title: 'Registro de Pessoas Autorizadas a Distribuir Casos Clínicos'
+      //   }
+      // }
     ],
     beforeEnter: (to, from, next) => {
       if (!store.getters.isLoggedIn) next('/login')

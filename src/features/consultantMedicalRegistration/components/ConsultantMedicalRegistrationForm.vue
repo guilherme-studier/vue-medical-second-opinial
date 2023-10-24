@@ -366,7 +366,7 @@ export default {
         username: this.name?.replace(/\s/g, '')?.toLowerCase(),
         term: this.termsAgreed,
         newPassword: this.newPassword,
-        camplement: this.complement,
+        complement: this.complement,
         specialty: this.specialty,
         password: this.password,
         number: this.number,
