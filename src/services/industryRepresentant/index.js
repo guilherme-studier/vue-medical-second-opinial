@@ -33,9 +33,7 @@ export const createIndustryRepresentant = (userData) => {
       Authorization: `Bearer ${getToken()}`
     },
     url: `${USER_BASE_URL}/industry-representative`,
-    data: {
-      userData
-    }
+    data: userData // Não precisa mais envolver em um array
   })
 }
 
