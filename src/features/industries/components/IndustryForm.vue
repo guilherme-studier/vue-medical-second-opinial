@@ -1,5 +1,9 @@
 <template>
-  <div ref="industries" class="industries">
+  <div
+    ref="industries"
+    class="industries"
+    :class="{ 'form-loading': isLoading }"
+  >
     <!-- CADASTRO DE INDÚSTRIAS -->
     <div class="title">
       <img :src="icon" />
@@ -45,7 +49,11 @@
     </div>
 
     <!-- TABELA -->
-    <custom-table :tableHeader="tableHeader" :tableData="filteredTableData">
+    <custom-table
+      :tableHeader="tableHeader"
+      :tableData="filteredTableData"
+      :loading="getLoadingIndustry"
+    >
       <template v-slot:action="{ item }">
         <font-awesome-icon :icon="icon" @click="value.handler(item)" />
       </template>
@@ -100,7 +108,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters('industry', ['getIndustries']),
+    ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
+
+    isLoading() {
+      return this.getLoadingIndustry
+    },
 
     /** Dados de indústrias */
     tableData() {

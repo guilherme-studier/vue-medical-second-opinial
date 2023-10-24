@@ -1,5 +1,9 @@
 <template>
-  <div ref="specialties" class="specialties">
+  <div
+    ref="specialties"
+    class="specialties"
+    :class="{ 'form-loading': isLoading }"
+  >
     <!-- CADASTRO DE ESPECIALIDADES -->
     <div class="title">
       <img :src="icon" />
@@ -45,7 +49,11 @@
     </div>
 
     <!-- TABELA -->
-    <custom-table :tableHeader="tableHeader" :tableData="filteredTableData">
+    <custom-table
+      :tableHeader="tableHeader"
+      :tableData="filteredTableData"
+      :loading="isLoading"
+    >
       <template v-slot:action="{ item }">
         <font-awesome-icon :icon="icon" @click="value.handler(item)" />
       </template>
@@ -100,7 +108,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters('specialty', ['getSpecialties']),
+    ...mapGetters('specialty', ['getSpecialties', 'getLoadingSpecialtys']),
+
+    isLoading() {
+      return this.getLoadingSpecialtys
+    },
 
     /** Dados de especialidades */
     tableData() {

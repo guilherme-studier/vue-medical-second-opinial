@@ -3,6 +3,11 @@
   flex-wrap: wrap;
   display: block;
   width: 100%;
+
+  textarea {
+    resize: none;
+    min-height: 150px;
+  }
 }
 
 .form {
