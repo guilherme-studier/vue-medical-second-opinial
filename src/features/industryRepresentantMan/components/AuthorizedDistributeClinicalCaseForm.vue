@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="form" :class="{ 'form-loading': isLoading }">
+    <div class="form">
       <InputGroup>
         <InputWrapper>
           <v-select
@@ -61,9 +61,9 @@
         </button>
       </div>
     </div>
-    <div v-if="isLoading">
-      <loader-spinner />
-    </div>
+    <!-- <div v-if="isLoading"> -->
+    <!-- <loader-spinner /> -->
+    <!-- </div> -->
   </div>
 </template>
 
@@ -75,12 +75,12 @@ import { mapActions, mapGetters } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
-import LoaderSpinner from '@/components/loaderSpinner'
+// import LoaderSpinner from '@/components/loaderSpinner'
 
 export default {
   name: 'AuthorizedDistributeClinicalCases',
   components: {
-    LoaderSpinner,
+    // LoaderSpinner,
     InputWrapper,
     InputGroup,
     vSelect,
@@ -99,14 +99,10 @@ export default {
   },
   computed: {
     ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
-    ...mapGetters('authorizedDistributeClinicalCases', [
+    ...mapGetters('industryRepresentantMan', [
       'getIndustryRepresentants',
       'getLoadingRepresentantIndustry'
     ]),
-
-    isLoading() {
-      return this.getLoadingIndustry || this.getLoadingRepresentantIndustry
-    },
 
     isSaveDisabled() {
       for (const form of this.additionalForms) {
@@ -122,15 +118,11 @@ export default {
     }
   },
   mounted() {
-    this.fetchIndustryRepresentants()
     this.fetchIndustries()
   },
   methods: {
     ...mapActions('industry', ['fetchIndustries']),
-    ...mapActions('authorizedDistributeClinicalCases', [
-      'fetchIndustryRepresentants',
-      'createIndustryRepresentant'
-    ]),
+    ...mapActions('industryRepresentantMan', ['createIndustryRepresentant']),
 
     clearForm() {
       this.additionalForms = [{ cpf: null, name: null, email: null }]
