@@ -42,19 +42,22 @@
       display: flex;
       place-content: end;
       margin: 20px 0;
+      width: 315px;
   
       button {
         max-width: 150px;
+        margin-left: 15px;
       }
     }
   }
-
 
 .form {
   flex-direction: column;
   margin-top: 20px;
   display: flex;
   width: 100%;
+  min-height: 300px;
+  justify-content: space-between;
 
   .save {
     place-self: flex-end;

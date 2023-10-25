@@ -33,6 +33,7 @@
           <v-select
             v-model="contract"
             :options="getContracts"
+            :reduce="(item) => item.id"
             label="name"
             placeholder="Casos Clínicos"
           />
@@ -71,7 +72,8 @@ export default {
       tituloComponente: 'Dados Cadastrais',
       name: null,
       quantity: null,
-      email: null
+      email: null,
+      contract: null
     }
   },
   computed: {

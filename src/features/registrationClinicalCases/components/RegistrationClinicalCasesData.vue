@@ -107,22 +107,6 @@
     <div v-if="isLoading">
       <loader-spinner />
     </div>
-    <!-- <Modal
-      v-if="specialtyModalVisible"
-      @close="closeSpecialtyModal"
-      title="Especialidade"
-    >
-      <RadioContent
-        :items="getSpecialties"
-        @item-selected="handleSpecialtySelected"
-      />
-    </Modal>
-    <Modal v-if="diseaseModalVisible" @close="closeIllnessModal" title="Doença">
-      <RadioContent
-        :items="getDiseases"
-        @item-selected="handleIllnessSelected"
-      />
-    </Modal> -->
   </div>
 </template>
 
@@ -161,7 +145,6 @@ export default {
       specialty: null,
       iconColor: '$green-500',
       disease: null,
-      diseaseId: null,
       industry: null,
       startDate: null,
       expirationDate: null,
@@ -209,31 +192,6 @@ export default {
     ...mapActions('industry', ['fetchIndustries']),
     ...mapActions('disease', ['fetchDiseases']),
 
-    handleIllnessSelected(item) {
-      this.diseaseName = item?.name
-      this.diseaseId = item?.id
-      this.closeIllnessModal()
-    },
-    handleSpecialtySelected(item) {
-      this.specialtyName = item?.name
-      this.specialtyId = item?.id
-      this.closeSpecialtyModal()
-    },
-    openSpecialtyModal() {
-      this.specialtyModalVisible = true
-    },
-
-    closeSpecialtyModal() {
-      this.specialtyModalVisible = false
-    },
-
-    openIllnessModal() {
-      this.diseaseModalVisible = true
-    },
-
-    closeIllnessModal() {
-      this.diseaseModalVisible = false
-    },
     async handleSave() {
       const userData = {
         vouchersQuantity: parseInt(this.quantity),
@@ -264,11 +222,9 @@ export default {
     clearForm() {
       this.name = null
       this.quantity = null
-      this.specialtyName = null
-      this.specialtyId = null
-      this.diseaseName = null
-      this.diseaseId = null
-      this.industry
+      this.industry = null
+      this.specialty = null
+      this.disease = null
       this.startDate = null
       this.expirationDate = null
       this.fees = null

@@ -6,10 +6,26 @@ const USER_BASE_URL = 'https://meso.poatech.com.br:450/user/api/1.0'
 const getToken = () => store?.getters?.getUserToken
 
 /**
+ * Pesquisar pelo Representante da Indústria
+ * @param {object} industryRepresentId - id do Representante da Indústria.
+ * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
+ */
+export const getIndustryRepresentant = (industryRepresentId) => {
+  return axios({
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${getToken()}`
+    },
+    url: `${USER_BASE_URL}/industry-representative/${industryRepresentId}`
+  })
+}
+
+/**
  * Obter a lista de representantes da indústria.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const getIndustryRepresentant = () => {
+export const getIndustryRepresentants = () => {
   return axios({
     method: 'GET',
     headers: {
@@ -34,6 +50,24 @@ export const createIndustryRepresentant = (userData) => {
     },
     url: `${USER_BASE_URL}/industry-representative`,
     data: userData // Não precisa mais envolver em um array
+  })
+}
+
+/**
+ * Editar o representante da indústria.
+ * @param {object} industryRepresentId - id do Representante da Indústria.
+ * @param {object} userData - Os dados do representante da indústria (name, email, industryId).
+ * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
+ */
+export const updateIndustryRepresentant = (industryRepresentId, userData) => {
+  return axios({
+    method: 'PUT',
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${getToken()}`
+    },
+    url: `${USER_BASE_URL}/industry-representative/${industryRepresentId}`,
+    data: userData
   })
 }
 
