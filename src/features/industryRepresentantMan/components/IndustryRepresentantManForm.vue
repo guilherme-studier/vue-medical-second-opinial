@@ -18,7 +18,7 @@
 
 <script>
 /** Ícones */
-import { faBan } from '@fortawesome/free-solid-svg-icons'
+import { faBan, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 /** Vuex */
 import { mapGetters, mapActions } from 'vuex'
@@ -27,7 +27,7 @@ import { mapGetters, mapActions } from 'vuex'
 import CustomTable from '@/components/customTable'
 
 export default {
-  name: 'Especilidades',
+  name: 'IndustryRepresentantManForm',
 
   components: {
     CustomTable,
@@ -36,28 +36,21 @@ export default {
 
   data() {
     return {
-      /** Dados da tabela */
-      tableHeader: [
-        'Nome do Representante da Indústria',
-        'Email',
-        'Cancelamento de Acesso'
-      ],
+      tableHeader: ['Nome do Representante da Indústria', 'Email', 'Ações'],
       searchTerm: '',
-
-      /** Dados das especialidades */
       specialtyId: null,
       specialtyName: null
     }
   },
 
   mounted() {
-    /** Buscar as especialidades */
     this.fetchIndustryRepresentants()
   },
 
   computed: {
     ...mapGetters('industry', ['getLoadingIndustry']),
     ...mapGetters('industryRepresentantMan', [
+      'getIndustryRepresentant',
       'getIndustryRepresentants',
       'getLoadingRepresentantIndustry'
     ]),
@@ -66,13 +59,16 @@ export default {
       return this.getLoadingRepresentantIndustry || this.getLoadingIndustry
     },
 
-    /** Dados de especialidades */
     tableData() {
       return this.getIndustryRepresentants.map((item) => {
         return {
           name: item.name,
           email: item.email,
           action: [
+            {
+              icon: faPenToSquare,
+              handler: () => this.fetchIndustryRepresentant(item.id)
+            },
             {
               icon: faBan,
               handler: () => this.cancelIndustryRepresentant(item.id)
@@ -82,7 +78,6 @@ export default {
       })
     },
 
-    /** Filtrar os dados da tabela */
     filteredTableData() {
       if (!this.searchTerm) {
         return this.tableData
@@ -102,6 +97,7 @@ export default {
 
   methods: {
     ...mapActions('industryRepresentantMan', [
+      'fetchIndustryRepresentant',
       'fetchIndustryRepresentants',
       'cancelIndustryRepresentant'
     ])
