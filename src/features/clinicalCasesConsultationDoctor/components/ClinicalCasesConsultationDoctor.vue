@@ -1,14 +1,11 @@
 <template>
-  <div
-    id="clinical-cases-consultation-doctor"
-    :class="{ 'form-loading': isLoading }"
-  >
+  <div id="clinical-cases-consultation-doctor">
     <div class="title">
       <div class="voucher-doctor">
         <img class="icon-voucher" :src="getIcon" />
         <h1>
-          {{ getName }} <span>possui</span> {{ getVouchers }} casos clínicos
-          ativos
+          {{ getName }} <span>possui</span> {{ tableData?.length }} casos
+          clínicos ativos
         </h1>
       </div>
       <div class="voucher-search">
@@ -20,7 +17,7 @@
     <custom-table
       :tableHeader="tableHeader"
       :tableData="tableData"
-      :loading="getLoadingClinicalCases"
+      :loading="isLoading"
     >
       <template v-slot:action="{ item }">
         <font-awesome-icon :icon="icon" @click="value.handler(item)" />
@@ -52,7 +49,11 @@
 </template>
 
 <script>
-import { faFile, faComment } from '@fortawesome/free-solid-svg-icons'
+import {
+  faSquareCheck,
+  faFile,
+  faComment
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mapGetters, mapActions } from 'vuex'
 
@@ -84,15 +85,10 @@ export default {
     ...mapGetters('user', ['getName']),
     ...mapGetters('clinicalCasesConsultationDoctor', [
       'getIcon',
-      'getDoctor',
-      'getVouchers',
       'getIconSearch',
       'getSearchTerm',
       'getIsModalSeem',
       'getIsModalMessage',
-      'getTableHeader',
-      'getModalSeemContent',
-      'getModalMessageContent',
       'getClinicalCases',
       'getLoadingClinicalCases'
     ]),
@@ -108,11 +104,15 @@ export default {
     getClinicalCases: {
       handler(newContracts) {
         this.tableData = newContracts.map((contract) => ({
-          voucher: contract?.opinion,
-          id: contract?.opinion,
-          illness: contract?.opinion,
-          doctor: contract?.opinion,
+          voucher: contract?.contractId,
+          id: contract?.contractId,
+          illness: contract?.contractId,
+          doctor: contract?.contractId,
           action: [
+            {
+              icon: faSquareCheck,
+              handler: () => alert('inserir dados do caso clínico')
+            },
             {
               icon: faFile,
               handler: () => {

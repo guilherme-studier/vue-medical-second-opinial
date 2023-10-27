@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <template v-if="!getLoadingClinicalCases && !getError">
-      <clinical-cases-consultation-doctor-table />
-    </template>
-    <base-error v-if="getError" />
+  <div :class="{ 'form-loading': getLoadingClinicalCases }">
+    <clinical-cases-consultation-doctor-table />
   </div>
 </template>
 
@@ -12,13 +9,10 @@ import { mapGetters } from 'vuex'
 
 import ClinicalCasesConsultationDoctorTable from './components/ClinicalCasesConsultationDoctor.vue'
 
-import BaseError from '@/components/baseError'
-
 export default {
   name: 'ClinicalCasesConsultationDoctor',
   components: {
-    ClinicalCasesConsultationDoctorTable,
-    BaseError
+    ClinicalCasesConsultationDoctorTable
   },
   computed: {
     ...mapGetters('clinicalCasesConsultationDoctor', [
