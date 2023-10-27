@@ -1,5 +1,10 @@
 <template>
   <div class="industry-representant-man-form">
+    <div class="title">
+      <img :src="iconDoctor" />
+      <h1>Listagem</h1>
+    </div>
+
     <!-- TABELA -->
     <custom-table
       :tableHeader="tableHeader"
@@ -23,6 +28,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 /** Vuex */
 import { mapGetters, mapActions } from 'vuex'
 
+// eslint-disable-next-line import/order
+import iconVoucher from '@/assets/icons/icon-voucher.svg'
+
 /** Componentes */
 import CustomTable from '@/components/customTable'
 
@@ -39,7 +47,8 @@ export default {
       tableHeader: ['Nome do Representante da Indústria', 'Email', 'Ações'],
       searchTerm: '',
       specialtyId: null,
-      specialtyName: null
+      specialtyName: null,
+      iconDoctor: iconVoucher
     }
   },
 

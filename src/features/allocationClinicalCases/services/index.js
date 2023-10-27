@@ -20,7 +20,7 @@ export const putClientDoctor = (userData) => {
       'content-type': 'application/json',
       Authorization: `Bearer ${getToken()}`
     },
-    url: `${BASE_URL}/voucher/add-client-doctor`,
+    url: `${BASE_URL}/voucher/add/client-doctor`,
     data: userData
   })
 }

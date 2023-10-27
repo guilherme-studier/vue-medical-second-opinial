@@ -47,7 +47,7 @@
             </td>
           </tr>
         </template>
-        <template v-else-if="tableData.length === 0">
+        <template v-else-if="tableData?.length === 0 && loading === false">
           <tr>
             <td :colspan="tableHeader.length" class="no-data-cell">
               Não há dados para serem exibidos.

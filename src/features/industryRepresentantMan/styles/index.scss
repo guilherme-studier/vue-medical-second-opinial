@@ -51,6 +51,24 @@
     }
   }
 
+  .title {
+    display: flex;
+    place-items: flex-end;
+    text-align: left;
+    color: $green-500;
+    width: 100%;
+    margin-bottom: 20px;
+
+    h1 {
+      margin-left: 10px;
+
+      span {
+        color: $gray-600;
+        font-weight: 400;
+      }
+    }
+  }
+
 .form {
   flex-direction: column;
   margin-top: 20px;
@@ -58,6 +76,7 @@
   width: 100%;
   min-height: 300px;
   justify-content: space-between;
+
 
   .save {
     place-self: flex-end;
