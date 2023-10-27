@@ -1,5 +1,8 @@
 <template>
-  <div class="container-modal-seem">
+  <div
+    class="container-modal-seem"
+    :class="{ 'form-loading': getLoadingOpinion }"
+  >
     <h2>
       Caso clínico: <span>{{ voucher }}</span>
     </h2>
@@ -12,14 +15,14 @@
     </div>
     <div class="seem-send">
       <button class="seem-btn" @click="sendSeem" :disabled="!enabledSendSeem">
-        Enviar
+        {{ opinion ? 'Editar' : 'Salvar' }}
       </button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'SeemModal',
@@ -39,6 +42,8 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('clinicalCasesConsultationDoctor', ['getLoadingOpinion']),
+
     enabledSendSeem() {
       return this.seemText?.length
     }
