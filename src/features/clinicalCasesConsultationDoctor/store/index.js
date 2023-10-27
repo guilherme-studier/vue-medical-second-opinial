@@ -18,6 +18,7 @@ export default {
     clinicalCases: [],
     searchTerm: '',
     loading: false,
+    loadingOpinion: false,
     error: false
   }),
   mutations: {
@@ -35,6 +36,9 @@ export default {
     },
     setLoading(state, value) {
       state.loading = value
+    },
+    setLoadingOpinion(state, value) {
+      state.loadingOpinion = value
     }
   },
   actions: {
@@ -65,13 +69,14 @@ export default {
           commit('setLoading', false)
         })
     },
-    async putOpinion({ commit }, userData) {
-      commit('setLoading', true)
+    async putOpinion({ commit, dispatch }, userData) {
+      commit('setLoadingOpinion', true)
       return createOrEditOpinion(userData)
         .then(() => {
           toast.success('Parecer registrado com sucesso', {
             timeout: 5000
           })
+          dispatch('getClinicalCases')
         })
         .catch(() => {
           toast.warning('Não foi possível registrar o parecer do médico', {
@@ -79,7 +84,7 @@ export default {
           })
         })
         .finally(() => {
-          commit('setLoading', false)
+          commit('setLoadingOpinion', false)
         })
     }
   },
@@ -94,6 +99,7 @@ export default {
     getSearchTerm: (state) => state.searchTerm,
     getError: (state) => state.error,
     getClinicalCases: (state) => state.clinicalCases,
-    getLoadingClinicalCases: (state) => state.loading
+    getLoadingClinicalCases: (state) => state.loading,
+    getLoadingOpinion: (state) => state.loadingOpinion
   }
 }
