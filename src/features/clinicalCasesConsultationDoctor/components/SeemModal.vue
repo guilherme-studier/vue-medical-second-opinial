@@ -27,11 +27,15 @@ export default {
     voucher: {
       type: String,
       default: null
+    },
+    opinion: {
+      type: String,
+      default: null
     }
   },
   data() {
     return {
-      seemText: null
+      seemText: this.opinion
     }
   },
   computed: {
@@ -40,11 +44,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions('clinicalCasesConsultationDoctor', ['handleSeem']),
+    ...mapActions('clinicalCasesConsultationDoctor', ['putOpinion']),
 
     sendSeem() {
-      this.handleSeem(this.seemText)
-      this.seemText = null
+      this.putOpinion({ voucherId: this.voucher, opinion: this.seemText })
     }
   }
 }

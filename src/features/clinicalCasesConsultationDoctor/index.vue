@@ -1,9 +1,8 @@
 <template>
   <div>
-    <template v-if="!getLoading && !getError">
+    <template v-if="!getLoadingClinicalCases && !getError">
       <clinical-cases-consultation-doctor-table />
     </template>
-    <loader-spinner v-if="getLoading" />
     <base-error v-if="getError" />
   </div>
 </template>
@@ -14,17 +13,18 @@ import { mapGetters } from 'vuex'
 import ClinicalCasesConsultationDoctorTable from './components/ClinicalCasesConsultationDoctor.vue'
 
 import BaseError from '@/components/baseError'
-import LoaderSpinner from '@/components/loaderSpinner'
 
 export default {
   name: 'ClinicalCasesConsultationDoctor',
   components: {
     ClinicalCasesConsultationDoctorTable,
-    LoaderSpinner,
     BaseError
   },
   computed: {
-    ...mapGetters('clinicalCasesConsultationDoctor', ['getError', 'getLoading'])
+    ...mapGetters('clinicalCasesConsultationDoctor', [
+      'getError',
+      'getLoadingClinicalCases'
+    ])
   }
 }
 </script>

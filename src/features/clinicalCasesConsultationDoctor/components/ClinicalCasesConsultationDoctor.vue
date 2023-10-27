@@ -1,5 +1,8 @@
 <template>
-  <div id="clinical-cases-consultation-doctor">
+  <div
+    id="clinical-cases-consultation-doctor"
+    :class="{ 'form-loading': isLoading }"
+  >
     <div class="title">
       <div class="voucher-doctor">
         <img class="icon-voucher" :src="getIcon" />
@@ -15,8 +18,9 @@
     </div>
 
     <custom-table
-      :tableHeader="getTableHeader"
-      :tableData="getFilteredTableData"
+      :tableHeader="tableHeader"
+      :tableData="tableData"
+      :loading="getLoadingClinicalCases"
     >
       <template v-slot:action="{ item }">
         <font-awesome-icon :icon="icon" @click="value.handler(item)" />
@@ -28,7 +32,10 @@
       @close="closeModalSeem"
       v-if="getIsModalSeem"
     >
-      <seem-modal :voucher="getModalSeemContent.voucher" />
+      <seem-modal
+        :voucher="selectedContract.id"
+        :opinion="selectedContract.opinion"
+      />
     </modal>
     <!-- message modal -->
     <modal
@@ -45,6 +52,7 @@
 </template>
 
 <script>
+import { faFile, faComment } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mapGetters, mapActions } from 'vuex'
 
@@ -66,7 +74,10 @@ export default {
   data() {
     return {
       titleModalSeem: 'Registrar Parecer',
-      titleModalMessage: 'Mensagens'
+      titleModalMessage: 'Mensagens',
+      tableHeader: ['Casos Clínicos', 'ID', 'Doença', 'Médico', 'Ação'],
+      tableData: [],
+      selectedContract: {}
     }
   },
   computed: {
@@ -75,7 +86,6 @@ export default {
       'getIcon',
       'getDoctor',
       'getVouchers',
-      'getTableData',
       'getIconSearch',
       'getSearchTerm',
       'getIsModalSeem',
@@ -83,14 +93,57 @@ export default {
       'getTableHeader',
       'getModalSeemContent',
       'getModalMessageContent',
-      'getFilteredTableData'
-    ])
+      'getClinicalCases',
+      'getLoadingClinicalCases'
+    ]),
+
+    isLoading() {
+      return this.getLoadingClinicalCases
+    }
+  },
+  mounted() {
+    this.fetchClinicalCases()
+  },
+  watch: {
+    getClinicalCases: {
+      handler(newContracts) {
+        this.tableData = newContracts.map((contract) => ({
+          voucher: contract?.opinion,
+          id: contract?.opinion,
+          illness: contract?.opinion,
+          doctor: contract?.opinion,
+          action: [
+            {
+              icon: faFile,
+              handler: () => {
+                this.selectedContract = {
+                  id: contract?.voucherId,
+                  opinion: contract?.opinion
+                }
+                this.handleModalSeem()
+              }
+            },
+            {
+              icon: faComment,
+              handler: () => {
+                this.selectedContract = {
+                  id: contract?.voucherId
+                }
+                this.handleModalMessage()
+              }
+            }
+          ]
+        }))
+      },
+      deep: true
+    }
   },
   methods: {
     ...mapActions('clinicalCasesConsultationDoctor', [
       'handleModalSeem',
       'handleModalMessage',
-      'sendSeem'
+      'sendSeem',
+      'fetchClinicalCases'
     ]),
 
     closeModalSeem() {

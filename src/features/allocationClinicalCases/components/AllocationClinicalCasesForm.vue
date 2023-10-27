@@ -33,8 +33,7 @@
           <v-select
             v-model="contract"
             :options="getContracts"
-            :reduce="(item) => item.id"
-            label="name"
+            label="contractName"
             placeholder="Casos Clínicos"
           />
         </InputWrapper>
@@ -96,9 +95,10 @@ export default {
     ...mapActions('consultationClinicalCases', ['fetchContracts']),
     async handleSave() {
       const userData = {
-        name: this.name,
-        email: this.email,
-        quantity: this.quantity
+        doctorName: this.name,
+        doctorEmail: this.email,
+        numberOfClinicalCases: this.quantity,
+        contractId: this.contract?.contractId
       }
 
       await this.addClientDoctor(userData)
@@ -108,6 +108,7 @@ export default {
       this.name = null
       this.email = null
       this.quantity = null
+      this.contract = null
     }
   }
 }

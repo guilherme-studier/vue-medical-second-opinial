@@ -1,6 +1,15 @@
+/* eslint-disable no-unused-vars */
 import { faFile, faComment } from '@fortawesome/free-solid-svg-icons'
+import { useToast } from 'vue-toastification'
+
+import {
+  getClinicalCasesConsultantDoctor,
+  createOrEditOpinion
+} from '../services/index'
 
 import store from '@/store'
+
+const toast = useToast()
 
 export default {
   namespaced: true,
@@ -149,6 +158,7 @@ export default {
         // Outras mensagens aqui
       ]
     },
+    clinicalCases: [],
     searchTerm: '',
     loading: false,
     error: false
@@ -162,6 +172,54 @@ export default {
     },
     toggleIsModalMessage(state) {
       state.isModalMessage = !state.isModalMessage
+    },
+    setClinicalCases(state, clinicalCases) {
+      state.clinicalCases = clinicalCases
+    },
+    setLoading(state, value) {
+      state.loading = value
+    }
+  },
+  actions: {
+    handleModalSeem(context, voucher) {
+      context.commit('toggleIsModalSeem', voucher)
+    },
+    handleModalMessage(context, voucher) {
+      context.commit('toggleIsModalMessage', voucher)
+    },
+    handleSeem(context, text) {
+      alert(text)
+    },
+    handleMessage(content, text) {
+      alert(text)
+    },
+    async fetchClinicalCases({ commit }) {
+      return getClinicalCasesConsultantDoctor()
+        .then((response) => {
+          commit('setClinicalCases', response.data)
+        })
+        .catch(() => {
+          toast.warning(
+            'Erro ao buscar os casos clínicos de Médico Consultor',
+            {
+              timeout: 5000
+            }
+          )
+        })
+        .finally(() => {})
+    },
+    async putOpinion({ commit }, userData) {
+      return createOrEditOpinion(userData)
+        .then(() => {
+          toast.success('Parecer registrado com sucesso', {
+            timeout: 5000
+          })
+        })
+        .catch(() => {
+          toast.warning('Não foi possível registrar o parecer do médico', {
+            timeout: 5000
+          })
+        })
     }
   },
   getters: {
@@ -177,36 +235,8 @@ export default {
     getTableHeader: (state) => state.tableHeader,
     getTableData: (state) => state.tableData,
     getSearchTerm: (state) => state.searchTerm,
-    getLoading: (state) => state.loading,
     getError: (state) => state.error,
-    getFilteredTableData: (state) => {
-      if (!state.searchTerm) {
-        return state.tableData
-      }
-
-      const searchTerm = state.searchTerm.toLowerCase()
-      return state.tableData.filter((item) => {
-        return Object.values(item).some((value) => {
-          if (typeof value === 'string') {
-            return value.toLowerCase().includes(searchTerm)
-          }
-          return false
-        })
-      })
-    }
-  },
-  actions: {
-    handleModalSeem(context, voucher) {
-      context.commit('toggleIsModalSeem', voucher)
-    },
-    handleModalMessage(context, voucher) {
-      context.commit('toggleIsModalMessage', voucher)
-    },
-    handleSeem(context, text) {
-      alert(text)
-    },
-    handleMessage(content, text) {
-      alert(text)
-    }
+    getClinicalCases: (state) => state.clinicalCases,
+    getLoadingClinicalCases: (state) => state.loading
   }
 }

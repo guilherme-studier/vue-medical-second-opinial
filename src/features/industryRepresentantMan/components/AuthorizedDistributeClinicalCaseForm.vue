@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <div class="title">
+      <img :src="iconDoctor" />
+      <h1>Formulário</h1>
+    </div>
+
     <div class="form">
       <section>
         <InputGroup>
@@ -15,7 +20,6 @@
           </InputWrapper>
         </InputGroup>
         <div class="title-cpf">
-          <img class="icon-voucher" :src="iconDoctor" />
           <h1>{{ titleCpf }}</h1>
         </div>
         <InputGroup v-for="(form, index) in additionalForms" :key="index">
@@ -77,6 +81,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import vSelect from 'vue-select'
 import { mapActions, mapGetters } from 'vuex'
 
+import iconVoucher from '@/assets/icons/icon-voucher.svg'
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
 
@@ -91,7 +96,7 @@ export default {
   data() {
     return {
       titleCpf: 'CPFs autorizados',
-      iconDoctor: require('@/assets/icons/icon-voucher.svg'),
+      iconDoctor: iconVoucher,
       iconPlus: require('@/assets/icons/icon-plus.svg'),
       toggleIcon: faCirclePlus,
       iconColor: '$green-500',
@@ -185,13 +190,18 @@ export default {
       this.isEditing = false
     },
     checkEditing() {
+      this.clearForm()
+
       if (this.getIndustryRepresentant?.id) {
         this.isEditing = true
+
         this.industry = this.getIndustryRepresentant.industryId
         const existingRepresentant = this.getIndustryRepresentant
         this.additionalForms[0].cpf = existingRepresentant.cpf
         this.additionalForms[0].name = existingRepresentant.name
         this.additionalForms[0].email = existingRepresentant.email
+
+        // Remover formulários adicionais (índices maiores que 0)
       }
     },
     cancelEdit() {
