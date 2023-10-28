@@ -132,6 +132,24 @@ export const updateUser = (userData) => {
 }
 
 /**
+ * Atualizar um usuário client_doctor pelo ID.
+ * @param {string} userId - O ID do usuário a ser atualizado.
+ * @param {object} userData - Dados do usuário a serem atualizados.
+ * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
+ */
+export const updateUserClientDoctor = (userData) => {
+  return axios({
+    method: 'PUT',
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${getToken()}`
+    },
+    url: `${BASE_URL}/users/${getUserId()}/client-doctor`,
+    data: userData
+  })
+}
+
+/**
  * Deletar um usuário pelo ID.
  * @param {string} userId - O ID do usuário a ser deletado.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
