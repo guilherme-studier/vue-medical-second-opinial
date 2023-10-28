@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useToast } from 'vue-toastification'
 
-import { updateUser } from '../../../services/user/index'
+import { updateUserClientDoctor } from '../../../services/user/index'
 
 const toast = useToast()
 
@@ -22,7 +22,7 @@ export default {
   actions: {
     async updateClientDoctor({ commit }, userData) {
       commit('setLoading', true)
-      return updateUser(userData)
+      return updateUserClientDoctor(userData)
         .then((response) => {
           commit('setClientDoctor', response.data)
           toast.success('Cadastro atualizado com sucesso', { timeout: 5000 })
