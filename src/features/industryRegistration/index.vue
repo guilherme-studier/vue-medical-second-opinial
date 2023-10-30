@@ -1,8 +1,5 @@
 <template>
-  <div
-    id="industry-registration"
-    :class="{ 'form-loading': getLoadingIndustry }"
-  >
+  <div id="industry-registration" :class="{ 'form-loading': isLoading }">
     <industry-registration-form />
     <loader-spinner v-if="getLoadingIndustry" />
   </div>
@@ -22,7 +19,11 @@ export default {
     LoaderSpinner
   },
   computed: {
-    ...mapGetters('industry', ['getLoadingIndustry'])
+    ...mapGetters('industry', ['getLoadingIndustry']),
+
+    isLoading() {
+      return this.getLoadingIndustry
+    }
   }
 }
 </script>

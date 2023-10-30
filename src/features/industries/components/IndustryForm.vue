@@ -48,7 +48,7 @@
     <custom-table
       :tableHeader="tableHeader"
       :tableData="filteredTableData"
-      :loading="getLoadingIndustry"
+      :loading="isLoading"
     >
       <template v-slot:action="{ item }">
         <font-awesome-icon :icon="icon" @click="value.handler(item)" />
@@ -105,6 +105,10 @@ export default {
 
   computed: {
     ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
+
+    isLoading() {
+      return this.getLoadingIndustry
+    },
 
     /** Dados de indústrias */
     tableData() {

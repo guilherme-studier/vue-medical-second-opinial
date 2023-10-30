@@ -48,7 +48,7 @@
     <custom-table
       :tableHeader="tableHeader"
       :tableData="filteredTableData"
-      :loading="getLoadingDiseases"
+      :loading="isLoading"
     >
       <template v-slot:action="{ item }">
         <font-awesome-icon :icon="icon" @click="value.handler(item)" />

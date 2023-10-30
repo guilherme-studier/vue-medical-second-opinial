@@ -16,6 +16,7 @@
     <custom-table
       :tableHeader="getTableHeader"
       :tableData="getFilteredTableData"
+      :loading="isLoading"
     >
       <template v-slot:action="{ item }">
         <font-awesome-icon
@@ -88,8 +89,13 @@ export default {
       'getModalSeemContent',
       'getFilteredTableData',
       'getModalMessageContent',
-      'getIsActiveVoucher'
-    ])
+      'getIsActiveVoucher',
+      'getLoading'
+    ]),
+
+    isLoading() {
+      return this.getLoading
+    }
   },
   methods: {
     ...mapActions('clinicalCasesEvaluation', [
