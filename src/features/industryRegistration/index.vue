@@ -1,7 +1,7 @@
 <template>
   <div id="industry-registration" :class="{ 'form-loading': isLoading }">
     <industry-registration-form />
-    <loader-spinner v-if="getLoadingIndustry" />
+    <loader-spinner v-if="isLoading" />
   </div>
 </template>
 

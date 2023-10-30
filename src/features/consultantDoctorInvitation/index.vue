@@ -1,10 +1,7 @@
 <template>
-  <div
-    id="consultant-doctor-invitation"
-    :class="{ 'form-loading': getLoading }"
-  >
+  <div id="consultant-doctor-invitation" :class="{ 'form-loading': isLoading }">
     <consultant-doctor-invitation-form />
-    <loader-spinner v-if="getLoading" />
+    <loader-spinner v-if="isLoading" />
   </div>
 </template>
 
@@ -22,7 +19,11 @@ export default {
     LoaderSpinner
   },
   computed: {
-    ...mapGetters('consultantDoctorInvitation', ['getLoading'])
+    ...mapGetters('consultantDoctorInvitation', ['getLoading']),
+
+    isLoading() {
+      return this.getLoading
+    }
   }
 }
 </script>

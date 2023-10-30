@@ -1,11 +1,11 @@
 <template>
-  <div class="app-container" :class="{ 'reduced-opacity': getLoading }">
+  <div class="app-container" :class="{ 'reduced-opacity': isLoading }">
     <!-- MENU LATERAL -->
     <sidebar-menu v-if="$route.name !== 'Login'" />
 
     <!-- ROTAS -->
     <router-view />
-    <loader-spinner v-if="getLoading" />
+    <loader-spinner v-if="isLoading" />
   </div>
 </template>
 
@@ -45,7 +45,11 @@ export default {
 
   computed: {
     ...mapGetters(['getIsTokenExpired', 'getLoading']),
-    ...mapGetters('clinicalCasesEvaluation', ['getIsActiveVoucher'])
+    ...mapGetters('clinicalCasesEvaluation', ['getIsActiveVoucher']),
+
+    isLoading() {
+      return this.getLoading
+    }
   },
 
   created() {

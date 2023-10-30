@@ -1,9 +1,9 @@
 <template>
   <div>
-    <template v-if="!getLoading && !getError">
+    <template v-if="!isLoading && !getError">
       <clinical-cases-industry-table />
     </template>
-    <loader-spinner v-if="getLoading" />
+    <loader-spinner v-if="isLoading" />
     <base-error v-if="getError" />
   </div>
 </template>
@@ -24,7 +24,11 @@ export default {
     BaseError
   },
   computed: {
-    ...mapGetters('clinicalCasesIndustry', ['getError', 'getLoading'])
+    ...mapGetters('clinicalCasesIndustry', ['getError', 'getLoading']),
+
+    isLoading() {
+      return this.getLoading
+    }
   }
 }
 </script>
