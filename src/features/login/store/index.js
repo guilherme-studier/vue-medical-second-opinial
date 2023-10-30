@@ -118,6 +118,7 @@ export default {
     },
 
     logoutUser({ commit }) {
+      commit('setLoading', true)
       logoutUser()
         .then(async (response) => {
           localStorage.clear('token')
@@ -128,6 +129,9 @@ export default {
           toast.warning('Não foi possível realizar o logout do usuário', {
             timeout: 5000
           })
+        })
+        .finally(() => {
+          commit('setLoading', false)
         })
     },
 

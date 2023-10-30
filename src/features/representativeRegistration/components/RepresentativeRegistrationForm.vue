@@ -1,6 +1,6 @@
 <template>
   <div id="representative-registration">
-    <div class="form" :class="{ 'form-loading': isLoading }">
+    <div class="form">
       <input-group>
         <input-wrapper>
           <input
@@ -67,9 +67,6 @@
         <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
       </div>
     </div>
-    <div v-if="isLoading">
-      <loader-spinner />
-    </div>
   </div>
 </template>
 
@@ -79,7 +76,6 @@ import { mapActions, mapGetters } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
-import LoaderSpinner from '@/components/loaderSpinner'
 import Title from '@/components/title'
 
 export default {
@@ -87,8 +83,7 @@ export default {
   components: {
     Title,
     InputGroup,
-    InputWrapper,
-    LoaderSpinner
+    InputWrapper
   },
   setup() {
     const toast = useToast()
@@ -108,12 +103,7 @@ export default {
   },
   computed: {
     ...mapGetters(['getValidatePassword']),
-    ...mapGetters('user', ['getEmail', 'getLoadingUser']),
-    ...mapGetters('representativeRegistration', ['getLoadingRepresentative']),
-
-    isLoading() {
-      return this.getLoadingUser || this.getLoadingRepresentative
-    },
+    ...mapGetters('user', ['getEmail']),
 
     isFormEnabled() {
       return this.getValidatePassword && this.cpf && this.password

@@ -1,9 +1,5 @@
 <template>
-  <div
-    ref="specialties"
-    class="specialties"
-    :class="{ 'form-loading': isLoading }"
-  >
+  <div ref="specialties" class="specialties">
     <!-- CADASTRO DE ESPECIALIDADES -->
     <div class="title">
       <img :src="icon" />

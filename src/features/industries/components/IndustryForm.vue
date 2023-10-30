@@ -1,9 +1,5 @@
 <template>
-  <div
-    ref="industries"
-    class="industries"
-    :class="{ 'form-loading': isLoading }"
-  >
+  <div ref="industries" class="industries">
     <!-- CADASTRO DE INDÚSTRIAS -->
     <div class="title">
       <img :src="icon" />
@@ -109,10 +105,6 @@ export default {
 
   computed: {
     ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
-
-    isLoading() {
-      return this.getLoadingIndustry
-    },
 
     /** Dados de indústrias */
     tableData() {

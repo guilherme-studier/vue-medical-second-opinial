@@ -1,5 +1,5 @@
 <template>
-  <div ref="illnesses" class="illnesses" :class="{ 'form-loading': isLoading }">
+  <div ref="illnesses" class="illnesses">
     <!-- CADASTRO DE DOENÇAS -->
     <div class="title">
       <img :src="icon" />
@@ -70,8 +70,6 @@ import iconVoucher from '@/assets/icons/icon-voucher.svg'
 /** Componentes */
 import CustomTable from '@/components/customTable'
 import InputGroup from '@/components/inputGroup'
-
-/** Vuex */
 
 export default {
   name: 'Doenças',
