@@ -1,7 +1,7 @@
 <template>
   <div id="registration-data">
     <div id="doctor-registration">
-      <div class="form" :class="{ 'form-loading': isLoading }">
+      <div class="form">
         <input-group>
           <input-wrapper>
             <input
@@ -144,9 +144,6 @@
         </div>
       </div>
     </div>
-    <div v-if="isLoading">
-      <loader-spinner />
-    </div>
   </div>
 </template>
 
@@ -156,14 +153,12 @@ import { mapGetters, mapActions } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
-import LoaderSpinner from '@/components/loaderSpinner'
 import Modal from '@/components/modal'
 import Title from '@/components/title'
 
 export default {
   name: 'Registration Data',
   components: {
-    LoaderSpinner,
     InputWrapper,
     InputGroup,
     Modal,
@@ -193,12 +188,7 @@ export default {
   },
   computed: {
     ...mapGetters(['getValidatePassword']),
-    ...mapGetters('registration', ['getLoadingRegistration']),
-    ...mapGetters('user', ['getEmail', 'getLoadingUser']),
-
-    isLoading() {
-      return this.getLoadingRegistration || this.getLoadingUser
-    },
+    ...mapGetters('user', ['getEmail']),
 
     isFormEnabled() {
       return this.getValidatePassword && this.cpf && this.password

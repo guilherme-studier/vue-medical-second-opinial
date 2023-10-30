@@ -1,7 +1,7 @@
 <template>
   <div id="allocation-clinical-cases">
     <Title :title="tituloComponente" />
-    <div class="form" :class="{ 'form-loading': isLoading }">
+    <div class="form">
       <InputGroup>
         <InputWrapper>
           <input
@@ -76,15 +76,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('allocationClinicalCases', [
-      'getLoadingAllocationClinicalCase'
-    ]),
     ...mapGetters('consultationClinicalCases', ['getContracts']),
     isSaveDisabled() {
       return !this.name || !this.email || !this.quantity
-    },
-    isLoading() {
-      return this.getLoadingAllocationClinicalCase
     }
   },
   mounted() {

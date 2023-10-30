@@ -36,10 +36,10 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  position: relative;
-  bottom: 250px;
-  left: 0;
+  position: fixed;
   z-index: 1;
+  top: 0;
+  left: 29px;
 }
 
 $offset: 187;
@@ -93,7 +93,7 @@ $duration: 1.4s;
     stroke-dashoffset: $offset;
   }
   50% {
-    stroke-dashoffset: $offset;
+    stroke-dashoffset: $offset/4;
     transform: rotate(135deg);
   }
   100% {

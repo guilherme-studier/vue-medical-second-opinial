@@ -1,9 +1,5 @@
 <template>
-  <div
-    ref="industries"
-    class="industries"
-    :class="{ 'form-loading': isLoading }"
-  >
+  <div ref="industries" class="industries">
     <!-- CADASTRO DE INDÚSTRIAS -->
     <div class="title">
       <img :src="icon" />
@@ -12,22 +8,71 @@
 
     <div class="industries--form">
       <InputGroup>
-        <input
-          v-model="industryName"
-          type="text"
-          placeholder="Nome da Indústria"
-          class="flexible-input"
-        />
+        <InputWrapper>
+          <input
+            v-model="industryName"
+            type="text"
+            placeholder="Nome da Indústria"
+            class="flexible-input"
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <input
+            v-model="cnpj"
+            type="text"
+            placeholder="CNPJ"
+            class="flexible-input"
+            v-mask="'##.###.###/####-##'"
+            :disabled="industryId !== null"
+          />
+        </InputWrapper>
+      </InputGroup>
+      <InputGroup>
+        <InputWrapper>
+          <input
+            v-model="email"
+            type="text"
+            placeholder="E-mail"
+            class="flexible-input"
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <input
+            v-model="phone"
+            type="text"
+            placeholder="Telefone"
+            class="flexible-input"
+            v-mask="['(##) ####-####', '(##) # ####-####']"
+          />
+        </InputWrapper>
+      </InputGroup>
+      <InputGroup>
+        <InputWrapper>
+          <input
+            v-model="contact"
+            type="text"
+            placeholder="Contato"
+            class="flexible-input"
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <input
+            v-model="observation"
+            type="text"
+            placeholder="Observação"
+            class="flexible-input"
+          />
+        </InputWrapper>
       </InputGroup>
 
       <div class="industries--row">
-        <button class="outline" @click="clearForm" :disabled="!industryName">
+        <button class="outline" @click="clearForm" :disabled="!isValidForm">
           Cancelar
         </button>
 
         <button
           @click="industryId ? editIndustry() : newIndustry()"
-          :disabled="!industryName"
+          :disabled="!isValidForm"
         >
           {{ industryId ? 'Editar Indústria' : 'Criar Indústria' }}
         </button>
@@ -52,7 +97,7 @@
     <custom-table
       :tableHeader="tableHeader"
       :tableData="filteredTableData"
-      :loading="getLoadingIndustry"
+      :loading="isLoading"
     >
       <template v-slot:action="{ item }">
         <font-awesome-icon :icon="icon" @click="value.handler(item)" />
@@ -74,6 +119,7 @@ import iconVoucher from '@/assets/icons/icon-voucher.svg'
 /** Componentes */
 import CustomTable from '@/components/customTable'
 import InputGroup from '@/components/inputGroup'
+import InputWrapper from '@/components/inputWrapper'
 
 /** Vuex */
 
@@ -83,6 +129,7 @@ export default {
   components: {
     CustomTable,
     InputGroup,
+    InputWrapper,
     FontAwesomeIcon
   },
 
@@ -98,7 +145,12 @@ export default {
 
       /** Dados das indústrias */
       industryId: null,
-      industryName: null
+      industryName: null,
+      cnpj: null,
+      email: null,
+      phone: null,
+      contact: null,
+      observation: null
     }
   },
 
@@ -114,6 +166,10 @@ export default {
       return this.getLoadingIndustry
     },
 
+    isValidForm() {
+      return this.industryName && this.cnpj
+    },
+
     /** Dados de indústrias */
     tableData() {
       return this.getIndustries.map((item) => {
@@ -122,7 +178,16 @@ export default {
           action: [
             {
               icon: faPenToSquare,
-              handler: () => this.selectIndustry(item.id, item.name)
+              handler: () =>
+                this.selectIndustry(
+                  item.id,
+                  item.name,
+                  item.cnpj,
+                  item.email,
+                  item.phone,
+                  item.contact,
+                  item.observation
+                )
             },
             {
               icon: faTrash,
@@ -159,29 +224,31 @@ export default {
       'fetchIndustries'
     ]),
 
-    /** Criar indústria */
     newIndustry() {
-      /** Validar a indústria */
-      if (this.industryName.trim() !== '') {
-        /** Criar dados */
-        this.createNewIndustry(this.industryName)
-
-        /** Limpar campo */
+      if (this.isValidForm) {
+        this.createNewIndustry(
+          this.industryName,
+          this.cnpj,
+          this.email,
+          this.phone,
+          this.contact,
+          this.observation
+        )
         this.clearForm()
       }
     },
 
-    /** Atualizar indústria */
     async editIndustry() {
-      /** Validar a indústria */
-      if (this.industryName.trim() !== '') {
-        /** Editar dados */
+      if (this.isValidForm) {
         await this.updateIndustryById({
           id: this.industryId,
-          name: this.industryName
+          name: this.industryName,
+          cnpj: this.cnpj,
+          email: this.email,
+          phone: this.phone,
+          contact: this.contact,
+          observation: this.observation
         })
-
-        /** Limpar campo */
         this.clearForm()
       }
     },
@@ -191,18 +258,28 @@ export default {
      * @param {String|Number} id: Id da indústria
      * @param {String} name: Nome da indústria
      */
-    selectIndustry(id, name) {
+    selectIndustry(id, name, cnpj, email, phone, contact, observation) {
       this.industryId = id
       this.industryName = name
-
-      /** Scrollar para a cima */
-      this.$refs.industries.scrollIntoView({ behavior: 'smooth' })
+      this.cnpj = cnpj
+      this.email = email
+      this.phone = phone
+      this.contact = contact
+      this.observation = observation
+      this.scrollToTop()
     },
 
     /** Cancelar criação/edição */
     clearForm() {
       this.industryId = null
       this.industryName = ''
+    },
+
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Para um comportamento de rolagem suave
+      })
     }
   }
 }

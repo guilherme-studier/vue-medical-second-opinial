@@ -1,6 +1,6 @@
 <template>
   <div id="doctor-registration">
-    <div class="form" :class="{ 'form-loading': isLoading }">
+    <div class="form">
       <input-group>
         <input-wrapper>
           <input
@@ -236,9 +236,6 @@
           <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
         </div>
       </div>
-      <div v-if="isLoading">
-        <loader-spinner />
-      </div>
     </div>
   </div>
 </template>
@@ -250,7 +247,6 @@ import { mapActions, mapGetters } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
-import LoaderSpinner from '@/components/loaderSpinner'
 import Modal from '@/components/modal'
 import Title from '@/components/title'
 
@@ -259,7 +255,6 @@ export default {
   components: {
     InputGroup,
     InputWrapper,
-    LoaderSpinner,
     Title,
     Modal,
     vSelect
@@ -301,11 +296,6 @@ export default {
     ...mapGetters('user', ['getEmail']),
     ...mapGetters(['getValidatePassword']),
     ...mapGetters('specialty', ['getSpecialties']),
-    ...mapGetters('consultantMedicalRegistration', ['getLoadingConsultant']),
-
-    isLoading() {
-      return this.getLoadingConsultant
-    },
 
     isFormEnabled() {
       return this.getValidatePassword && this.cpf && this.password

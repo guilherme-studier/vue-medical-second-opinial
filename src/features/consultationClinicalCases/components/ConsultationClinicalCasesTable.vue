@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'form-loading': isLoading }">
+  <div class="container">
     <div class="title">
       <img class="icon-voucher" :src="icon" />
       <h1>{{ clinicalCases ? clinicalCases : '0' }} casos clínicos ativos</h1>

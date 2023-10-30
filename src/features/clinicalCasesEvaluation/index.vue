@@ -1,11 +1,7 @@
 <template>
-  <div>
-    <template v-if="!getLoading && !getError">
-      <clinical-cases-evaluation-table />
-      <clinical-cases-evaluation-subtitle />
-    </template>
-    <loader-spinner v-if="getLoading" />
-    <base-error v-if="getError" />
+  <div :class="{ 'form-loading': isLoading }">
+    <clinical-cases-evaluation-table />
+    <clinical-cases-evaluation-subtitle />
   </div>
 </template>
 
@@ -15,19 +11,18 @@ import { mapGetters } from 'vuex'
 import ClinicalCasesEvaluationTable from './components/ClinicalCasesEvaluation.vue'
 import ClinicalCasesEvaluationSubtitle from './components/ClinicalCasesEvaluationSubtitle.vue'
 
-import BaseError from '@/components/baseError'
-import LoaderSpinner from '@/components/loaderSpinner'
-
 export default {
   name: 'ClinicalCasesEvaluation',
   components: {
     ClinicalCasesEvaluationSubtitle,
-    ClinicalCasesEvaluationTable,
-    LoaderSpinner,
-    BaseError
+    ClinicalCasesEvaluationTable
   },
   computed: {
-    ...mapGetters('clinicalCasesEvaluation', ['getError', 'getLoading'])
+    ...mapGetters('clinicalCasesEvaluation', ['getLoading']),
+
+    isLoading() {
+      return this.getLoading
+    }
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="form" :class="{ 'form-loading': getLoading }">
+    <div class="form">
       <InputGroup>
         <InputWrapper>
           <input
@@ -33,26 +33,21 @@
         <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
       </div>
     </div>
-    <div v-if="getLoading">
-      <loader-spinner />
-    </div>
   </div>
 </template>
 
 <script>
 import { useToast } from 'vue-toastification'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
-import LoaderSpinner from '@/components/loaderSpinner'
 
 export default {
   name: 'ConsultantDoctorInvitationForm',
   components: {
     InputGroup,
-    InputWrapper,
-    LoaderSpinner
+    InputWrapper
   },
   setup() {
     const toast = useToast()
@@ -67,8 +62,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('consultantDoctorInvitation', ['getLoading']),
-
     isSaveDisabled() {
       return !this.cpf || !this.name || !this.email
     }

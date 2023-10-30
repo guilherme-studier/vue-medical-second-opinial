@@ -1,7 +1,7 @@
 <template>
   <div>
     <Title :title="tituloComponente" />
-    <div class="form" :class="{ 'form-loading': isLoading }">
+    <div class="form">
       <InputGroup>
         <InputWrapper>
           <v-select
@@ -104,9 +104,6 @@
         </button>
       </div>
     </div>
-    <div v-if="isLoading">
-      <loader-spinner />
-    </div>
   </div>
 </template>
 
@@ -118,14 +115,12 @@ import { mapGetters, mapActions } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
-import LoaderSpinner from '@/components/loaderSpinner'
 import Title from '@/components/title'
 import { convertDateToISOFormat } from '@/helpers/date'
 
 export default {
   name: 'RegistrationClinicalCasesData',
   components: {
-    LoaderSpinner,
     InputWrapper,
     InputGroup,
     vSelect,
@@ -154,19 +149,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('registrationClinicalCases', ['getLoading']),
-    ...mapGetters('specialty', ['getSpecialties', 'getLoadingSpecialtys']),
-    ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
-    ...mapGetters('disease', ['getDiseases', 'getLoadingDiseases']),
-
-    isLoading() {
-      return (
-        this.getLoading ||
-        this.getLoadingSpecialtys ||
-        this.getLoadingDiseases ||
-        this.getLoadingIndustry
-      )
-    },
+    ...mapGetters('specialty', ['getSpecialties']),
+    ...mapGetters('industry', ['getIndustries']),
+    ...mapGetters('disease', ['getDiseases']),
 
     isSaveDisabled() {
       return (
