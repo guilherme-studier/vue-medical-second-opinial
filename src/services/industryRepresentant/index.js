@@ -25,31 +25,14 @@ export const getIndustryRepresentant = (industryRepresentId) => {
  * Obter a lista de representantes da indústria.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const getIndustryRepresentants = () => {
+export const getIndustryRepresentants = (page = 0, size = 10) => {
   return axios({
     method: 'GET',
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${getToken()}`
     },
-    url: `${USER_BASE_URL}/industry-representative`
-  })
-}
-
-/**
- * Criar um novo representante da indústria.
- * @param {object} userData - Os dados do representante da indústria (name, cpf, email, industryId).
- * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
- */
-export const createIndustryRepresentant = (userData) => {
-  return axios({
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      Authorization: `Bearer ${getToken()}`
-    },
-    url: `${USER_BASE_URL}/industry-representative`,
-    data: userData // Não precisa mais envolver em um array
+    url: `${USER_BASE_URL}/industry-representative?page=${page}&size=${size}`
   })
 }
 

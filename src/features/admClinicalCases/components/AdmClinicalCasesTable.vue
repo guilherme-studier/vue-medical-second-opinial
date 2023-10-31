@@ -28,8 +28,9 @@
 </template>
 
 <script>
+import { faCheck, faXmark, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 import iconSearch from '@/assets/icons/icon-search.svg'
 import iconVoucher from '@/assets/icons/icon-voucher.svg'
@@ -52,7 +53,7 @@ export default {
     ...mapGetters('user', ['getName']),
     ...mapGetters('admClinicalCases', [
       'getTableHeader',
-      'getTableData',
+      'getClinicalCases',
       'getVouchers',
       'getDoctor',
       'getLoading',
@@ -61,11 +62,11 @@ export default {
 
     filteredTableData() {
       if (!this.searchTerm) {
-        return this.getTableData
+        return this.getClinicalCases
       }
 
       const searchTerm = this.searchTerm.toLowerCase()
-      return this.getTableData.filter((item) => {
+      return this.getClinicalCases.filter((item) => {
         return Object.values(item).some((value) => {
           if (typeof value === 'string') {
             return value.toLowerCase().includes(searchTerm)
@@ -73,6 +74,51 @@ export default {
           return false
         })
       })
+    }
+  },
+  watch: {
+    getClinicalCases: {
+      handler(newContracts) {
+        this.tableData = newContracts.map((contract) => ({
+          contractName: contract?.contractName,
+          id: contract?.contractId,
+          illness: contract?.illnessId,
+          date: contract?.date,
+          action: [
+            {
+              icon: faCheck,
+              handler: () => this.acceptVoucher()
+            },
+            {
+              icon: faXmark,
+              handler: () => this.declineVoucher()
+            },
+            {
+              icon: faTrash,
+              handler: () => this.cancelVoucher()
+            }
+          ]
+        }))
+      },
+      deep: true
+    }
+  },
+  mounted() {
+    this.fetchClinicalCases()
+  },
+  methods: {
+    ...mapActions('admClinicalCases', ['fetchClinicalCases']),
+
+    acceptVoucher() {
+      return alert('Caso Clínico aceito')
+    },
+
+    declineVoucher() {
+      return alert('Caso Clínico declinado')
+    },
+
+    cancelVoucher() {
+      return alert('Caso Clínico cancelado')
     }
   }
 }

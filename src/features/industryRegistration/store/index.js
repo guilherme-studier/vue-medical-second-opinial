@@ -16,7 +16,9 @@ export default {
   state: () => ({
     industry: null,
     industries: [],
-    loading: false
+    loading: false,
+    currentPage: null,
+    totalPages: null
   }),
   mutations: {
     setIndustry(state, industries) {
@@ -27,6 +29,12 @@ export default {
     },
     setLoading(state, value) {
       state.loading = value
+    },
+    setCurrentPage(state, currentPage) {
+      state.currentPage = currentPage
+    },
+    setTotalPages(state, totalPages) {
+      state.totalPages = totalPages
     }
   },
   actions: {
@@ -49,11 +57,13 @@ export default {
           commit('setLoading', false)
         })
     },
-    async fetchIndustries({ commit }) {
+    async fetchIndustries({ commit, state }) {
       commit('setLoading', true)
       return getIndustries()
         .then((response) => {
           commit('setIndustries', response.data)
+          commit('setCurrentPage', parseInt(response.data.page))
+          commit('setTotalPages', parseInt(response.data.totalPages))
         })
         .catch((error) => {
           toast.warning('Erro ao buscar as indústrias', { timeout: 5000 })
@@ -108,11 +118,16 @@ export default {
         .finally(() => {
           commit('setLoading', false)
         })
+    },
+    setPage({ commit }, page) {
+      commit('setCurrentPage', page)
     }
   },
   getters: {
     getIndustries: (state) => state.industries,
     getIndustry: (state) => state.industry,
-    getLoadingIndustry: (state) => state.loading
+    getLoadingIndustry: (state) => state.loading,
+    getCurrentPage: (state) => state.currentPage,
+    getTotalPages: (state) => state.totalPages
   }
 }

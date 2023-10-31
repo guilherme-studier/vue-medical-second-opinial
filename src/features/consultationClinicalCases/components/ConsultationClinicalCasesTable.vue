@@ -51,6 +51,9 @@
       :tableHeader="tableHeader"
       :tableData="tableData"
       :loading="isLoading"
+      :currentPage="getCurrentPage"
+      :totalPages="getTotalPages"
+      @page-change="updatePageData"
     />
   </div>
 </template>
@@ -113,7 +116,9 @@ export default {
       'getSpecialty',
       'getIllness',
       'getDoctors',
-      'getDoctor'
+      'getDoctor',
+      'getCurrentPage',
+      'getTotalPages'
     ]),
     ...mapGetters('specialty', ['getSpecialties', 'getLoadingSpecialtys']),
     ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
@@ -139,7 +144,8 @@ export default {
       'setSpecialtyId',
       'setIllnessId',
       'fetchConsultantDoctors',
-      'setDoctorId'
+      'setDoctorId',
+      'setPage'
     ]),
     ...mapActions('specialty', ['fetchSpecialties']),
     ...mapActions('industry', ['fetchIndustries']),
@@ -164,6 +170,10 @@ export default {
       if (doctor) {
         this.setDoctorId(doctor.id)
       } else this.setDoctorId()
+    },
+
+    updatePageData({ currentPage }) {
+      this.setPage(currentPage)
     }
   },
   watch: {
@@ -181,6 +191,7 @@ export default {
       },
       deep: true
     },
+    getCurrentPage: 'fetchContracts',
     getIndustry: 'fetchContracts',
     getSpecialty: 'fetchContracts',
     getIllness: 'fetchContracts',

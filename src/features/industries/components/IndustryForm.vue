@@ -98,6 +98,9 @@
       :tableHeader="tableHeader"
       :tableData="filteredTableData"
       :loading="isLoading"
+      :currentPage="getCurrentPage"
+      :totalPages="getTotalPages"
+      @page-change="updatePageData"
     >
       <template v-slot:action="{ item }">
         <font-awesome-icon :icon="icon" @click="value.handler(item)" />
@@ -160,7 +163,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
+    ...mapGetters('industry', [
+      'getIndustries',
+      'getLoadingIndustry',
+      'getCurrentPage',
+      'getTotalPages'
+    ]),
 
     isLoading() {
       return this.getLoadingIndustry
@@ -215,18 +223,21 @@ export default {
       })
     }
   },
-
+  watch: {
+    getCurrentPage: 'fetchIndustries'
+  },
   methods: {
     ...mapActions('industry', [
       'deleteIndustryById',
-      'createNewIndustry',
+      'createIndustry',
       'updateIndustryById',
-      'fetchIndustries'
+      'fetchIndustries',
+      'setPage'
     ]),
 
     newIndustry() {
       if (this.isValidForm) {
-        this.createNewIndustry(
+        this.createIndustry(
           this.industryName,
           this.cnpj,
           this.email,
@@ -280,6 +291,9 @@ export default {
         top: 0,
         behavior: 'smooth' // Para um comportamento de rolagem suave
       })
+    },
+    updatePageData({ currentPage }) {
+      this.setPage(currentPage)
     }
   }
 }

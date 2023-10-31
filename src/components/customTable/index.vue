@@ -1,6 +1,6 @@
 <template>
   <div id="custom-table">
-    <table class="table">
+    <table :class="{ 'loading-table': loading }" class="table">
       <thead>
         <tr>
           <th
@@ -85,6 +85,27 @@
         </template>
       </tbody>
     </table>
+    <div v-if="totalPages > 1" class="pagination">
+      <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1">
+        Anterior
+      </button>
+      <ul>
+        <li v-for="pageNumber in displayPages" :key="pageNumber">
+          <button
+            @click="goToPage(pageNumber)"
+            :class="{ active: pageNumber === currentPage }"
+          >
+            {{ pageNumber }}
+          </button>
+        </li>
+      </ul>
+      <button
+        @click="goToPage(currentPage + 1)"
+        :disabled="currentPage === totalPages"
+      >
+        Próximo
+      </button>
+    </div>
   </div>
 </template>
 
@@ -113,6 +134,12 @@ export default {
     },
     color: {
       type: String
+    },
+    totalPages: {
+      type: Number
+    },
+    currentPage: {
+      type: Number
     }
   },
   computed: {
@@ -126,12 +153,36 @@ export default {
           return '#666'
         }
       }
+    },
+    displayPages() {
+      const currentPage = this.currentPage
+      const totalPages = this.totalPages
+
+      if (totalPages <= 2) {
+        return Array.from({ length: totalPages }, (_, i) => i + 1)
+      }
+
+      if (currentPage <= 1) {
+        return [1, 2, '...']
+      } else if (currentPage >= totalPages) {
+        return ['...', totalPages - 1, totalPages]
+      } else {
+        return [currentPage - 1, currentPage, currentPage + 1]
+      }
     }
   },
   methods: {
     handleIconClick(status, handler, item) {
       if (status === 0) return
       handler(item)
+    },
+    goToPage(page) {
+      if (page >= 1 && page <= this.totalPages && page !== this.currentPage) {
+        this.$emit('page-change', {
+          currentPage: page,
+          totalPages: this.totalPages
+        })
+      }
     }
   }
 }
@@ -143,11 +194,52 @@ export default {
   align-items: center;
   display: flex;
   width: 100%;
+  flex-direction: column;
 
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+    font-size: 12px;
+
+    button {
+      margin: 5px;
+      background-color: $green-400;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      padding: 10px;
+    }
+
+    li {
+      margin: 10px;
+    }
+
+    button.active {
+      background-color: $green-500;
+    }
+  }
+
+  .loading-table {
+    min-height: 640px;
+  }
   .table {
     border-collapse: separate;
     border-spacing: 0;
     width: 100%;
+    margin: 10px 0;
 
     .loading-cell,
     .error-cell,
@@ -165,11 +257,20 @@ export default {
       color: $gray-600;
     }
 
-    tbody td {
+    thead td {
       border: 1px solid $gray-400;
       text-align: left;
       color: $gray-600;
       padding: 20px;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    tbody td {
+      border: 1px solid $gray-400;
+      text-align: left;
+      color: $gray-600;
+      padding: 15px;
       vertical-align: middle;
       text-align: center;
     }
@@ -179,7 +280,7 @@ export default {
       font-weight: bold;
       border: 1px solid $white;
       background: $green-500;
-      padding: 20px;
+      padding: 15px;
       text-align: center;
       color: white;
 
@@ -217,7 +318,7 @@ export default {
 
         &:hover {
           transform: translateY(-3px);
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
       }
     }
