@@ -10,6 +10,7 @@
   flex-wrap: wrap;
   gap: 10px;
   height: 100%;
+  margin: 5px 0;
 
   .input-wrapper {
     max-height: 50px !important;

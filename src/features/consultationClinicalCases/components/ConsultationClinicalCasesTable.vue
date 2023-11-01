@@ -6,44 +6,64 @@
     </div>
     <InputGroup>
       <InputWrapper>
-        <v-select
+        <el-select
           v-model="selectedIndustry"
-          :options="getIndustries"
-          :reduce="(item) => item.id"
-          placeholder="Indústria"
-          label="name"
-          @option:selected="selectIndustryId"
-        ></v-select>
+          placeholder="Indústrias"
+          size="large"
+          clearable
+        >
+          <el-option
+            v-for="item in getIndustries"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          />
+        </el-select>
       </InputWrapper>
       <InputWrapper>
-        <v-select
+        <el-select
           v-model="selectedSpecialty"
-          :options="getSpecialties"
-          :reduce="(item) => item.id"
           placeholder="Especialidade"
-          label="name"
-          @option:selected="selectedSpecialtyId"
-        />
+          size="large"
+          clearable
+        >
+          <el-option
+            v-for="item in getSpecialties"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          />
+        </el-select>
       </InputWrapper>
       <InputWrapper>
-        <v-select
+        <el-select
           v-model="selectedIllness"
-          :options="getDiseases"
-          :reduce="(item) => item.id"
           placeholder="Doença"
-          label="name"
-          @option:selected="selectedIllnessId"
-        ></v-select>
+          size="large"
+          clearable
+        >
+          <el-option
+            v-for="item in getDiseases"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          />
+        </el-select>
       </InputWrapper>
       <InputWrapper>
-        <v-select
+        <el-select
           v-model="selectedDoctor"
-          :options="getDoctors"
           placeholder="Médico Consultor"
-          :reduce="(item) => item.id"
-          label="name"
-          @option:selected="selectedDoctorId"
-        ></v-select>
+          size="large"
+          clearable
+        >
+          <el-option
+            v-for="item in getDoctors"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          />
+        </el-select>
       </InputWrapper>
     </InputGroup>
 
@@ -59,7 +79,6 @@
 </template>
 
 <script>
-import vSelect from 'vue-select'
 import { mapActions, mapGetters } from 'vuex'
 
 import iconVoucher from '@/assets/icons/icon-voucher.svg'
@@ -74,8 +93,7 @@ export default {
   components: {
     InputWrapper,
     CustomTable,
-    InputGroup,
-    vSelect
+    InputGroup
   },
   data() {
     return {
@@ -150,27 +168,6 @@ export default {
     ...mapActions('specialty', ['fetchSpecialties']),
     ...mapActions('industry', ['fetchIndustries']),
     ...mapActions('disease', ['fetchDiseases']),
-    selectIndustryId(industry) {
-      if (industry) this.setIndustryId(industry.id)
-      else this.setIndustryId()
-    },
-
-    selectedSpecialtyId(specialty) {
-      if (specialty) this.setSpecialtyId(specialty.id)
-      else this.setSpecialtyId()
-    },
-
-    selectedIllnessId(illness) {
-      if (illness) {
-        this.setIllnessId(illness.id)
-      } else this.setIllnessId()
-    },
-
-    selectedDoctorId(doctor) {
-      if (doctor) {
-        this.setDoctorId(doctor.id)
-      } else this.setDoctorId()
-    },
 
     updatePageData({ currentPage }) {
       this.setPage(currentPage)
@@ -196,17 +193,18 @@ export default {
     getSpecialty: 'fetchContracts',
     getIllness: 'fetchContracts',
     getDoctor: 'fetchContracts',
+
     selectedIndustry() {
-      if (!this.selectedIndustry) this.setIndustryId()
+      this.setIndustryId(this.selectedIndustry)
     },
     selectedSpecialty() {
-      if (!this.selectedSpecialty) this.setSpecialtyId()
+      this.setSpecialtyId(this.selectedSpecialty)
     },
     selectedIllness() {
-      if (!this.selectedIllness) this.setIllnessId()
+      this.setIllnessId(this.selectedIllness)
     },
     selectedDoctor() {
-      if (!this.selectedDoctor) this.selectedDoctorId()
+      this.setDoctorId(this.selectedDoctor)
     }
   }
 }

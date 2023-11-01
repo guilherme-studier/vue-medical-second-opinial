@@ -3,34 +3,34 @@
     <div class="form">
       <InputGroup>
         <InputWrapper>
-          <input
-            type="text"
+          <el-input
+            v-model="cpf"
             placeholder="Adicionar CPF"
             class="flexible-input"
-            v-model="cpf"
             v-mask="'###.###.###-##'"
           />
         </InputWrapper>
         <InputWrapper>
-          <input
-            type="text"
+          <el-input
+            v-model="name"
             placeholder="Adicionar Nome"
             class="flexible-input"
-            v-model="name"
           />
         </InputWrapper>
         <InputWrapper>
-          <input
+          <el-input
+            v-model="email"
             type="email"
             placeholder="Adicionar E-mail"
             class="flexible-input"
-            v-model="email"
           />
         </InputWrapper>
       </InputGroup>
 
       <div class="save">
-        <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
+        <el-button type="primary" @click="handleSave" :disabled="isSaveDisabled"
+          >Salvar</el-button
+        >
       </div>
     </div>
   </div>

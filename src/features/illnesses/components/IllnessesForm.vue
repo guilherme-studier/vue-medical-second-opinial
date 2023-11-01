@@ -8,7 +8,7 @@
 
     <div class="illnesses--form">
       <InputGroup>
-        <input
+        <el-input
           v-model="illnessName"
           type="text"
           placeholder="Nome da Doença"
@@ -17,16 +17,16 @@
       </InputGroup>
 
       <div class="illnesses--row">
-        <button class="outline" @click="clearForm" :disabled="!illnessName">
-          Cancelar
-        </button>
+        <el-button type="info" @click="clearForm" :disabled="!illnessName"
+          >Cancelar</el-button
+        >
 
-        <button
+        <el-button
+          type="primary"
           @click="illnessId ? editIllness() : newIllness()"
           :disabled="!illnessName"
+          >{{ illnessId ? 'Editar Doença' : 'Criar Doença' }}</el-button
         >
-          {{ illnessId ? 'Editar Doença' : 'Criar Doença' }}
-        </button>
       </div>
     </div>
 

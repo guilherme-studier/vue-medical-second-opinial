@@ -9,7 +9,7 @@
     <div class="industries--form">
       <InputGroup>
         <InputWrapper>
-          <input
+          <el-input
             v-model="industryName"
             type="text"
             placeholder="Nome da Indústria"
@@ -17,7 +17,7 @@
           />
         </InputWrapper>
         <InputWrapper>
-          <input
+          <el-input
             v-model="cnpj"
             type="text"
             placeholder="CNPJ"
@@ -29,15 +29,15 @@
       </InputGroup>
       <InputGroup>
         <InputWrapper>
-          <input
+          <el-input
             v-model="email"
-            type="text"
+            type="email"
             placeholder="E-mail"
             class="flexible-input"
           />
         </InputWrapper>
         <InputWrapper>
-          <input
+          <el-input
             v-model="phone"
             type="text"
             placeholder="Telefone"
@@ -48,7 +48,7 @@
       </InputGroup>
       <InputGroup>
         <InputWrapper>
-          <input
+          <el-input
             v-model="contact"
             type="text"
             placeholder="Contato"
@@ -56,7 +56,7 @@
           />
         </InputWrapper>
         <InputWrapper>
-          <input
+          <el-input
             v-model="observation"
             type="text"
             placeholder="Observação"
@@ -66,16 +66,16 @@
       </InputGroup>
 
       <div class="industries--row">
-        <button class="outline" @click="clearForm" :disabled="!isValidForm">
-          Cancelar
-        </button>
+        <el-button type="info" @click="clearForm" :disabled="!isValidForm"
+          >Cancelar</el-button
+        >
 
-        <button
+        <el-button
+          type="primary"
           @click="industryId ? editIndustry() : newIndustry()"
           :disabled="!isValidForm"
+          >{{ industryId ? 'Editar Indústria' : 'Criar Indústria' }}</el-button
         >
-          {{ industryId ? 'Editar Indústria' : 'Criar Indústria' }}
-        </button>
       </div>
     </div>
 

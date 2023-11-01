@@ -8,7 +8,7 @@
 
     <div class="specialties--form">
       <InputGroup>
-        <input
+        <el-input
           v-model="specialtyName"
           type="text"
           placeholder="Nome da Especialidade"
@@ -17,16 +17,18 @@
       </InputGroup>
 
       <div class="specialties--row">
-        <button class="outline" @click="clearForm" :disabled="!specialtyName">
-          Cancelar
-        </button>
+        <el-button type="info" @click="clearForm" :disabled="!specialtyName"
+          >Cancelar</el-button
+        >
 
-        <button
+        <el-button
+          type="primary"
           @click="specialtyId ? editSpecialty() : newSpecialty()"
           :disabled="!specialtyName"
+          >{{
+            specialtyId ? 'Editar Especialidade' : 'Criar Especialidade'
+          }}</el-button
         >
-          {{ specialtyId ? 'Editar Especialidade' : 'Criar Especialidade' }}
-        </button>
       </div>
     </div>
 

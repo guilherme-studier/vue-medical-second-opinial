@@ -9,14 +9,19 @@
       <section>
         <InputGroup>
           <InputWrapper>
-            <v-select
+            <el-select
               v-model="industry"
-              :options="getIndustries"
-              :reduce="(item) => item.id"
               placeholder="Indústria"
-              label="name"
-              :track-by="(industry) => industry?.id"
-            />
+              size="large"
+              clearable
+            >
+              <el-option
+                v-for="item in getIndustries"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
+              />
+            </el-select>
           </InputWrapper>
         </InputGroup>
         <div class="title-cpf">
@@ -24,28 +29,26 @@
         </div>
         <InputGroup v-for="(form, index) in additionalForms" :key="index">
           <InputWrapper v-if="!isCPFInputDisabled">
-            <input
-              type="text"
+            <el-input
+              v-model="form.cpf"
               placeholder="CPF do representante da indústria"
               class="flexible-input"
-              v-model="form.cpf"
               v-mask="'###.###.###-##'"
             />
           </InputWrapper>
           <InputWrapper>
-            <input
-              type="text"
+            <el-input
+              v-model="form.name"
               placeholder="Nome"
               class="flexible-input"
-              v-model="form.name"
             />
           </InputWrapper>
           <InputWrapper>
-            <input
-              type="text"
+            <el-input
+              v-model="form.email"
+              type="email"
               placeholder="E-mail"
               class="flexible-input"
-              v-model="form.email"
             />
           </InputWrapper>
           <div class="remove-form" v-if="index > 0">
@@ -61,15 +64,15 @@
         </div>
       </section>
       <div class="save">
-        <button v-if="isEditing" @click="cancelEdit">
-          {{ 'Cancelar' }}
-        </button>
-        <button
+        <el-button v-if="isEditing" type="info" @click="cancelEdit"
+          >Cancelar</el-button
+        >
+        <el-button
+          type="primary"
           @click="handleSave"
           :disabled="isEditing ? isEditDisabled : isCreateDisabled"
+          >Salvar</el-button
         >
-          {{ isEditing ? 'Editar' : 'Salvar' }}
-        </button>
       </div>
     </div>
   </div>
@@ -78,7 +81,6 @@
 <script>
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import vSelect from 'vue-select'
 import { mapActions, mapGetters } from 'vuex'
 
 import iconVoucher from '@/assets/icons/icon-voucher.svg'
@@ -90,7 +92,6 @@ export default {
   components: {
     InputWrapper,
     InputGroup,
-    vSelect,
     FontAwesomeIcon
   },
   data() {
