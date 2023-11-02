@@ -19,9 +19,14 @@
     </div>
 
     <img v-if="!userSelected" class="logo-ceos" :src="logoCeos" />
-    <button v-else @click="reset" class="btn-back">
-      {{ userSelected.name }}
-    </button>
+    <el-button
+      v-else
+      type="primary"
+      class="btn-back"
+      @click="reset"
+      :disabled="isSaveDisabled"
+      >{{ userSelected.name }}</el-button
+    >
   </div>
 </template>
 

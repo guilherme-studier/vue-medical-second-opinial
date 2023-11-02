@@ -4,22 +4,22 @@
       <div class="form">
         <input-group>
           <input-wrapper>
-            <input
-              type="text"
+            <el-input
+              v-model="cpf"
               placeholder="CPF"
               class="flexible-input"
-              v-model="cpf"
-              v-mask="'###.###.###-##'"
               @input="validatePassword"
+              v-mask="'###.###.###-##'"
+              type="text"
             />
           </input-wrapper>
           <input-wrapper>
-            <input
-              type="password"
+            <el-input
+              v-model="password"
               placeholder="Senha inicial"
               class="flexible-input"
-              v-model="password"
               @input="validatePassword"
+              type="password"
             />
           </input-wrapper>
         </input-group>
@@ -30,30 +30,30 @@
       <div class="form">
         <input-group>
           <input-wrapper>
-            <input
-              type="text"
+            <el-input
+              v-model="name"
               placeholder="Nome"
               class="flexible-input"
-              v-model="name"
+              type="text"
             />
           </input-wrapper>
         </input-group>
         <input-group>
           <input-wrapper>
-            <input
-              type="email"
+            <el-input
+              v-model="email"
               placeholder="E-mail"
               class="flexible-input"
-              v-model="email"
+              type="email"
             />
           </input-wrapper>
           <input-wrapper>
-            <input
-              type="text"
+            <el-input
+              v-model="phone"
               placeholder="Telefone"
               class="flexible-input"
               v-mask="['(##) ####-####', '(##) # ####-####']"
-              v-model="phone"
+              type="text"
             />
           </input-wrapper>
         </input-group>
@@ -61,30 +61,30 @@
           <input-wrapper>
             <input-group>
               <input-wrapper>
-                <input
-                  type="text"
+                <el-input
+                  v-model="crm"
                   placeholder="CRM"
                   class="flexible-input"
-                  v-model="crm"
                   v-mask="'####-###'"
+                  type="text"
                 />
               </input-wrapper>
               <input-wrapper>
-                <input
-                  type="text"
+                <el-input
+                  v-model="uf"
                   placeholder="UF"
                   class="flexible-input"
-                  v-model="uf"
+                  type="text"
                 />
               </input-wrapper>
             </input-group>
           </input-wrapper>
           <input-wrapper>
-            <input
-              type="password"
+            <el-input
+              v-model="newPassword"
               placeholder="Nova senha"
               class="flexible-input"
-              v-model="newPassword"
+              type="password"
             />
           </input-wrapper>
         </input-group>
@@ -138,9 +138,12 @@
           </div>
         </modal>
         <div id="save">
-          <button @click="handleSave" :disabled="isSaveDisabled">
-            Salvar
-          </button>
+          <el-button
+            type="primary"
+            @click="handleSave"
+            :disabled="isSaveDisabled"
+            >Salvar</el-button
+          >
         </div>
       </div>
     </div>

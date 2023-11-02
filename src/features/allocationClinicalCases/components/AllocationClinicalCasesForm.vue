@@ -4,49 +4,57 @@
     <div class="form">
       <InputGroup>
         <InputWrapper>
-          <input
-            type="text"
+          <el-input
+            v-model="name"
             placeholder="Nome do médico"
             class="flexible-input"
-            v-model="name"
+            type="text"
           />
         </InputWrapper>
         <InputWrapper>
-          <input
-            type="text"
+          <el-input
+            v-model="email"
             placeholder="E-mail"
             class="flexible-input"
-            v-model="email"
+            type="email"
           />
         </InputWrapper>
       </InputGroup>
       <InputGroup>
         <InputWrapper>
-          <input
-            type="number"
+          <el-input
+            v-model="quantity"
             placeholder="Quantidade de vouchers"
             class="flexible-input"
-            v-model="quantity"
+            type="number"
           />
         </InputWrapper>
         <InputWrapper>
-          <v-select
+          <el-select
             v-model="contract"
-            :options="getContracts"
-            label="contractName"
             placeholder="Casos Clínicos"
-          />
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in getContracts"
+              :key="item.id"
+              :label="item?.contractName"
+              :value="item.id"
+            />
+          </el-select>
         </InputWrapper>
       </InputGroup>
       <div class="save">
-        <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
+        <el-button type="primary" @click="handleSave" :disabled="isSaveDisabled"
+          >Salvar</el-button
+        >
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import vSelect from 'vue-select'
 import { useToast } from 'vue-toastification'
 import { mapActions, mapGetters } from 'vuex'
 
@@ -59,8 +67,7 @@ export default {
   components: {
     InputWrapper,
     InputGroup,
-    Title,
-    vSelect
+    Title
   },
   setup() {
     const toast = useToast()

@@ -1,5 +1,5 @@
 <template>
-  <div id="clinical-cases-consultation-doctor">
+  <div class="container">
     <div class="title">
       <div class="voucher-doctor">
         <img class="icon-voucher" :src="getIcon" />

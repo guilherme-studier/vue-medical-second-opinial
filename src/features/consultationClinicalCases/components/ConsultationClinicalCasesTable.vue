@@ -66,15 +66,45 @@
         </el-select>
       </InputWrapper>
     </InputGroup>
-
-    <custom-table
-      :tableHeader="tableHeader"
-      :tableData="tableData"
-      :loading="isLoading"
-      :currentPage="getCurrentPage"
-      :totalPages="getTotalPages"
-      @page-change="updatePageData"
-    />
+    <el-table
+      class="consultation-table"
+      :data="tableData"
+      :height="300"
+      style="width: 100%"
+      border
+      v-loading="isLoading"
+    >
+      <el-table-column
+        label="Caso clínico/ID"
+        prop="voucher"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        label="Indústria"
+        prop="industry"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        label="Especialidade"
+        prop="specialty"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        label="Doença"
+        prop="illness"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        label="Data"
+        prop="date"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        label="Status"
+        prop="status"
+        align="center"
+      ></el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -82,7 +112,6 @@
 import { mapActions, mapGetters } from 'vuex'
 
 import iconVoucher from '@/assets/icons/icon-voucher.svg'
-import CustomTable from '@/components/customTable'
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
 import { formatDate } from '@/helpers/date'
@@ -92,7 +121,6 @@ export default {
   name: 'Consulta Casos Clínicos',
   components: {
     InputWrapper,
-    CustomTable,
     InputGroup
   },
   data() {
@@ -111,7 +139,8 @@ export default {
         'Data',
         'Status'
       ],
-      tableData: []
+      tableData: [],
+      pageSize: 10
     }
   },
   mounted() {
@@ -171,6 +200,9 @@ export default {
 
     updatePageData({ currentPage }) {
       this.setPage(currentPage)
+    },
+    handleCurrentChange(newPage) {
+      this.setPage(newPage)
     }
   },
   watch: {
@@ -215,5 +247,11 @@ export default {
   position: absolute;
   top: -60px;
   left: 0;
+}
+
+.consultation-table {
+  margin: 15px 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 </style>

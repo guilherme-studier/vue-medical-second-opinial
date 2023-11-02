@@ -1,7 +1,6 @@
 <template>
-  <div id="registration-clinical-cases" :class="{ 'form-loading': isLoading }">
+  <div id="registration-clinical-cases" v-loading="isLoading">
     <registration-clinical-cases-data />
-    <loader-spinner v-if="isLoading" />
   </div>
 </template>
 
@@ -10,13 +9,10 @@ import { mapGetters } from 'vuex'
 
 import RegistrationClinicalCasesData from '../registrationClinicalCases/components/RegistrationClinicalCasesData.vue'
 
-import LoaderSpinner from '@/components/loaderSpinner'
-
 export default {
   name: 'RegistrationClinicalCases',
   components: {
-    RegistrationClinicalCasesData,
-    LoaderSpinner
+    RegistrationClinicalCasesData
   },
   computed: {
     ...mapGetters('registrationClinicalCases', ['getLoading']),

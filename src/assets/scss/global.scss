@@ -197,11 +197,13 @@ body {
 
   .el-button--primary {
     background-color: $green-500;
+    border: none;
   
     &:hover {
       background-color: #00757a;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       transition: background-color 0.3s, box-shadow 0.3s;
+      border: none;
     }
   }
   
@@ -212,6 +214,15 @@ body {
       background-color: $gray-600;
       box-shadow: none;
     }
+  }
+
+  .el-table thead .el-table td.el-table__cell, .el-table th.el-table__cell.is-leaf {
+    background-color: $green-500;
+    color: $white;
+  }
+
+  .el-loading-spinner .path {
+    stroke: $green-500
   }
 
 }

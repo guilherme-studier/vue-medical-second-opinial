@@ -3,9 +3,9 @@
     <img class="logo" :src="logoSrc" :alt="logoAlt" />
     <InputGroup>
       <InputWrapper v-for="option in options" :key="option.id">
-        <button @click="selectUser(option)">
-          <h3>{{ option.name }}</h3>
-        </button>
+        <el-button type="primary" @click="selectUser(option)"
+          ><h3>{{ option.name }}</h3></el-button
+        >
       </InputWrapper>
     </InputGroup>
   </div>

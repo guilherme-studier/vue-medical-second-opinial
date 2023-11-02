@@ -3,22 +3,22 @@
     <div class="form">
       <input-group>
         <input-wrapper>
-          <input
-            type="text"
+          <el-input
+            v-model="cpf"
             placeholder="CPF"
             class="flexible-input"
-            v-model="cpf"
             v-mask="'###.###.###-##'"
             @input="validatePassword"
+            type="text"
           />
         </input-wrapper>
         <input-wrapper>
-          <input
-            type="password"
+          <el-input
+            v-model="password"
             placeholder="Senha inicial"
             class="flexible-input"
-            v-model="password"
             @input="validatePassword"
+            type="password"
           />
         </input-wrapper>
       </input-group>
@@ -28,30 +28,30 @@
           <div class="form">
             <input-group>
               <input-wrapper>
-                <input
-                  type="text"
+                <el-input
+                  v-model="name"
                   placeholder="Nome"
                   class="flexible-input"
-                  v-model="name"
+                  type="text"
                 />
               </input-wrapper>
             </input-group>
             <input-group>
               <input-wrapper>
-                <input
-                  type="email"
+                <el-input
+                  v-model="email"
                   placeholder="E-mail"
                   class="flexible-input"
-                  v-model="email"
+                  type="email"
                 />
               </input-wrapper>
               <input-wrapper>
-                <input
-                  type="text"
+                <el-input
+                  v-model="phone"
                   placeholder="Telefone"
                   class="flexible-input"
-                  v-model="phone"
                   v-mask="['(##) ####-####', '(##) # ####-####']"
+                  type="text"
                 />
               </input-wrapper>
             </input-group>
@@ -59,85 +59,84 @@
               <input-wrapper>
                 <input-group>
                   <input-wrapper>
-                    <input
-                      type="text"
+                    <el-input
+                      v-model="crm"
                       placeholder="CRM"
                       class="flexible-input"
                       v-mask="'####-###'"
-                      v-model="crm"
+                      type="text"
                     />
                   </input-wrapper>
                   <input-wrapper>
-                    <input
-                      type="text"
+                    <el-input
+                      v-model="ufCrm"
                       placeholder="UF CRM"
                       class="flexible-input"
-                      v-model="ufCrm"
+                      type="text"
                     />
                   </input-wrapper>
                 </input-group>
               </input-wrapper>
               <input-wrapper>
-                <input
-                  type="password"
+                <el-input
+                  v-model="newPassword"
                   placeholder="Nova senha"
                   class="flexible-input"
-                  v-model="newPassword"
+                  type="password"
                 />
               </input-wrapper>
             </input-group>
             <input-group>
               <input-wrapper>
-                <input
-                  type="text"
-                  placeholder="CEP"
-                  v-mask="'#####-###'"
-                  class="flexible-input"
+                <el-input
                   v-model="cep"
+                  placeholder="CEP"
+                  class="flexible-input"
+                  type="text"
                 />
               </input-wrapper>
               <input-wrapper>
-                <input
-                  type="text"
+                <el-input
+                  v-model="street"
                   placeholder="Lagradouro"
                   class="flexible-input"
-                  v-model="street"
+                  type="text"
                 />
               </input-wrapper>
             </input-group>
             <input-group>
               <input-wrapper>
-                <input
-                  type="number"
+                <el-input
+                  v-model="number"
                   placeholder="Número"
                   class="flexible-input"
-                  v-model="number"
+                  type="number"
                 />
               </input-wrapper>
               <input-wrapper>
-                <input
-                  type="text"
+                <el-input
+                  v-model="complement"
                   placeholder="Complemento"
                   class="flexible-input"
-                  v-model="complement"
+                  type="text"
                 />
               </input-wrapper>
             </input-group>
             <input-group>
               <input-wrapper>
-                <input
-                  type="text"
+                <el-input
+                  v-model="city"
                   placeholder="Cidade"
                   class="flexible-input"
-                  v-model="city"
+                  type="text"
                 />
               </input-wrapper>
               <input-wrapper>
-                <input
-                  type="text"
+                <el-input
+                  v-model="state"
                   placeholder="UF"
                   class="flexible-input"
-                  v-model="state"
+                  type="text"
                 />
               </input-wrapper>
             </input-group>
@@ -200,13 +199,19 @@
           <Title :title="titleSpecialty" />
           <input-group>
             <input-wrapper>
-              <v-select
+              <el-select
                 v-model="specialty"
-                :options="getSpecialties"
-                :reduce="(item) => item.id"
-                label="name"
                 placeholder="Selecione uma especialidade"
-              />
+                size="large"
+                clearable
+              >
+                <el-option
+                  v-for="item in getSpecialties"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                />
+              </el-select>
             </input-wrapper>
           </input-group>
         </div>
@@ -214,26 +219,31 @@
           <Title :title="titlePayments" />
           <input-group>
             <input-wrapper>
-              <input
-                type="text"
+              <el-input
+                v-model="cnpj"
                 placeholder="CNPJ"
                 class="flexible-input"
-                v-model="cnpj"
                 v-mask="'##.###.###/####-##'"
+                type="text"
               />
             </input-wrapper>
             <input-wrapper>
-              <input
-                type="text"
+              <el-input
+                v-model="corporateName"
                 placeholder="Razão Social"
                 class="flexible-input"
-                v-model="corporateName"
+                type="text"
               />
             </input-wrapper>
           </input-group>
         </div>
         <div id="save">
-          <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
+          <el-button
+            type="primary"
+            @click="handleSave"
+            :disabled="isSaveDisabled"
+            >Salvar</el-button
+          >
         </div>
       </div>
     </div>
@@ -241,7 +251,6 @@
 </template>
 
 <script>
-import vSelect from 'vue-select'
 import { useToast } from 'vue-toastification'
 import { mapActions, mapGetters } from 'vuex'
 
@@ -256,8 +265,7 @@ export default {
     InputGroup,
     InputWrapper,
     Title,
-    Modal,
-    vSelect
+    Modal
   },
   setup() {
     const toast = useToast()

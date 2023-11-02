@@ -1,5 +1,8 @@
 <template>
-  <div :class="{ 'form-loading': getLoadingClinicalCases }">
+  <div
+    id="clinical-cases-consultation-doctor"
+    :class="{ 'form-loading': getLoadingClinicalCases }"
+  >
     <clinical-cases-consultation-doctor-table />
   </div>
 </template>
@@ -18,7 +21,11 @@ export default {
     ...mapGetters('clinicalCasesConsultationDoctor', [
       'getError',
       'getLoadingClinicalCases'
-    ])
+    ]),
+
+    isLoading() {
+      return this.getLoadingClinicalCases
+    }
   }
 }
 </script>

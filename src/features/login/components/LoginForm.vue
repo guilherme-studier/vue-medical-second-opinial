@@ -4,51 +4,60 @@
       <!-- Exibe o campo de e-mail e senha quando forgotPassword for falso -->
       <div class="form-input" v-if="!forgotPassword">
         <div class="form-group">
-          <input
+          <el-input
             v-model="username"
-            class="input--login"
             type="text"
             id="username"
             name="username"
             placeholder="Usuário"
-          />
+          >
+            <template #prepend>
+              <el-button :icon="iconUser" />
+            </template>
+          </el-input>
         </div>
         <div class="form-group">
-          <input
+          <el-input
             v-model="password"
-            class="input--password"
             type="password"
             id="password"
             name="password"
             placeholder="Senha"
-          />
+          >
+            <template #prepend>
+              <el-button :icon="iconLock" />
+            </template>
+          </el-input>
         </div>
       </div>
-      <div v-else>
+      <div class="password-field" v-else>
         <div class="form-group">
-          <input
+          <el-input
             v-model="email"
-            class="input--reset-password"
             type="email"
             id="email"
             name="email"
             placeholder="E-mail cadastrado"
-          />
+            ><template #prepend>
+              <el-button :icon="iconMail" />
+            </template>
+          </el-input>
         </div>
       </div>
       <div class="form-group last-form-group">
         <a @click="handlePassword" href="#">
           {{ forgotPassword ? 'Retornar Login' : 'Esqueci minha senha' }}
         </a>
-        <button @click="handleButtonClick" type="submit">
-          {{ forgotPassword ? 'Enviar' : 'Entrar' }}
-        </button>
+        <el-button type="primary" @click="handleButtonClick">{{
+          forgotPassword ? 'Enviar' : 'Entrar'
+        }}</el-button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
+import { UserFilled, Lock, Message } from '@element-plus/icons-vue'
 import { mapActions } from 'vuex'
 
 export default {
@@ -58,7 +67,10 @@ export default {
       forgotPassword: false,
       username: null,
       password: null,
-      email: null
+      email: null,
+      iconUser: UserFilled,
+      iconLock: Lock,
+      iconMail: Message
     }
   },
   methods: {

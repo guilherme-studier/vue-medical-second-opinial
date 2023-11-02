@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="form">
       <InputGroup>
         <InputWrapper>
@@ -67,7 +67,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('consultantDoctorInvitation', ['consultantDoctor']),
+    ...mapActions('consultantDoctorInvitation', ['putConsultantDoctor']),
 
     async handleSave() {
       const userData = {
@@ -76,18 +76,7 @@ export default {
         cpf: this.cpf
       }
 
-      try {
-        await this.consultantDoctor(userData)
-        this.toast.success(
-          'Geração de convite para médico consultor efetuada com sucesso',
-          { timeout: 5000 }
-        )
-      } catch (error) {
-        this.toast.warning(
-          'Erro ao realizar a geração de convite para médico consultor',
-          { timeout: 5000 }
-        )
-      }
+      await this.putConsultantDoctor(userData)
       this.clearForm()
     },
     clearForm() {

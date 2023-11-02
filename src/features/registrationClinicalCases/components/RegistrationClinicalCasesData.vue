@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <Title :title="tituloComponente" />
     <div class="form">
       <InputGroup>
