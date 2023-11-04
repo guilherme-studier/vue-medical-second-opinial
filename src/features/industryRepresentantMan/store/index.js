@@ -18,7 +18,9 @@ export default {
   state: () => ({
     industryRepresentant: null,
     industryRepresentants: [],
-    loading: false
+    loading: false,
+    currentPage: null,
+    totalPages: null
   }),
   mutations: {
     setLoading(state, value) {
@@ -29,6 +31,12 @@ export default {
     },
     setIndustryRepresentants(state, representants) {
       state.industryRepresentants = representants
+    },
+    setCurrentPage(state, currentPage) {
+      state.currentPage = currentPage
+    },
+    setTotalPages(state, totalPages) {
+      state.totalPages = totalPages
     }
   },
   actions: {
@@ -71,11 +79,14 @@ export default {
           commit('setLoading', false)
         })
     },
-    async fetchIndustryRepresentants({ commit }) {
+    async fetchIndustryRepresentants({ commit, state }) {
       commit('setLoading', true)
-      return getIndustryRepresentants()
+
+      return getIndustryRepresentants(state.currentPage)
         .then((response) => {
           commit('setIndustryRepresentants', response.data.content)
+          commit('setCurrentPage', response.data.page)
+          commit('setTotalPages', response.data.totalPages)
         })
         .catch((error) => {
           toast.warning('Erro ao buscar os representantes da indústria', {
@@ -122,11 +133,16 @@ export default {
       commit('setLoading', true)
       commit('setIndustryRepresentant', null)
       commit('setLoading', false)
+    },
+    setPage({ commit }, page) {
+      commit('setCurrentPage', page)
     }
   },
   getters: {
     getLoadingRepresentantIndustry: (state) => state.loading,
     getIndustryRepresentant: (state) => state.industryRepresentant,
-    getIndustryRepresentants: (state) => state.industryRepresentants
+    getIndustryRepresentants: (state) => state.industryRepresentants,
+    getCurrentPage: (state) => state.currentPage,
+    getTotalPages: (state) => state.totalPages
   }
 }

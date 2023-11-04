@@ -3,7 +3,9 @@ import { useToast } from 'vue-toastification'
 
 import {
   getClinicalCasesConsultantDoctor,
-  createOrEditOpinion
+  createOrEditOpinion,
+  getMessages,
+  putMessage
 } from '../services/index'
 
 const toast = useToast()
@@ -17,8 +19,11 @@ export default {
     isModalMessage: false,
     clinicalCases: [],
     searchTerm: '',
+    messages: [],
+    opinion: null,
     loading: false,
     loadingOpinion: false,
+    loadingMessages: false,
     error: false
   }),
   mutations: {
@@ -34,28 +39,39 @@ export default {
     setClinicalCases(state, clinicalCases) {
       state.clinicalCases = clinicalCases
     },
+    setOpinion(state, opinion) {
+      state.opinion = opinion
+    },
+    setMessages(state, messages) {
+      state.messages = messages
+    },
     setLoading(state, value) {
       state.loading = value
     },
     setLoadingOpinion(state, value) {
       state.loadingOpinion = value
+    },
+    setLoadingMessages(state, value) {
+      state.loadingMessages = value
     }
   },
   actions: {
-    handleModalSeem(context, voucher) {
-      context.commit('toggleIsModalSeem', voucher)
+    handleModalSeem({ commit }, opinion) {
+      commit('toggleIsModalSeem')
+      commit('setOpinion', opinion)
     },
-    handleModalMessage(context, voucher) {
-      context.commit('toggleIsModalMessage', voucher)
+    handleModalMessage({ dispatch, commit }, voucherId) {
+      commit('toggleIsModalMessage', voucherId)
+      if (voucherId) dispatch('fetchMessages', voucherId)
     },
     async fetchClinicalCases({ commit, dispatch }) {
       commit('setLoading', true)
       dispatch('getClinicalCases')
     },
-    getClinicalCases({ commit }) {
+    async getClinicalCases({ commit }) {
       return getClinicalCasesConsultantDoctor()
         .then((response) => {
-          commit('setClinicalCases', response.data)
+          commit('setClinicalCases', response.data.content)
         })
         .catch(() => {
           toast.warning(
@@ -86,6 +102,38 @@ export default {
         .finally(() => {
           commit('setLoadingOpinion', false)
         })
+    },
+    async fetchMessages({ commit }, voucherId) {
+      commit('setLoadingMessages', true)
+      return getMessages(voucherId)
+        .then((response) => {
+          commit('setMessages', response.data.content)
+        })
+        .catch(() => {
+          toast.warning('Erro ao buscar as mensagens deste voucher', {
+            timeout: 5000
+          })
+        })
+        .finally(() => {
+          commit('setLoadingMessages', false)
+        })
+    },
+    async putNewMessage({ commit }, userData) {
+      commit('setLoadingMessages', true)
+      return putMessage(userData)
+        .then(() => {
+          toast.success('Mensagem enviada com sucesso', {
+            timeout: 5000
+          })
+        })
+        .catch(() => {
+          toast.warning(
+            'Não foi possível enviar esta mensagem, tente novamente mais tarde',
+            {
+              timeout: 5000
+            }
+          )
+        })
     }
   },
   getters: {
@@ -98,8 +146,11 @@ export default {
     getTableData: (state) => state.tableData,
     getSearchTerm: (state) => state.searchTerm,
     getError: (state) => state.error,
+    getOpinion: (state) => state.opinion,
+    getMessages: (state) => state.messages,
     getClinicalCases: (state) => state.clinicalCases,
     getLoadingClinicalCases: (state) => state.loading,
-    getLoadingOpinion: (state) => state.loadingOpinion
+    getLoadingOpinion: (state) => state.loadingOpinion,
+    getLoadingMessages: (state) => state.loadingMessages
   }
 }

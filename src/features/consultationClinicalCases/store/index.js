@@ -16,7 +16,9 @@ export default {
     specialty: null,
     illness: null,
     doctors: [],
-    doctor: null
+    doctor: null,
+    currentPage: null,
+    totalPages: null
   }),
   mutations: {
     setContracts(state, contracts) {
@@ -42,6 +44,12 @@ export default {
     },
     setDoctor(state, doctor) {
       state.doctor = !doctor ? null : doctor
+    },
+    setCurrentPage(state, currentPage) {
+      state.currentPage = currentPage
+    },
+    setTotalPages(state, totalPages) {
+      state.totalPages = totalPages
     }
   },
   actions: {
@@ -51,12 +59,15 @@ export default {
         diseaseId: state.illness,
         specialtyId: state.specialty,
         industryId: state.industry,
-        consultantDoctorId: state.doctor
+        consultantDoctorId: state.doctor,
+        page: state.currentPage
       }
 
       try {
         const response = await getContracts(params)
         commit('setContracts', response.data.content)
+        commit('setCurrentPage', response.data.page)
+        commit('setTotalPages', response.data.totalPages)
       } catch (error) {
         commit('setError', true)
         toast.warning('Erro ao buscar os casos clínicos', { timeout: 5000 })
@@ -95,6 +106,9 @@ export default {
     },
     setDoctorId({ commit }, doctor) {
       commit('setDoctor', doctor)
+    },
+    setPage({ commit }, page) {
+      commit('setCurrentPage', page)
     }
   },
   getters: {
@@ -105,6 +119,8 @@ export default {
     getSpecialty: (state) => state.specialty,
     getIllness: (state) => state.illness,
     getDoctors: (state) => state.doctors,
-    getDoctor: (state) => state.doctor
+    getDoctor: (state) => state.doctor,
+    getCurrentPage: (state) => state.currentPage,
+    getTotalPages: (state) => state.totalPages
   }
 }

@@ -4,16 +4,15 @@
     <div class="form">
       <InputGroup>
         <InputWrapper>
-          <input
-            type="text"
+          <el-input
+            v-model="cnpj"
             placeholder="CNPJ"
             class="flexible-input"
-            v-model="cnpj"
             v-mask="'##.###.###/####-##'"
           />
         </InputWrapper>
         <InputWrapper>
-          <input
+          <el-input
             type="text"
             placeholder="Razão Social"
             class="flexible-input"
@@ -23,7 +22,7 @@
       </InputGroup>
       <InputGroup>
         <InputWrapper>
-          <input
+          <el-input
             type="email"
             placeholder="E-mail"
             class="flexible-input"
@@ -31,7 +30,7 @@
           />
         </InputWrapper>
         <InputWrapper>
-          <input
+          <el-input
             type="text"
             placeholder="Telefone"
             class="flexible-input"
@@ -41,7 +40,7 @@
         </InputWrapper>
       </InputGroup>
       <InputGroup>
-        <input
+        <el-input
           type="text"
           placeholder="Contato"
           class="full-width"
@@ -49,15 +48,19 @@
         />
       </InputGroup>
       <InputGroup>
-        <textarea
+        <el-input
+          v-model="observation"
+          :autosize="{ minRows: 4, maxRows: 4 }"
+          type="textarea"
           placeholder="Observação"
           class="full-width"
-          v-model="observation"
-        ></textarea>
+        />
       </InputGroup>
 
       <div class="save">
-        <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
+        <el-button type="primary" @click="handleSave" :disabled="isSaveDisabled"
+          >Salvar</el-button
+        >
       </div>
     </div>
   </div>

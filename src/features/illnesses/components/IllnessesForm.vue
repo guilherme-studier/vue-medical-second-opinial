@@ -8,7 +8,7 @@
 
     <div class="illnesses--form">
       <InputGroup>
-        <input
+        <el-input
           v-model="illnessName"
           type="text"
           placeholder="Nome da Doença"
@@ -17,16 +17,16 @@
       </InputGroup>
 
       <div class="illnesses--row">
-        <button class="outline" @click="clearForm" :disabled="!illnessName">
-          Cancelar
-        </button>
+        <el-button type="info" @click="clearForm" :disabled="!illnessName"
+          >Cancelar</el-button
+        >
 
-        <button
+        <el-button
+          type="primary"
           @click="illnessId ? editIllness() : newIllness()"
           :disabled="!illnessName"
+          >{{ illnessId ? 'Editar Doença' : 'Criar Doença' }}</el-button
         >
-          {{ illnessId ? 'Editar Doença' : 'Criar Doença' }}
-        </button>
       </div>
     </div>
 
@@ -49,6 +49,9 @@
       :tableHeader="tableHeader"
       :tableData="filteredTableData"
       :loading="isLoading"
+      :currentPage="getCurrentPage"
+      :totalPages="getTotalPages"
+      @page-change="updatePageData"
     >
       <template v-slot:action="{ item }">
         <font-awesome-icon :icon="icon" @click="value.handler(item)" />
@@ -102,7 +105,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters('disease', ['getDiseases', 'getLoadingDiseases']),
+    ...mapGetters('disease', [
+      'getDiseases',
+      'getLoadingDiseases',
+      'getCurrentPage',
+      'getTotalPages'
+    ]),
 
     isLoading() {
       return this.getLoadingDiseases
@@ -144,13 +152,16 @@ export default {
       })
     }
   },
-
+  watch: {
+    getCurrentPage: 'fetchDiseases'
+  },
   methods: {
     ...mapActions('disease', [
       'deleteDiseaseById',
       'createNewDisease',
       'updateDiseaseById',
-      'fetchDiseases'
+      'fetchDiseases',
+      'setPage'
     ]),
 
     /** Criar doença */
@@ -189,14 +200,22 @@ export default {
       this.illnessId = id
       this.illnessName = name
 
-      /** Scrollar para a cima */
-      this.$refs.illnesses.scrollIntoView({ behavior: 'smooth' })
+      this.scrollToTop()
     },
 
     /** Cancelar criação/edição */
     clearForm() {
       this.illnessId = null
       this.illnessName = ''
+    },
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Para um comportamento de rolagem suave
+      })
+    },
+    updatePageData({ currentPage }) {
+      this.setPage(currentPage)
     }
   }
 }

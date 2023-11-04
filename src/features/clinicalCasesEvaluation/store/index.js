@@ -1,201 +1,30 @@
-import {
-  faSquareCheck,
-  faFile,
-  faComment
-} from '@fortawesome/free-solid-svg-icons'
+/* eslint-disable no-unused-vars */
+import { useToast } from 'vue-toastification'
 
-import store from '@/store'
+import {
+  getClinicalCasesClientDoctor,
+  createOrEditOpinion,
+  getMessages,
+  putMessage
+} from '../services/index'
+
+const toast = useToast()
 
 export default {
   namespaced: true,
   state: () => ({
+    isActiveVoucher: false,
     icon: require('@/assets/icons/icon-voucher.svg'),
     iconSearch: require('@/assets/icons/icon-search.svg'),
-    doctor: 'Dr. Guilherme Studier',
-    vouchers: 4,
-    tableHeader: ['Casos clínicos', 'Doença', 'Data', 'Status', 'Ação'],
-    tableData: [
-      {
-        name: 'Tratamento Doença XYZ',
-        illness: 'Doença 1',
-        date: '02/01/2023',
-        status: 'Aguardando Ativação',
-        action: [
-          {
-            icon: faSquareCheck,
-            handler: () => {
-              store.dispatch(
-                'clinicalCasesEvaluation/handlePageActiveVoucher',
-                '23011014002'
-              )
-            }
-          },
-          {
-            icon: faFile,
-            handler: () => {
-              store.dispatch(
-                'clinicalCasesEvaluation/handleModalSeem',
-                '23011014002'
-              )
-            }
-          },
-          {
-            icon: faComment,
-            handler: () => {
-              store.dispatch(
-                'clinicalCasesEvaluation/handleModalMessage',
-                '23011014002'
-              )
-            }
-          }
-        ]
-      },
-      {
-        name: 'Tratamento Doença ABC',
-        illness: 'Doença 3',
-        date: '02/05/2023',
-        status: 'Em avaliação',
-        action: [
-          {
-            icon: faSquareCheck,
-            handler: () => {
-              store.dispatch(
-                'clinicalCasesEvaluation/handlePageActiveVoucher',
-                '23011014002'
-              )
-            }
-          },
-          {
-            icon: faFile,
-            handler: () => {
-              store.dispatch(
-                'clinicalCasesEvaluation/handleModalSeem',
-                '23011014002'
-              )
-            }
-          },
-          {
-            icon: faComment,
-            handler: () => {
-              store.dispatch(
-                'clinicalCasesEvaluation/handleModalMessage',
-                '23011014002'
-              )
-            }
-          }
-        ]
-      },
-      {
-        name: 'Tratamento Enfermidade DBC',
-        illness: 'Doença 3',
-        date: '04/10/2023',
-        status: 'Ativado',
-        action: [
-          {
-            icon: faSquareCheck,
-            handler: () => {
-              store.dispatch(
-                'clinicalCasesEvaluation/handlePageActiveVoucher',
-                '23011014002'
-              )
-            }
-          },
-          {
-            icon: faFile,
-            handler: () => {
-              store.dispatch(
-                'clinicalCasesEvaluation/handleModalSeem',
-                '23011014002'
-              )
-            }
-          },
-          {
-            icon: faComment,
-            handler: () => {
-              store.dispatch(
-                'clinicalCasesEvaluation/handleModalMessage',
-                '23011014002'
-              )
-            }
-          }
-        ]
-      },
-      {
-        name: 'Tratamento Enfermidade XYZ',
-        illness: 'Doença 4',
-        date: '13/11/2023',
-        status: 'Ativado',
-        action: [
-          {
-            icon: faSquareCheck,
-            handler: () => {
-              store.dispatch(
-                'clinicalCasesEvaluation/handlePageActiveVoucher',
-                '23011014002'
-              )
-            }
-          },
-          {
-            icon: faFile,
-            handler: () => {
-              store.dispatch(
-                'clinicalCasesEvaluation/handleModalSeem',
-                '23011014002'
-              )
-            }
-          },
-          {
-            icon: faComment,
-            handler: () => {
-              store.dispatch(
-                'clinicalCasesEvaluation/handleModalMessage',
-                '23011014002'
-              )
-            }
-          }
-        ]
-      }
-    ],
     isModalSeem: false,
     isModalMessage: false,
-    isActiveVoucher: false,
-    modalSeemContent: {
-      voucher: '30082023',
-      seem:
-        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas reiciendis mollitia harum dicta natus hic ut temporibus exercitationem, animi odio recusandae. Nulla animi eligendi inventore nesciunt dolorem eius, delectus reprehenderit.'
-    },
-    modalMessageContent: {
-      voucher: '30082023',
-      messages: [
-        {
-          id: '52',
-          name: 'Dra. Cristina Flores',
-          date: '01/02/2023 14:15',
-          message:
-            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
-        },
-        {
-          id: '53',
-          name: 'Médico Cliente',
-          date: '01/02/2023 14:15',
-          message:
-            'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
-        },
-        {
-          id: '52',
-          name: 'Dra. Cristina Flores',
-          date: '01/02/2023 14:15',
-          message:
-            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
-        }
-        // Outras mensagens aqui
-      ]
-    },
-    clinicalCaseContent: {
-      voucher: '30082023'
-    },
+    clinicalCases: [],
     searchTerm: '',
+    messages: [],
+    opinion: null,
     loading: false,
+    loadingOpinion: false,
+    loadingMessages: false,
     error: false
   }),
   mutations: {
@@ -208,58 +37,123 @@ export default {
     toggleIsModalMessage(state) {
       state.isModalMessage = !state.isModalMessage
     },
-    toggleIsActiveVoucher(state) {
-      state.isActiveVoucher = !state.isActiveVoucher
+    setClinicalCases(state, clinicalCases) {
+      state.clinicalCases = clinicalCases
+    },
+    setOpinion(state, opinion) {
+      state.opinion = opinion
+    },
+    setMessages(state, messages) {
+      state.messages = messages
+    },
+    setLoading(state, value) {
+      state.loading = value
+    },
+    setLoadingOpinion(state, value) {
+      state.loadingOpinion = value
+    },
+    setLoadingMessages(state, value) {
+      state.loadingMessages = value
+    }
+  },
+  actions: {
+    handleModalSeem({ commit }, opinion) {
+      commit('toggleIsModalSeem')
+      commit('setOpinion', opinion)
+    },
+    handleModalMessage({ dispatch, commit }, voucherId) {
+      commit('toggleIsModalMessage', voucherId)
+      if (voucherId) dispatch('fetchMessages', voucherId)
+    },
+    async fetchClinicalCases({ commit, dispatch }) {
+      commit('setLoading', true)
+      dispatch('getClinicalCases')
+    },
+    async getClinicalCases({ commit }) {
+      console.log('aqui')
+      return getClinicalCasesClientDoctor()
+        .then((response) => {
+          commit('setClinicalCases', response.data.content)
+        })
+        .catch(() => {
+          toast.warning(
+            'Erro ao buscar os casos clínicos de Médico Consultor',
+            {
+              timeout: 5000
+            }
+          )
+        })
+        .finally(() => {
+          commit('setLoading', false)
+        })
+    },
+    async putOpinion({ commit, dispatch }, userData) {
+      commit('setLoadingOpinion', true)
+      return createOrEditOpinion(userData)
+        .then(() => {
+          toast.success('Parecer registrado com sucesso', {
+            timeout: 5000
+          })
+          dispatch('getClinicalCases')
+        })
+        .catch(() => {
+          toast.warning('Não foi possível registrar o parecer do médico', {
+            timeout: 5000
+          })
+        })
+        .finally(() => {
+          commit('setLoadingOpinion', false)
+        })
+    },
+    async fetchMessages({ commit }, voucherId) {
+      commit('setLoadingMessages', true)
+      return getMessages(voucherId)
+        .then((response) => {
+          commit('setMessages', response.data.content)
+        })
+        .catch(() => {
+          toast.warning('Erro ao buscar as mensagens deste voucher', {
+            timeout: 5000
+          })
+        })
+        .finally(() => {
+          commit('setLoadingMessages', false)
+        })
+    },
+    async putNewMessage({ commit }, userData) {
+      commit('setLoadingMessages', true)
+      return putMessage(userData)
+        .then(() => {
+          toast.success('Mensagem enviada com sucesso', {
+            timeout: 5000
+          })
+        })
+        .catch(() => {
+          toast.warning(
+            'Não foi possível enviar esta mensagem, tente novamente mais tarde',
+            {
+              timeout: 5000
+            }
+          )
+        })
     }
   },
   getters: {
     getIcon: (state) => state.icon,
-    getVouchers: (state) => state.vouchers,
     getIsModalSeem: (state) => state.isModalSeem,
     getIsModalMessage: (state) => state.isModalMessage,
-    getIsActiveVoucher: (state) => state.isActiveVoucher,
-    getModalSeemContent: (state) => state.modalSeemContent,
-    getModalMessageContent: (state) => state.modalMessageContent,
-    getActiveClinicalCase: (state) => state.isActiveVoucher,
-    getClinicalCaseContent: (state) => state.clinicalCaseContent,
+    getActiveClinicalCase: (state) => state.getActiveClinicalCase,
     getIconSearch: (state) => state.iconSearch,
-    getDoctor: (state) => state.doctor,
     getTableHeader: (state) => state.tableHeader,
     getTableData: (state) => state.tableData,
     getSearchTerm: (state) => state.searchTerm,
-    getLoading: (state) => state.loading,
     getError: (state) => state.error,
-    getFilteredTableData: (state) => {
-      if (!state.searchTerm) {
-        return state.tableData
-      }
-
-      const searchTerm = state.searchTerm.toLowerCase()
-      return state.tableData.filter((item) => {
-        return Object.values(item).some((value) => {
-          if (typeof value === 'string') {
-            return value.toLowerCase().includes(searchTerm)
-          }
-          return false
-        })
-      })
-    }
-  },
-  actions: {
-    handleModalSeem(context, voucher) {
-      context.commit('toggleIsModalSeem', voucher)
-    },
-    handleModalMessage(context, voucher) {
-      context.commit('toggleIsModalMessage', voucher)
-    },
-    handleSeem(context, text) {
-      alert(text)
-    },
-    handleMessage(content, text) {
-      alert(text)
-    },
-    handlePageActiveVoucher(context, voucher) {
-      context.commit('toggleIsActiveVoucher', voucher)
-    }
+    getOpinion: (state) => state.opinion,
+    getMessages: (state) => state.messages,
+    getClinicalCases: (state) => state.clinicalCases,
+    getLoadingClinicalCases: (state) => state.loading,
+    getLoadingOpinion: (state) => state.loadingOpinion,
+    getLoadingMessages: (state) => state.loadingMessages,
+    getIsActiveVoucher: (state) => state.isActiveVoucher
   }
 }

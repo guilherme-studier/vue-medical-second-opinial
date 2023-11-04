@@ -1,17 +1,17 @@
 <template>
   <div class="chat-message">
-    <div class="chat-message-img" :class="{ 'not-user': isUserMessage }">
+    <div class="chat-message-img" :class="{ 'not-user': !isDoctorCon }">
       <img class="icon-voucher" :src="icon" />
-      <div :class="{ 'not-user': isUserMessage }">
+      <div :class="{ 'not-user': !isDoctorCon }">
         <div class="message-sender">
           <h2>{{ message.name }}</h2>
         </div>
         <div class="message-date">
-          <p>{{ message.date }}</p>
+          <p>{{ message.createdAtFormatted }}</p>
         </div>
       </div>
     </div>
-    <div :class="{ 'not-user': isUserMessage }" class="message-content">
+    <div :class="{ 'not-user': !isDoctorCon }" class="message-content">
       <p>{{ message.message }}</p>
     </div>
   </div>
@@ -32,6 +32,11 @@ export default {
   data() {
     return {
       icon: require('@/assets/icons/icon-voucher.svg')
+    }
+  },
+  computed: {
+    isDoctorCon() {
+      return this.message?.doctorOrigem === 'medcon'
     }
   }
 }

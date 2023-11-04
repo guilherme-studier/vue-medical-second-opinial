@@ -7,5 +7,7 @@ export const formatStatus = (status) => {
   switch (status) {
     case 'disp':
       return 'Disponível'
+    case 'aloc':
+      return 'Alocado'
   }
 }

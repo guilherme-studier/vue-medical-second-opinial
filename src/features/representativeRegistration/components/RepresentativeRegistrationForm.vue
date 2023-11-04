@@ -1,24 +1,24 @@
 <template>
-  <div id="representative-registration">
+  <div id="container">
     <div class="form">
       <input-group>
         <input-wrapper>
-          <input
-            type="text"
+          <el-input
+            v-model="cpf"
             placeholder="CPF"
             class="flexible-input"
-            v-model="cpf"
             v-mask="'###.###.###-##'"
             @input="validatePassword"
+            type="text"
           />
         </input-wrapper>
         <input-wrapper>
-          <input
-            type="password"
+          <el-input
+            v-model="password"
             placeholder="Senha inicial"
             class="flexible-input"
-            v-model="password"
             @input="validatePassword"
+            type="password"
           />
         </input-wrapper>
       </input-group>
@@ -27,44 +27,46 @@
       <Title :title="tituloComponente" />
       <InputGroup>
         <InputWrapper>
-          <input
-            type="text"
+          <el-input
+            v-model="name"
             placeholder="Nome completo"
             class="flexible-input"
-            v-model="name"
+            type="text"
           />
         </InputWrapper>
         <InputWrapper>
-          <input
-            type="text"
+          <el-input
+            v-model="email"
             placeholder="E-mail"
             class="flexible-input"
-            v-model="email"
+            type="text"
           />
         </InputWrapper>
       </InputGroup>
       <InputGroup>
         <InputWrapper>
-          <input
-            type="text"
+          <el-input
+            v-model="phone"
             placeholder="Telefone"
             class="flexible-input"
             v-mask="['(##) ####-####', '(##) # ####-####']"
-            v-model="phone"
+            type="text"
           />
         </InputWrapper>
         <InputWrapper>
-          <input
-            type="password"
+          <el-input
+            v-model="newPassword"
             placeholder="Nova senha"
             class="flexible-input"
-            v-model="newPassword"
+            type="password"
           />
         </InputWrapper>
       </InputGroup>
 
       <div class="save">
-        <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
+        <el-button type="primary" @click="handleSave" :disabled="isSaveDisabled"
+          >Salvar</el-button
+        >
       </div>
     </div>
   </div>

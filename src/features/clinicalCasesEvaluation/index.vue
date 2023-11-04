@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'form-loading': isLoading }">
+  <div id="clinical-cases-client-doctor" :class="{ 'form-loading': isLoading }">
     <clinical-cases-evaluation-table />
     <clinical-cases-evaluation-subtitle />
   </div>
@@ -18,10 +18,10 @@ export default {
     ClinicalCasesEvaluationTable
   },
   computed: {
-    ...mapGetters('clinicalCasesEvaluation', ['getLoading']),
+    ...mapGetters('clinicalCasesEvaluation', ['getLoadingClinicalCases']),
 
     isLoading() {
-      return this.getLoading
+      return this.getLoadingClinicalCases
     }
   }
 }

@@ -1,8 +1,8 @@
 <template>
   <div class="chat-message">
-    <div class="chat-message-img" :class="{ 'not-user': isUserMessage }">
+    <div class="chat-message-img" :class="{ 'not-user': !isDoctorCon }">
       <img class="icon-voucher" :src="icon" />
-      <div :class="{ 'not-user': isUserMessage }">
+      <div :class="{ 'not-user': !isDoctorCon }">
         <div class="message-sender">
           <h2>{{ message.name }}</h2>
         </div>
@@ -11,7 +11,7 @@
         </div>
       </div>
     </div>
-    <div :class="{ 'not-user': isUserMessage }" class="message-content">
+    <div :class="{ 'not-user': !isDoctorCon }" class="message-content">
       <p>{{ message.message }}</p>
     </div>
   </div>
@@ -23,15 +23,16 @@ export default {
     message: {
       type: Object,
       required: true
-    },
-    isUserMessage: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
     return {
       icon: require('@/assets/icons/icon-voucher.svg')
+    }
+  },
+  computed: {
+    isDoctorCon() {
+      return this.message?.doctorOrigem === 'medcon'
     }
   }
 }

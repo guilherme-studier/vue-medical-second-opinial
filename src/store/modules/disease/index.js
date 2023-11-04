@@ -15,7 +15,9 @@ export default {
   state: () => ({
     diseases: [],
     loading: false,
-    error: false
+    error: false,
+    currentPage: null,
+    totalPages: null
   }),
   mutations: {
     setDiseases(state, diseases) {
@@ -26,14 +28,22 @@ export default {
     },
     setError(state, value) {
       state.error = value
+    },
+    setCurrentPage(state, currentPage) {
+      state.currentPage = currentPage
+    },
+    setTotalPages(state, totalPages) {
+      state.totalPages = totalPages
     }
   },
   actions: {
-    fetchDiseases({ commit }) {
+    fetchDiseases({ commit, state }) {
       commit('setLoading', true)
-      getDiseases()
+      getDiseases(state.currentPage)
         .then((response) => {
           commit('setDiseases', response.data.content)
+          commit('setCurrentPage', parseInt(response.data.page))
+          commit('setTotalPages', parseInt(response.data.totalPages))
         })
         .catch(() => {
           commit('setError', true)
@@ -101,11 +111,16 @@ export default {
         .finally(() => {
           commit('setLoading', false)
         })
+    },
+    setPage({ commit }, page) {
+      commit('setCurrentPage', page)
     }
   },
   getters: {
     getDiseases: (state) => state.diseases,
     getLoadingDiseases: (state) => state.loading,
-    getErrorDiseases: (state) => state.error
+    getErrorDiseases: (state) => state.error,
+    getCurrentPage: (state) => state.currentPage,
+    getTotalPages: (state) => state.totalPages
   }
 }

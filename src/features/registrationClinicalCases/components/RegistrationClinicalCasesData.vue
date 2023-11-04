@@ -1,34 +1,52 @@
 <template>
-  <div>
+  <div class="container">
     <Title :title="tituloComponente" />
     <div class="form">
       <InputGroup>
         <InputWrapper>
-          <v-select
+          <el-select
             v-model="industry"
-            :options="getIndustries"
-            :reduce="(item) => item.id"
-            placeholder="Indústria"
-            label="name"
-          />
+            placeholder="Indústrias"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in getIndustries"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            />
+          </el-select>
         </InputWrapper>
         <InputWrapper>
-          <v-select
+          <el-select
             v-model="disease"
-            :options="getDiseases"
-            :reduce="(item) => item.id"
-            placeholder="Doença"
-            label="name"
-          />
+            placeholder="Doenças"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in getDiseases"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            />
+          </el-select>
         </InputWrapper>
         <InputWrapper>
-          <v-select
+          <el-select
             v-model="specialty"
-            :options="getSpecialties"
-            :reduce="(item) => item.id"
-            placeholder="Especialidade"
-            label="name"
-          />
+            placeholder="Especialidades"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in getSpecialties"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            />
+          </el-select>
         </InputWrapper>
         <!-- <InputWrapper>
           <div class="input-with-icon">
@@ -51,57 +69,57 @@
       </InputGroup>
       <InputGroup>
         <InputWrapper>
-          <input
-            type="text"
+          <el-input
+            v-model="name"
             placeholder="Denominação Casos Clínicos"
             class="flexible-input"
-            v-model="name"
           />
         </InputWrapper>
         <InputWrapper>
-          <input
+          <el-input
+            v-model="quantity"
             type="number"
             placeholder="Quantidade de Casos Clínicos"
             class="flexible-input"
-            v-model="quantity"
           />
         </InputWrapper>
       </InputGroup>
       <InputGroup>
         <InputWrapper>
-          <input
+          <el-input
+            v-model="startDate"
             type="text"
             placeholder="Data de Início"
             class="flexible-input"
-            v-model="startDate"
             v-mask="'##/##/####'"
           />
         </InputWrapper>
         <InputWrapper>
-          <input
+          <el-input
+            v-model="expirationDate"
             type="text"
             placeholder="Data de Validade"
             class="flexible-input"
-            v-model="expirationDate"
             v-mask="'##/##/####'"
           />
         </InputWrapper>
       </InputGroup>
       <InputGroup>
         <InputWrapper>
-          <input
-            type="number"
+          <el-input
+            v-model="fees"
+            type="text"
             placeholder="Honorários Médico Consultor"
             class="flexible-input"
-            v-model="fees"
+            v-mask="'R$#.###,##'"
           />
         </InputWrapper>
         <InputWrapper></InputWrapper>
       </InputGroup>
       <div class="save">
-        <button @click="handleSave" :disabled="isSaveDisabled">
-          Salvar
-        </button>
+        <el-button type="primary" @click="handleSave" :disabled="isSaveDisabled"
+          >Salvar</el-button
+        >
       </div>
     </div>
   </div>
@@ -109,7 +127,6 @@
 
 <script>
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
-import vSelect from 'vue-select'
 import { useToast } from 'vue-toastification'
 import { mapGetters, mapActions } from 'vuex'
 
@@ -123,7 +140,6 @@ export default {
   components: {
     InputWrapper,
     InputGroup,
-    vSelect,
     Title
   },
   setup() {

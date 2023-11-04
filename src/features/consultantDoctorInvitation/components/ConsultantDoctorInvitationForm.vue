@@ -1,36 +1,36 @@
 <template>
-  <div>
+  <div class="container">
     <div class="form">
       <InputGroup>
         <InputWrapper>
-          <input
-            type="text"
+          <el-input
+            v-model="cpf"
             placeholder="Adicionar CPF"
             class="flexible-input"
-            v-model="cpf"
             v-mask="'###.###.###-##'"
           />
         </InputWrapper>
         <InputWrapper>
-          <input
-            type="text"
+          <el-input
+            v-model="name"
             placeholder="Adicionar Nome"
             class="flexible-input"
-            v-model="name"
           />
         </InputWrapper>
         <InputWrapper>
-          <input
+          <el-input
+            v-model="email"
             type="email"
             placeholder="Adicionar E-mail"
             class="flexible-input"
-            v-model="email"
           />
         </InputWrapper>
       </InputGroup>
 
       <div class="save">
-        <button @click="handleSave" :disabled="isSaveDisabled">Salvar</button>
+        <el-button type="primary" @click="handleSave" :disabled="isSaveDisabled"
+          >Salvar</el-button
+        >
       </div>
     </div>
   </div>
@@ -67,7 +67,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('consultantDoctorInvitation', ['consultantDoctor']),
+    ...mapActions('consultantDoctorInvitation', ['putConsultantDoctor']),
 
     async handleSave() {
       const userData = {
@@ -76,18 +76,7 @@ export default {
         cpf: this.cpf
       }
 
-      try {
-        await this.consultantDoctor(userData)
-        this.toast.success(
-          'Geração de convite para médico consultor efetuada com sucesso',
-          { timeout: 5000 }
-        )
-      } catch (error) {
-        this.toast.warning(
-          'Erro ao realizar a geração de convite para médico consultor',
-          { timeout: 5000 }
-        )
-      }
+      await this.putConsultantDoctor(userData)
       this.clearForm()
     },
     clearForm() {

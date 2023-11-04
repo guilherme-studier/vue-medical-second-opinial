@@ -10,6 +10,9 @@
       :tableHeader="tableHeader"
       :tableData="filteredTableData"
       :loading="isLoading"
+      :currentPage="getCurrentPage"
+      :totalPages="getTotalPages"
+      @page-change="updatePageData"
     >
       <template v-slot:action="{ item }">
         <font-awesome-icon
@@ -61,7 +64,9 @@ export default {
     ...mapGetters('industryRepresentantMan', [
       'getIndustryRepresentant',
       'getIndustryRepresentants',
-      'getLoadingRepresentantIndustry'
+      'getLoadingRepresentantIndustry',
+      'getCurrentPage',
+      'getTotalPages'
     ]),
 
     isLoading() {
@@ -76,7 +81,8 @@ export default {
           action: [
             {
               icon: faPenToSquare,
-              handler: () => this.fetchIndustryRepresentant(item.id)
+              handler: () =>
+                this.fetchIndustryRepresentant(item.id) && this.scrollToTop()
             },
             {
               icon: faBan,
@@ -103,13 +109,26 @@ export default {
       })
     }
   },
-
+  watch: {
+    getCurrentPage: 'fetchIndustryRepresentants'
+  },
   methods: {
     ...mapActions('industryRepresentantMan', [
       'fetchIndustryRepresentant',
       'fetchIndustryRepresentants',
-      'cancelIndustryRepresentant'
-    ])
+      'cancelIndustryRepresentant',
+      'setPage'
+    ]),
+
+    updatePageData({ currentPage }) {
+      this.setPage(currentPage)
+    },
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    }
   }
 }
 </script>

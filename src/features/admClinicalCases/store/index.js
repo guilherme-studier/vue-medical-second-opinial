@@ -1,4 +1,9 @@
 import { faCheck, faXmark, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { useToast } from 'vue-toastification'
+
+import { getClinicalCasesConsultantDoctor } from '../../clinicalCasesConsultationDoctor/services/index'
+
+const toast = useToast()
 
 export default {
   namespaced: true,
@@ -105,7 +110,8 @@ export default {
     ],
     loading: false,
     error: false,
-    errorMessage: ''
+    errorMessage: '',
+    clinicalCases: []
   }),
   mutations: {
     setTableData(state, data) {
@@ -117,6 +123,9 @@ export default {
     setError(state, { value, message }) {
       state.error = value
       state.errorMessage = message
+    },
+    setClinicalCases(state, clinicalCases) {
+      state.clinicalCases = clinicalCases
     }
   },
   actions: {
@@ -127,6 +136,27 @@ export default {
         commit('setTableData', dataFromApi)
         commit('setLoading', false)
       }, 1000)
+    },
+    async fetchClinicalCases({ commit, dispatch }) {
+      commit('setLoading', true)
+      dispatch('getClinicalCases')
+    },
+    getClinicalCases({ commit }) {
+      return getClinicalCasesConsultantDoctor()
+        .then((response) => {
+          commit('setClinicalCases', response.data)
+        })
+        .catch(() => {
+          toast.warning(
+            'Erro ao buscar os casos clínicos de Médico Consultor',
+            {
+              timeout: 5000
+            }
+          )
+        })
+        .finally(() => {
+          commit('setLoading', false)
+        })
     }
   },
   getters: {
@@ -136,6 +166,7 @@ export default {
     getTableHeader: (state) => state.tableHeader,
     getLoading: (state) => state.loading,
     getError: (state) => state.error,
-    getErrorMessage: (state) => state.errorMessage
+    getErrorMessage: (state) => state.errorMessage,
+    getClinicalCases: (state) => state.clinicalCases
   }
 }

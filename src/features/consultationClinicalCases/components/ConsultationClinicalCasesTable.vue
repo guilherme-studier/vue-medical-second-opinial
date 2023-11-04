@@ -6,61 +6,118 @@
     </div>
     <InputGroup>
       <InputWrapper>
-        <v-select
+        <el-select
           v-model="selectedIndustry"
-          :options="getIndustries"
-          :reduce="(item) => item.id"
-          placeholder="Indústria"
-          label="name"
-          @option:selected="selectIndustryId"
-        ></v-select>
+          placeholder="Indústrias"
+          size="large"
+          clearable
+        >
+          <el-option
+            v-for="item in getIndustries"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          />
+        </el-select>
       </InputWrapper>
       <InputWrapper>
-        <v-select
+        <el-select
           v-model="selectedSpecialty"
-          :options="getSpecialties"
-          :reduce="(item) => item.id"
           placeholder="Especialidade"
-          label="name"
-          @option:selected="selectedSpecialtyId"
-        />
+          size="large"
+          clearable
+        >
+          <el-option
+            v-for="item in getSpecialties"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          />
+        </el-select>
       </InputWrapper>
       <InputWrapper>
-        <v-select
+        <el-select
           v-model="selectedIllness"
-          :options="getDiseases"
-          :reduce="(item) => item.id"
           placeholder="Doença"
-          label="name"
-          @option:selected="selectedIllnessId"
-        ></v-select>
+          size="large"
+          clearable
+        >
+          <el-option
+            v-for="item in getDiseases"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          />
+        </el-select>
       </InputWrapper>
       <InputWrapper>
-        <v-select
+        <el-select
           v-model="selectedDoctor"
-          :options="getDoctors"
           placeholder="Médico Consultor"
-          :reduce="(item) => item.id"
-          label="name"
-          @option:selected="selectedDoctorId"
-        ></v-select>
+          size="large"
+          clearable
+        >
+          <el-option
+            v-for="item in getDoctors"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          />
+        </el-select>
       </InputWrapper>
     </InputGroup>
-
-    <custom-table
-      :tableHeader="tableHeader"
-      :tableData="tableData"
-      :loading="isLoading"
-    />
+    <el-table
+      class="consultation-table"
+      v-loading="isLoading"
+      style="width: 100%"
+      :data="tableData"
+      :height="300"
+      border
+    >
+      <el-table-column
+        label="Caso clínico/ID"
+        prop="voucher"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        label="Indústria"
+        prop="industry"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        label="Especialidade"
+        prop="specialty"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        label="Doença"
+        prop="illness"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        label="Data"
+        prop="date"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        label="Status"
+        prop="status"
+        align="center"
+      ></el-table-column>
+    </el-table>
+    <!-- <el-pagination
+      :page-size="3"
+      :pager-count="11"
+      layout="prev, pager, next"
+      :total="21"
+    /> -->
   </div>
 </template>
 
 <script>
-import vSelect from 'vue-select'
 import { mapActions, mapGetters } from 'vuex'
 
 import iconVoucher from '@/assets/icons/icon-voucher.svg'
-import CustomTable from '@/components/customTable'
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
 import { formatDate } from '@/helpers/date'
@@ -70,9 +127,7 @@ export default {
   name: 'Consulta Casos Clínicos',
   components: {
     InputWrapper,
-    CustomTable,
-    InputGroup,
-    vSelect
+    InputGroup
   },
   data() {
     return {
@@ -90,7 +145,8 @@ export default {
         'Data',
         'Status'
       ],
-      tableData: []
+      tableData: [],
+      pageSize: 10
     }
   },
   mounted() {
@@ -113,7 +169,9 @@ export default {
       'getSpecialty',
       'getIllness',
       'getDoctors',
-      'getDoctor'
+      'getDoctor',
+      'getCurrentPage',
+      'getTotalPages'
     ]),
     ...mapGetters('specialty', ['getSpecialties', 'getLoadingSpecialtys']),
     ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
@@ -139,37 +197,24 @@ export default {
       'setSpecialtyId',
       'setIllnessId',
       'fetchConsultantDoctors',
-      'setDoctorId'
+      'setDoctorId',
+      'setPage'
     ]),
     ...mapActions('specialty', ['fetchSpecialties']),
     ...mapActions('industry', ['fetchIndustries']),
     ...mapActions('disease', ['fetchDiseases']),
-    selectIndustryId(industry) {
-      if (industry) this.setIndustryId(industry.id)
-      else this.setIndustryId()
-    },
 
-    selectedSpecialtyId(specialty) {
-      if (specialty) this.setSpecialtyId(specialty.id)
-      else this.setSpecialtyId()
+    updatePageData({ currentPage }) {
+      this.setPage(currentPage)
     },
-
-    selectedIllnessId(illness) {
-      if (illness) {
-        this.setIllnessId(illness.id)
-      } else this.setIllnessId()
-    },
-
-    selectedDoctorId(doctor) {
-      if (doctor) {
-        this.setDoctorId(doctor.id)
-      } else this.setDoctorId()
+    handleCurrentChange(newPage) {
+      this.setPage(newPage)
     }
   },
   watch: {
     getContracts: {
       handler(newContracts) {
-        this.tableData = newContracts.map((contract) => ({
+        this.tableData = newContracts?.map((contract) => ({
           voucher: contract.contractId,
           industry: contract.industryName,
           specialty: contract.specialtyName,
@@ -181,21 +226,23 @@ export default {
       },
       deep: true
     },
+    getCurrentPage: 'fetchContracts',
     getIndustry: 'fetchContracts',
     getSpecialty: 'fetchContracts',
     getIllness: 'fetchContracts',
     getDoctor: 'fetchContracts',
+
     selectedIndustry() {
-      if (!this.selectedIndustry) this.setIndustryId()
+      this.setIndustryId(this.selectedIndustry)
     },
     selectedSpecialty() {
-      if (!this.selectedSpecialty) this.setSpecialtyId()
+      this.setSpecialtyId(this.selectedSpecialty)
     },
     selectedIllness() {
-      if (!this.selectedIllness) this.setIllnessId()
+      this.setIllnessId(this.selectedIllness)
     },
     selectedDoctor() {
-      if (!this.selectedDoctor) this.selectedDoctorId()
+      this.setDoctorId(this.selectedDoctor)
     }
   }
 }
@@ -206,5 +253,11 @@ export default {
   position: absolute;
   top: -60px;
   left: 0;
+}
+
+.consultation-table {
+  margin: 15px 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 </style>

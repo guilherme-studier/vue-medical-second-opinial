@@ -28,7 +28,7 @@ export const createDisease = (name) => {
  * @param {number} size - Quantidade de especialidades por página.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const getDiseases = (page = 1, size = 100) => {
+export const getDiseases = (page = 1, size = 10) => {
   const url = `${BASE_URL}/disease?page=${page}&size=${size}`
 
   return axios({

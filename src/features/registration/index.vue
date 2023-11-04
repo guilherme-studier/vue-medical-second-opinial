@@ -1,7 +1,6 @@
 <template>
-  <div id="registration" :class="{ 'form-loading': isLoading }">
+  <div id="registration" v-loading="isLoading">
     <registration-data />
-    <loader-spinner v-if="isLoading" />
   </div>
 </template>
 
@@ -10,13 +9,10 @@ import { mapGetters } from 'vuex'
 
 import RegistrationData from '../registration/components/RegistrationData'
 
-import LoaderSpinner from '@/components/loaderSpinner'
-
 export default {
   name: 'Registration',
   components: {
-    RegistrationData,
-    LoaderSpinner
+    RegistrationData
   },
   computed: {
     ...mapGetters('registration', ['getLoadingRegistration']),

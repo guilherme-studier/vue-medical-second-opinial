@@ -1,4 +1,8 @@
+import { useToast } from 'vue-toastification'
+
 import { consultantDoctor } from '../services/index'
+
+const toast = useToast()
 
 export default {
   namespaced: true,
@@ -15,15 +19,19 @@ export default {
     }
   },
   actions: {
-    async consultantDoctor({ commit }, userData) {
+    async putConsultantDoctor({ commit }, userData) {
       commit('setLoading', true)
       return consultantDoctor(userData)
         .then((response) => {
           commit('setDoctorConsultant', response.data)
-          return response
+          toast.success('Convite para Médico Consultor efetuado com sucesso', {
+            timeout: 5000
+          })
         })
-        .catch((error) => {
-          throw error
+        .catch(() => {
+          toast.warning('Erro realizar o convite para Médico Consultor', {
+            timeout: 5000
+          })
         })
         .finally(() => {
           commit('setLoading', false)

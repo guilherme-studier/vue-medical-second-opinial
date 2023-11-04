@@ -1,4 +1,5 @@
-import { ElSelect, ElOption } from 'element-plus'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 import { createApp } from 'vue'
 import VueTheMask from 'vue-the-mask'
 
@@ -26,15 +27,18 @@ import '@/plugins/toast/toast'
 //   rtl: false
 // }
 
+if (process.env.NODE_ENV === 'development') {
+  // Desativa as notificações do ResizeObserver em ambientes de desenvolvimento
+  ResizeObserver.prototype.observe = function() {}
+}
+
 const app = createApp(App)
 
+app.use(ElementPlus)
 app.use(router)
 app.use(store)
 
 app.use(VueTheMask)
-
-app.component(ElSelect.name, ElSelect)
-app.component(ElOption.name, ElOption)
 
 app.component('MetaManager', {
   render: () => null,

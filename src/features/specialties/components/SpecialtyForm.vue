@@ -8,7 +8,7 @@
 
     <div class="specialties--form">
       <InputGroup>
-        <input
+        <el-input
           v-model="specialtyName"
           type="text"
           placeholder="Nome da Especialidade"
@@ -17,16 +17,18 @@
       </InputGroup>
 
       <div class="specialties--row">
-        <button class="outline" @click="clearForm" :disabled="!specialtyName">
-          Cancelar
-        </button>
+        <el-button type="info" @click="clearForm" :disabled="!specialtyName"
+          >Cancelar</el-button
+        >
 
-        <button
+        <el-button
+          type="primary"
           @click="specialtyId ? editSpecialty() : newSpecialty()"
           :disabled="!specialtyName"
+          >{{
+            specialtyId ? 'Editar Especialidade' : 'Criar Especialidade'
+          }}</el-button
         >
-          {{ specialtyId ? 'Editar Especialidade' : 'Criar Especialidade' }}
-        </button>
       </div>
     </div>
 
@@ -49,6 +51,9 @@
       :tableHeader="tableHeader"
       :tableData="filteredTableData"
       :loading="isLoading"
+      :currentPage="getCurrentPage"
+      :totalPages="getTotalPages"
+      @page-change="updatePageData"
     >
       <template v-slot:action="{ item }">
         <font-awesome-icon :icon="icon" @click="value.handler(item)" />
@@ -104,7 +109,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters('specialty', ['getSpecialties', 'getLoadingSpecialtys']),
+    ...mapGetters('specialty', [
+      'getSpecialties',
+      'getLoadingSpecialtys',
+      'getCurrentPage',
+      'getTotalPages'
+    ]),
 
     isLoading() {
       return this.getLoadingSpecialtys
@@ -146,13 +156,16 @@ export default {
       })
     }
   },
-
+  watch: {
+    getCurrentPage: 'fetchSpecialties'
+  },
   methods: {
     ...mapActions('specialty', [
       'deleteSpecialtyById',
       'createNewSpecialty',
       'updateSpecialtyById',
-      'fetchSpecialties'
+      'fetchSpecialties',
+      'setPage'
     ]),
 
     /** Criar especialidade */
@@ -191,14 +204,23 @@ export default {
       this.specialtyId = id
       this.specialtyName = name
 
-      /** Scrollar para a cima */
-      this.$refs.specialties.scrollIntoView({ behavior: 'smooth' })
+      this.scrollToTop()
+    },
+
+    updatePageData({ currentPage }) {
+      this.setPage(currentPage)
     },
 
     /** Cancelar criação/edição */
     clearForm() {
       this.specialtyId = null
       this.specialtyName = ''
+    },
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Para um comportamento de rolagem suave
+      })
     }
   }
 }

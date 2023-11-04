@@ -1,58 +1,49 @@
 <template>
-  <div class="container-modal-seem">
+  <div class="container-modal-seem" v-loading="getLoadingOpinion">
     <h2>
       Caso clínico: <span>{{ voucher }}</span>
     </h2>
-    <div class="seem-text">
-      <p>{{ seem }}</p>
+    <div class="seem">
+      <textarea class="seem-text" v-model="getOpinion" disabled />
     </div>
     <div class="seem-send">
-      <div class="seem-print-out">
-        <font-awesome-icon :icon="iconPrint" style="color: #008B8F;" key="" />
-        <h3 @click="printSeem">Imprimir Parecer</h3>
-      </div>
+      <el-button class="seem-btn" type="primary" @click="sendSeem"
+        >Imprimir</el-button
+      >
     </div>
   </div>
 </template>
 
 <script>
-import { faPrint } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import jsPDF from 'jspdf'
-import { mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'SeemModal',
-  components: {
-    FontAwesomeIcon
-  },
   props: {
     voucher: {
       type: String,
       default: null
     },
-    seem: {
+    opinion: {
       type: String,
       default: null
     }
   },
   data() {
     return {
-      iconPrint: faPrint
+      seemText: null
     }
   },
-  methods: {
-    ...mapActions('clinicalCasesEvaluation', ['handleSeem']),
-
-    printSeem() {
-      const pdf = new jsPDF()
-
-      pdf.text(this.seem, 10, 10)
-      pdf.save('parecer.pdf')
-    },
-
-    sendSeem() {
-      this.handleSeem(this.seem)
+  computed: {
+    ...mapGetters('clinicalCasesConsultationDoctor', [
+      'getLoadingOpinion',
+      'getIsModalSeem',
+      'getOpinion'
+    ])
+  },
+  watch: {
+    getIsModalSeem() {
+      this.seemText = this.getOpinion
     }
   }
 }

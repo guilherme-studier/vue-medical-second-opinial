@@ -9,7 +9,7 @@
     <div class="industries--form">
       <InputGroup>
         <InputWrapper>
-          <input
+          <el-input
             v-model="industryName"
             type="text"
             placeholder="Nome da Indústria"
@@ -17,7 +17,7 @@
           />
         </InputWrapper>
         <InputWrapper>
-          <input
+          <el-input
             v-model="cnpj"
             type="text"
             placeholder="CNPJ"
@@ -29,15 +29,15 @@
       </InputGroup>
       <InputGroup>
         <InputWrapper>
-          <input
+          <el-input
             v-model="email"
-            type="text"
+            type="email"
             placeholder="E-mail"
             class="flexible-input"
           />
         </InputWrapper>
         <InputWrapper>
-          <input
+          <el-input
             v-model="phone"
             type="text"
             placeholder="Telefone"
@@ -48,7 +48,7 @@
       </InputGroup>
       <InputGroup>
         <InputWrapper>
-          <input
+          <el-input
             v-model="contact"
             type="text"
             placeholder="Contato"
@@ -56,7 +56,7 @@
           />
         </InputWrapper>
         <InputWrapper>
-          <input
+          <el-input
             v-model="observation"
             type="text"
             placeholder="Observação"
@@ -66,16 +66,16 @@
       </InputGroup>
 
       <div class="industries--row">
-        <button class="outline" @click="clearForm" :disabled="!isValidForm">
-          Cancelar
-        </button>
+        <el-button type="info" @click="clearForm" :disabled="!isValidForm"
+          >Cancelar</el-button
+        >
 
-        <button
+        <el-button
+          type="primary"
           @click="industryId ? editIndustry() : newIndustry()"
           :disabled="!isValidForm"
+          >{{ industryId ? 'Editar Indústria' : 'Criar Indústria' }}</el-button
         >
-          {{ industryId ? 'Editar Indústria' : 'Criar Indústria' }}
-        </button>
       </div>
     </div>
 
@@ -98,6 +98,9 @@
       :tableHeader="tableHeader"
       :tableData="filteredTableData"
       :loading="isLoading"
+      :currentPage="getCurrentPage"
+      :totalPages="getTotalPages"
+      @page-change="updatePageData"
     >
       <template v-slot:action="{ item }">
         <font-awesome-icon :icon="icon" @click="value.handler(item)" />
@@ -160,7 +163,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
+    ...mapGetters('industry', [
+      'getIndustries',
+      'getLoadingIndustry',
+      'getCurrentPage',
+      'getTotalPages'
+    ]),
 
     isLoading() {
       return this.getLoadingIndustry
@@ -215,18 +223,21 @@ export default {
       })
     }
   },
-
+  watch: {
+    getCurrentPage: 'fetchIndustries'
+  },
   methods: {
     ...mapActions('industry', [
       'deleteIndustryById',
-      'createNewIndustry',
+      'createIndustry',
       'updateIndustryById',
-      'fetchIndustries'
+      'fetchIndustries',
+      'setPage'
     ]),
 
     newIndustry() {
       if (this.isValidForm) {
-        this.createNewIndustry(
+        this.createIndustry(
           this.industryName,
           this.cnpj,
           this.email,
@@ -280,6 +291,9 @@ export default {
         top: 0,
         behavior: 'smooth' // Para um comportamento de rolagem suave
       })
+    },
+    updatePageData({ currentPage }) {
+      this.setPage(currentPage)
     }
   }
 }

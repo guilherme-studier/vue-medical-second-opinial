@@ -16,7 +16,9 @@ export default {
   state: () => ({
     specialties: [],
     loading: false,
-    error: false
+    error: false,
+    currentPage: null,
+    totalPages: null
   }),
   mutations: {
     setSpecialties(state, specialties) {
@@ -27,14 +29,22 @@ export default {
     },
     setError(state, value) {
       state.error = value
+    },
+    setCurrentPage(state, currentPage) {
+      state.currentPage = currentPage
+    },
+    setTotalPages(state, totalPages) {
+      state.totalPages = totalPages
     }
   },
   actions: {
-    fetchSpecialties({ commit }) {
+    fetchSpecialties({ commit, state }) {
       commit('setLoading', true)
-      getSpecialties()
+      getSpecialties(state.currentPage ?? 1)
         .then((response) => {
           commit('setSpecialties', response.data.content)
+          commit('setCurrentPage', parseInt(response.data.page))
+          commit('setTotalPages', parseInt(response.data.totalPages))
         })
         .catch((error) => {
           commit('setError', true)
@@ -106,11 +116,16 @@ export default {
         .finally(() => {
           commit('setLoading', false)
         })
+    },
+    setPage({ commit }, page) {
+      commit('setCurrentPage', page)
     }
   },
   getters: {
     getSpecialties: (state) => state.specialties,
     getLoadingSpecialtys: (state) => state.loading,
-    getErrorSpecialtys: (state) => state.error
+    getErrorSpecialtys: (state) => state.error,
+    getCurrentPage: (state) => state.currentPage,
+    getTotalPages: (state) => state.totalPages
   }
 }
