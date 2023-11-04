@@ -27,6 +27,11 @@ import '@/plugins/toast/toast'
 //   rtl: false
 // }
 
+if (process.env.NODE_ENV === 'development') {
+  // Desativa as notificações do ResizeObserver em ambientes de desenvolvimento
+  ResizeObserver.prototype.observe = function() {}
+}
+
 const app = createApp(App)
 
 app.use(ElementPlus)

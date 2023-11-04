@@ -79,7 +79,7 @@ export default {
   watch: {
     getClinicalCases: {
       handler(newContracts) {
-        this.tableData = newContracts.map((contract) => ({
+        this.tableData = newContracts?.map((contract) => ({
           contractName: contract?.contractName,
           id: contract?.contractId,
           illness: contract?.illnessId,

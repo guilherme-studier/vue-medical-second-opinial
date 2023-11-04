@@ -14,37 +14,73 @@
       </div>
     </div>
 
-    <custom-table
-      :tableHeader="tableHeader"
-      :tableData="tableData"
-      :loading="isLoading"
+    <el-table
+      class="consultation-table"
+      :data="tableData"
+      :height="450"
+      style="width: 100%"
+      border
+      v-loading="isLoading"
     >
-      <template v-slot:action="{ item }">
-        <font-awesome-icon :icon="icon" @click="value.handler(item)" />
-      </template>
-    </custom-table>
+      <el-table-column
+        prop="voucher"
+        label="Casos Clínicos"
+        align="center"
+      ></el-table-column>
+      <el-table-column prop="id" label="ID" align="center"></el-table-column>
+      <el-table-column
+        prop="illness"
+        label="Doença"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="doctor"
+        label="Médico"
+        align="center"
+      ></el-table-column>
+      <el-table-column label="Ação" width="150" align="center">
+        <template v-slot="scope">
+          <div class="actions">
+            <!-- <font-awesome-icon
+              :icon="iconCheck"
+              @click="handleCheck(scope.row.voucherId)"
+            /> -->
+            <font-awesome-icon
+              :icon="iconFile"
+              @click="handleFile(scope.row)"
+            />
+            <font-awesome-icon
+              :icon="iconMessage"
+              @click="handleComment(scope.row)"
+            />
+          </div>
+        </template>
+      </el-table-column>
+    </el-table>
+
     <!-- parecer modal -->
-    <modal
-      :title="titleModalSeem"
+    <el-dialog
+      title="Registrar Parecer"
+      v-model="getIsModalSeem"
       @close="closeModalSeem"
-      v-if="getIsModalSeem"
     >
       <seem-modal
-        :voucher="selectedContract.id"
-        :opinion="selectedContract.opinion"
+        :voucher="selectedContract?.voucher"
+        :opinion="selectedContract?.opinion"
       />
-    </modal>
+    </el-dialog>
+
     <!-- message modal -->
-    <modal
-      :title="titleModalMessage"
+    <el-dialog
+      title="Mensagens"
+      v-model="getIsModalMessage"
       @close="closeModalMessage"
-      v-if="getIsModalMessage"
     >
       <message-modal
-        :voucher="getModalMessageContent.voucher"
-        :messages="getModalMessageContent.messages"
+        :id="selectedContract?.id"
+        :voucher="selectedContract?.voucher"
       />
-    </modal>
+    </el-dialog>
   </div>
 </template>
 
@@ -60,25 +96,23 @@ import { mapGetters, mapActions } from 'vuex'
 import MessageModal from './MessageModal.vue'
 import SeemModal from './SeemModal.vue'
 
-import CustomTable from '@/components/customTable'
-import Modal from '@/components/modal'
+// import Modal from '@/components/modal'
 
 export default {
   name: 'ClinicalCasesConsultationDoctor',
   components: {
-    CustomTable,
     MessageModal,
-    FontAwesomeIcon,
     SeemModal,
-    Modal
+    FontAwesomeIcon
+    // Modal
   },
   data() {
     return {
-      titleModalSeem: 'Registrar Parecer',
-      titleModalMessage: 'Mensagens',
-      tableHeader: ['Casos Clínicos', 'ID', 'Doença', 'Médico', 'Ação'],
       tableData: [],
-      selectedContract: {}
+      selectedContract: {},
+      iconCheck: faSquareCheck,
+      iconFile: faFile,
+      iconMessage: faComment
     }
   },
   computed: {
@@ -92,7 +126,6 @@ export default {
       'getClinicalCases',
       'getLoadingClinicalCases'
     ]),
-
     isLoading() {
       return this.getLoadingClinicalCases
     }
@@ -103,36 +136,14 @@ export default {
   watch: {
     getClinicalCases: {
       handler(newContracts) {
-        this.tableData = newContracts.map((contract) => ({
-          voucher: contract?.contractId,
-          id: contract?.contractId,
-          illness: contract?.contractId,
-          doctor: contract?.contractId,
-          action: [
-            {
-              icon: faSquareCheck,
-              handler: () => alert('inserir dados do caso clínico')
-            },
-            {
-              icon: faFile,
-              handler: () => {
-                this.selectedContract = {
-                  id: contract?.voucherId,
-                  opinion: contract?.opinion
-                }
-                this.handleModalSeem()
-              }
-            },
-            {
-              icon: faComment,
-              handler: () => {
-                this.selectedContract = {
-                  id: contract?.voucherId
-                }
-                this.handleModalMessage()
-              }
-            }
-          ]
+        this.tableData = newContracts?.map((contract) => ({
+          voucher: contract?.contractName,
+          contractId: contract?.contractId,
+          id: contract?.id,
+          illness: contract?.diseaseName,
+          doctor: contract?.doctorName,
+          voucherId: contract?.voucherId,
+          opinion: contract?.opinion
         }))
       },
       deep: true
@@ -145,13 +156,37 @@ export default {
       'sendSeem',
       'fetchClinicalCases'
     ]),
-
-    closeModalSeem() {
-      this.handleModalSeem()
+    // handleCheck(id) {
+    //   alert(id)
+    // },
+    handleFile(row) {
+      if (row.opinion === null) {
+        this.selectedContract = {
+          voucher: row.voucherId,
+          opinion: null
+        }
+      } else {
+        this.selectedContract = {
+          voucher: row.voucherId,
+          opinion: row.opinion || ''
+        }
+      }
+      this.handleModalSeem(this.selectedContract.opinion)
     },
-
+    handleComment(row) {
+      this.selectedContract = {
+        id: row?.id,
+        voucher: row?.voucherId
+      }
+      this.handleModalMessage(this.selectedContract?.id)
+    },
+    closeModalSeem() {
+      this.handleModalSeem(false)
+      this.selectedContract = {}
+    },
     closeModalMessage() {
       this.handleModalMessage()
+      this.selectedContract = {}
     }
   }
 }
@@ -159,4 +194,18 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/index.scss';
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 19px;
+  margin: 2px;
+
+  svg:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+  }
+}
 </style>

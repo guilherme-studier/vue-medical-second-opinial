@@ -3,31 +3,35 @@
     <h2>
       Caso clínico: <span>{{ voucher }}</span>
     </h2>
-    <div class="messages">
-      <div class="chat-message-container">
+    <div class="messages" v-loading="getLoadingMessages">
+      <div v-if="getMessages.length" class="chat-message-container">
         <Message
-          v-for="message in messages"
+          v-for="message in getMessages"
           :key="message.id"
           :message="message"
-          :isUserMessage="message.id !== '52'"
         />
+      </div>
+      <div v-else class="messages-empty">
+        Não há mensagens no momento
       </div>
       <div class="seem">
         <textarea
           class="seem-text"
           v-model="messageText"
           placeholder="Escreva mensagem..."
-        ></textarea>
+          type="textarea"
+        />
       </div>
     </div>
     <div class="message-send">
-      <button
+      <el-button
+        type="primary"
         class="message-btn"
         @click="sendMessage"
         :disabled="!enabledSendMessage"
       >
         Enviar
-      </button>
+      </el-button>
     </div>
   </div>
 </template>
@@ -43,12 +47,12 @@ export default {
     Message
   },
   props: {
-    voucher: {
-      type: String,
+    id: {
+      type: Number,
       default: null
     },
-    messages: {
-      type: Array,
+    voucher: {
+      type: String,
       default: null
     }
   },
@@ -58,21 +62,29 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('user', ['getId']),
-
-    getUserId() {
-      return this.getId
-    },
+    ...mapGetters('clinicalCasesEvaluation', [
+      'getLoadingMessages',
+      'getIsModalMessage',
+      'getMessages'
+    ]),
 
     enabledSendMessage() {
       return this.messageText?.length
     }
   },
   methods: {
-    ...mapActions('clinicalCasesConsultationDoctor', ['handleMessage']),
+    ...mapActions('clinicalCasesEvaluation', [
+      'putNewMessage',
+      'fetchMessages'
+    ]),
 
-    sendMessage() {
-      this.handleMessage(this.messageText)
+    async sendMessage() {
+      const handleData = {
+        id: this.id,
+        message: this.messageText
+      }
+      await this.putNewMessage(handleData)
+      await this.fetchMessages(this.id)
       this.messageText = null
     }
   }

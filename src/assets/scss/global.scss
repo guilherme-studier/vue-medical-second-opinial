@@ -225,6 +225,39 @@ body {
     stroke: $green-500
   }
 
+  .el-dialog {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    header {
+      background-color: $green-500;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      margin: 0;
+      
+      span {
+        color: $white;
+      }
+    }
+  }
+
+  .el-table__header-wrapper {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+  button.el-dialog__headerbtn {
+    background-color: none;
+
+    &:hover {
+      background: none;
+      border: none;
+    }
+
+    .el-dialog__close {
+      color: $white;
+    }
+  }
+
 }
 
 .form-loading {

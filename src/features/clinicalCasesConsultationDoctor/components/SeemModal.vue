@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="container-modal-seem"
-    :class="{ 'form-loading': getLoadingOpinion }"
-  >
+  <div class="container-modal-seem" v-loading="getLoadingOpinion">
     <h2>
       Caso clínico: <span>{{ voucher }}</span>
     </h2>
@@ -11,12 +8,16 @@
         class="seem-text"
         v-model="seemText"
         placeholder="Escrever paracer..."
-      ></textarea>
+      />
     </div>
     <div class="seem-send">
-      <button class="seem-btn" @click="sendSeem" :disabled="!enabledSendSeem">
-        {{ opinion ? 'Editar' : 'Salvar' }}
-      </button>
+      <el-button
+        class="seem-btn"
+        type="primary"
+        @click="sendSeem"
+        :disabled="!seemText"
+        >Salvar</el-button
+      >
     </div>
   </div>
 </template>
@@ -38,14 +39,26 @@ export default {
   },
   data() {
     return {
-      seemText: this.opinion
+      seemText: null
     }
   },
   computed: {
-    ...mapGetters('clinicalCasesConsultationDoctor', ['getLoadingOpinion']),
+    ...mapGetters('clinicalCasesConsultationDoctor', [
+      'getLoadingOpinion',
+      'getIsModalSeem',
+      'getOpinion'
+    ]),
 
     enabledSendSeem() {
-      return this.seemText?.length
+      return this.getOpinion?.length
+    }
+  },
+  mounted() {
+    this.seemText = this.getOpinion
+  },
+  watch: {
+    getIsModalSeem() {
+      this.seemText = this.getOpinion
     }
   },
   methods: {

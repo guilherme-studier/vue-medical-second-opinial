@@ -1,4 +1,4 @@
-#clinical-cases-evaluation {
+#clinical-cases-client-doctor {
   justify-content: center;
   height: fit-content;
   flex-wrap: wrap;
@@ -14,66 +14,72 @@
         font-weight: 400;
       }
     }
-    
-    .seem-text {
+
+    .seem {
       border: 1px solid $gray-500;
-      border-radius: 10px;
-      line-height: 23px;
-      text-align: left;
-      margin: 20px 0;
       padding: 15px;
-      height: 100%;
+      margin: 20px 0;
+      .seem-text {
+        border: none;
+        line-height: 23px;
+        text-align: left;
+        height: 100%;
+        min-height: 300px;
+        overflow: auto;
+        position: relative;
       
-      p {
-        max-height: 300px;
-        padding-right: 20px;
-        overflow-x: auto;
+        scrollbar-width: thin; 
+        scrollbar-color: $gray-400 $gray;
+      
+        &::-webkit-scrollbar {
+          width: 8px;
+          position: absolute;
+          right: 5px;
+          top: 5px;
+        }
+      
+        &::-webkit-scrollbar-thumb {
+          background-color: $gray-400;
+          border-radius: 5px;
+        }
+      
+        &::-webkit-scrollbar-track {
+          background-color: transparent;
+        }
+      
+        p {
+          max-height: 300px;
+          padding-right: 20px;
+          overflow-x: auto;
+        }
+      }
+
+      textarea:focus {
+      box-shadow: none; 
+      border: none;
+      outline: none;
+      }
+      
+  
+      .seem-text::placeholder {
+        font-weight: normal;
       }
     }
-
-    .seem-text p::-webkit-scrollbar {
-      width: 8px;
-      background-color: $gray;
-    }
-  
-    .seem-text p::-webkit-scrollbar-thumb {
-      background-color: $gray-400;
-      border-radius: 5px;
-    }
-  
-    .seem-text p::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-
+    
     .seem-send {
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 30px;
       display: flex;
-      width: 100%;
-      
-      .seem-print-out {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        svg {
-          font-size: 27px;
-        }
-        h3 {
-          font-weight: 700;
-          cursor: pointer;
-          padding-left: 15px;
-        }
-      }
+      place-content: end;
 
-      .seem-button {
-        width: 150px;
+      .seem-btn {
+        width: 150px !important;
       }
     }
+    
   
   }
 
   .container-modal-message {
+    height: fit-content;
     h2 {
       color: $green-500;
 
@@ -87,16 +93,15 @@
       border: 1px solid $gray-500;
       border-radius: 10px;
       padding: 5px;
-
       .seem-text {
         border: none;
         line-height: 23px;
         text-align: left;
         min-height: 50px;
-        min-width: 800px;
         overflow: auto;
         position: relative;
         font-size: 12px;
+        width: 100%;
       
         scrollbar-width: thin; 
         scrollbar-color: $gray-400 $gray;
@@ -149,7 +154,18 @@
   }
 
   .messages {
-    padding: 10px 0;
+    padding: 20px 0 10px 0;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .messages-empty {
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   
     .chat-message-container {
       max-height: 310px;
@@ -201,7 +217,7 @@
           text-align: right;
         }
       }
-  
+
       .message-content {
         &.not-user {
           text-align: right;
@@ -216,7 +232,7 @@
           display: inline-block;
         }
       }
-  
+
       .seem {
         textarea {
           max-height: 30px;
@@ -328,4 +344,8 @@
 
 textarea {
   resize: none
+}
+
+.clinical-cases--subtitle {
+  margin: 10px 0;
 }

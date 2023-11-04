@@ -68,11 +68,11 @@
     </InputGroup>
     <el-table
       class="consultation-table"
+      v-loading="isLoading"
+      style="width: 100%"
       :data="tableData"
       :height="300"
-      style="width: 100%"
       border
-      v-loading="isLoading"
     >
       <el-table-column
         label="Caso clínico/ID"
@@ -105,6 +105,12 @@
         align="center"
       ></el-table-column>
     </el-table>
+    <!-- <el-pagination
+      :page-size="3"
+      :pager-count="11"
+      layout="prev, pager, next"
+      :total="21"
+    /> -->
   </div>
 </template>
 
@@ -208,7 +214,7 @@ export default {
   watch: {
     getContracts: {
       handler(newContracts) {
-        this.tableData = newContracts.map((contract) => ({
+        this.tableData = newContracts?.map((contract) => ({
           voucher: contract.contractId,
           industry: contract.industryName,
           specialty: contract.specialtyName,

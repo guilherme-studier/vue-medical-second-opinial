@@ -1,5 +1,5 @@
 <template>
-  <div class="clinical-cases--subtitle">
+  <div class="container clinical-cases--subtitle">
     <div v-for="item in susbtitleClinicalCases" :key="item.icon">
       <subtitle :icon="item.icon" :text="item.text" />
     </div>
