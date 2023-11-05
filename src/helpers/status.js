@@ -11,5 +11,7 @@ export const formatStatus = (status) => {
       return 'Alocado'
     case 'aval':
       return 'Avaliado'
+    case 'emav':
+      return 'Em avaliação'
   }
 }

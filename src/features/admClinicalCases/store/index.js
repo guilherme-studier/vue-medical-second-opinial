@@ -48,13 +48,14 @@ export default {
           commit('setLoading', false)
         })
     },
-    async acceptClinicalCase({ commit }, voucherId) {
+    async acceptClinicalCase({ commit, dispatch }, voucherId) {
       commit('setLoading', true)
       return putClinicalCase('accept', voucherId)
         .then(() => {
           toast.success('Caso Clínico aceito com sucesso', {
             timeout: 5000
           })
+          dispatch('getClinicalCases')
         })
         .catch(() => {
           toast.warning('Não foi possível aceitar este caso clínico', {
@@ -65,16 +66,17 @@ export default {
           commit('setLoading', false)
         })
     },
-    async declineClinicalCase({ commit }, voucherId) {
+    async declineClinicalCase({ commit, dispatch }, voucherId) {
       commit('setLoading', true)
       return putClinicalCase('decline', voucherId)
         .then(() => {
-          toast.success('Caso Clínico aceito com sucesso', {
+          toast.success('Caso Clínico declinado com sucesso', {
             timeout: 5000
           })
+          dispatch('getClinicalCases')
         })
         .catch(() => {
-          toast.warning('Não foi possível aceitar este caso clínico', {
+          toast.warning('Não foi possível declinar este caso clínico', {
             timeout: 5000
           })
         })
@@ -82,16 +84,17 @@ export default {
           commit('setLoading', false)
         })
     },
-    async cancelClinicalCase({ commit }, voucherId) {
+    async cancelClinicalCase({ commit, dispatch }, voucherId) {
       commit('setLoading', true)
       return putClinicalCase('cancel', voucherId)
         .then(() => {
-          toast.success('Caso Clínico aceito com sucesso', {
+          toast.success('Caso Clínico cancelado com sucesso', {
             timeout: 5000
           })
+          dispatch('getClinicalCases')
         })
         .catch(() => {
-          toast.warning('Não foi possível aceitar este caso clínico', {
+          toast.warning('Não foi possível cancelar este caso clínico', {
             timeout: 5000
           })
         })

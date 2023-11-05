@@ -6,52 +6,60 @@
     </div>
 
     <!-- TABELA -->
-    <custom-table
-      :tableHeader="tableHeader"
-      :tableData="filteredTableData"
-      :loading="isLoading"
-      :currentPage="getCurrentPage"
-      :totalPages="getTotalPages"
-      @page-change="updatePageData"
+    <el-table
+      :data="tableData"
+      :height="450"
+      style="width: 100%"
+      border
+      v-loading="isLoading"
     >
-      <template v-slot:action="{ item }">
-        <font-awesome-icon
-          :icon="icon"
-          @click="cancelIndustryRepresentant(item.id)"
-        />
-      </template>
-    </custom-table>
+      <el-table-column
+        prop="name"
+        label="Nome"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="email"
+        label="E-mail"
+        align="center"
+      ></el-table-column>
+      <el-table-column label="Ação" width="150" align="center">
+        <template v-slot="scope">
+          <div class="actions">
+            <font-awesome-icon :icon="iconEdit" @click="edit(scope.row)" />
+            <font-awesome-icon :icon="iconCancel" @click="cancel(scope.row)" />
+          </div>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
 <script>
 /** Ícones */
+// eslint-disable-next-line import/order
 import { faBan, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 /** Vuex */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mapGetters, mapActions } from 'vuex'
 
 // eslint-disable-next-line import/order
 import iconVoucher from '@/assets/icons/icon-voucher.svg'
 
-/** Componentes */
-import CustomTable from '@/components/customTable'
-
 export default {
   name: 'IndustryRepresentantManForm',
 
   components: {
-    CustomTable,
     FontAwesomeIcon
   },
 
   data() {
     return {
-      tableHeader: ['Nome do Representante da Indústria', 'Email', 'Ações'],
-      searchTerm: '',
-      specialtyId: null,
-      specialtyName: null,
-      iconDoctor: iconVoucher
+      iconDoctor: iconVoucher,
+      iconEdit: faPenToSquare,
+      iconCancel: faBan,
+      tableData: []
     }
   },
 
@@ -71,46 +79,20 @@ export default {
 
     isLoading() {
       return this.getLoadingRepresentantIndustry || this.getLoadingIndustry
-    },
-
-    tableData() {
-      return this.getIndustryRepresentants.map((item) => {
-        return {
-          name: item.name,
-          email: item.email,
-          action: [
-            {
-              icon: faPenToSquare,
-              handler: () =>
-                this.fetchIndustryRepresentant(item.id) && this.scrollToTop()
-            },
-            {
-              icon: faBan,
-              handler: () => this.cancelIndustryRepresentant(item.id)
-            }
-          ]
-        }
-      })
-    },
-
-    filteredTableData() {
-      if (!this.searchTerm) {
-        return this.tableData
-      }
-
-      const searchTerm = this.searchTerm.toLowerCase()
-      return this.tableData.filter((item) => {
-        return Object.values(item).some((value) => {
-          if (typeof value === 'string') {
-            return value.toLowerCase().includes(searchTerm)
-          }
-          return false
-        })
-      })
     }
   },
   watch: {
-    getCurrentPage: 'fetchIndustryRepresentants'
+    getCurrentPage: 'fetchIndustryRepresentants',
+    getIndustryRepresentants: {
+      handler(industrys) {
+        this.tableData = industrys?.map((industry) => ({
+          name: industry?.name,
+          email: industry?.email,
+          id: industry?.id
+        }))
+      },
+      deep: true
+    }
   },
   methods: {
     ...mapActions('industryRepresentantMan', [
@@ -119,15 +101,18 @@ export default {
       'cancelIndustryRepresentant',
       'setPage'
     ]),
-
-    updatePageData({ currentPage }) {
-      this.setPage(currentPage)
-    },
     scrollToTop() {
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
       })
+    },
+    edit(row) {
+      this.fetchIndustryRepresentant(row.id)
+      this.scrollToTop()
+    },
+    cancel(row) {
+      this.cancelIndustryRepresentant(row.id)
     }
   }
 }
@@ -135,4 +120,18 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/index.scss';
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 19px;
+  margin: 2px;
+
+  svg:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+  }
+}
 </style>
