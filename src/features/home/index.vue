@@ -1,5 +1,5 @@
 <template>
-  <div id="home">
+  <div id="home" v-loading="getLoading">
     <signature v-if="getDoctorName" :name="getDoctorName" class="signature" />
 
     <div v-if="getDataBoxes" class="data-box-container">
@@ -9,9 +9,6 @@
         :title="box.title"
         :quantity="box.quantity"
       />
-    </div>
-    <div class="loader-spinner" v-else-if="getLoading">
-      <loader-spinner />
     </div>
     <div v-else-if="getError">
       <base-error />
@@ -23,14 +20,12 @@
 import { mapGetters, mapActions } from 'vuex'
 
 import BaseError from '@/components/baseError'
-import LoaderSpinner from '@/components/loaderSpinner'
 import DataBox from '@/features/home/components/dataBox/DataBox'
 import Signature from '@/features/home/components/signature/Signature'
 
 export default {
   name: 'Home',
   components: {
-    LoaderSpinner,
     BaseError,
     Signature,
     DataBox
