@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="adm-clinical-cases">
     <adm-clinical-cases-table />
   </div>
 </template>
