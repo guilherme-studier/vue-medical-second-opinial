@@ -38,25 +38,40 @@
       </div>
 
       <!-- CAMPO DE BUSCA -->
-      <div class="search">
+      <!-- <div class="search">
         <input type="text" v-model="searchTerm" placeholder="Buscar" />
         <img class="search-icon" :src="iconSearch" alt="" />
-      </div>
+      </div> -->
     </div>
 
     <!-- TABELA -->
-    <custom-table
-      :tableHeader="tableHeader"
-      :tableData="filteredTableData"
-      :loading="isLoading"
-      :currentPage="getCurrentPage"
-      :totalPages="getTotalPages"
-      @page-change="updatePageData"
+    <el-table
+      :data="tableData"
+      :height="450"
+      style="width: 100%"
+      border
+      v-loading="isLoading"
     >
-      <template v-slot:action="{ item }">
-        <font-awesome-icon :icon="icon" @click="value.handler(item)" />
-      </template>
-    </custom-table>
+      <el-table-column
+        prop="name"
+        label="Nome"
+        align="center"
+      ></el-table-column>
+      <el-table-column label="Ação" width="150" align="center">
+        <template v-slot="scope">
+          <div class="actions">
+            <font-awesome-icon
+              :icon="iconEdit"
+              @click="selectIllness(scope.row.id, scope.row.name)"
+            />
+            <font-awesome-icon
+              :icon="iconTrash"
+              @click="cancelIllness(scope.row.id)"
+            />
+          </div>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -71,14 +86,12 @@ import iconSearch from '@/assets/icons/icon-search.svg'
 import iconVoucher from '@/assets/icons/icon-voucher.svg'
 
 /** Componentes */
-import CustomTable from '@/components/customTable'
 import InputGroup from '@/components/inputGroup'
 
 export default {
   name: 'Doenças',
 
   components: {
-    CustomTable,
     InputGroup,
     FontAwesomeIcon
   },
@@ -88,14 +101,16 @@ export default {
       /** Ícones */
       icon: iconVoucher,
       iconSearch: iconSearch,
+      iconEdit: faPenToSquare,
+      iconTrash: faTrash,
 
-      /** Dados da tabela */
-      tableHeader: ['Nome', 'Ação'],
       searchTerm: '',
 
       /** Dados das doenças */
       illnessId: null,
-      illnessName: null
+      illnessName: null,
+
+      tableData: []
     }
   },
 
@@ -114,46 +129,20 @@ export default {
 
     isLoading() {
       return this.getLoadingDiseases
-    },
-
-    /** Dados de doenças */
-    tableData() {
-      return this.getDiseases.map((item) => {
-        return {
-          name: item.name,
-          action: [
-            {
-              icon: faPenToSquare,
-              handler: () => this.selectIllness(item.id, item.name)
-            },
-            {
-              icon: faTrash,
-              handler: () => this.deleteDiseaseById(item.id)
-            }
-          ]
-        }
-      })
-    },
-
-    /** Filtrar os dados da tabela */
-    filteredTableData() {
-      if (!this.searchTerm) {
-        return this.tableData
-      }
-
-      const searchTerm = this.searchTerm.toLowerCase()
-      return this.tableData.filter((item) => {
-        return Object.values(item).some((value) => {
-          if (typeof value === 'string') {
-            return value.toLowerCase().includes(searchTerm)
-          }
-          return false
-        })
-      })
     }
   },
   watch: {
-    getCurrentPage: 'fetchDiseases'
+    getCurrentPage: 'fetchDiseases',
+    getDiseases: {
+      handler(diseases) {
+        console.log(diseases)
+        this.tableData = diseases?.map((disease) => ({
+          name: disease?.name,
+          id: disease?.id
+        }))
+      },
+      deep: true
+    }
   },
   methods: {
     ...mapActions('disease', [
@@ -203,6 +192,10 @@ export default {
       this.scrollToTop()
     },
 
+    cancelIllness(id) {
+      this.deleteDiseaseById(id)
+    },
+
     /** Cancelar criação/edição */
     clearForm() {
       this.illnessId = null
@@ -223,4 +216,18 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/index.scss';
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 19px;
+  margin: 2px;
+
+  svg:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+  }
+}
 </style>
