@@ -39,26 +39,44 @@
         <h1>Listagem</h1>
       </div>
 
-      <!-- CAMPO DE BUSCA -->
+      <!-- CAMPO DE BUSCA
       <div class="search">
-        <input type="text" v-model="searchTerm" placeholder="Buscar" />
-        <img class="search-icon" :src="iconSearch" alt="" />
-      </div>
+        <el-input
+          v-model="searchTerm"
+          placeholder="Buscar"
+          prefix-icon="el-icon-search"
+        />
+      </div> -->
     </div>
 
     <!-- TABELA -->
-    <custom-table
-      :tableHeader="tableHeader"
-      :tableData="filteredTableData"
-      :loading="isLoading"
-      :currentPage="getCurrentPage"
-      :totalPages="getTotalPages"
-      @page-change="updatePageData"
+    <el-table
+      :data="tableData"
+      :height="450"
+      style="width: 100%"
+      border
+      v-loading="isLoading"
     >
-      <template v-slot:action="{ item }">
-        <font-awesome-icon :icon="icon" @click="value.handler(item)" />
-      </template>
-    </custom-table>
+      <el-table-column
+        prop="name"
+        label="Nome"
+        align="center"
+      ></el-table-column>
+      <el-table-column label="Ação" width="150" align="center">
+        <template v-slot="scope">
+          <div class="actions">
+            <font-awesome-icon
+              :icon="iconEdit"
+              @click="selectSpecialty(scope.row.id, scope.row.name)"
+            />
+            <font-awesome-icon
+              :icon="iconTrash"
+              @click="cancelSpecialty(scope.row.id)"
+            />
+          </div>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -73,16 +91,12 @@ import iconSearch from '@/assets/icons/icon-search.svg'
 import iconVoucher from '@/assets/icons/icon-voucher.svg'
 
 /** Componentes */
-import CustomTable from '@/components/customTable'
 import InputGroup from '@/components/inputGroup'
 
-/** Vuex */
-
 export default {
-  name: 'Especilidades',
+  name: 'Especialidades',
 
   components: {
-    CustomTable,
     InputGroup,
     FontAwesomeIcon
   },
@@ -92,14 +106,15 @@ export default {
       /** Ícones */
       icon: iconVoucher,
       iconSearch: iconSearch,
-
-      /** Dados da tabela */
-      tableHeader: ['Nome', 'Ação'],
-      searchTerm: '',
+      iconEdit: faPenToSquare,
+      iconTrash: faTrash,
+      searchTerm: null,
 
       /** Dados das especialidades */
       specialtyId: null,
-      specialtyName: null
+      specialtyName: null,
+
+      tableData: []
     }
   },
 
@@ -109,63 +124,29 @@ export default {
   },
 
   computed: {
-    ...mapGetters('specialty', [
-      'getSpecialties',
-      'getLoadingSpecialtys',
-      'getCurrentPage',
-      'getTotalPages'
-    ]),
+    ...mapGetters('specialty', ['getSpecialties', 'getLoadingSpecialtys']),
 
     isLoading() {
       return this.getLoadingSpecialtys
-    },
-
-    /** Dados de especialidades */
-    tableData() {
-      return this.getSpecialties.map((item) => {
-        return {
-          name: item.name,
-          action: [
-            {
-              icon: faPenToSquare,
-              handler: () => this.selectSpecialty(item.id, item.name)
-            },
-            {
-              icon: faTrash,
-              handler: () => this.deleteSpecialtyById(item.id)
-            }
-          ]
-        }
-      })
-    },
-
-    /** Filtrar os dados da tabela */
-    filteredTableData() {
-      if (!this.searchTerm) {
-        return this.tableData
-      }
-
-      const searchTerm = this.searchTerm.toLowerCase()
-      return this.tableData.filter((item) => {
-        return Object.values(item).some((value) => {
-          if (typeof value === 'string') {
-            return value.toLowerCase().includes(searchTerm)
-          }
-          return false
-        })
-      })
     }
   },
   watch: {
-    getCurrentPage: 'fetchSpecialties'
+    getSpecialties: {
+      handler(specialties) {
+        this.tableData = specialties?.map((specialty) => ({
+          name: specialty?.name,
+          id: specialty?.id
+        }))
+      },
+      deep: true
+    }
   },
   methods: {
     ...mapActions('specialty', [
       'deleteSpecialtyById',
       'createNewSpecialty',
       'updateSpecialtyById',
-      'fetchSpecialties',
-      'setPage'
+      'fetchSpecialties'
     ]),
 
     /** Criar especialidade */
@@ -207,8 +188,8 @@ export default {
       this.scrollToTop()
     },
 
-    updatePageData({ currentPage }) {
-      this.setPage(currentPage)
+    cancelSpecialty(id) {
+      this.deleteSpecialtyById(id)
     },
 
     /** Cancelar criação/edição */
@@ -219,7 +200,7 @@ export default {
     scrollToTop() {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth' // Para um comportamento de rolagem suave
+        behavior: 'smooth'
       })
     }
   }
@@ -228,4 +209,18 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/index.scss';
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 19px;
+  margin: 2px;
+
+  svg:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+  }
+}
 </style>
