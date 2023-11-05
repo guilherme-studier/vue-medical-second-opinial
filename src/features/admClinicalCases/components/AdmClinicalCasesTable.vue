@@ -1,124 +1,133 @@
 <template>
-  <div id="adm-clinical-cases">
+  <div class="container">
     <div class="title">
       <div class="voucher-doctor">
-        <img class="icon-voucher" :src="icon" />
+        <img class="icon-voucher" :src="getIcon" />
         <h1>
-          {{ getName }} <span>possui</span> {{ getVouchers }} casos clínicos
-          ativos
+          {{ getName }} <span>possui</span> {{ tableData?.length }} casos
+          clínicos ativos
         </h1>
       </div>
       <div class="voucher-search">
-        <input type="text" v-model="searchTerm" placeholder="Buscar" />
-        <img class="search-icon" :src="iconSearch" alt="" />
+        <input type="text" v-model="getSearchTerm" placeholder="Buscar" />
+        <img class="search-icon" :src="getIconSearch" alt="" />
       </div>
     </div>
 
-    <custom-table
-      :tableData="filteredTableData"
-      :tableHeader="getTableHeader"
-      :loading="getLoading"
-      :error="getError"
+    <el-table
+      class="consultation-table"
+      :data="tableData"
+      :height="450"
+      style="width: 100%"
+      border
+      v-loading="isLoading"
     >
-      <template v-slot:action="{ item }">
-        <font-awesome-icon :icon="icon" @click="value.action(item)" />
-      </template>
-    </custom-table>
+      <el-table-column
+        prop="voucher"
+        label="Casos Clínicos"
+        align="center"
+      ></el-table-column>
+      <el-table-column prop="id" label="ID" align="center"></el-table-column>
+      <el-table-column
+        prop="illness"
+        label="Doença"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="date"
+        label="Data"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="status"
+        label="Status"
+        align="center"
+      ></el-table-column>
+      <el-table-column label="Ação" width="150" align="center">
+        <template v-slot="scope">
+          <div class="actions">
+            <font-awesome-icon :icon="iconCheck" @click="accept(scope.row)" />
+            <font-awesome-icon :icon="iconX" @click="decline(scope.row)" />
+            <font-awesome-icon :icon="iconTrash" @click="cancel(scope.row)" />
+          </div>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
 <script>
-import { faCheck, faXmark, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faX, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mapGetters, mapActions } from 'vuex'
 
-import iconSearch from '@/assets/icons/icon-search.svg'
-import iconVoucher from '@/assets/icons/icon-voucher.svg'
-import CustomTable from '@/components/customTable'
+import { formatDate } from '@/helpers/date'
+import { formatStatus } from '@/helpers/status'
 
 export default {
-  name: 'AdmClinicalCasesTable',
+  name: 'ClinicalCasesConsultationDoctor',
   components: {
-    CustomTable,
     FontAwesomeIcon
   },
   data() {
     return {
-      iconSearch: iconSearch,
-      icon: iconVoucher,
-      searchTerm: ''
+      tableData: [],
+      selectedContract: {},
+      iconCheck: faCheck,
+      iconX: faX,
+      iconTrash: faTrash
     }
   },
   computed: {
     ...mapGetters('user', ['getName']),
     ...mapGetters('admClinicalCases', [
-      'getTableHeader',
       'getClinicalCases',
-      'getVouchers',
-      'getDoctor',
-      'getLoading',
-      'getError'
+      'getIcon',
+      'getIconSearch',
+      'getSearchTerm',
+      'getLoading'
     ]),
-
-    filteredTableData() {
-      if (!this.searchTerm) {
-        return this.getClinicalCases
-      }
-
-      const searchTerm = this.searchTerm.toLowerCase()
-      return this.getClinicalCases.filter((item) => {
-        return Object.values(item).some((value) => {
-          if (typeof value === 'string') {
-            return value.toLowerCase().includes(searchTerm)
-          }
-          return false
-        })
-      })
-    }
-  },
-  watch: {
-    getClinicalCases: {
-      handler(newContracts) {
-        this.tableData = newContracts?.map((contract) => ({
-          contractName: contract?.contractName,
-          id: contract?.contractId,
-          illness: contract?.illnessId,
-          date: contract?.date,
-          action: [
-            {
-              icon: faCheck,
-              handler: () => this.acceptVoucher()
-            },
-            {
-              icon: faXmark,
-              handler: () => this.declineVoucher()
-            },
-            {
-              icon: faTrash,
-              handler: () => this.cancelVoucher()
-            }
-          ]
-        }))
-      },
-      deep: true
+    isLoading() {
+      return this.getLoading
     }
   },
   mounted() {
     this.fetchClinicalCases()
   },
+  watch: {
+    getClinicalCases: {
+      handler(newContracts) {
+        this.tableData = newContracts?.map((contract) => ({
+          voucher: contract?.contractName,
+          contractId: contract?.contractId,
+          id: contract?.id,
+          illness: contract?.diseaseName,
+          date: formatDate(contract?.createdAt),
+          status: formatStatus(contract?.status),
+          doctor: contract?.doctorName,
+          voucherId: contract?.voucherId,
+          opinion: contract?.opinion
+        }))
+      },
+      deep: true
+    }
+  },
   methods: {
-    ...mapActions('admClinicalCases', ['fetchClinicalCases']),
+    ...mapActions('admClinicalCases', [
+      'fetchClinicalCases',
+      'acceptClinicalCase',
+      'declineClinicalCase',
+      'cancelClinicalCase'
+    ]),
 
-    acceptVoucher() {
-      return alert('Caso Clínico aceito')
+    accept(row) {
+      this.acceptClinicalCase(row.contractId)
     },
-
-    declineVoucher() {
-      return alert('Caso Clínico declinado')
+    decline(row) {
+      this.declineClinicalCase(row.contractId)
     },
-
-    cancelVoucher() {
-      return alert('Caso Clínico cancelado')
+    cancel(row) {
+      this.cancelClinicalCase(row.contractId)
     }
   }
 }
@@ -126,4 +135,18 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/index.scss';
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 19px;
+  margin: 2px;
+
+  svg:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+  }
+}
 </style>

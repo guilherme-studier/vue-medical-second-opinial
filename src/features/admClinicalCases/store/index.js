@@ -1,150 +1,40 @@
-import { faCheck, faXmark, faTrash } from '@fortawesome/free-solid-svg-icons'
+/* eslint-disable no-unused-vars */
 import { useToast } from 'vue-toastification'
 
-import { getClinicalCasesConsultantDoctor } from '../../clinicalCasesConsultationDoctor/services/index'
+import { getClinicalCases, putClinicalCase } from '../services/index'
 
 const toast = useToast()
 
 export default {
   namespaced: true,
   state: () => ({
-    doctor: 'Dr. Guilherme Studier',
-    tableHeader: ['Casos Clínicos', 'ID', 'Doença', 'Data', 'Status', 'Ação'],
-    tableData: [
-      {
-        clinicalCases: 'Tratamento Enfermidade ABC',
-        id: '001',
-        illness: 'Doença 1',
-        date: '2016-05-03',
-        status: 'Em avaliação',
-        action: [
-          {
-            icon: faCheck,
-            status: 1,
-            handler: () => alert('Função do item 1')
-          },
-          {
-            icon: faXmark,
-            status: 0,
-            handler: () => alert('Função do item 1')
-          },
-          {
-            icon: faTrash,
-            status: 1,
-            handler: () => alert('Função do item 1')
-          }
-        ]
-      },
-      {
-        clinicalCases: 'Tratamento Doença XYZ',
-        id: '002',
-        illness: 'Doença 2',
-        date: '2016-05-03',
-        status: 'Em avaliação',
-        action: [
-          {
-            icon: faCheck,
-            status: 0,
-            handler: () => alert('Função do item 1')
-          },
-          {
-            icon: faXmark,
-            status: 1,
-            handler: () => alert('Função do item 1')
-          },
-          {
-            icon: faTrash,
-            status: 1,
-            handler: () => alert('Função do item 1')
-          }
-        ]
-      },
-      {
-        clinicalCases: 'Tratamento Enfermidade FG',
-        id: '003',
-        illness: 'Doença 3',
-        date: '2016-05-03',
-        status: 'Em avaliação',
-        action: [
-          {
-            icon: faCheck,
-            status: 0,
-            handler: () => alert('Função do item 1')
-          },
-          {
-            icon: faXmark,
-            status: 1,
-            handler: () => alert('Função do item 1')
-          },
-          {
-            icon: faTrash,
-            status: 1,
-            handler: () => alert('Função do item 1')
-          }
-        ]
-      },
-      {
-        clinicalCases: 'Tratamento UTI',
-        id: '004',
-        illness: 'Doença 4',
-        date: '2016-05-03',
-        status: 'Em avaliação',
-        action: [
-          {
-            icon: faCheck,
-            status: 1,
-            handler: () => alert('Função do item 1')
-          },
-          {
-            icon: faXmark,
-            status: 1,
-            handler: () => alert('Função do item 1')
-          },
-          {
-            icon: faTrash,
-            status: 1,
-            handler: () => alert('Função do item 1')
-          }
-        ]
-      }
-    ],
+    icon: require('@/assets/icons/icon-voucher.svg'),
+    iconSearch: require('@/assets/icons/icon-search.svg'),
+    clinicalCases: [],
+    searchTerm: '',
     loading: false,
-    error: false,
-    errorMessage: '',
-    clinicalCases: []
+    error: false
   }),
   mutations: {
-    setTableData(state, data) {
-      state.tableData = data
-    },
-    setLoading(state, value) {
-      state.loading = value
-    },
-    setError(state, { value, message }) {
-      state.error = value
-      state.errorMessage = message
+    updateSearchTerm(state, searchTerm) {
+      state.searchTerm = searchTerm
     },
     setClinicalCases(state, clinicalCases) {
       state.clinicalCases = clinicalCases
+    },
+    setLoading(state, value) {
+      state.loading = value
     }
   },
   actions: {
-    fetchTableData({ commit }) {
-      commit('setLoading', true)
-      setTimeout(() => {
-        const dataFromApi = []
-        commit('setTableData', dataFromApi)
-        commit('setLoading', false)
-      }, 1000)
-    },
     async fetchClinicalCases({ commit, dispatch }) {
       commit('setLoading', true)
       dispatch('getClinicalCases')
     },
-    getClinicalCases({ commit }) {
-      return getClinicalCasesConsultantDoctor()
+    async getClinicalCases({ commit }) {
+      return getClinicalCases()
         .then((response) => {
-          commit('setClinicalCases', response.data)
+          commit('setClinicalCases', response.data.content)
         })
         .catch(() => {
           toast.warning(
@@ -157,16 +47,65 @@ export default {
         .finally(() => {
           commit('setLoading', false)
         })
+    },
+    async acceptClinicalCase({ commit }, voucherId) {
+      commit('setLoading', true)
+      return putClinicalCase('accept', voucherId)
+        .then(() => {
+          toast.success('Caso Clínico aceito com sucesso', {
+            timeout: 5000
+          })
+        })
+        .catch(() => {
+          toast.warning('Não foi possível aceitar este caso clínico', {
+            timeout: 5000
+          })
+        })
+        .finally(() => {
+          commit('setLoading', false)
+        })
+    },
+    async declineClinicalCase({ commit }, voucherId) {
+      commit('setLoading', true)
+      return putClinicalCase('decline', voucherId)
+        .then(() => {
+          toast.success('Caso Clínico aceito com sucesso', {
+            timeout: 5000
+          })
+        })
+        .catch(() => {
+          toast.warning('Não foi possível aceitar este caso clínico', {
+            timeout: 5000
+          })
+        })
+        .finally(() => {
+          commit('setLoading', false)
+        })
+    },
+    async cancelClinicalCase({ commit }, voucherId) {
+      commit('setLoading', true)
+      return putClinicalCase('cancel', voucherId)
+        .then(() => {
+          toast.success('Caso Clínico aceito com sucesso', {
+            timeout: 5000
+          })
+        })
+        .catch(() => {
+          toast.warning('Não foi possível aceitar este caso clínico', {
+            timeout: 5000
+          })
+        })
+        .finally(() => {
+          commit('setLoading', false)
+        })
     }
   },
   getters: {
-    getDoctor: (state) => state.doctor,
-    getVouchers: (state) => state.tableData.length,
-    getTableData: (state) => state.tableData,
-    getTableHeader: (state) => state.tableHeader,
-    getLoading: (state) => state.loading,
+    getIcon: (state) => state.icon,
+    getIconSearch: (state) => state.iconSearch,
+    getSearchTerm: (state) => state.searchTerm,
     getError: (state) => state.error,
-    getErrorMessage: (state) => state.errorMessage,
-    getClinicalCases: (state) => state.clinicalCases
+    getClinicalCases: (state) => state.clinicalCases,
+    getLoading: (state) => state.loading
   }
 }

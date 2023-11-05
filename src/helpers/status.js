@@ -9,5 +9,7 @@ export const formatStatus = (status) => {
       return 'Disponível'
     case 'aloc':
       return 'Alocado'
+    case 'aval':
+      return 'Avaliado'
   }
 }
