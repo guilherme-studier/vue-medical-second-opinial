@@ -71,7 +71,6 @@
       v-loading="isLoading"
       style="width: 100%"
       :data="tableData"
-      :height="300"
       border
     >
       <el-table-column

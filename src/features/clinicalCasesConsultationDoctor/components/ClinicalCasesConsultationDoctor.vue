@@ -15,7 +15,6 @@
     </div>
 
     <el-table
-      class="consultation-table"
       :data="tableData"
       :height="450"
       style="width: 100%"
