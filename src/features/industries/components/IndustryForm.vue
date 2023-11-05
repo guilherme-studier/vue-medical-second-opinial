@@ -87,25 +87,40 @@
       </div>
 
       <!-- CAMPO DE BUSCA -->
-      <div class="search">
+      <!-- <div class="search">
         <input type="text" v-model="searchTerm" placeholder="Buscar" />
         <img class="search-icon" :src="iconSearch" alt="" />
-      </div>
+      </div> -->
     </div>
 
     <!-- TABELA -->
-    <custom-table
-      :tableHeader="tableHeader"
-      :tableData="filteredTableData"
-      :loading="isLoading"
-      :currentPage="getCurrentPage"
-      :totalPages="getTotalPages"
-      @page-change="updatePageData"
+    <el-table
+      :data="tableData"
+      :height="450"
+      style="width: 100%"
+      border
+      v-loading="isLoading"
     >
-      <template v-slot:action="{ item }">
-        <font-awesome-icon :icon="icon" @click="value.handler(item)" />
-      </template>
-    </custom-table>
+      <el-table-column
+        prop="name"
+        label="Nome"
+        align="center"
+      ></el-table-column>
+      <el-table-column label="Ação" width="150" align="center">
+        <template v-slot="scope">
+          <div class="actions">
+            <font-awesome-icon
+              :icon="iconEdit"
+              @click="selectIndustry(scope.row)"
+            />
+            <font-awesome-icon
+              :icon="iconTrash"
+              @click="cancelIndustry(scope.row.id)"
+            />
+          </div>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -120,7 +135,6 @@ import iconSearch from '@/assets/icons/icon-search.svg'
 import iconVoucher from '@/assets/icons/icon-voucher.svg'
 
 /** Componentes */
-import CustomTable from '@/components/customTable'
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
 
@@ -130,7 +144,6 @@ export default {
   name: 'Indústrias',
 
   components: {
-    CustomTable,
     InputGroup,
     InputWrapper,
     FontAwesomeIcon
@@ -141,10 +154,8 @@ export default {
       /** Ícones */
       icon: iconVoucher,
       iconSearch: iconSearch,
-
-      /** Dados da tabela */
-      tableHeader: ['Nome', 'Ação'],
-      searchTerm: '',
+      iconEdit: faPenToSquare,
+      iconTrash: faTrash,
 
       /** Dados das indústrias */
       industryId: null,
@@ -153,7 +164,8 @@ export default {
       email: null,
       phone: null,
       contact: null,
-      observation: null
+      observation: null,
+      tableData: []
     }
   },
 
@@ -176,55 +188,24 @@ export default {
 
     isValidForm() {
       return this.industryName && this.cnpj
-    },
-
-    /** Dados de indústrias */
-    tableData() {
-      return this.getIndustries.map((item) => {
-        return {
-          name: item.name,
-          action: [
-            {
-              icon: faPenToSquare,
-              handler: () =>
-                this.selectIndustry(
-                  item.id,
-                  item.name,
-                  item.cnpj,
-                  item.email,
-                  item.phone,
-                  item.contact,
-                  item.observation
-                )
-            },
-            {
-              icon: faTrash,
-              handler: () => this.deleteIndustryById(item.id)
-            }
-          ]
-        }
-      })
-    },
-
-    /** Filtrar os dados da tabela */
-    filteredTableData() {
-      if (!this.searchTerm) {
-        return this.tableData
-      }
-
-      const searchTerm = this.searchTerm.toLowerCase()
-      return this.tableData.filter((item) => {
-        return Object.values(item).some((value) => {
-          if (typeof value === 'string') {
-            return value.toLowerCase().includes(searchTerm)
-          }
-          return false
-        })
-      })
     }
   },
   watch: {
-    getCurrentPage: 'fetchIndustries'
+    getCurrentPage: 'fetchIndustries',
+    getIndustries: {
+      handler(industries) {
+        this.tableData = industries?.map((industry) => ({
+          name: industry?.name,
+          id: industry?.id,
+          cnpj: industry?.cnpj,
+          email: industry?.email,
+          contact: industry?.contact,
+          phone: industry?.phone,
+          observation: industry?.observation
+        }))
+      },
+      deep: true
+    }
   },
   methods: {
     ...mapActions('industry', [
@@ -269,15 +250,20 @@ export default {
      * @param {String|Number} id: Id da indústria
      * @param {String} name: Nome da indústria
      */
-    selectIndustry(id, name, cnpj, email, phone, contact, observation) {
-      this.industryId = id
-      this.industryName = name
-      this.cnpj = cnpj
-      this.email = email
-      this.phone = phone
-      this.contact = contact
-      this.observation = observation
+    selectIndustry(row) {
+      console.log(row)
+      this.industryId = row?.id
+      this.industryName = row?.name
+      this.cnpj = row?.cnpj
+      this.email = row?.email
+      this.phone = row?.phone
+      this.contact = row?.contact
+      this.observation = row?.observation
       this.scrollToTop()
+    },
+
+    cancelIndustry(id) {
+      this.deleteIndustryById(id)
     },
 
     /** Cancelar criação/edição */
@@ -301,4 +287,18 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/index.scss';
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 19px;
+  margin: 2px;
+
+  svg:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+  }
+}
 </style>
