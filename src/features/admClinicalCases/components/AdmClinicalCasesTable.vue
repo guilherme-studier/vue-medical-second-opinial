@@ -15,7 +15,6 @@
     </div>
 
     <el-table
-      class="consultation-table"
       :data="tableData"
       :height="450"
       style="width: 100%"
@@ -121,13 +120,13 @@ export default {
     ]),
 
     accept(row) {
-      this.acceptClinicalCase(row.contractId)
+      this.acceptClinicalCase(row.voucherId)
     },
     decline(row) {
-      this.declineClinicalCase(row.contractId)
+      this.declineClinicalCase(row.voucherId)
     },
     cancel(row) {
-      this.cancelClinicalCase(row.contractId)
+      this.cancelClinicalCase(row.voucherId)
     }
   }
 }
