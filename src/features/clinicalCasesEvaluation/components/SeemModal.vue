@@ -6,11 +6,11 @@
     <div class="seem">
       <textarea class="seem-text" v-model="getOpinion" disabled />
     </div>
-    <div class="seem-send">
+    <!-- <div class="seem-send">
       <el-button class="seem-btn" type="primary" @click="sendSeem"
         >Imprimir</el-button
       >
-    </div>
+    </div> -->
   </div>
 </template>
 
