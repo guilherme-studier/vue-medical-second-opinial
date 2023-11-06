@@ -3,6 +3,7 @@ import { createStore } from 'vuex'
 
 import { getCurrentUserAccess } from '../helpers/auth'
 
+import activeClinicalCases from '@/features/activeClinicalCases/store/index'
 import admClinicalCases from '@/features/admClinicalCases/store/index'
 import allocationClinicalCases from '@/features/allocationClinicalCases/store/index'
 // import authorizedDistributeClinicalCases from '@/features/authorizedDistributeClinicalCases/store/index'
@@ -67,6 +68,7 @@ const store = createStore({
     specialty,
     registration,
     admClinicalCases,
+    activeClinicalCases,
     clinicalCasesIndustry,
     clinicalCasesEvaluation,
     industryRepresentantMan,

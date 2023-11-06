@@ -34,17 +34,20 @@ export default {
   watch: {
     $route(to) {
       if (this.getIsActiveVoucher && to.path !== '/active-clinical-case') {
-        this.handlePageActiveVoucher()
+        this.handleActiveVoucher()
       }
     }
   },
 
   computed: {
     ...mapGetters(['getIsTokenExpired', 'getLoading']),
-    ...mapGetters('clinicalCasesEvaluation', ['getIsActiveVoucher']),
+    ...mapGetters('clinicalCasesEvaluation', [
+      'getIsActiveVoucher',
+      'getLoadingActiveVoucher'
+    ]),
 
     isLoading() {
-      return this.getLoading
+      return this.getLoading || this.getLoadingActiveVoucher
     }
   },
 
@@ -55,13 +58,13 @@ export default {
       this.getIsActiveVoucher &&
       this.$route.path !== '/active-clinical-case'
     ) {
-      this.handlePageActiveVoucher()
+      this.handleActiveVoucher()
     }
   },
 
   methods: {
     ...mapActions(['validateToken', 'setAuthToken']),
-    ...mapActions('clinicalCasesEvaluation', ['handlePageActiveVoucher']),
+    ...mapActions('clinicalCasesEvaluation', ['handleActiveVoucher']),
 
     fetchTokenStatus() {
       this.validateToken()

@@ -13,7 +13,6 @@ const toast = useToast()
 export default {
   namespaced: true,
   state: () => ({
-    isActiveVoucher: false,
     icon: require('@/assets/icons/icon-voucher.svg'),
     iconSearch: require('@/assets/icons/icon-search.svg'),
     isModalSeem: false,
@@ -25,7 +24,10 @@ export default {
     loading: false,
     loadingOpinion: false,
     loadingMessages: false,
-    error: false
+    loadingActiveVoucher: false,
+    error: false,
+    isActiveVoucher: false,
+    voucher: {}
   }),
   mutations: {
     updateSearchTerm(state, searchTerm) {
@@ -36,6 +38,10 @@ export default {
     },
     toggleIsModalMessage(state) {
       state.isModalMessage = !state.isModalMessage
+    },
+    toggleIsActiveVoucher(state, voucher) {
+      state.isActiveVoucher = !state.isActiveVoucher
+      state.voucher = voucher
     },
     setClinicalCases(state, clinicalCases) {
       state.clinicalCases = clinicalCases
@@ -54,6 +60,9 @@ export default {
     },
     setLoadingMessages(state, value) {
       state.loadingMessages = value
+    },
+    setLoadingActiveVoucher(state, value) {
+      state.loadingActiveVoucher = value
     }
   },
   actions: {
@@ -65,12 +74,16 @@ export default {
       commit('toggleIsModalMessage', voucherId)
       if (voucherId) dispatch('fetchMessages', voucherId)
     },
+    handleActiveVoucher({ commit }, voucher) {
+      commit('setLoadingActiveVoucher', true)
+      commit('toggleIsActiveVoucher', voucher)
+      commit('setLoadingActiveVoucher', false)
+    },
     async fetchClinicalCases({ commit, dispatch }) {
       commit('setLoading', true)
       dispatch('getClinicalCases')
     },
     async getClinicalCases({ commit }) {
-      console.log('aqui')
       return getClinicalCasesClientDoctor()
         .then((response) => {
           commit('setClinicalCases', response.data.content)
@@ -154,6 +167,8 @@ export default {
     getLoadingClinicalCases: (state) => state.loading,
     getLoadingOpinion: (state) => state.loadingOpinion,
     getLoadingMessages: (state) => state.loadingMessages,
-    getIsActiveVoucher: (state) => state.isActiveVoucher
+    getIsActiveVoucher: (state) => state.isActiveVoucher,
+    getVoucher: (state) => state.voucher,
+    getLoadingActiveVoucher: (state) => state.loadingActiveVoucher
   }
 }
