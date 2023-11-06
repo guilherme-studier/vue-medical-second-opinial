@@ -15,7 +15,6 @@
     </div>
 
     <el-table
-      class="consultation-table"
       :data="tableData"
       :height="450"
       style="width: 100%"
@@ -45,10 +44,10 @@
       <el-table-column label="Ação" width="150" align="center">
         <template v-slot="scope">
           <div class="actions">
-            <!-- <font-awesome-icon
+            <font-awesome-icon
               :icon="iconCheck"
-              @click="handleCheck(scope.row.voucherId)"
-            /> -->
+              @click="handleCheck(scope.row)"
+            />
             <font-awesome-icon
               :icon="iconFile"
               @click="handleFile(scope.row)"
@@ -148,7 +147,8 @@ export default {
           illness: contract?.diseaseName,
           date: formatDate(contract?.createdAt),
           status: formatStatus(contract?.status),
-          opinion: contract?.opinion
+          opinion: contract?.opinion,
+          diseaseName: contract?.diseaseName
         }))
       },
       deep: true
@@ -158,12 +158,13 @@ export default {
     ...mapActions('clinicalCasesEvaluation', [
       'handleModalSeem',
       'handleModalMessage',
+      'handleActiveVoucher',
       'sendSeem',
       'fetchClinicalCases'
     ]),
-    // handleCheck(id) {
-    //   alert(id)
-    // },
+    handleCheck(row) {
+      this.handleActiveVoucher(row)
+    },
     handleFile(row) {
       if (row.opinion === null) {
         this.selectedContract = {

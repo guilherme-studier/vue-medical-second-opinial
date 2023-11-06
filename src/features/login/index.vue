@@ -1,5 +1,5 @@
 <template>
-  <div id="login" :class="backgroundClass">
+  <div id="login" :class="backgroundClass" v-loading="isTransitioning">
     <div v-if="!userSelected">
       <login-user
         logo-alt="Logo MeSo"
@@ -11,11 +11,6 @@
     <div v-else>
       <img class="login-form-logo" :src="logoCeos" alt="Logo Ceos" />
       <login-form />
-    </div>
-
-    <!-- Base-loader -->
-    <div v-if="isTransitioning" class="base-loader">
-      <login-base-loader />
     </div>
 
     <img v-if="!userSelected" class="logo-ceos" :src="logoCeos" />
@@ -37,7 +32,6 @@ import { mapGetters } from 'vuex'
 import logoMeSo from '../../assets/login-logo.png'
 import logoCeos from '../../assets/logo-ceos.png'
 
-import LoginBaseLoader from '@/features/login/components/LoginBaseLoader'
 import LoginForm from '@/features/login/components/LoginForm'
 import LoginUser from '@/features/login/components/LoginUser'
 
@@ -49,8 +43,7 @@ export default {
   name: 'Login',
   components: {
     LoginUser,
-    LoginForm,
-    LoginBaseLoader
+    LoginForm
   },
   data() {
     return {

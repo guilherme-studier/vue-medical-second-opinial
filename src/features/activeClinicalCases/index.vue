@@ -1,22 +1,23 @@
 <template>
   <div id="active-clinical-case">
     <div class="active-clinical-case-form">
-      <div class="full-width">
-        <input-block title="Caso Clínico nº" content="231313131" />
-      </div>
       <div class="side-by-side">
         <div class="half-width">
-          <input-block title="Especialidade" content="231313131" />
+          <el-input v-model="getVoucher.contractId">
+            <template #prepend>Caso Clínico nº</template>
+          </el-input>
         </div>
         <div class="half-width with-margin">
-          <input-block title="Doença" content="231313131" />
+          <el-input v-model="getVoucher.diseaseName">
+            <template #prepend>Doença</template>
+          </el-input>
         </div>
       </div>
     </div>
     <div class="form" :class="{ 'form-loading': isLoading }">
       <input-group>
         <input-wrapper>
-          <input
+          <el-input
             type="number"
             placeholder="Idade"
             class="flexible-input"
@@ -24,472 +25,1074 @@
           />
         </input-wrapper>
         <input-wrapper>
-          <v-select
+          <el-select
             v-model="gender"
-            :options="genderOptions"
-            :reduce="(item) => item.id"
-            label="name"
             placeholder="Gênero"
-          />
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in genderOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            />
+          </el-select>
         </input-wrapper>
         <input-wrapper>
-          <v-select
-            v-model="color"
-            :options="colorOptions"
-            :reduce="(item) => item.id"
-            label="name"
-            placeholder="Cor"
-          />
+          <el-select v-model="color" placeholder="Cor" size="large" clearable>
+            <el-option
+              v-for="item in colorOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            />
+          </el-select>
         </input-wrapper>
       </input-group>
-      <input-group>
-        <input-wrapper>
-          <input
-            type="number"
-            placeholder="Peso"
-            class="flexible-input"
-            v-model="weight"
-          />
-        </input-wrapper>
-        <input-wrapper>
-          <input
-            type="number"
-            placeholder="Altura"
-            class="flexible-input"
-            v-model="height"
-          />
-        </input-wrapper>
-        <input-wrapper>
-          <input
-            type="text"
-            placeholder="Dianóstico"
-            class="flexible-input"
-            v-model="diagnosis"
-          />
-        </input-wrapper>
-      </input-group>
-      <input-group>
-        <input-wrapper>
-          <input
-            type="number"
-            placeholder="Ano de início dos sintomas"
-            class="flexible-input"
-            v-model="yearSymptom"
-          />
-        </input-wrapper>
-        <input-wrapper>
-          <input
-            type="number"
-            placeholder="Ano do dianóstico"
-            class="flexible-input"
-            v-model="yearDiagnosis"
-          />
-        </input-wrapper>
-        <input-wrapper>
-          <input
-            type="text"
-            placeholder="Localização segundo Montreal*"
-            class="flexible-input"
-            v-model="montrealLocale"
-          />
-        </input-wrapper>
-      </input-group>
-      <input-group>
-        <input-wrapper>
-          <input
-            type="text"
-            placeholder="Comportamento segundo Montreal*"
-            class="flexible-input"
-            v-model="behavior"
-          />
-        </input-wrapper>
-        <input-wrapper>
-          <input
-            type="text"
-            placeholder="Extensão*"
-            class="flexible-input"
-            v-model="extension"
-          />
-        </input-wrapper>
-        <input-wrapper>
-          <input
-            type="text"
-            placeholder="Principais sintomas de apresentação"
-            class="flexible-input"
-            v-model="symptoms"
-          />
-        </input-wrapper>
-      </input-group>
-      <input-group>
-        <input-wrapper>
-          <input
-            type="text"
-            placeholder="Necessidade de corticoide ao diagnóstico"
-            class="flexible-input"
-            v-model="medicine"
-          />
-        </input-wrapper>
-        <input-wrapper>
-          <input
-            type="text"
-            placeholder="Manifestações extra-intestinais? Quais?*"
-            class="flexible-input"
-            v-model="intestine"
-          />
-        </input-wrapper>
-        <input-wrapper>
-          <input
-            type="text"
-            placeholder="Já necessitou cirurgia para a Doença de Crohn?"
-            class="flexible-input"
-            v-model="crohn"
-          />
-        </input-wrapper>
-      </input-group>
-    </div>
-    <div class="treatment">
-      <h1>Quais os tratamentos já realizados?</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Medicação</th>
-            <th>Data de Início</th>
-            <th>Data de Término</th>
-            <th>Respondeu Inicialmente a Tratamento?</th>
-            <th>Motivo da Interrupção</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item, index) in treatmentList" :key="index">
-            <td>
-              <input
-                v-model="item.medication"
-                type="text"
-                @input="enableNextRow(index)"
-                :disabled="!item.editableRow"
-                :class="{ 'disabled-input': !item.editableRow }"
-              />
-            </td>
-            <td>
-              <input
-                v-model="item.startDate"
-                type="text"
-                @input="enableNextRow(index)"
-                :disabled="!item.editableRow"
-                :class="{ 'disabled-input': !item.editableRow }"
-              />
-            </td>
-            <td>
-              <input
-                v-model="item.endDate"
-                type="text"
-                @input="enableNextRow(index)"
-                :disabled="!item.editableRow"
-                :class="{ 'disabled-input': !item.editableRow }"
-              />
-            </td>
-            <td>
-              <input
-                v-model="item.respondedToTreatment"
-                type="text"
-                @input="enableNextRow(index)"
-                :disabled="!item.editableRow"
-                :class="{ 'disabled-input': !item.editableRow }"
-              />
-            </td>
-            <td>
-              <input
-                v-model="item.interruptionReason"
-                type="text"
-                @input="enableNextRow(index)"
-                :disabled="!item.editableRow"
-                :class="{ 'disabled-input': !item.editableRow }"
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="form" :class="{ 'form-loading': isLoading }">
-      <input-group>
-        <input-wrapper>
-          <input
-            type="text"
-            placeholder="Tratamento atual?"
-            class="flexible-input"
-            v-model="treatment"
-          />
-        </input-wrapper>
-        <input-wrapper>
-          <input
-            type="text"
-            placeholder="Comorbidades? Quais?"
-            class="flexible-input"
-            v-model="comorbidities"
-          />
-        </input-wrapper>
-      </input-group>
-      <input-group>
-        <input-wrapper>
-          <input
-            type="text"
-            placeholder="Alergias medicamentosas?"
-            class="flexible-input"
-            v-model="allergy"
-          />
-        </input-wrapper>
-        <input-wrapper>
-          <input
-            type="text"
-            placeholder="Qual o principal motivo da consulta?"
-            class="flexible-input"
-            v-model="reason"
-          />
-        </input-wrapper>
-      </input-group>
-    </div>
-    <div class="exams">
-      <h1>Exames complementares à avaliação atual e atuais</h1>
-      <table class="exams-table">
-        <tbody>
-          <tr v-for="(item, index) in examList" :key="index">
-            <td class="label-column">
-              {{ item.label }}
-            </td>
-            <td>
-              <input v-model="item.value" type="text" />
-            </td>
-            <td>
-              <input v-model="item.value2" type="text" />
-            </td>
-            <td>
-              <input v-model="item.value3" type="text" />
-            </td>
-            <td>
-              <input v-model="item.value4" type="text" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="obervations">
       <div class="content-title">
-        <h1 class="title">{{ titleObservations }}</h1>
+        <h1 class="title">{{ titleAsthma }}</h1>
         <span class="line"></span>
       </div>
-      <div class="observation-text">
-        <textarea v-model="observations" placeholder="Descreva..."></textarea>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="asthma"
+            placeholder="O paciente tem diagnóstico de asma?"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in asthmaOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="lungDiseases"
+            placeholder="Foram excluídas outras doenças pulmonares crônicas? (DPOC, bronquiectasias, fibrose cística, insuficiência cardáiaca, etc.) ?"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in lungDiseasesOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="asthmaTreatment"
+            placeholder="A adesão ao tratamento está adequada? (Checar idealmente com contagem de doses do dispositivo entre as consultas.)"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in asthmaTreatmentOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="inhalation"
+            placeholder="A técnica inalatória está adequada? (Ideal checagem em 2-3 consultas.)"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in inhalationOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+      </input-group>
+      <div class="content-title">
+        <h1 class="title">{{ titleComorbidities }}</h1>
+        <span class="line"></span>
       </div>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="comorbidities"
+            placeholder="Quais o paciente apresenta?"
+            size="large"
+            multiple
+            clearable
+          >
+            <el-option
+              v-for="item in comorbiditiesOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-input
+            v-model="otherComorbidities"
+            :autosize="{ minRows: 4, maxRows: 4 }"
+            type="textarea"
+            placeholder="Outras comorbdades"
+            :disabled="isOtherComorbiditiesDisabled"
+          />
+        </input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-input
+            v-model="comorbiditiesInfo"
+            :autosize="{ minRows: 4, maxRows: 4 }"
+            type="textarea"
+            placeholder="Todas aquelas manejáveis estão adequadamente tratadas? Descreva:"
+          />
+        </input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="laba"
+            placeholder="O paciente usa dose elevada de corticoide associado a LABA?"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in labaOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-input
+            v-model="asthmaMedications"
+            :autosize="{ minRows: 4, maxRows: 4 }"
+            type="textarea"
+            placeholder="Quais medicações para asma o paciente utiliza? (Incluir medicamentos, apresentação e posologia.)"
+          />
+        </input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="immunobiological"
+            placeholder="O paciente fez/faz uso de imunobiológico(s)?"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in immunobiologicalOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-input
+            v-model="immunobiologicalDescription"
+            :autosize="{ minRows: 4, maxRows: 4 }"
+            type="textarea"
+            placeholder="Em caso positivo, descreva o medicamento e tempo de uso"
+            :disabled="immunobiological !== 1"
+          />
+        </input-wrapper>
+      </input-group>
+      <div class="content-title">
+        <h1 class="title">{{ titleExams }}</h1>
+        <span class="line"></span>
+      </div>
+      <div class="content-subtitle">
+        <h2 class="title">{{ subtitleEspiro }}</h2>
+      </div>
+      <input-group>
+        <input-wrapper>
+          <el-input
+            type="text"
+            placeholder="Data _/_/__"
+            class="flexible-input"
+            v-model="espiroDate"
+            v-mask="'##/##/####'"
+          />
+        </input-wrapper>
+      </input-group>
+      <div class="content-subtitle">
+        <h2 class="title">Pré-BD</h2>
+      </div>
+      <input-group>
+        <input-wrapper>
+          <el-input v-model="preCvf" placeholder="__%" v-mask="['###%', '##%']">
+            <template #prepend>CVF</template>
+          </el-input>
+        </input-wrapper>
+        <input-wrapper>
+          <el-input v-model="preVef" placeholder="__%" v-mask="['###%', '##%']">
+            <template #prepend><span v-html="vef"/></template>
+          </el-input>
+        </input-wrapper>
+        <input-wrapper>
+          <el-input
+            v-model="preVefCvf"
+            placeholder="__%"
+            v-mask="['###%', '##%']"
+          >
+            <template #prepend><span v-html="vefCvf"/></template>
+          </el-input>
+        </input-wrapper>
+        <input-wrapper>
+          <el-input v-model="preFef" placeholder="__%" v-mask="['###%', '##%']">
+            <template #prepend><span v-html="fef"/></template>
+          </el-input>
+        </input-wrapper>
+      </input-group>
+      <div class="content-subtitle">
+        <h2 class="title">Pós-BD</h2>
+      </div>
+      <input-group>
+        <input-wrapper>
+          <el-input v-model="posCvf" placeholder="__%" v-mask="['###%', '##%']">
+            <template #prepend>CVF</template>
+          </el-input>
+        </input-wrapper>
+        <input-wrapper>
+          <el-input v-model="posVef" placeholder="__%" v-mask="['###%', '##%']">
+            <template #prepend><span v-html="vef"/></template>
+          </el-input>
+        </input-wrapper>
+        <input-wrapper>
+          <el-input
+            v-model="posVefCvf"
+            placeholder="__%"
+            v-mask="['###%', '##%']"
+          >
+            <template #prepend><span v-html="vefCvf"/></template>
+          </el-input>
+        </input-wrapper>
+        <input-wrapper>
+          <el-input v-model="posFef" placeholder="__%" v-mask="['###%', '##%']">
+            <template #prepend><span v-html="fef"/></template>
+          </el-input>
+        </input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-input
+            type="text"
+            placeholder="Resposta ao BD: __%"
+            class="flexible-input"
+            v-model="bd"
+            v-mask="['###%', '##%']"
+          />
+        </input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-input
+            v-model="report"
+            :autosize="{ minRows: 4, maxRows: 4 }"
+            type="textarea"
+            placeholder="Laudo: Texto da conclusão do laudo."
+          />
+        </input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-input
+            v-model="eosinophilsBlood"
+            type="text"
+            :placeholder="`Eosinófilos no sangue: __céls/mm&sup3;`"
+            v-mask="['##céls/mm&sup3', '###céls/mm&sup3']"
+          />
+        </input-wrapper>
+        <input-wrapper>
+          <el-input
+            v-model="eosinophilsSputum"
+            type="text"
+            :placeholder="`Eosinófilos no escarro: __%`"
+            v-mask="['##%', '###%']"
+          />
+        </input-wrapper>
+      </input-group>
+      <div class="content-subtitle">
+        <h2 class="title">Sensibilização a alérgenos:</h2>
+      </div>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="skinTest"
+            placeholder="Teste cutâneo?"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in skinOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="ige"
+            placeholder="IgE específica no sangue"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in igeOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-input
+            v-model="allergens"
+            :autosize="{ minRows: 4, maxRows: 4 }"
+            type="textarea"
+            placeholder="Quais alérgenos foram testados e quais deram positivos?"
+          />
+        </input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-input
+            v-model="igeTotal"
+            type="text"
+            placeholder="IgE total: __ UI/ml"
+            v-mask="['##UI/ml', '###UI/ml']"
+          />
+        </input-wrapper>
+        <input-wrapper>
+          <el-input
+            v-model="FeNO"
+            type="text"
+            placeholder="FeNO: __ ppm"
+            v-mask="['##ppm', '###ppm']"
+          />
+        </input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-input
+            v-model="plethysmography"
+            :autosize="{ minRows: 4, maxRows: 4 }"
+            type="textarea"
+            placeholder="Pletismografia (se realizado):"
+          />
+        </input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-input
+            v-model="dlco"
+            :autosize="{ minRows: 4, maxRows: 4 }"
+            type="textarea"
+            placeholder="Difusão de monóxido de carbono (DLCO) (se realizado):"
+          />
+        </input-wrapper>
+      </input-group>
+      <div class="content-title">
+        <h1 class="title">Outras informações</h1>
+        <span class="line"></span>
+      </div>
+      <input-group>
+        <input-wrapper>
+          <el-input
+            v-model="ageStart"
+            type="number"
+            placeholder="Início da doença com que idade: __"
+          />
+        </input-wrapper>
+      </input-group>
+      <div class="content-subtitle">
+        <h2 class="title">Controle ambiental</h2>
+      </div>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="dust"
+            placeholder="Tem muita poeira doméstica em casa?"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in dustOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="pet"
+            placeholder="Animais em casa?"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in petOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+        <input-wrapper>
+          <el-input
+            v-model="petDescription"
+            type="number"
+            :disabled="pet !== 1"
+            placeholder="Quais?"
+          />
+        </input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="mold"
+            placeholder="Mofo no domicílio?"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in moldOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="exhibition"
+            placeholder="Exposição ocupacional"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in exhibitionOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+        <input-wrapper>
+          <el-input
+            v-model="exhibitionDescription"
+            type="number"
+            :disabled="exhibition !== 1"
+            placeholder="Quais?"
+          />
+        </input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="activeSmoking"
+            placeholder="Fumante ativo?"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in activeSmokingOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+        <input-wrapper>
+          <el-select
+            v-model="passiveSmoking"
+            placeholder="Fumante passivo?"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in passiveSmokingOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="corticosteroid"
+            placeholder="Exacerbação com uso de corticoide oral nos últimos 12 meses?"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in corticosteroidOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+        <input-wrapper>
+          <el-input
+            v-model="corticosteroidTimes"
+            type="number"
+            :disabled="corticosteroid !== 1"
+            placeholder="Quantas vezes?"
+          />
+        </input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="hospitalization"
+            placeholder="Hospitalização nos últimos 12 meses?"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in hospitalizationOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+        <input-wrapper>
+          <el-input
+            v-model="hospitalizationTimes"
+            type="number"
+            :disabled="hospitalization !== 1"
+            placeholder="Quantas vezes?"
+          />
+        </input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="uti"
+            placeholder="Histórico de internação em UTI?"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in utiOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+        <input-wrapper>
+          <el-input
+            v-model="utiTimes"
+            type="number"
+            :disabled="uti !== 1"
+            placeholder="Quantas vezes?"
+          />
+        </input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="ventilation"
+            placeholder="Histórico de necessidade de Ventilação Mecânica?"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in ventilationOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+        <input-wrapper>
+          <el-input
+            v-model="ventilationTimes"
+            type="number"
+            :disabled="ventilation !== 1"
+            placeholder="Quantas vezes?"
+          />
+        </input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="pcr"
+            placeholder="Histórico de PCR?"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in pcrOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+        <input-wrapper>
+          <el-input
+            v-model="pcrTimes"
+            type="number"
+            :disabled="pcr !== 1"
+            placeholder="Quantas vezes?"
+          />
+        </input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-select
+            v-model="medications"
+            placeholder="Uso de outras medicações?"
+            size="large"
+            clearable
+          >
+            <el-option
+              v-for="item in medicationsOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            /> </el-select
+        ></input-wrapper>
+      </input-group>
+      <input-group>
+        <input-wrapper>
+          <el-input
+            v-model="medicationsDescription"
+            :autosize="{ minRows: 4, maxRows: 4 }"
+            type="textarea"
+            :disabled="medications !== 1"
+            placeholder="Descreva..."
+          />
+        </input-wrapper>
+      </input-group>
+      <div class="content-title">
+        <h1 class="title">Observações adicionais</h1>
+        <span class="line"></span>
+      </div>
+      <input-group>
+        <input-wrapper>
+          <el-input
+            v-model="observations"
+            :autosize="{ minRows: 4, maxRows: 4 }"
+            type="textarea"
+            placeholder="Descreva..."
+          />
+        </input-wrapper>
+      </input-group>
+    </div>
+    <div class="save">
+      <el-button type="primary" @click="handleSave">Salvar</el-button>
     </div>
   </div>
 </template>
 
 <script>
-import vSelect from 'vue-select'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
-import InputBlock from '@/components/inputBlock'
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
 
 export default {
   components: {
-    InputBlock,
     InputGroup,
-    InputWrapper,
-    vSelect
+    InputWrapper
   },
   data() {
     return {
+      titleAsthma: 'Diagnóstico de Asma Grave',
+      asthma: null,
+      asthmaOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      lungDiseases: null,
+      lungDiseasesOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      asthmaTreatment: null,
+      asthmaTreatmentOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      inhalation: null,
+      inhalationOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      titleComorbidities: 'Em relação à potenciais comorbidades',
+      comorbidities: null,
+      comorbiditiesOptions: [
+        {
+          id: 1,
+          name: 'Nenhuma'
+        },
+        {
+          id: 2,
+          name: 'Rinite alérgica'
+        },
+        {
+          id: 3,
+          name: 'Dermatite atópica'
+        },
+        {
+          id: 4,
+          name: 'Sinusopatia crônica com polipose nasal'
+        },
+        {
+          id: 6,
+          name: 'Obesidade'
+        },
+        {
+          id: 6,
+          name: 'Obesidade'
+        },
+        {
+          id: 7,
+          name: 'Apneia obstrutiva do sono'
+        },
+        {
+          id: 8,
+          name: 'Refluxo gastroesofágico'
+        },
+        {
+          id: 9,
+          name: 'Hipertensão arterial sistêmica'
+        },
+        {
+          id: 10,
+          name: 'Diabetes'
+        },
+        {
+          id: 11,
+          name: 'Outra'
+        }
+      ],
+      otherComorbidities: null,
+      comorbiditiesInfo: null,
+      laba: null,
+      labaOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      asthmaMedications: null,
+      immunobiological: null,
+      immunobiologicalOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      immunobiologicalDescription: null,
+      titleExams: 'Exames adicionais',
+      subtitleEspiro: 'Espirometria (último exame realizado)',
+      espiroDate: null,
+      preCvf: null,
+      preVef: null,
+      preVefCvf: null,
+      preFef: null,
+      posCvf: null,
+      posVef: null,
+      posVefCvf: null,
+      posFef: null,
+      bd: null,
+      report: null,
+      eosinophilsBlood: null,
+      eosinophilsSputum: null,
+      skinTest: null,
+      skinOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      ige: null,
+      igeOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      allergens: null,
+      igeTotal: null,
+      FeNO: null,
+      plethysmography: null,
+      dlco: null,
+      ageStart: null,
+      dust: null,
+      dustOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      pet: null,
+      petOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      petDescription: null,
+      mold: null,
+      moldOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      exhibition: null,
+      exhibitionOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      exhibitionDescription: null,
+      activeSmoking: null,
+      activeSmokingOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      passiveSmoking: null,
+      passiveSmokingOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      corticosteroid: null,
+      corticosteroidOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      corticosteroidTimes: null,
+      hospitalization: null,
+      hospitalizationOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      hospitalizationTimes: null,
+      uti: null,
+      utiOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      utiTimes: null,
+      ventilation: null,
+      ventilationOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      ventilationTimes: null,
+      pcr: null,
+      pcrOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      pcrTimes: null,
+      medications: null,
+      medicationsOptions: [
+        {
+          id: 1,
+          name: 'Sim'
+        },
+        {
+          id: 2,
+          name: 'Não'
+        }
+      ],
+      medicationsDescription: null,
+      observations: null,
+
       age: null,
       gender: null,
       genderOptions: [
         {
-          id: '1',
+          id: 1,
           name: 'Masculino'
         },
         {
-          id: '2',
+          id: 2,
           name: 'Feminino'
         },
         {
-          id: '3',
+          id: 3,
           name: 'Outro'
         }
       ],
       color: null,
       colorOptions: [
         {
-          id: '1',
+          id: 1,
           name: 'Branco'
         },
         {
-          id: '2',
+          id: 2,
           name: 'Preto'
         },
         {
-          id: '3',
+          id: 3,
           name: 'Pardo'
         },
         {
-          id: '4',
+          id: 4,
           name: 'Outro'
         }
-      ],
-      weight: null,
-      height: null,
-      diagnosis: null,
-      yearSymptom: null,
-      yearDiagnosis: null,
-      montrealLocale: null,
-      behavior: null,
-      extension: null,
-      symptoms: null,
-      medicine: null,
-      intestine: null,
-      crohn: null,
-      treatment: null,
-      comorbidities: null,
-      allergy: null,
-      reason: null,
-      treatmentList: [
-        {
-          medication: null,
-          startDate: null,
-          endDate: null,
-          respondedToTreatment: null,
-          interruptionReason: null,
-          editableRow: true
-        },
-        {
-          medication: null,
-          startDate: null,
-          endDate: null,
-          respondedToTreatment: null,
-          interruptionReason: null,
-          editableRow: false
-        },
-        {
-          medication: null,
-          startDate: null,
-          endDate: null,
-          respondedToTreatment: null,
-          interruptionReason: null,
-          editableRow: false
-        },
-        {
-          medication: null,
-          startDate: null,
-          endDate: null,
-          respondedToTreatment: null,
-          interruptionReason: null,
-          editableRow: false
-        }
-      ],
-      examList: [
-        {
-          label: 'Data',
-          value: null,
-          value2: null,
-          value3: null,
-          value4: null
-        },
-        { label: 'Hb', value: null, value2: null, value3: null, value4: null },
-        { label: 'VCM', value: null, value2: null, value3: null, value4: null },
-        { label: 'RDW', value: null, value2: null, value3: null, value4: null },
-        {
-          label: 'Leucócitos',
-          value: null,
-          value2: null,
-          value3: null,
-          value4: null
-        },
-        {
-          label: 'Neutrófilos',
-          value: null,
-          value2: null,
-          value3: null,
-          value4: null
-        },
-        {
-          label: 'Linfócitos',
-          value: null,
-          value2: null,
-          value3: null,
-          value4: null
-        },
-        {
-          label: 'Eosinófilos',
-          value: null,
-          value2: null,
-          value3: null,
-          value4: null
-        },
-        {
-          label: 'Plaquetas',
-          value: null,
-          value2: null,
-          value3: null,
-          value4: null
-        },
-        {
-          label: 'Proteína C Reativa',
-          value: null,
-          value2: null,
-          value3: null,
-          value4: null
-        },
-        { label: 'TGO', value: null, value2: null, value3: null, value4: null },
-        { label: 'TGP', value: null, value2: null, value3: null, value4: null },
-        { label: 'GGT', value: null, value2: null, value3: null, value4: null },
-        {
-          label: 'Calprotectína Fecal',
-          value: null,
-          value2: null,
-          value3: null,
-          value4: null
-        },
-        {
-          label: 'Creatinina',
-          value: null,
-          value2: null,
-          value3: null,
-          value4: null
-        }
-      ],
-      titleObservations: 'Observações adicionais',
-      observations: null
+      ]
     }
   },
   computed: {
-    ...mapGetters('clinicalCasesEvaluation', ['getClinicalCaseContent']),
+    ...mapGetters('clinicalCasesEvaluation', ['getVoucher']),
+
+    isOtherComorbiditiesDisabled() {
+      return !this.comorbidities.includes(10)
+    },
+
+    vef() {
+      return 'VEF <sub style="vertical-align: sub;font-size: 70%">1</sub>'
+    },
+
+    vefCvf() {
+      return 'VEF <sub style="vertical-align: sub;font-size: 70%">1</sub>/CVF'
+    },
+
+    fef() {
+      return 'FEF <sub style="vertical-align: sub;font-size: 70%">25% - 75%</sub>'
+    },
 
     isLoading() {
       return false
-    },
-
-    itemPlaceholder() {
-      return 'Valor'
     }
   },
   methods: {
-    enableNextRow(index) {
-      if (index < this.treatmentList.length - 1) {
-        const currentRow = this.treatmentList[index]
-        const nextRow = this.treatmentList[index + 1]
+    ...mapActions('activeClinicalCases', ['editVoucher']),
 
-        // Verifica se a linha atual está completa
-        if (
-          currentRow.medication &&
-          currentRow.startDate &&
-          currentRow.endDate &&
-          currentRow.respondedToTreatment &&
-          currentRow.interruptionReason
-        ) {
-          // Habilita a próxima linha
-          nextRow.editableRow = true
-        }
+    handleSave() {
+      const userData = {
+        data: {
+          teste: 'aqui'
+        },
+        voucherId: this.getVoucher.voucherId
       }
+      this.editVoucher(userData)
     }
   }
 }
@@ -519,185 +1122,45 @@ export default {
   margin-left: 20px;
 }
 
-.form {
-  padding: 10px 0;
-}
-
-.treatment {
-  h1 {
-    font-size: 16px;
-    padding: 20px;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    overflow: hidden;
-  }
-
-  table th,
-  table td {
-    border: 1px solid $gray-500;
-    text-align: center;
-  }
-
-  table th {
-    background-color: #f5f5f5;
-    font-weight: bold;
-    border-radius: 8px 8px 0 0;
-    padding: 20px 0;
-  }
-
-  table input[type='text'] {
-    width: 100%;
-    border: none;
-    border-radius: 8px;
-    text-align: left;
-    margin-bottom: 0;
-  }
-
-  table input[type='text']:focus {
-    border: none;
-    box-shadow: none;
-  }
-
-  .disabled-input {
-    background-color: #f0f0f0;
-    color: #ccc;
-    cursor: not-allowed;
+.content-subtitle {
+  flex-direction: column;
+  align-items: left;
+  text-align: left;
+  display: flex;
+  padding: 10px 20px;
+  .title {
+    color: $green-500;
   }
 }
 
-.exams {
-  h1 {
-    font-size: 16px;
-    padding: 20px;
+.content-title {
+  flex-direction: column;
+  margin-bottom: 25px;
+  align-items: left;
+  text-align: left;
+  display: flex;
+  padding: 20px;
+
+  .title {
+    color: $green-500;
   }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    overflow: hidden;
-
-    tbody {
-      border-radius: 8px;
-    }
-  }
-
-  table th,
-  table td {
-    border: 1px solid $gray-500;
-    text-align: center;
-  }
-
-  table th {
-    background-color: #f5f5f5;
-    font-weight: bold;
-    border-radius: 8px 8px 0 0;
-    padding: 20px 0;
-  }
-
-  table input[type='text'] {
-    width: 100%;
-    border: none;
-    border-radius: 8px;
-    text-align: left;
-    margin-bottom: 0;
-  }
-
-  table input[type='text']:focus {
-    border: none;
-    box-shadow: none;
-  }
-
-  .disabled-input {
-    background-color: #f0f0f0;
-    color: #ccc;
-    cursor: not-allowed;
-  }
-
-  .label-column {
-    background-color: #f5f5f5;
-    font-weight: bold;
+  .line {
+    background-color: $green-500;
+    margin-top: 15px;
+    bottom: -15px;
+    width: 60px;
+    height: 5px;
   }
 }
 
-.obervations {
-  .content-title {
-    flex-direction: column;
-    margin-bottom: 25px;
-    align-items: left;
-    text-align: left;
-    display: flex;
-    padding: 20px;
+.save {
+  padding: 10px 0 20px 0;
+  display: flex;
+  place-content: end;
 
-    .title {
-      color: $green-500;
-    }
-
-    .line {
-      background-color: $green-500;
-      margin-top: 15px;
-      bottom: -15px;
-      width: 60px;
-      height: 5px;
-    }
-  }
-
-  .observation-text {
-    border: 1px solid $gray-500;
-    border-radius: 10px;
-    padding: 15px;
-    margin: 20px 0;
-    textarea {
-      resize: none;
-      border: none;
-      line-height: 23px;
-      text-align: left;
-      height: 100%;
-      min-height: 50px;
-      width: 100%;
-      overflow: auto;
-      position: relative;
-
-      scrollbar-width: thin;
-      scrollbar-color: $gray-400 $gray;
-
-      &::-webkit-scrollbar {
-        width: 8px;
-        position: absolute;
-        right: 5px;
-        top: 5px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: $gray-400;
-        border-radius: 5px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background-color: transparent;
-      }
-
-      p {
-        max-height: 300px;
-        padding-right: 20px;
-        overflow-x: auto;
-      }
-    }
-
-    textarea:focus {
-      box-shadow: none;
-      border: none;
-      outline: none;
-    }
-
-    .seem-text::placeholder {
-      font-weight: normal;
-    }
+  button {
+    width: 150px;
   }
 }
 </style>

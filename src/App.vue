@@ -1,11 +1,10 @@
 <template>
-  <div class="app-container" :class="{ 'reduced-opacity': isLoading }">
+  <div class="app-container" v-loading="isLoading">
     <!-- MENU LATERAL -->
     <sidebar-menu v-if="$route.name !== 'Login'" />
 
     <!-- ROTAS -->
     <router-view />
-    <loader-spinner v-if="isLoading" />
   </div>
 </template>
 
@@ -14,16 +13,13 @@ import { mapActions, mapGetters } from 'vuex'
 
 import SidebarMenu from './features/menu/sidebar'
 
-import LoaderSpinner from '@/components/loaderSpinner'
-
 import '@/assets/scss/global.scss'
 
 export default {
   name: 'App',
 
   components: {
-    SidebarMenu,
-    LoaderSpinner
+    SidebarMenu
   },
 
   metaInfo: {
@@ -38,17 +34,20 @@ export default {
   watch: {
     $route(to) {
       if (this.getIsActiveVoucher && to.path !== '/active-clinical-case') {
-        this.handlePageActiveVoucher()
+        this.handleActiveVoucher()
       }
     }
   },
 
   computed: {
     ...mapGetters(['getIsTokenExpired', 'getLoading']),
-    ...mapGetters('clinicalCasesEvaluation', ['getIsActiveVoucher']),
+    ...mapGetters('clinicalCasesEvaluation', [
+      'getIsActiveVoucher',
+      'getLoadingActiveVoucher'
+    ]),
 
     isLoading() {
-      return this.getLoading
+      return this.getLoading || this.getLoadingActiveVoucher
     }
   },
 
@@ -59,13 +58,13 @@ export default {
       this.getIsActiveVoucher &&
       this.$route.path !== '/active-clinical-case'
     ) {
-      this.handlePageActiveVoucher()
+      this.handleActiveVoucher()
     }
   },
 
   methods: {
     ...mapActions(['validateToken', 'setAuthToken']),
-    ...mapActions('clinicalCasesEvaluation', ['handlePageActiveVoucher']),
+    ...mapActions('clinicalCasesEvaluation', ['handleActiveVoucher']),
 
     fetchTokenStatus() {
       this.validateToken()

@@ -7,7 +7,7 @@
           <h2>{{ message.name }}</h2>
         </div>
         <div class="message-date">
-          <p>{{ message.date }}</p>
+          <p>{{ message.createdAtFormatted }}</p>
         </div>
       </div>
     </div>

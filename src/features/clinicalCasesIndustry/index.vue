@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <div v-loading="isLoading">
     <template v-if="!isLoading && !getError">
       <clinical-cases-industry-table />
     </template>
-    <loader-spinner v-if="isLoading" />
     <base-error v-if="getError" />
   </div>
 </template>
@@ -14,13 +13,11 @@ import { mapGetters } from 'vuex'
 import ClinicalCasesIndustryTable from './components/ClinicalCasesIndustry.vue'
 
 import BaseError from '@/components/baseError'
-import LoaderSpinner from '@/components/loaderSpinner'
 
 export default {
   name: 'ClinicalCasesIndustry',
   components: {
     ClinicalCasesIndustryTable,
-    LoaderSpinner,
     BaseError
   },
   computed: {
