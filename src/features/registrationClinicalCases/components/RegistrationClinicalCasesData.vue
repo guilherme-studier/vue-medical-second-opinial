@@ -108,10 +108,9 @@
         <InputWrapper>
           <el-input
             v-model="fees"
-            type="text"
+            type="number"
             placeholder="Honorários Médico Consultor"
             class="flexible-input"
-            v-mask="'R$#.###,##'"
           />
         </InputWrapper>
         <InputWrapper></InputWrapper>

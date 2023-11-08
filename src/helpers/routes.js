@@ -204,11 +204,11 @@ export const routes = {
       id: 9,
       name: 'Atribuição de Casos Clínicos',
       route: '/allocation-clinical-cases'
-    },
-    {
-      id: 14,
-      name: 'Casos Clínicos Designados',
-      route: '/clinical-cases-industry'
     }
+    // {
+    //   id: 14,
+    //   name: 'Casos Clínicos Designados',
+    //   route: '/clinical-cases-industry'
+    // }
   ]
 }

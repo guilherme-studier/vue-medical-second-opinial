@@ -148,7 +148,7 @@
               <span @click="openModal">Termo de Responsabilidade</span> sobre a
               Execução dos Serviços
             </label>
-            <modal
+            <el-dialog
               v-if="modalTermsVisible"
               @close="closeModal"
               title="Termo de Responsabilidade"
@@ -192,7 +192,7 @@
                   De acordo
                 </button>
               </div>
-            </modal>
+            </el-dialog>
           </div>
         </div>
         <div id="specialty">
@@ -256,7 +256,6 @@ import { mapActions, mapGetters } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
-import Modal from '@/components/modal'
 import Title from '@/components/title'
 
 export default {
@@ -264,8 +263,7 @@ export default {
   components: {
     InputGroup,
     InputWrapper,
-    Title,
-    Modal
+    Title
   },
   setup() {
     const toast = useToast()

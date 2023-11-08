@@ -3,12 +3,12 @@
     <div class="active-clinical-case-form">
       <div class="side-by-side">
         <div class="half-width">
-          <el-input v-model="getVoucher.contractId">
+          <el-input v-model="getVoucher.voucherId" disabled>
             <template #prepend>Caso Clínico nº</template>
           </el-input>
         </div>
         <div class="half-width with-margin">
-          <el-input v-model="getVoucher.diseaseName">
+          <el-input v-model="getVoucher.diseaseName" disabled>
             <template #prepend>Doença</template>
           </el-input>
         </div>
@@ -25,12 +25,7 @@
           />
         </input-wrapper>
         <input-wrapper>
-          <el-select
-            v-model="gender"
-            placeholder="Gênero"
-            size="large"
-            clearable
-          >
+          <el-select v-model="gender" placeholder="Sexo" size="large" clearable>
             <el-option
               v-for="item in genderOptions"
               :key="item.id"
@@ -463,7 +458,7 @@
             v-model="petDescription"
             type="number"
             :disabled="pet !== 1"
-            placeholder="Quais?"
+            placeholder="Quantos?"
           />
         </input-wrapper>
       </input-group>
@@ -1032,10 +1027,6 @@ export default {
         {
           id: 2,
           name: 'Feminino'
-        },
-        {
-          id: 3,
-          name: 'Outro'
         }
       ],
       color: null,
@@ -1054,7 +1045,11 @@ export default {
         },
         {
           id: 4,
-          name: 'Outro'
+          name: 'Amarelo'
+        },
+        {
+          id: 5,
+          name: 'Indígena'
         }
       ]
     }
