@@ -8,10 +8,6 @@
           clínicos ativos
         </h1>
       </div>
-      <div class="voucher-search">
-        <input type="text" v-model="getSearchTerm" placeholder="Buscar" />
-        <img class="search-icon" :src="getIconSearch" alt="" />
-      </div>
     </div>
 
     <el-table
@@ -44,14 +40,24 @@
               :icon="iconCheck"
               @click="handleCheck(scope.row.voucherId)"
             /> -->
-            <font-awesome-icon
-              :icon="iconFile"
-              @click="handleFile(scope.row)"
-            />
-            <font-awesome-icon
-              :icon="iconMessage"
-              @click="handleComment(scope.row)"
-            />
+            <el-tooltip
+              class="box-item"
+              effect="light"
+              content="Adicionar/Verificar parecer de caso clínico"
+              placement="top-start"
+              ><font-awesome-icon
+                :icon="iconFile"
+                @click="handleFile(scope.row)"
+            /></el-tooltip>
+            <el-tooltip
+              class="box-item"
+              effect="light"
+              content="Enviar mensagem"
+              placement="top-start"
+              ><font-awesome-icon
+                :icon="iconMessage"
+                @click="handleComment(scope.row)"
+            /></el-tooltip>
           </div>
         </template>
       </el-table-column>

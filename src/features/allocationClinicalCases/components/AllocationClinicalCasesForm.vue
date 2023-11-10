@@ -27,6 +27,7 @@
             placeholder="Quantidade de vouchers"
             class="flexible-input"
             type="number"
+            min="0"
           />
         </InputWrapper>
         <InputWrapper>
@@ -38,9 +39,9 @@
           >
             <el-option
               v-for="item in getContracts"
-              :key="item.id"
+              :key="item?.contractId"
               :label="item?.contractName"
-              :value="item.id"
+              :value="item?.contractId"
             />
           </el-select>
         </InputWrapper>
@@ -99,7 +100,7 @@ export default {
         doctorName: this.name,
         doctorEmail: this.email,
         numberOfClinicalCases: this.quantity,
-        contractId: this.contract?.contractId
+        contractId: this.contract
       }
 
       await this.addClientDoctor(userData)

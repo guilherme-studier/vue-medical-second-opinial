@@ -15,7 +15,7 @@
         <input-wrapper>
           <el-input
             v-model="password"
-            placeholder="Senha inicial"
+            placeholder="Senha atual"
             class="flexible-input"
             @input="validatePassword"
             type="password"

@@ -170,7 +170,8 @@ export default {
         return {
           name: form.name,
           email: form.email,
-          industryId: this.industry
+          industryId: this.industry,
+          cpf: form.cpf
         }
       })
 

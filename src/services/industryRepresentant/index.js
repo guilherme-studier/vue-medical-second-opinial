@@ -55,6 +55,23 @@ export const updateIndustryRepresentant = (industryRepresentId, userData) => {
 }
 
 /**
+ * Criar o representante da indústria.
+ * @param {object} userData - Os dados do representante da indústria (name, email, industryId).
+ * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
+ */
+export const createIndustryRepresentant = (userData) => {
+  return axios({
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${getToken()}`
+    },
+    url: `${USER_BASE_URL}/industry-representative`,
+    data: userData
+  })
+}
+
+/**
  * Cancelar o representante da indústria com o ID especificado.
  * @param {string} representantId - O ID do representante da indústria a ser cancelado.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.

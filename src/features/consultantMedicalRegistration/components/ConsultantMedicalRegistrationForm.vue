@@ -15,7 +15,7 @@
         <input-wrapper>
           <el-input
             v-model="password"
-            placeholder="Senha inicial"
+            placeholder="Senha atual"
             class="flexible-input"
             @input="validatePassword"
             type="password"
@@ -111,6 +111,7 @@
                   placeholder="Número"
                   class="flexible-input"
                   type="number"
+                  min="0"
                 />
               </input-wrapper>
               <input-wrapper>
@@ -148,12 +149,12 @@
               <span @click="openModal">Termo de Responsabilidade</span> sobre a
               Execução dos Serviços
             </label>
-            <modal
-              v-if="modalTermsVisible"
+            <el-dialog
+              v-model="modalTermsVisible"
               @close="closeModal"
               title="Termo de Responsabilidade"
             >
-              <div class="modal-content">
+              <div class="">
                 <div class="modal-text">
                   <p>
                     Lorem Ipsum is simply dummy text of the printing and
@@ -181,6 +182,32 @@
                     (injected humour and the like).
                   </p>
                   <p>
+                    It is a long established fact that a reader will be
+                    distracted by the readable content of a page when looking at
+                    its layout. The point of using Lorem Ipsum is that it has a
+                    more-or-less normal distribution of letters, as opposed to
+                    using 'Content here, content here', making it look like
+                    readable English. Many desktop publishing packages and web
+                    page editors now use Lorem Ipsum as their default model
+                    text, and a search for 'lorem ipsum' will uncover many web
+                    sites still in their infancy. Various versions have evolved
+                    over the years, sometimes by accident, sometimes on purpose
+                    (injected humour and the like).
+                  </p>
+                  <p>
+                    It is a long established fact that a reader will be
+                    distracted by the readable content of a page when looking at
+                    its layout. The point of using Lorem Ipsum is that it has a
+                    more-or-less normal distribution of letters, as opposed to
+                    using 'Content here, content here', making it look like
+                    readable English. Many desktop publishing packages and web
+                    page editors now use Lorem Ipsum as their default model
+                    text, and a search for 'lorem ipsum' will uncover many web
+                    sites still in their infancy. Various versions have evolved
+                    over the years, sometimes by accident, sometimes on purpose
+                    (injected humour and the like).
+                  </p>
+                  <p>
                     Contrary to popular belief, Lorem Ipsum is not simply random
                     text. It has roots in a piece of classical Latin literature
                     from 45 BC, making it over 2000 years old. Richard
@@ -188,11 +215,11 @@
                   </p>
                 </div>
 
-                <button class="modal-btn" @click="handleTerms">
-                  De acordo
-                </button>
+                <el-button class="modal-btn" type="primary" @click="handleTerms"
+                  >De acordo</el-button
+                >
               </div>
-            </modal>
+            </el-dialog>
           </div>
         </div>
         <div id="specialty">
@@ -256,7 +283,6 @@ import { mapActions, mapGetters } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
-import Modal from '@/components/modal'
 import Title from '@/components/title'
 
 export default {
@@ -264,8 +290,7 @@ export default {
   components: {
     InputGroup,
     InputWrapper,
-    Title,
-    Modal
+    Title
   },
   setup() {
     const toast = useToast()

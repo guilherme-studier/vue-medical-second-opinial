@@ -8,10 +8,6 @@
           clínicos ativos
         </h1>
       </div>
-      <div class="voucher-search">
-        <input type="text" v-model="getSearchTerm" placeholder="Buscar" />
-        <img class="search-icon" :src="getIconSearch" alt="" />
-      </div>
     </div>
 
     <el-table
@@ -45,9 +41,27 @@
       <el-table-column label="Ação" width="150" align="center">
         <template v-slot="scope">
           <div class="actions">
-            <font-awesome-icon :icon="iconCheck" @click="accept(scope.row)" />
-            <font-awesome-icon :icon="iconX" @click="decline(scope.row)" />
-            <font-awesome-icon :icon="iconTrash" @click="cancel(scope.row)" />
+            <el-tooltip
+              class="box-item"
+              effect="light"
+              content="Aceitar caso clínico"
+              placement="top-start"
+              ><font-awesome-icon :icon="iconCheck" @click="accept(scope.row)"
+            /></el-tooltip>
+            <el-tooltip
+              class="box-item"
+              effect="light"
+              content="Declinar caso clínico"
+              placement="top-start"
+              ><font-awesome-icon :icon="iconX" @click="decline(scope.row)"
+            /></el-tooltip>
+            <el-tooltip
+              class="box-item"
+              effect="light"
+              content="Cancelar caso clínico"
+              placement="top-start"
+              ><font-awesome-icon :icon="iconTrash" @click="cancel(scope.row)"
+            /></el-tooltip>
           </div>
         </template>
       </el-table-column>

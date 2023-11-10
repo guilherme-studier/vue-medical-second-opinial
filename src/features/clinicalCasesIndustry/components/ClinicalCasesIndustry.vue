@@ -7,10 +7,6 @@
           {{ getName }} <span>possui</span> {{ getVouchers }} casos clínicos
         </h1>
       </div>
-      <div class="voucher-search">
-        <input type="text" v-model="getSearchTerm" placeholder="Buscar" />
-        <img class="search-icon" :src="getIconSearch" alt="" />
-      </div>
     </div>
 
     <custom-table
