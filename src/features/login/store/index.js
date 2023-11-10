@@ -26,7 +26,7 @@ export default {
       },
       {
         id: 3,
-        name: 'Médico Cliente',
+        name: 'Médico Solicitante',
         background: 'background-doctor-client'
       },
       {
