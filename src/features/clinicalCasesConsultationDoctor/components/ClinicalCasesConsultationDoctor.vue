@@ -40,14 +40,24 @@
               :icon="iconCheck"
               @click="handleCheck(scope.row.voucherId)"
             /> -->
-            <font-awesome-icon
-              :icon="iconFile"
-              @click="handleFile(scope.row)"
-            />
-            <font-awesome-icon
-              :icon="iconMessage"
-              @click="handleComment(scope.row)"
-            />
+            <el-tooltip
+              class="box-item"
+              effect="light"
+              content="Adicionar/Verificar parecer de caso clínico"
+              placement="top-start"
+              ><font-awesome-icon
+                :icon="iconFile"
+                @click="handleFile(scope.row)"
+            /></el-tooltip>
+            <el-tooltip
+              class="box-item"
+              effect="light"
+              content="Enviar mensagem"
+              placement="top-start"
+              ><font-awesome-icon
+                :icon="iconMessage"
+                @click="handleComment(scope.row)"
+            /></el-tooltip>
           </div>
         </template>
       </el-table-column>

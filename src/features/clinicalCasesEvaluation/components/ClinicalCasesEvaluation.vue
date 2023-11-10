@@ -40,19 +40,34 @@
       <el-table-column label="Ação" width="150" align="center">
         <template v-slot="scope">
           <div class="actions">
-            <font-awesome-icon
-              :icon="iconCheck"
-              @click="handleCheck(scope.row)"
-            />
-            <font-awesome-icon
-              :icon="iconFile"
-              @click="handleFile(scope.row)"
-              :class="{ 'filed-null': scope.row.opinion === null }"
-            />
-            <font-awesome-icon
-              :icon="iconMessage"
-              @click="handleComment(scope.row)"
-            />
+            <el-tooltip
+              class="box-item"
+              effect="light"
+              content="Ativar caso clínico"
+              placement="top-start"
+              ><font-awesome-icon
+                :icon="iconCheck"
+                @click="handleCheck(scope.row)"
+            /></el-tooltip>
+            <el-tooltip
+              class="box-item"
+              effect="light"
+              content="Consultar parecer"
+              placement="top-start"
+              ><font-awesome-icon
+                :icon="iconFile"
+                @click="handleFile(scope.row)"
+                :class="{ 'filed-null': scope.row.opinion === null }"
+            /></el-tooltip>
+            <el-tooltip
+              class="box-item"
+              effect="light"
+              content="Enviar mensagem"
+              placement="top-start"
+              ><font-awesome-icon
+                :icon="iconMessage"
+                @click="handleComment(scope.row)"
+            /></el-tooltip>
           </div>
         </template>
       </el-table-column>
