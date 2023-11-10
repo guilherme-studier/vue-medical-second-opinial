@@ -22,6 +22,7 @@
             placeholder="Idade"
             class="flexible-input"
             v-model="age"
+            min="0"
           />
         </input-wrapper>
         <input-wrapper>
@@ -415,6 +416,7 @@
           <el-input
             v-model="ageStart"
             type="number"
+            min="0"
             placeholder="Início da doença com que idade: __"
           />
         </input-wrapper>
@@ -457,6 +459,7 @@
           <el-input
             v-model="petDescription"
             type="number"
+            min="0"
             :disabled="pet !== 1"
             placeholder="Quantos?"
           />
@@ -497,6 +500,7 @@
           <el-input
             v-model="exhibitionDescription"
             type="number"
+            min="0"
             :disabled="exhibition !== 1"
             placeholder="Quais?"
           />
@@ -551,6 +555,7 @@
           <el-input
             v-model="corticosteroidTimes"
             type="number"
+            min="0"
             :disabled="corticosteroid !== 1"
             placeholder="Quantas vezes?"
           />
@@ -575,6 +580,7 @@
           <el-input
             v-model="hospitalizationTimes"
             type="number"
+            min="0"
             :disabled="hospitalization !== 1"
             placeholder="Quantas vezes?"
           />
@@ -599,6 +605,7 @@
           <el-input
             v-model="utiTimes"
             type="number"
+            min="0"
             :disabled="uti !== 1"
             placeholder="Quantas vezes?"
           />
@@ -623,6 +630,7 @@
           <el-input
             v-model="ventilationTimes"
             type="number"
+            min="0"
             :disabled="ventilation !== 1"
             placeholder="Quantas vezes?"
           />
@@ -647,6 +655,7 @@
           <el-input
             v-model="pcrTimes"
             type="number"
+            min="0"
             :disabled="pcr !== 1"
             placeholder="Quantas vezes?"
           />

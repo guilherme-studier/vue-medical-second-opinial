@@ -27,6 +27,7 @@
             placeholder="Quantidade de vouchers"
             class="flexible-input"
             type="number"
+            min="0"
           />
         </InputWrapper>
         <InputWrapper>

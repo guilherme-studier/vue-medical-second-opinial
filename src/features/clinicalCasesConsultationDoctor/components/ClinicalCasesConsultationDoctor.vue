@@ -8,10 +8,6 @@
           clínicos ativos
         </h1>
       </div>
-      <div class="voucher-search">
-        <input type="text" v-model="getSearchTerm" placeholder="Buscar" />
-        <img class="search-icon" :src="getIconSearch" alt="" />
-      </div>
     </div>
 
     <el-table

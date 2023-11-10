@@ -16,7 +16,7 @@
           <input-wrapper>
             <el-input
               v-model="password"
-              placeholder="Senha inicial"
+              placeholder="Senha atual"
               class="flexible-input"
               @input="validatePassword"
               type="password"
@@ -96,7 +96,7 @@
           <span @click="openModal">Termo de Responsabilidade</span> sobre a
           Execução dos Serviços
         </label>
-        <modal
+        <el-dialog
           v-if="modalTermsVisible"
           @close="closeModal"
           title="Termo de Responsabilidade"
@@ -136,7 +136,7 @@
 
             <button class="modal-btn" @click="handleTerms">De acordo</button>
           </div>
-        </modal>
+        </el-dialog>
         <div id="save">
           <el-button
             type="primary"
@@ -156,7 +156,6 @@ import { mapGetters, mapActions } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
-import Modal from '@/components/modal'
 import Title from '@/components/title'
 
 export default {
@@ -164,7 +163,6 @@ export default {
   components: {
     InputWrapper,
     InputGroup,
-    Modal,
     Title
   },
   setup() {

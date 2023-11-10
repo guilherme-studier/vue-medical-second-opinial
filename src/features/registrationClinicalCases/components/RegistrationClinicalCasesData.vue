@@ -79,6 +79,7 @@
           <el-input
             v-model="quantity"
             type="number"
+            min="0"
             placeholder="Quantidade de Casos Clínicos"
             class="flexible-input"
           />
@@ -109,6 +110,7 @@
           <el-input
             v-model="fees"
             type="number"
+            min="0"
             placeholder="Honorários Médico Consultor"
             class="flexible-input"
           />
