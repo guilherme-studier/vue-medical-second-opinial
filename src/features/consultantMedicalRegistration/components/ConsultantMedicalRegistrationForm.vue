@@ -7,9 +7,9 @@
             v-model="cpf"
             placeholder="CPF"
             class="flexible-input"
-            v-mask="'###.###.###-##'"
-            @input="validatePassword"
             type="text"
+            :v-mask="isRegistrationForm ? '###.###.###-##' : null"
+            :disabled="!isRegistrationForm"
           />
         </input-wrapper>
         <input-wrapper>
@@ -17,12 +17,11 @@
             v-model="password"
             placeholder="Senha atual"
             class="flexible-input"
-            @input="validatePassword"
             type="password"
           />
         </input-wrapper>
       </input-group>
-      <div :class="{ 'content-block': !isFormEnabled }">
+      <div>
         <div id="registration-data">
           <Title :title="titleRegistration" />
           <div class="form">
@@ -142,7 +141,7 @@
               </input-wrapper>
             </input-group>
           </div>
-          <div class="terms-agreement">
+          <div class="terms-agreement" v-show="isRegistrationForm">
             <input type="checkbox" id="termsCheckbox" v-model="termsAgreed" />
             <label>
               Li e estou de acordo com o
@@ -317,22 +316,34 @@ export default {
       city: null,
       cnpj: null,
       cpf: null,
-      fieldTimeout: null,
       crm: null,
       ufCrm: null,
       cep: null,
       state: null,
-      type: 'consultant_doctor'
+      type: 'consultant_doctor',
+      isRegistrationForm: false
     }
   },
   computed: {
-    ...mapGetters('user', ['getEmail']),
-    ...mapGetters(['getValidatePassword']),
+    ...mapGetters('user', [
+      'getEmail',
+      'getName',
+      'getPhone',
+      'getCrm',
+      'getState',
+      'getCpf',
+      'isRegistred',
+      'getCorporateName',
+      'getComplement',
+      'getSpecialty',
+      'getNumber',
+      'getStreet',
+      'getCity',
+      'getCnpj',
+      'getUfCrm',
+      'getCep'
+    ]),
     ...mapGetters('specialty', ['getSpecialties']),
-
-    isFormEnabled() {
-      return this.getValidatePassword && this.cpf && this.password
-    },
 
     isSaveDisabled() {
       return (
@@ -357,20 +368,20 @@ export default {
       )
     }
   },
-  mounted() {
-    this.fetchSpecialties()
+  watch: {
+    isRegistred: 'isRegistration'
+  },
+  async created() {
     this.getUser()
   },
-  watch: {
-    getValidatePassword() {
-      if (!this.getValidatePassword) this.clearForm()
-    }
+  mounted() {
+    this.fetchSpecialties()
+    this.isRegistration()
   },
   methods: {
-    ...mapActions('consultantMedicalRegistration', ['updateConsultantMedical']),
-    ...mapActions('specialty', ['fetchSpecialties']),
     ...mapActions('user', ['getUser']),
-    ...mapActions(['loginUser']),
+    ...mapActions('specialty', ['fetchSpecialties']),
+    ...mapActions('consultantMedicalRegistration', ['updateConsultantMedical']),
 
     openModal() {
       this.modalTermsVisible = true
@@ -398,56 +409,72 @@ export default {
         street: this.street,
         name: this.name,
         city: this.city,
-        cpf: this.cpf,
         crm: this.crm,
         // eslint-disable-next-line camelcase
         uf_crm: this.ufCrm,
         cep: this.cep,
         state: this.state,
         cnpj: this.cnpj,
-        corporateName: this.corporateName
+        // eslint-disable-next-line camelcase
+        corporate_name: this.corporateName
+      }
+      if (this.isRegistrationForm) {
+        // Se não se tratar de um registro, não quero enviar cpf
+        userData.cpf = this.cpf
       }
 
       await this.updateConsultantMedical(userData)
       await this.getUser()
-      this.clearForm()
+      this.isRegistration()
+
+      // this.clearForm()
 
       this.password = null
-      this.cpf = null
+      this.newPassword = null
     },
-    clearForm() {
-      ;(this.termsAgreed = null),
-        (this.newPassword = null),
-        (this.complement = null),
-        (this.specialty = null),
-        (this.number = null),
-        (this.email = null),
-        (this.phone = null),
-        (this.street = null),
-        (this.name = null),
-        (this.city = null),
-        (this.crm = null),
-        (this.ufCrm = null),
-        (this.cep = null),
-        (this.state = null),
-        (this.cnpj = null),
-        (this.corporateName = null)
-    },
-    verifyPassword() {
-      this.loginUser({
-        username: this.getEmail,
-        password: this.password
-      })
-
-      if (!this.getValidatePassword) return this.clearForm()
-    },
-    validatePassword() {
-      clearTimeout(this.fieldTimeout)
-
-      this.fieldTimeout = setTimeout(() => {
-        if (this.cpf && this.password) this.verifyPassword()
-      }, 1000)
+    isRegistration() {
+      // caso se tratar de um formulário de atualização de cadastro, os campos serão auto preenchidos
+      if (this.isRegistred) {
+        this.isRegistrationForm = false
+        this.termsAgreed = true
+        this.email = this.getEmail
+        this.cpf = this.getCpf
+        this.name = this.getName
+        this.phone = this.getPhone
+        this.crm = this.getCrm
+        this.state = this.getState
+        this.corporateName = this.getCorporateName
+        this.complement = this.getComplement
+        this.specialty = this.getSpecialty
+        this.number = this.getNumber
+        this.street = this.getStreet
+        this.city = this.getCity
+        this.cnpj = this.getCnpj
+        this.ufCrm = this.getUfCrm
+        this.cep = this.getCep
+      } else {
+        this.isRegistrationForm = true
+        this.termsAgreed = false
+      }
     }
+    // clearForm() {
+    //   ;(this.termsAgreed = null),
+    //     (this.newPassword = null),
+    //     (this.complement = null),
+    //     (this.specialty = null),
+    //     (this.number = null),
+    //     (this.email = null),
+    //     (this.phone = null),
+    //     (this.street = null),
+    //     (this.name = null),
+    //     (this.city = null),
+    //     (this.crm = null),
+    //     (this.ufCrm = null),
+    //     (this.cep = null),
+    //     (this.state = null),
+    //     (this.cnpj = null),
+    //     (this.corporateName = null)
+    // }
   }
 }
 </script>

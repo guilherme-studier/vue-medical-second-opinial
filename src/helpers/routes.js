@@ -1,14 +1,18 @@
+import store from '@/store'
+
+const isRegistred = () => store?.getters['user/isRegistred']
+
 export const all = [
   {
     id: 1,
     name: 'Início',
     route: '/'
   },
-  {
-    id: 2,
-    name: 'Cadastro Indústria',
-    route: '/induster'
-  },
+  // {
+  //   id: 2,
+  //   name: 'Cadastro Indústria',
+  //   route: '/induster'
+  // },
   {
     id: 3,
     name: 'Registro de Contrato e Geração de Casos Clínicos',
@@ -31,7 +35,7 @@ export const all = [
   },
   {
     id: 7,
-    name: 'Cadastro Médico Consultor',
+    name: isRegistred ? 'Atualização de Dados Cadastrais' : 'Cadastro',
     route: '/medical-registration'
   },
   {
@@ -51,7 +55,7 @@ export const all = [
   },
   {
     id: 10,
-    name: 'Cadastro Representante',
+    name: isRegistred ? 'Atualização de Dados Cadastrais' : 'Cadastro',
     route: '/representative-registration'
   },
   {
@@ -99,11 +103,11 @@ export const routes = {
       name: 'Início',
       route: '/'
     },
-    {
-      id: 2,
-      name: 'Cadastro Indústria',
-      route: '/induster'
-    },
+    // {
+    //   id: 2,
+    //   name: 'Cadastro Indústria',
+    //   route: '/induster'
+    // },
     {
       id: 3,
       name: 'Registro de Contrato e Geração de Casos Clínicos',
@@ -153,7 +157,7 @@ export const routes = {
     },
     {
       id: 7,
-      name: 'Cadastro Médico Consultor',
+      name: isRegistred ? 'Atualização de Dados Cadastrais' : 'Cadastro',
       route: '/medical-registration'
     },
     {
@@ -175,7 +179,7 @@ export const routes = {
     },
     {
       id: 8,
-      name: 'Cadastro',
+      name: isRegistred ? 'Atualização de Dados Cadastrais' : 'Cadastro',
       route: '/registration'
     },
     {
@@ -197,7 +201,7 @@ export const routes = {
     },
     {
       id: 10,
-      name: 'Cadastro Representante',
+      name: isRegistred ? 'Atualização de Dados Cadastrais' : 'Cadastro',
       route: '/representative-registration'
     },
     {

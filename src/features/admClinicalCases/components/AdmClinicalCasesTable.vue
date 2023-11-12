@@ -46,21 +46,36 @@
               effect="light"
               content="Aceitar caso clínico"
               placement="top-start"
-              ><font-awesome-icon :icon="iconCheck" @click="accept(scope.row)"
+              ><font-awesome-icon
+                :icon="iconCheck"
+                @click="accept(scope.row)"
+                :class="{
+                  'action-disabled': scope.row?.status !== 'Disponível'
+                }"
             /></el-tooltip>
             <el-tooltip
               class="box-item"
               effect="light"
               content="Declinar caso clínico"
               placement="top-start"
-              ><font-awesome-icon :icon="iconX" @click="decline(scope.row)"
+              ><font-awesome-icon
+                :icon="iconX"
+                @click="decline(scope.row)"
+                :class="{
+                  'action-disabled': scope.row?.status !== 'Disponível'
+                }"
             /></el-tooltip>
             <el-tooltip
               class="box-item"
               effect="light"
               content="Cancelar caso clínico"
               placement="top-start"
-              ><font-awesome-icon :icon="iconTrash" @click="cancel(scope.row)"
+              ><font-awesome-icon
+                :icon="iconTrash"
+                @click="cancel(scope.row)"
+                :class="{
+                  'action-disabled': scope.row?.status !== 'Em avaliação'
+                }"
             /></el-tooltip>
           </div>
         </template>
@@ -155,6 +170,12 @@ export default {
   justify-content: space-around;
   font-size: 19px;
   margin: 2px;
+
+  .action-disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    color: lightgray;
+  }
 
   svg:hover {
     cursor: pointer;
