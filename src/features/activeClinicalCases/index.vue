@@ -703,8 +703,13 @@
         </input-wrapper>
       </input-group>
     </div>
-    <div class="save">
-      <el-button type="primary" @click="handleSave">Salvar</el-button>
+    <div class="btn">
+      <el-button class="save" type="primary" @click="handleSave"
+        >Salvar</el-button
+      >
+      <el-button class="send" type="info" @click="handleSave"
+        >Submeter para avaliação</el-button
+      >
     </div>
   </div>
 </template>
@@ -1042,19 +1047,19 @@ export default {
       colorOptions: [
         {
           id: 1,
-          name: 'Branco'
+          name: 'Branca'
         },
         {
           id: 2,
-          name: 'Preto'
+          name: 'Preta'
         },
         {
           id: 3,
-          name: 'Pardo'
+          name: 'Parda'
         },
         {
           id: 4,
-          name: 'Amarelo'
+          name: 'Amarela'
         },
         {
           id: 5,
@@ -1158,13 +1163,17 @@ export default {
   }
 }
 
-.save {
+.btn {
   padding: 10px 0 20px 0;
   display: flex;
   place-content: end;
 
-  button {
+  .save {
     width: 150px;
+  }
+
+  .send {
+    width: 250px;
   }
 }
 </style>

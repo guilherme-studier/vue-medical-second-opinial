@@ -260,6 +260,19 @@ body {
 
 }
 
+// svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
+//   &.clicked {
+//     background-color: red;
+//     border: none;
+//   }
+
+//   &:hover {
+//     cursor: pointer;
+//     transform: translateY(-2px);
+//     transition: transform 0.2s ease;
+//   }
+// }
+
 .form-loading {
   opacity: 0.6;
   pointer-events: none;

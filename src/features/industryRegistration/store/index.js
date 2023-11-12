@@ -38,7 +38,7 @@ export default {
     }
   },
   actions: {
-    async createIndustry({ commit }, userData) {
+    async createIndustry({ commit, dispatch }, userData) {
       commit('setLoading', true)
       return createIndustry(userData)
         .then((response) => {
@@ -46,6 +46,7 @@ export default {
           toast.success('Cadastro Indústria efetuado criado com sucesso', {
             timeout: 5000
           })
+          dispatch('fetchIndustries')
           return response
         })
         .catch((error) => {
@@ -67,7 +68,6 @@ export default {
         })
         .catch((error) => {
           toast.warning('Erro ao buscar as indústrias', { timeout: 5000 })
-          throw error
         })
         .finally(() => {
           commit('setLoading', false)
@@ -82,15 +82,14 @@ export default {
         })
         .catch((error) => {
           toast.warning('Erro ao deletar a indústria', { timeout: 5000 })
-          throw error
         })
         .finally(() => {
           commit('setLoading', false)
         })
     },
-    async updateIndustryById({ commit, dispatch }, data) {
+    async updateIndustryById({ commit, dispatch }, userData) {
       commit('setLoading', true)
-      return updateIndustry(data.id, data.name)
+      return updateIndustry(userData)
         .then(() => {
           dispatch('fetchIndustries')
           toast.success('Indústria atualizada com sucesso!', {
@@ -99,7 +98,6 @@ export default {
         })
         .catch((error) => {
           toast.warning('Erro ao atualizar a indústria', { timeout: 5000 })
-          throw error
         })
         .finally(() => {
           commit('setLoading', false)
@@ -113,7 +111,6 @@ export default {
         })
         .catch((error) => {
           toast.warning('Erro ao buscar a indústria', { timeout: 5000 })
-          throw error
         })
         .finally(() => {
           commit('setLoading', false)

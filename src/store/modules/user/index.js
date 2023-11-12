@@ -109,6 +109,12 @@ export default {
     getCorporateName: (state) => state.userData.corporate_name,
     getCategory: (state) => state.userData.category,
     getSpecialty: (state) => state.userData.specialty,
-    getLoadingUser: (state) => state.loading
+    getLoadingUser: (state) => state.loading,
+    isRegistred: (state) => {
+      const requiredProperties = ['email', 'name', 'phone', 'cpf']
+
+      // Check if all required properties exist and are truthy
+      return requiredProperties.every((prop) => state.userData[prop])
+    }
   }
 }

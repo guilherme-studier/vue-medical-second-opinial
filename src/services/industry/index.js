@@ -65,8 +65,8 @@ export const deleteIndustry = (industryId) => {
  * @param {object} updatedData - Novos dados da industria a serem atualizados.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const updateIndustry = (industryId, name) => {
-  const url = `${BASE_URL}/industry/${industryId}`
+export const updateIndustry = (userData) => {
+  const url = `${BASE_URL}/industry/${userData.id}`
 
   return axios({
     method: 'PUT',
@@ -75,7 +75,13 @@ export const updateIndustry = (industryId, name) => {
       Authorization: `Bearer ${getToken()}`
     },
     url,
-    data: { name }
+    data: {
+      email: userData.email,
+      phone: userData.phone,
+      contact: userData.contact,
+      observation: userData.observation,
+      name: userData.industryName
+    }
   })
 }
 

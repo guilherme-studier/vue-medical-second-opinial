@@ -7,8 +7,8 @@
             v-model="cpf"
             placeholder="CPF"
             class="flexible-input"
-            v-mask="'###.###.###-##'"
-            @input="validatePassword"
+            :v-mask="isRegistrationForm ? '###.###.###-##' : null"
+            :disabled="!isRegistrationForm"
             type="text"
           />
         </input-wrapper>
@@ -17,13 +17,12 @@
             v-model="password"
             placeholder="Senha atual"
             class="flexible-input"
-            @input="validatePassword"
             type="password"
           />
         </input-wrapper>
       </input-group>
     </div>
-    <div class="form" :class="{ 'content-block': !isFormEnabled }">
+    <div class="form">
       <Title :title="tituloComponente" />
       <InputGroup>
         <InputWrapper>
@@ -95,6 +94,7 @@ export default {
   data() {
     return {
       tituloComponente: 'Dados Cadastrais',
+      isRegistrationForm: false,
       name: null,
       newPassword: null,
       phone: null,
@@ -104,12 +104,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getValidatePassword']),
-    ...mapGetters('user', ['getEmail']),
-
-    isFormEnabled() {
-      return this.getValidatePassword && this.cpf && this.password
-    },
+    ...mapGetters('user', [
+      'getEmail',
+      'getName',
+      'getPhone',
+      'getCpf',
+      'isRegistred'
+    ]),
 
     isSaveDisabled() {
       return (
@@ -122,11 +123,14 @@ export default {
       )
     }
   },
+  watch: {
+    isRegistred: 'isRegistration'
+  },
   mounted() {
     this.getUser()
+    this.isRegistration()
   },
   methods: {
-    ...mapActions(['loginUser']),
     ...mapActions('user', ['getUser']),
     ...mapActions('representativeRegistration', [
       'updateRepresentativeIndustry'
@@ -139,38 +143,40 @@ export default {
         newPassword: this.newPassword,
         email: this.email,
         phone: this.phone,
-        name: this.name,
-        cpf: this.cpf
+        name: this.name
+      }
+
+      if (this.isRegistrationForm) {
+        // Se não se tratar de um registro, não quero enviar cpf
+        userData.cpf = this.cpf
       }
 
       await this.updateRepresentativeIndustry(userData)
       await this.getUser()
-      this.clearForm()
+      this.isRegistration()
+      //this.clearForm()
 
       this.password = null
-      this.cpf = null
-    },
-    clearForm() {
       this.newPassword = null
-      this.phone = null
-      this.email = null
-      this.name = null
     },
-    verifyPassword() {
-      this.loginUser({
-        username: this.getEmail,
-        password: this.password
-      })
-
-      if (!this.getValidatePassword) return this.clearForm()
-    },
-    validatePassword() {
-      clearTimeout(this.fieldTimeout)
-
-      this.fieldTimeout = setTimeout(() => {
-        if (this.cpf && this.password) this.verifyPassword()
-      }, 1000)
+    isRegistration() {
+      // caso se tratar de um formulário de atualização de cadastro, os campos serão auto preenchidos
+      if (this.isRegistred) {
+        this.isRegistrationForm = false
+        this.email = this.getEmail
+        this.cpf = this.getCpf
+        this.name = this.getName
+        this.phone = this.getPhone
+      } else {
+        this.isRegistrationForm = true
+      }
     }
+    // clearForm() {
+    //   this.newPassword = null
+    //   this.phone = null
+    //   this.email = null
+    //   this.name = null
+    // }
   }
 }
 </script>

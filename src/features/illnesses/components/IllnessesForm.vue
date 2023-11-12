@@ -135,7 +135,6 @@ export default {
     getCurrentPage: 'fetchDiseases',
     getDiseases: {
       handler(diseases) {
-        console.log(diseases)
         this.tableData = diseases?.map((disease) => ({
           name: disease?.name,
           id: disease?.id

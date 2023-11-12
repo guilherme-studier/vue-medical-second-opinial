@@ -194,15 +194,17 @@ export default {
     getCurrentPage: 'fetchIndustries',
     getIndustries: {
       handler(industries) {
-        this.tableData = industries?.map((industry) => ({
-          name: industry?.name,
-          id: industry?.id,
-          cnpj: industry?.cnpj,
-          email: industry?.email,
-          contact: industry?.contact,
-          phone: industry?.phone,
-          observation: industry?.observation
-        }))
+        if (Array.isArray(industries)) {
+          this.tableData = industries.map((industry) => ({
+            name: industry?.name,
+            id: industry?.id,
+            cnpj: industry?.cnpj,
+            email: industry?.email,
+            contact: industry?.contact,
+            phone: industry?.phone,
+            observation: industry?.observation
+          }))
+        }
       },
       deep: true
     }
@@ -218,29 +220,30 @@ export default {
 
     newIndustry() {
       if (this.isValidForm) {
-        this.createIndustry(
-          this.industryName,
-          this.cnpj,
-          this.email,
-          this.phone,
-          this.contact,
-          this.observation
-        )
-        this.clearForm()
-      }
-    },
-
-    async editIndustry() {
-      if (this.isValidForm) {
-        await this.updateIndustryById({
-          id: this.industryId,
+        const userData = {
           name: this.industryName,
           cnpj: this.cnpj,
           email: this.email,
           phone: this.phone,
           contact: this.contact,
           observation: this.observation
-        })
+        }
+        this.createIndustry(userData)
+        this.clearForm()
+      }
+    },
+
+    async editIndustry() {
+      if (this.isValidForm) {
+        const userData = {
+          observation: this.observation,
+          id: this.industryId,
+          name: this.industryName,
+          contact: this.contact,
+          email: this.email,
+          phone: this.phone
+        }
+        this.updateIndustryById(userData)
         this.clearForm()
       }
     },
@@ -251,7 +254,6 @@ export default {
      * @param {String} name: Nome da indústria
      */
     selectIndustry(row) {
-      console.log(row)
       this.industryId = row?.id
       this.industryName = row?.name
       this.cnpj = row?.cnpj
@@ -269,7 +271,12 @@ export default {
     /** Cancelar criação/edição */
     clearForm() {
       this.industryId = null
-      this.industryName = ''
+      this.industryName = null
+      this.cnpj = null
+      this.email = null
+      this.phone = null
+      this.contact = null
+      this.observation = null
     },
 
     scrollToTop() {

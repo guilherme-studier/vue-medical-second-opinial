@@ -8,9 +8,9 @@
               v-model="cpf"
               placeholder="CPF"
               class="flexible-input"
-              @input="validatePassword"
-              v-mask="'###.###.###-##'"
               type="text"
+              :v-mask="isRegistrationForm ? '###.###.###-##' : null"
+              :disabled="!isRegistrationForm"
             />
           </input-wrapper>
           <input-wrapper>
@@ -18,14 +18,13 @@
               v-model="password"
               placeholder="Senha atual"
               class="flexible-input"
-              @input="validatePassword"
               type="password"
             />
           </input-wrapper>
         </input-group>
       </div>
     </div>
-    <div class="form" :class="{ 'content-block': !isFormEnabled }">
+    <div class="form">
       <Title :title="titleComponent" />
       <div class="form">
         <input-group>
@@ -90,7 +89,7 @@
         </input-group>
       </div>
       <div class="terms-agreement">
-        <label>
+        <label v-show="isRegistrationForm">
           <input type="checkbox" id="termsCheckbox" v-model="termsAgreed" />
           Li e estou de acordo com o
           <span @click="openModal">Termo de Responsabilidade</span> sobre a
@@ -173,6 +172,7 @@ export default {
   data() {
     return {
       titleComponent: 'Dados Cadastrais',
+      isRegistrationForm: false,
       modalTermsVisible: false,
       termsAgreed: false,
       newPassword: null,
@@ -188,12 +188,15 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getValidatePassword']),
-    ...mapGetters('user', ['getEmail']),
-
-    isFormEnabled() {
-      return this.getValidatePassword && this.cpf && this.password
-    },
+    ...mapGetters('user', [
+      'getEmail',
+      'getName',
+      'getPhone',
+      'getCrm',
+      'getState',
+      'getCpf',
+      'isRegistred'
+    ]),
 
     isSaveDisabled() {
       return (
@@ -209,12 +212,16 @@ export default {
       )
     }
   },
+  watch: {
+    isRegistred: 'isRegistration'
+  },
   mounted() {
     this.getUser()
+    this.isRegistration()
   },
   methods: {
-    ...mapActions('registration', ['updateClientDoctor']),
     ...mapActions('user', ['getUser']),
+    ...mapActions('registration', ['updateClientDoctor']),
     ...mapActions(['loginUser']),
 
     openModal() {
@@ -236,43 +243,50 @@ export default {
         term: this.termsAgreed,
         email: this.email,
         phone: this.phone,
-        cpf: this.cpf,
         name: this.name,
         crm: this.crm,
         uf: this.uf
       }
 
+      if (this.isRegistrationForm) {
+        // Se não se tratar de um registro, não quero enviar cpf
+        userData.cpf = this.cpf
+      }
+
       await this.updateClientDoctor(userData)
       await this.getUser()
-      this.clearForm()
+      this.isRegistration()
+      // this.clearForm()
 
       this.password = null
-      this.cpf = null
-    },
-    clearForm() {
-      this.termsAgreed = false
       this.newPassword = null
-      this.number = null
-      this.phone = null
-      this.email = null
-      this.name = null
-      this.crm = null
-      this.uf = null
     },
-    verifyPassword() {
-      this.loginUser({
-        username: this.getEmail,
-        password: this.password
-      })
+    // clearForm() {
+    //   this.termsAgreed = false
+    //   this.newPassword = null
+    //   this.number = null
+    //   this.phone = null
+    //   this.email = null
+    //   this.name = null
+    //   this.crm = null
+    //   this.uf = null
+    // },
 
-      if (!this.getValidatePassword) return this.clearForm()
-    },
-    validatePassword() {
-      clearTimeout(this.fieldTimeout)
-
-      this.fieldTimeout = setTimeout(() => {
-        if (this.cpf && this.password) this.verifyPassword()
-      }, 1000)
+    isRegistration() {
+      // caso se tratar de um formulário de atualização de cadastro, os campos serão auto preenchidos
+      if (this.isRegistred) {
+        this.isRegistrationForm = false
+        this.termsAgreed = true
+        this.email = this.getEmail
+        this.cpf = this.getCpf
+        this.name = this.getName
+        this.phone = this.getPhone
+        this.crm = this.getCrm
+        this.uf = this.getState
+      } else {
+        this.isRegistrationForm = true
+        this.termsAgreed = false
+      }
     }
   }
 }

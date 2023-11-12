@@ -15,7 +15,7 @@ import ConsultationClinicalCases from '@/features/consultationClinicalCases'
 import Home from '@/features/home/index.vue'
 import Illnesses from '@/features/illnesses'
 import Industries from '@/features/industries'
-import IndustryRegistration from '@/features/industryRegistration'
+//import IndustryRegistration from '@/features/industryRegistration'
 // rotas
 import IndustryRepresentantMan from '@/features/industryRepresentantMan'
 import Login from '@/features/login'
@@ -26,6 +26,8 @@ import Specialties from '@/features/specialties'
 import Tests from '@/features/test/index.vue'
 import store from '@/store'
 import Layout from '@/views/layout'
+
+const isRegistred = () => store?.getters['user/isRegistred']
 
 const routes = [
   {
@@ -49,14 +51,14 @@ const routes = [
           title: 'Início'
         }
       },
-      {
-        path: '/induster',
-        name: 'IndustryRegistration',
-        component: IndustryRegistration,
-        meta: {
-          title: 'Cadastro Indústria'
-        }
-      },
+      // {
+      //   path: '/induster',
+      //   name: 'IndustryRegistration',
+      //   component: IndustryRegistration,
+      //   meta: {
+      //     title: 'Cadastro Indústria'
+      //   }
+      // },
       {
         path: '/registration-clinical-cases',
         name: 'Registro de Contrato e Geração de Casos Clínicos',
@@ -94,7 +96,7 @@ const routes = [
         name: 'ConsultantMedicalRegistration',
         component: ConsultantMedicalRegistration,
         meta: {
-          title: 'Cadastro Médico Consultor'
+          title: isRegistred ? 'Atualização de Dados Cadastrais' : 'Cadastro'
         }
       },
       {
@@ -102,7 +104,7 @@ const routes = [
         name: 'Registration',
         component: Registration,
         meta: {
-          title: 'Cadastro'
+          title: isRegistred ? 'Atualização de Dados Cadastrais' : 'Cadastro'
         }
       },
       {
@@ -126,7 +128,7 @@ const routes = [
         name: 'RepresentativeRegistration',
         component: RepresentativeRegistration,
         meta: {
-          title: 'Cadastro Representante'
+          title: isRegistred ? 'Atualização de Dados Cadastrais' : 'Cadastro'
         }
       },
       {
