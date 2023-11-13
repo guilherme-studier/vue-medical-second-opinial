@@ -409,7 +409,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <form @submit.prevent="submit">
+          <form @submit.prevent="submit" enctype="multipart/form-data">
             <input id="file" type="file" ref="fileInput" @change="handleFile" />
             <button type="submit">Enviar Arquivo</button>
           </form>
@@ -1085,7 +1085,7 @@ export default {
   },
   computed: {
     ...mapGetters('clinicalCasesEvaluation', ['getVoucher']),
-    ...mapGetters('activeClinicalCases', ['getLoadingActiveClinicalCase']),
+    ...mapGetters('activeClinicalCases', ['getLoading']),
 
     isOtherComorbiditiesDisabled() {
       return !this.comorbidities.includes(10)
@@ -1104,15 +1104,12 @@ export default {
     },
 
     isLoading() {
-      return this.getLoadingActiveClinicalCase
+      return this.getLoading
     }
   },
   methods: {
-    ...mapActions('activeClinicalCases', [
-      'saveEditVoucher',
-      'activeVoucher',
-      'offActiveVoucherPage'
-    ]),
+    ...mapActions('activeClinicalCases', ['saveEditVoucher', 'activeVoucher']),
+    ...mapActions('clinicalCasesEvaluation', ['offActiveVoucherPage']),
 
     handleSave() {
       const userData = {
@@ -1141,6 +1138,7 @@ export default {
       const voucherId = this.getVoucher.voucherId
       const formData = new FormData()
       formData.append('file', this.selectedFile)
+
       axios
         .post(
           `https://meso.poatech.com.br:450/clinical-case/api/1.0/voucher/${voucherId}/document`,

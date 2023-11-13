@@ -171,13 +171,13 @@ export default {
       'handleModalMessage',
       'handleActiveVoucher',
       'sendSeem',
-      'fetchClinicalCases'
+      'fetchClinicalCases',
+      'onActiveVoucherPage'
     ]),
-    ...mapActions('activeClinicalCases', ['onActiveVoucherPage']),
 
-    handleCheck(row) {
+    async handleCheck(row) {
+      await this.onActiveVoucherPage()
       this.handleActiveVoucher(row)
-      this.onActiveVoucherPage()
     },
     handleFile(row) {
       if (row.opinion === null) {

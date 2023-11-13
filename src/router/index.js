@@ -160,7 +160,24 @@ const routes = [
         name: 'activeClinicalCase',
         component: ActiveClinicalCases,
         meta: {
-          title: 'Ativação de Caso Clínico'
+          title: 'Ativação de Caso Clínico',
+          loading: true
+        },
+        beforeEnter: (to, from, next) => {
+          if (to.meta.loading) {
+            store.commit[
+              ('clinicalCasesEvaluation/setLoadingActiveVoucher', true)
+            ]
+            setTimeout(() => {
+              store.commit[
+                ('clinicalCasesEvaluation/setLoadingActiveVoucher', false)
+              ]
+
+              next()
+            }, 1000)
+          } else {
+            next()
+          }
         }
       },
       {
