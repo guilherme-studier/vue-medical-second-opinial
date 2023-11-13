@@ -48,15 +48,9 @@ export default {
         .finally(() => {
           commit('setLoading', false)
         })
-    },
-    onActiveVoucherPage({ commit }) {
-      commit('setLoading', true)
-    },
-    offActiveVoucherPage({ commit }) {
-      commit('setLoading', false)
     }
   },
   getters: {
-    getLoadingActiveClinicalCase: (state) => state.loading
+    getLoading: (state) => state.loading
   }
 }

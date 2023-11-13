@@ -75,8 +75,12 @@ export default {
       if (voucherId) dispatch('fetchMessages', voucherId)
     },
     handleActiveVoucher({ commit }, voucher) {
-      commit('setLoadingActiveVoucher', true)
       commit('toggleIsActiveVoucher', voucher)
+    },
+    onActiveVoucherPage({ commit }) {
+      commit('setLoadingActiveVoucher', true)
+    },
+    offActiveVoucherPage({ commit }) {
       commit('setLoadingActiveVoucher', false)
     },
     async fetchClinicalCases({ commit, dispatch }) {
