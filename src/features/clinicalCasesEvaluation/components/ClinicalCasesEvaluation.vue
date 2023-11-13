@@ -173,8 +173,11 @@ export default {
       'sendSeem',
       'fetchClinicalCases'
     ]),
+    ...mapActions('activeClinicalCases', ['onActiveVoucherPage']),
+
     handleCheck(row) {
       this.handleActiveVoucher(row)
+      this.onActiveVoucherPage()
     },
     handleFile(row) {
       if (row.opinion === null) {

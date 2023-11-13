@@ -1,6 +1,6 @@
 import { useToast } from 'vue-toastification'
 
-import { putVoucher } from '../services/index'
+import { saveVoucher, activeVoucher } from '../services/index'
 
 const toast = useToast()
 
@@ -15,9 +15,9 @@ export default {
     }
   },
   actions: {
-    async editVoucher({ commit }, userData) {
+    async saveEditVoucher({ commit }, userData) {
       commit('setLoading', true)
-      return putVoucher(userData.data, userData.voucherId)
+      return saveVoucher(userData.data, userData.voucherId)
         .then(() => {
           return toast.success('Caso clínico ativado com sucesso', {
             timeout: 5000
@@ -31,9 +31,32 @@ export default {
         .finally(() => {
           commit('setLoading', false)
         })
+    },
+    async activeVoucher({ commit }, userData) {
+      commit('setLoading', true)
+      return activeVoucher(userData.data, userData.voucherId)
+        .then(() => {
+          return toast.success('Caso clínico ativado com sucesso', {
+            timeout: 5000
+          })
+        })
+        .catch(() => {
+          toast.warning('Não foi possível ativar este caso clínico', {
+            timeout: 5000
+          })
+        })
+        .finally(() => {
+          commit('setLoading', false)
+        })
+    },
+    onActiveVoucherPage({ commit }) {
+      commit('setLoading', true)
+    },
+    offActiveVoucherPage({ commit }) {
+      commit('setLoading', false)
     }
   },
   getters: {
-    getLoading: (state) => state.loading
+    getLoadingActiveClinicalCase: (state) => state.loading
   }
 }

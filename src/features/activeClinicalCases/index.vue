@@ -407,6 +407,14 @@
           />
         </input-wrapper>
       </input-group>
+      <input-group>
+        <input-wrapper>
+          <form @submit.prevent="submit">
+            <input id="file" type="file" ref="fileInput" @change="handleFile" />
+            <button type="submit">Enviar Arquivo</button>
+          </form>
+        </input-wrapper>
+      </input-group>
       <div class="content-title">
         <h1 class="title">Outras informações</h1>
         <span class="line"></span>
@@ -499,7 +507,7 @@
         <input-wrapper>
           <el-input
             v-model="exhibitionDescription"
-            type="number"
+            type="text"
             min="0"
             :disabled="exhibition !== 1"
             placeholder="Quais?"
@@ -707,7 +715,7 @@
       <el-button class="save" type="primary" @click="handleSave"
         >Salvar</el-button
       >
-      <el-button class="send" type="info" @click="handleSave"
+      <el-button class="send" type="info" @click="handleActiveVoucher"
         >Submeter para avaliação</el-button
       >
     </div>
@@ -715,6 +723,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import { mapGetters, mapActions } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
@@ -772,6 +781,9 @@ export default {
           name: 'Não'
         }
       ],
+      file: null, // Aqui é onde você armazenará o arquivo
+      error: null,
+      isModalDashedErroVisible: false,
       titleComorbidities: 'Em relação à potenciais comorbidades',
       comorbidities: null,
       comorbiditiesOptions: [
@@ -1068,8 +1080,12 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.offActiveVoucherPage()
+  },
   computed: {
     ...mapGetters('clinicalCasesEvaluation', ['getVoucher']),
+    ...mapGetters('activeClinicalCases', ['getLoadingActiveClinicalCase']),
 
     isOtherComorbiditiesDisabled() {
       return !this.comorbidities.includes(10)
@@ -1088,11 +1104,15 @@ export default {
     },
 
     isLoading() {
-      return false
+      return this.getLoadingActiveClinicalCase
     }
   },
   methods: {
-    ...mapActions('activeClinicalCases', ['editVoucher']),
+    ...mapActions('activeClinicalCases', [
+      'saveEditVoucher',
+      'activeVoucher',
+      'offActiveVoucherPage'
+    ]),
 
     handleSave() {
       const userData = {
@@ -1101,7 +1121,37 @@ export default {
         },
         voucherId: this.getVoucher.voucherId
       }
-      this.editVoucher(userData)
+      this.saveEditVoucher(userData)
+    },
+
+    handleActiveVoucher() {
+      const userData = {
+        data: {
+          teste: 'aqui'
+        },
+        voucherId: this.getVoucher.voucherId
+      }
+      this.activeVoucher(userData)
+    },
+
+    handleFile() {
+      this.selectedFile = this.$refs.fileInput.files[0]
+    },
+    submit() {
+      const voucherId = this.getVoucher.voucherId
+      const formData = new FormData()
+      formData.append('file', this.selectedFile)
+      axios
+        .post(
+          `https://meso.poatech.com.br:450/clinical-case/api/1.0/voucher/${voucherId}/document`,
+          formData
+        )
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
     }
   }
 }

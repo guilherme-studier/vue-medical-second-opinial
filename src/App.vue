@@ -41,13 +41,18 @@ export default {
 
   computed: {
     ...mapGetters(['getIsTokenExpired', 'getLoading']),
+    ...mapGetters('activeClinicalCases', ['getLoadingActiveClinicalCase']),
     ...mapGetters('clinicalCasesEvaluation', [
       'getIsActiveVoucher',
       'getLoadingActiveVoucher'
     ]),
 
     isLoading() {
-      return this.getLoading || this.getLoadingActiveVoucher
+      return (
+        this.getLoading ||
+        this.getLoadingActiveVoucher ||
+        this.getLoadingActiveClinicalCase
+      )
     }
   },
 
