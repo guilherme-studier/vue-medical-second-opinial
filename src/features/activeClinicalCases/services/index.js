@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import store from '@/store'
 
-const USER_BASE_URL = 'https://meso.poatech.com.br:450/user/api/1.0'
+const USER_BASE_URL = 'https://meso.poatech.com.br:450/clinical-case/api/1.0'
 const getToken = () => store?.getters?.getUserToken
 
 /**
@@ -40,5 +40,20 @@ export const activeVoucher = (questionnaire, voucherId) => {
       questionnaire: questionnaire,
       completed: true
     }
+  })
+}
+
+/**
+ * Coletar dados do Voucher
+ * Endpoint para verificar os dados de um caso clínico/voucher
+ */
+export const getVoucher = (voucherId) => {
+  return axios({
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${getToken()}`
+    },
+    url: `${USER_BASE_URL}/voucher/${voucherId}`
   })
 }

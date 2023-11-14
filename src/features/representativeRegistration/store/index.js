@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useToast } from 'vue-toastification'
 
-import { updateUser } from '../../../services/user/index'
+import { updateIndustryRepresentant } from '@/services/industryRepresentant/index'
 
 const toast = useToast()
 
@@ -22,7 +22,7 @@ export default {
   actions: {
     async updateRepresentativeIndustry({ commit }, userData) {
       commit('setLoading', true)
-      return updateUser(userData)
+      return updateIndustryRepresentant(userData.industryId, userData)
         .then((response) => {
           commit('setRepresentative', response.data)
           toast.success('Cadastro atualizado com sucesso', {

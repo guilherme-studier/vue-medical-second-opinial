@@ -22,11 +22,18 @@
             placeholder="Idade"
             class="flexible-input"
             v-model="age"
+            :disabled="!isEdit"
             min="0"
           />
         </input-wrapper>
         <input-wrapper>
-          <el-select v-model="gender" placeholder="Sexo" size="large" clearable>
+          <el-select
+            v-model="gender"
+            placeholder="Sexo"
+            size="large"
+            clearable
+            :disabled="!isEdit"
+          >
             <el-option
               v-for="item in genderOptions"
               :key="item.id"
@@ -36,12 +43,19 @@
           </el-select>
         </input-wrapper>
         <input-wrapper>
-          <el-select v-model="color" placeholder="Cor" size="large" clearable>
+          <el-select
+            v-model="color"
+            placeholder="Cor"
+            size="large"
+            clearable
+            :disabled="!isEdit"
+          >
             <el-option
               v-for="item in colorOptions"
               :key="item.id"
               :label="item.name"
               :value="item.id"
+              :disabled="!isEdit"
             />
           </el-select>
         </input-wrapper>
@@ -56,6 +70,7 @@
             v-model="asthma"
             placeholder="O paciente tem diagnóstico de asma?"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -72,6 +87,7 @@
             v-model="lungDiseases"
             placeholder="Foram excluídas outras doenças pulmonares crônicas? (DPOC, bronquiectasias, fibrose cística, insuficiência cardáiaca, etc.) ?"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -88,6 +104,7 @@
             v-model="asthmaTreatment"
             placeholder="A adesão ao tratamento está adequada? (Checar idealmente com contagem de doses do dispositivo entre as consultas.)"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -102,6 +119,7 @@
         <input-wrapper>
           <el-select
             v-model="inhalation"
+            :disabled="!isEdit"
             placeholder="A técnica inalatória está adequada? (Ideal checagem em 2-3 consultas.)"
             size="large"
             clearable
@@ -123,6 +141,7 @@
           <el-select
             v-model="comorbidities"
             placeholder="Quais o paciente apresenta?"
+            :disabled="!isEdit"
             size="large"
             multiple
             clearable
@@ -142,7 +161,7 @@
             :autosize="{ minRows: 4, maxRows: 4 }"
             type="textarea"
             placeholder="Outras comorbdades"
-            :disabled="isOtherComorbiditiesDisabled"
+            :disabled="isOtherComorbiditiesDisabled || !isEdit"
           />
         </input-wrapper>
       </input-group>
@@ -152,6 +171,7 @@
             v-model="comorbiditiesInfo"
             :autosize="{ minRows: 4, maxRows: 4 }"
             type="textarea"
+            :disabled="!isEdit"
             placeholder="Todas aquelas manejáveis estão adequadamente tratadas? Descreva:"
           />
         </input-wrapper>
@@ -162,6 +182,7 @@
             v-model="laba"
             placeholder="O paciente usa dose elevada de corticoide associado a LABA?"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -178,6 +199,7 @@
             v-model="asthmaMedications"
             :autosize="{ minRows: 4, maxRows: 4 }"
             type="textarea"
+            :disabled="!isEdit"
             placeholder="Quais medicações para asma o paciente utiliza? (Incluir medicamentos, apresentação e posologia.)"
           />
         </input-wrapper>
@@ -188,6 +210,7 @@
             v-model="immunobiological"
             placeholder="O paciente fez/faz uso de imunobiológico(s)?"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -205,7 +228,7 @@
             :autosize="{ minRows: 4, maxRows: 4 }"
             type="textarea"
             placeholder="Em caso positivo, descreva o medicamento e tempo de uso"
-            :disabled="immunobiological !== 1"
+            :disabled="immunobiological !== 1 || !isEdit"
           />
         </input-wrapper>
       </input-group>
@@ -224,6 +247,7 @@
             class="flexible-input"
             v-model="espiroDate"
             v-mask="'##/##/####'"
+            :disabled="!isEdit"
           />
         </input-wrapper>
       </input-group>
@@ -232,12 +256,22 @@
       </div>
       <input-group>
         <input-wrapper>
-          <el-input v-model="preCvf" placeholder="__%" v-mask="['###%', '##%']">
+          <el-input
+            v-model="preCvf"
+            placeholder="__%"
+            v-mask="['###%', '##%']"
+            :disabled="!isEdit"
+          >
             <template #prepend>CVF</template>
           </el-input>
         </input-wrapper>
         <input-wrapper>
-          <el-input v-model="preVef" placeholder="__%" v-mask="['###%', '##%']">
+          <el-input
+            v-model="preVef"
+            placeholder="__%"
+            v-mask="['###%', '##%']"
+            :disabled="!isEdit"
+          >
             <template #prepend><span v-html="vef"/></template>
           </el-input>
         </input-wrapper>
@@ -246,12 +280,18 @@
             v-model="preVefCvf"
             placeholder="__%"
             v-mask="['###%', '##%']"
+            :disabled="!isEdit"
           >
             <template #prepend><span v-html="vefCvf"/></template>
           </el-input>
         </input-wrapper>
         <input-wrapper>
-          <el-input v-model="preFef" placeholder="__%" v-mask="['###%', '##%']">
+          <el-input
+            v-model="preFef"
+            placeholder="__%"
+            v-mask="['###%', '##%']"
+            :disabled="!isEdit"
+          >
             <template #prepend><span v-html="fef"/></template>
           </el-input>
         </input-wrapper>
@@ -261,12 +301,22 @@
       </div>
       <input-group>
         <input-wrapper>
-          <el-input v-model="posCvf" placeholder="__%" v-mask="['###%', '##%']">
+          <el-input
+            v-model="posCvf"
+            placeholder="__%"
+            v-mask="['###%', '##%']"
+            :disabled="!isEdit"
+          >
             <template #prepend>CVF</template>
           </el-input>
         </input-wrapper>
         <input-wrapper>
-          <el-input v-model="posVef" placeholder="__%" v-mask="['###%', '##%']">
+          <el-input
+            v-model="posVef"
+            placeholder="__%"
+            v-mask="['###%', '##%']"
+            :disabled="!isEdit"
+          >
             <template #prepend><span v-html="vef"/></template>
           </el-input>
         </input-wrapper>
@@ -275,12 +325,18 @@
             v-model="posVefCvf"
             placeholder="__%"
             v-mask="['###%', '##%']"
+            :disabled="!isEdit"
           >
             <template #prepend><span v-html="vefCvf"/></template>
           </el-input>
         </input-wrapper>
         <input-wrapper>
-          <el-input v-model="posFef" placeholder="__%" v-mask="['###%', '##%']">
+          <el-input
+            v-model="posFef"
+            placeholder="__%"
+            v-mask="['###%', '##%']"
+            :disabled="!isEdit"
+          >
             <template #prepend><span v-html="fef"/></template>
           </el-input>
         </input-wrapper>
@@ -293,6 +349,7 @@
             class="flexible-input"
             v-model="bd"
             v-mask="['###%', '##%']"
+            :disabled="!isEdit"
           />
         </input-wrapper>
       </input-group>
@@ -302,6 +359,7 @@
             v-model="report"
             :autosize="{ minRows: 4, maxRows: 4 }"
             type="textarea"
+            :disabled="!isEdit"
             placeholder="Laudo: Texto da conclusão do laudo."
           />
         </input-wrapper>
@@ -312,6 +370,7 @@
             v-model="eosinophilsBlood"
             type="text"
             :placeholder="`Eosinófilos no sangue: __céls/mm&sup3;`"
+            :disabled="!isEdit"
             v-mask="['##céls/mm&sup3', '###céls/mm&sup3']"
           />
         </input-wrapper>
@@ -320,6 +379,7 @@
             v-model="eosinophilsSputum"
             type="text"
             :placeholder="`Eosinófilos no escarro: __%`"
+            :disabled="!isEdit"
             v-mask="['##%', '###%']"
           />
         </input-wrapper>
@@ -333,6 +393,7 @@
             v-model="skinTest"
             placeholder="Teste cutâneo?"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -349,6 +410,7 @@
             v-model="ige"
             placeholder="IgE específica no sangue"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -365,6 +427,7 @@
             v-model="allergens"
             :autosize="{ minRows: 4, maxRows: 4 }"
             type="textarea"
+            :disabled="!isEdit"
             placeholder="Quais alérgenos foram testados e quais deram positivos?"
           />
         </input-wrapper>
@@ -375,6 +438,7 @@
             v-model="igeTotal"
             type="text"
             placeholder="IgE total: __ UI/ml"
+            :disabled="!isEdit"
             v-mask="['##UI/ml', '###UI/ml']"
           />
         </input-wrapper>
@@ -383,6 +447,7 @@
             v-model="FeNO"
             type="text"
             placeholder="FeNO: __ ppm"
+            :disabled="!isEdit"
             v-mask="['##ppm', '###ppm']"
           />
         </input-wrapper>
@@ -393,6 +458,7 @@
             v-model="plethysmography"
             :autosize="{ minRows: 4, maxRows: 4 }"
             type="textarea"
+            :disabled="!isEdit"
             placeholder="Pletismografia (se realizado):"
           />
         </input-wrapper>
@@ -403,6 +469,7 @@
             v-model="dlco"
             :autosize="{ minRows: 4, maxRows: 4 }"
             type="textarea"
+            :disabled="!isEdit"
             placeholder="Difusão de monóxido de carbono (DLCO) (se realizado):"
           />
         </input-wrapper>
@@ -426,6 +493,7 @@
             type="number"
             min="0"
             placeholder="Início da doença com que idade: __"
+            :disabled="!isEdit"
           />
         </input-wrapper>
       </input-group>
@@ -438,6 +506,7 @@
             v-model="dust"
             placeholder="Tem muita poeira doméstica em casa?"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -454,6 +523,7 @@
             v-model="pet"
             placeholder="Animais em casa?"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -468,7 +538,7 @@
             v-model="petDescription"
             type="number"
             min="0"
-            :disabled="pet !== 1"
+            :disabled="pet !== 1 || !isEdit"
             placeholder="Quantos?"
           />
         </input-wrapper>
@@ -479,6 +549,7 @@
             v-model="mold"
             placeholder="Mofo no domicílio?"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -495,6 +566,7 @@
             v-model="exhibition"
             placeholder="Exposição ocupacional"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -1077,15 +1149,22 @@ export default {
           id: 5,
           name: 'Indígena'
         }
-      ]
+      ],
+      isEdit: false
     }
   },
   mounted() {
     this.offActiveVoucherPage()
+    this.fetchVoucher(this.getVoucher.id)
+  },
+  watch: {
+    getVoucherInfos() {
+      this.verifyIsEdit(this.getVoucherInfos)
+    }
   },
   computed: {
     ...mapGetters('clinicalCasesEvaluation', ['getVoucher']),
-    ...mapGetters('activeClinicalCases', ['getLoading']),
+    ...mapGetters('activeClinicalCases', ['getLoading', 'getVoucherInfos']),
 
     isOtherComorbiditiesDisabled() {
       return !this.comorbidities.includes(10)
@@ -1108,15 +1187,58 @@ export default {
     }
   },
   methods: {
-    ...mapActions('activeClinicalCases', ['saveEditVoucher', 'activeVoucher']),
+    ...mapActions('activeClinicalCases', [
+      'saveEditVoucher',
+      'activeVoucher',
+      'fetchVoucher'
+    ]),
     ...mapActions('clinicalCasesEvaluation', ['offActiveVoucherPage']),
 
     handleSave() {
       const userData = {
-        data: {
-          teste: 'aqui'
-        },
-        voucherId: this.getVoucher.voucherId
+        data: JSON.stringify({
+          age: this.age,
+          gender: this.gender,
+          color: this.color,
+          asthma: this.asthma,
+          lungDiseases: this.lungDiseases,
+          asthmaTreatment: this.asthmaTreatment,
+          inhalation: this.inhalation,
+          comorbidities: this.comorbidities,
+          otherComorbidities: this.otherComorbidities,
+          comorbiditiesInfo: this.comorbiditiesInfo,
+          laba: this.laba,
+          asthmaMedications: this.asthmaMedications,
+          immunobiological: this.immunobiological,
+          immunobiologicalDescription: this.immunobiologicalDescription,
+          espiroDate: this.espiroDate,
+          preCvf: this.preCvf,
+          preVef: this.preVef,
+          preVefCvf: this.preVefCvf,
+          preFef: this.preFef,
+          posCvf: this.posCvf,
+          posVef: this.posVef,
+          posVefCvf: this.posVefCvf,
+          posFef: this.posFef,
+          bd: this.bd,
+          report: this.report,
+          eosinophilsBlood: this.eosinophilsBlood,
+          eosinophilsSputum: this.eosinophilsSputum,
+          skinTest: this.skinTest,
+          ige: this.ige,
+          allergens: this.allergens,
+          igeTotal: this.igeTotal,
+          FeNO: this.FeNO,
+          plethysmography: this.plethysmography,
+          dlco: this.dlco,
+          ageStart: this.ageStart,
+          dust: this.dust,
+          pet: this.pet,
+          petDescription: this.petDescription,
+          mold: this.mold,
+          exhibition: this.exhibition
+        }),
+        voucherId: this.getVoucher.id
       }
       this.saveEditVoucher(userData)
     },
@@ -1126,7 +1248,7 @@ export default {
         data: {
           teste: 'aqui'
         },
-        voucherId: this.getVoucher.voucherId
+        voucherId: this.getVoucher.id
       }
       this.activeVoucher(userData)
     },
@@ -1134,6 +1256,7 @@ export default {
     handleFile() {
       this.selectedFile = this.$refs.fileInput.files[0]
     },
+
     submit() {
       const voucherId = this.getVoucher.voucherId
       const formData = new FormData()
@@ -1150,6 +1273,12 @@ export default {
         .catch((error) => {
           console.error(error)
         })
+    },
+
+    verifyIsEdit(getVoucherInfos) {
+      if (!getVoucherInfos || getVoucherInfos?.status !== 'ativ') {
+        return (this.isEdit = true)
+      }
     }
   }
 }
