@@ -77,7 +77,10 @@ export default {
         })
         .catch(() => {
           commit('setError', true)
-          toast.warning('Erro ao deletar a doença', { timeout: 5000 })
+          toast.warning(
+            'Não foi possível deletar esta doença, ela está em uso em um caso clínico',
+            { timeout: 5000 }
+          )
         })
         .finally(() => {
           commit('setLoading', false)

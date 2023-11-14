@@ -149,13 +149,13 @@ export default {
     ]),
 
     accept(row) {
-      this.acceptClinicalCase(row.voucherId)
+      this.acceptClinicalCase(row.id)
     },
     decline(row) {
-      this.declineClinicalCase(row.voucherId)
+      this.declineClinicalCase(row.id)
     },
     cancel(row) {
-      this.cancelClinicalCase(row.voucherId)
+      this.cancelClinicalCase(row.id)
     }
   }
 }
