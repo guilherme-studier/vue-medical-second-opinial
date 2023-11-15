@@ -809,6 +809,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
+import router from '@/router'
 
 export default {
   components: {
@@ -1159,6 +1160,9 @@ export default {
         }
       ]
     }
+  },
+  created() {
+    if (!this.getVoucher.id) return router.push('/')
   },
   mounted() {
     this.offActiveVoucherPage()
