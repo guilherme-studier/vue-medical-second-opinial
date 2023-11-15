@@ -41,7 +41,11 @@
         <template v-slot="scope">
           <div class="actions">
             <el-tooltip
-              v-if="scope.row.status !== 'Ativo'"
+              v-if="
+                scope.row.status === 'Disponível' ||
+                  scope.row.status === 'Alocado' ||
+                  scope.row.status === 'Reservado'
+              "
               class="box-item"
               effect="light"
               content="Ativar caso clínico"
@@ -49,9 +53,18 @@
               ><font-awesome-icon
                 :icon="iconCheck"
                 @click="handleCheck(scope.row)"
+                :class="{
+                  'filed-null':
+                    scope.row.status === 'Em avaliação' ||
+                    scope.row.status === 'Avaliado'
+                }"
             /></el-tooltip>
             <el-tooltip
-              v-if="scope.row.status === 'Ativo'"
+              v-if="
+                scope.row.status === 'Ativo' ||
+                  scope.row.status === 'Em avaliação' ||
+                  scope.row.status === 'Avaliado'
+              "
               class="box-item"
               effect="light"
               content="Consultar caso clínico"
@@ -68,7 +81,13 @@
               ><font-awesome-icon
                 :icon="iconFile"
                 @click="handleFile(scope.row)"
-                :class="{ 'filed-null': scope.row.opinion === null }"
+                :class="{
+                  'filed-null':
+                    scope.row.opinion === null ||
+                    scope.row.status === 'Ativo' ||
+                    scope.row.status === 'Em avaliação' ||
+                    scope.row.status === 'Alocado'
+                }"
             /></el-tooltip>
             <el-tooltip
               class="box-item"
@@ -78,6 +97,9 @@
               ><font-awesome-icon
                 :icon="iconMessage"
                 @click="handleComment(scope.row)"
+                :class="{
+                  'filed-null': scope.row.status !== 'Em avaliação'
+                }"
             /></el-tooltip>
           </div>
         </template>
@@ -192,12 +214,12 @@ export default {
     handleFile(row) {
       if (row.opinion === null) {
         this.selectedContract = {
-          voucher: row.voucherId,
+          voucher: row.id,
           opinion: null
         }
       } else {
         this.selectedContract = {
-          voucher: row.voucherId,
+          voucher: row.id,
           opinion: row.opinion || ''
         }
       }

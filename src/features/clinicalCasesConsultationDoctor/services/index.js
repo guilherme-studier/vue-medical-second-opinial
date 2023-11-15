@@ -17,7 +17,7 @@ export const getClinicalCasesConsultantDoctor = () => {
       'content-type': 'application/json',
       Authorization: `Bearer ${getToken()}`
     },
-    url: `${BASE_URL}/voucher/doctor/${doctorId()}`
+    url: `${BASE_URL}/voucher/doctor/${doctorId()}?page=1&size=50`
   })
 }
 

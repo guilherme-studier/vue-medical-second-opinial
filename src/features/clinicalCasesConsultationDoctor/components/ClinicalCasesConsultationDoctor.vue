@@ -22,7 +22,12 @@
         label="Casos Clínicos"
         align="center"
       ></el-table-column>
-      <el-table-column prop="id" label="ID" align="center"></el-table-column>
+      <el-table-column
+        prop="id"
+        label="ID"
+        align="center"
+        style="max-width: 50%"
+      ></el-table-column>
       <el-table-column
         prop="illness"
         label="Doença"
@@ -33,13 +38,29 @@
         label="Médico"
         align="center"
       ></el-table-column>
+      <el-table-column
+        prop="status"
+        label="Status"
+        align="center"
+      ></el-table-column>
       <el-table-column label="Ação" width="150" align="center">
         <template v-slot="scope">
           <div class="actions">
-            <!-- <font-awesome-icon
-              :icon="iconCheck"
-              @click="handleCheck(scope.row.voucherId)"
-            /> -->
+            <el-tooltip
+              class="box-item"
+              effect="light"
+              content="Consultar caso clínico"
+              placement="top-start"
+              ><font-awesome-icon
+                :icon="iconReader"
+                @click="handleCheck(scope.row)"
+                :class="{
+                  'filed-null':
+                    scope.row.status === 'Disponível' ||
+                    scope.row.status === 'Alocado' ||
+                    scope.row.status === 'Reservado'
+                }"
+            /></el-tooltip>
             <el-tooltip
               class="box-item"
               effect="light"
@@ -93,7 +114,8 @@
 import {
   faSquareCheck,
   faFile,
-  faComment
+  faComment,
+  faBookOpenReader
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mapGetters, mapActions } from 'vuex'
@@ -101,7 +123,8 @@ import { mapGetters, mapActions } from 'vuex'
 import MessageModal from './MessageModal.vue'
 import SeemModal from './SeemModal.vue'
 
-// import Modal from '@/components/modal'
+import { formatDate } from '@/helpers/date'
+import { formatStatus } from '@/helpers/status'
 
 export default {
   name: 'ClinicalCasesConsultationDoctor',
@@ -109,13 +132,13 @@ export default {
     MessageModal,
     SeemModal,
     FontAwesomeIcon
-    // Modal
   },
   data() {
     return {
       tableData: [],
       selectedContract: {},
       iconCheck: faSquareCheck,
+      iconReader: faBookOpenReader,
       iconFile: faFile,
       iconMessage: faComment
     }
@@ -146,9 +169,11 @@ export default {
           contractId: contract?.contractId,
           id: contract?.id,
           illness: contract?.diseaseName,
-          doctor: contract?.doctorName,
+          doctor: contract?.clientDoctorName,
           voucherId: contract?.voucherId,
-          opinion: contract?.opinion
+          opinion: contract?.opinion,
+          date: formatDate(contract?.createdAt),
+          status: formatStatus(contract?.status)
         }))
       },
       deep: true
@@ -161,18 +186,23 @@ export default {
       'sendSeem',
       'fetchClinicalCases'
     ]),
-    // handleCheck(id) {
-    //   alert(id)
-    // },
+    ...mapActions('clinicalCasesEvaluation', [
+      'onActiveVoucherPage',
+      'handleActiveVoucher'
+    ]),
+    async handleCheck(row) {
+      await this.onActiveVoucherPage()
+      this.handleActiveVoucher(row)
+    },
     handleFile(row) {
       if (row.opinion === null) {
         this.selectedContract = {
-          voucher: row.voucherId,
+          voucher: row.id,
           opinion: null
         }
       } else {
         this.selectedContract = {
-          voucher: row.voucherId,
+          voucher: row.id,
           opinion: row.opinion || ''
         }
       }
@@ -206,6 +236,12 @@ export default {
   justify-content: space-around;
   font-size: 19px;
   margin: 2px;
+
+  .filed-null {
+    cursor: not-allowed;
+    pointer-events: none;
+    color: lightgray;
+  }
 
   svg:hover {
     cursor: pointer;

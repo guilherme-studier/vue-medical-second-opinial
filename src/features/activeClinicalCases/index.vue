@@ -1340,6 +1340,8 @@ export default {
         voucherId: this.getVoucher.id
       }
       this.activeVoucher(userData)
+      this.fetchVoucher(this.getVoucher.id)
+      this.verifyIsEdit(this.getVoucherInfos)
     },
 
     handleFile() {
