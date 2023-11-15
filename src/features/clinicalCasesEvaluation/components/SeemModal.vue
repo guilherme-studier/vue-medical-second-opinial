@@ -4,7 +4,7 @@
       Caso clínico: <span>{{ voucher }}</span>
     </h2>
     <div class="seem">
-      <textarea class="seem-text" v-model="getOpinion" disabled />
+      <textarea class="seem-text" v-model="opinionText" disabled />
     </div>
     <!-- <div class="seem-send">
       <el-button class="seem-btn" type="primary" @click="sendSeem"
@@ -29,21 +29,11 @@ export default {
       default: null
     }
   },
-  data() {
-    return {
-      seemText: null
-    }
-  },
   computed: {
-    ...mapGetters('clinicalCasesConsultationDoctor', [
-      'getLoadingOpinion',
-      'getIsModalSeem',
-      'getOpinion'
-    ])
-  },
-  watch: {
-    getIsModalSeem() {
-      this.seemText = this.getOpinion
+    ...mapGetters('clinicalCasesConsultationDoctor', ['getLoadingOpinion']),
+
+    opinionText() {
+      return this.opinion
     }
   }
 }

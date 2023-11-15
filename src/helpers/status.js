@@ -15,7 +15,7 @@ export const formatStatus = (status) => {
       return 'Em avaliação'
     case 'ativ':
       return 'Ativo'
-    case 'res':
+    case 'rese':
       return 'Reservado'
   }
 }

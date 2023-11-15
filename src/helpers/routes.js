@@ -169,6 +169,11 @@ export const routes = {
       id: 15,
       name: 'Casos Clínicos Designados',
       route: '/clinical-cases-consultation-doctor'
+    },
+    {
+      id: 16,
+      name: 'Ativação de Caso Clínico',
+      route: '/active-clinical-case'
     }
   ],
   clientdoctor: [

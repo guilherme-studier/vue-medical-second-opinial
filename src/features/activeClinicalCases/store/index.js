@@ -23,12 +23,12 @@ export default {
       commit('setLoading', true)
       return saveVoucher(userData.data, userData.voucherId)
         .then(() => {
-          return toast.success('Caso clínico ativado com sucesso', {
+          return toast.success('Caso clínico salvo com sucesso', {
             timeout: 5000
           })
         })
         .catch(() => {
-          toast.warning('Não foi possível ativar este caso clínico', {
+          toast.warning('Não foi possível salvar este caso clínico', {
             timeout: 5000
           })
         })

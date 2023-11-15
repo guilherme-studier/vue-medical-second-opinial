@@ -81,7 +81,10 @@ export default {
           toast.success('Indústria removida com sucesso!', { timeout: 5000 })
         })
         .catch((error) => {
-          toast.warning('Erro ao deletar a indústria', { timeout: 5000 })
+          toast.warning(
+            'Indústria ativa em um caso clínico, não é possível deletá-la no momento ',
+            { timeout: 5000 }
+          )
         })
         .finally(() => {
           commit('setLoading', false)

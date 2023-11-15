@@ -41,12 +41,36 @@
         <template v-slot="scope">
           <div class="actions">
             <el-tooltip
+              v-if="
+                scope.row.status === 'Disponível' ||
+                  scope.row.status === 'Alocado' ||
+                  scope.row.status === 'Reservado'
+              "
               class="box-item"
               effect="light"
               content="Ativar caso clínico"
               placement="top-start"
               ><font-awesome-icon
                 :icon="iconCheck"
+                @click="handleCheck(scope.row)"
+                :class="{
+                  'filed-null':
+                    scope.row.status === 'Em avaliação' ||
+                    scope.row.status === 'Avaliado'
+                }"
+            /></el-tooltip>
+            <el-tooltip
+              v-if="
+                scope.row.status === 'Ativo' ||
+                  scope.row.status === 'Em avaliação' ||
+                  scope.row.status === 'Avaliado'
+              "
+              class="box-item"
+              effect="light"
+              content="Consultar caso clínico"
+              placement="top-start"
+              ><font-awesome-icon
+                :icon="iconReader"
                 @click="handleCheck(scope.row)"
             /></el-tooltip>
             <el-tooltip
@@ -57,7 +81,13 @@
               ><font-awesome-icon
                 :icon="iconFile"
                 @click="handleFile(scope.row)"
-                :class="{ 'filed-null': scope.row.opinion === null }"
+                :class="{
+                  'filed-null':
+                    scope.row.opinion === null ||
+                    scope.row.status === 'Ativo' ||
+                    scope.row.status === 'Em avaliação' ||
+                    scope.row.status === 'Alocado'
+                }"
             /></el-tooltip>
             <el-tooltip
               class="box-item"
@@ -67,6 +97,9 @@
               ><font-awesome-icon
                 :icon="iconMessage"
                 @click="handleComment(scope.row)"
+                :class="{
+                  'filed-null': scope.row.status !== 'Em avaliação'
+                }"
             /></el-tooltip>
           </div>
         </template>
@@ -99,7 +132,8 @@
 import {
   faSquareCheck,
   faFile,
-  faComment
+  faComment,
+  faBookOpenReader
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mapGetters, mapActions } from 'vuex'
@@ -110,21 +144,19 @@ import SeemModal from './SeemModal.vue'
 import { formatDate } from '@/helpers/date'
 import { formatStatus } from '@/helpers/status'
 
-// import Modal from '@/components/modal'
-
 export default {
   name: 'ClinicalCasesConsultationDoctor',
   components: {
     MessageModal,
     SeemModal,
     FontAwesomeIcon
-    // Modal
   },
   data() {
     return {
       tableData: [],
       selectedContract: {},
       iconCheck: faSquareCheck,
+      iconReader: faBookOpenReader,
       iconFile: faFile,
       iconMessage: faComment
     }
@@ -182,12 +214,12 @@ export default {
     handleFile(row) {
       if (row.opinion === null) {
         this.selectedContract = {
-          voucher: row.voucherId,
+          voucher: row.id,
           opinion: null
         }
       } else {
         this.selectedContract = {
-          voucher: row.voucherId,
+          voucher: row.id,
           opinion: row.opinion || ''
         }
       }

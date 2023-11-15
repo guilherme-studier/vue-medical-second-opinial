@@ -160,7 +160,7 @@
             v-model="otherComorbidities"
             :autosize="{ minRows: 4, maxRows: 4 }"
             type="textarea"
-            placeholder="Outras comorbdades"
+            placeholder="Outras comorbidades"
             :disabled="isOtherComorbiditiesDisabled || !isEdit"
           />
         </input-wrapper>
@@ -581,7 +581,7 @@
             v-model="exhibitionDescription"
             type="text"
             min="0"
-            :disabled="exhibition !== 1"
+            :disabled="exhibition !== 1 || !isEdit"
             placeholder="Quais?"
           />
         </input-wrapper>
@@ -592,6 +592,7 @@
             v-model="activeSmoking"
             placeholder="Fumante ativo?"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -606,6 +607,7 @@
             v-model="passiveSmoking"
             placeholder="Fumante passivo?"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -622,6 +624,7 @@
             v-model="corticosteroid"
             placeholder="Exacerbação com uso de corticoide oral nos últimos 12 meses?"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -636,7 +639,7 @@
             v-model="corticosteroidTimes"
             type="number"
             min="0"
-            :disabled="corticosteroid !== 1"
+            :disabled="corticosteroid !== 1 || !isEdit"
             placeholder="Quantas vezes?"
           />
         </input-wrapper>
@@ -647,6 +650,7 @@
             v-model="hospitalization"
             placeholder="Hospitalização nos últimos 12 meses?"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -661,7 +665,7 @@
             v-model="hospitalizationTimes"
             type="number"
             min="0"
-            :disabled="hospitalization !== 1"
+            :disabled="hospitalization !== 1 || !isEdit"
             placeholder="Quantas vezes?"
           />
         </input-wrapper>
@@ -672,6 +676,7 @@
             v-model="uti"
             placeholder="Histórico de internação em UTI?"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -686,7 +691,7 @@
             v-model="utiTimes"
             type="number"
             min="0"
-            :disabled="uti !== 1"
+            :disabled="uti !== 1 || !isEdit"
             placeholder="Quantas vezes?"
           />
         </input-wrapper>
@@ -697,6 +702,7 @@
             v-model="ventilation"
             placeholder="Histórico de necessidade de Ventilação Mecânica?"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -711,7 +717,7 @@
             v-model="ventilationTimes"
             type="number"
             min="0"
-            :disabled="ventilation !== 1"
+            :disabled="ventilation !== 1 || !isEdit"
             placeholder="Quantas vezes?"
           />
         </input-wrapper>
@@ -722,6 +728,7 @@
             v-model="pcr"
             placeholder="Histórico de PCR?"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -736,7 +743,7 @@
             v-model="pcrTimes"
             type="number"
             min="0"
-            :disabled="pcr !== 1"
+            :disabled="pcr !== 1 || !isEdit"
             placeholder="Quantas vezes?"
           />
         </input-wrapper>
@@ -747,6 +754,7 @@
             v-model="medications"
             placeholder="Uso de outras medicações?"
             size="large"
+            :disabled="!isEdit"
             clearable
           >
             <el-option
@@ -763,7 +771,7 @@
             v-model="medicationsDescription"
             :autosize="{ minRows: 4, maxRows: 4 }"
             type="textarea"
-            :disabled="medications !== 1"
+            :disabled="medications !== 1 || !isEdit"
             placeholder="Descreva..."
           />
         </input-wrapper>
@@ -778,12 +786,13 @@
             v-model="observations"
             :autosize="{ minRows: 4, maxRows: 4 }"
             type="textarea"
+            :disabled="!isEdit"
             placeholder="Descreva..."
           />
         </input-wrapper>
       </input-group>
     </div>
-    <div class="btn">
+    <div class="btn" v-if="isEdit">
       <el-button class="save" type="primary" @click="handleSave"
         >Salvar</el-button
       >
@@ -800,6 +809,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
+import router from '@/router'
 
 export default {
   components: {
@@ -1114,8 +1124,6 @@ export default {
       ],
       medicationsDescription: null,
       observations: null,
-
-      age: null,
       gender: null,
       genderOptions: [
         {
@@ -1127,6 +1135,7 @@ export default {
           name: 'Feminino'
         }
       ],
+      age: null,
       color: null,
       colorOptions: [
         {
@@ -1149,17 +1158,21 @@ export default {
           id: 5,
           name: 'Indígena'
         }
-      ],
-      isEdit: false
+      ]
     }
+  },
+  created() {
+    if (!this.getVoucher.id) return router.push('/')
   },
   mounted() {
     this.offActiveVoucherPage()
     this.fetchVoucher(this.getVoucher.id)
+    this.verifyIsEdit(this.getVoucherInfos)
   },
   watch: {
     getVoucherInfos() {
       this.verifyIsEdit(this.getVoucherInfos)
+      this.handleData()
     }
   },
   computed: {
@@ -1167,7 +1180,7 @@ export default {
     ...mapGetters('activeClinicalCases', ['getLoading', 'getVoucherInfos']),
 
     isOtherComorbiditiesDisabled() {
-      return !this.comorbidities.includes(10)
+      return !this.comorbidities?.includes(11)
     },
 
     vef() {
@@ -1184,6 +1197,11 @@ export default {
 
     isLoading() {
       return this.getLoading
+    },
+
+    isEdit() {
+      if (this.getVoucherInfos?.status === 'ativ') return false
+      return true
     }
   },
   methods: {
@@ -1236,7 +1254,23 @@ export default {
           pet: this.pet,
           petDescription: this.petDescription,
           mold: this.mold,
-          exhibition: this.exhibition
+          exhibition: this.exhibition,
+          exhibitionDescription: this.exhibitionDescription,
+          activeSmoking: this.activeSmoking,
+          passiveSmoking: this.passiveSmoking,
+          corticosteroid: this.corticosteroid,
+          corticosteroidTimes: this.corticosteroidTimes,
+          hospitalization: this.hospitalization,
+          hospitalizationTimes: this.hospitalizationTimes,
+          uti: this.uti,
+          utiTimes: this.utiTimes,
+          ventilation: this.ventilation,
+          ventilationTimes: this.ventilationTimes,
+          pcr: this.pcr,
+          pcrTimes: this.pcrTimes,
+          medications: this.medications,
+          medicationsDescription: this.medicationsDescription,
+          observations: this.observations
         }),
         voucherId: this.getVoucher.id
       }
@@ -1245,12 +1279,69 @@ export default {
 
     handleActiveVoucher() {
       const userData = {
-        data: {
-          teste: 'aqui'
-        },
+        data: JSON.stringify({
+          age: this.age,
+          gender: this.gender,
+          color: this.color,
+          asthma: this.asthma,
+          lungDiseases: this.lungDiseases,
+          asthmaTreatment: this.asthmaTreatment,
+          inhalation: this.inhalation,
+          comorbidities: this.comorbidities,
+          otherComorbidities: this.otherComorbidities,
+          comorbiditiesInfo: this.comorbiditiesInfo,
+          laba: this.laba,
+          asthmaMedications: this.asthmaMedications,
+          immunobiological: this.immunobiological,
+          immunobiologicalDescription: this.immunobiologicalDescription,
+          espiroDate: this.espiroDate,
+          preCvf: this.preCvf,
+          preVef: this.preVef,
+          preVefCvf: this.preVefCvf,
+          preFef: this.preFef,
+          posCvf: this.posCvf,
+          posVef: this.posVef,
+          posVefCvf: this.posVefCvf,
+          posFef: this.posFef,
+          bd: this.bd,
+          report: this.report,
+          eosinophilsBlood: this.eosinophilsBlood,
+          eosinophilsSputum: this.eosinophilsSputum,
+          skinTest: this.skinTest,
+          ige: this.ige,
+          allergens: this.allergens,
+          igeTotal: this.igeTotal,
+          FeNO: this.FeNO,
+          plethysmography: this.plethysmography,
+          dlco: this.dlco,
+          ageStart: this.ageStart,
+          dust: this.dust,
+          pet: this.pet,
+          petDescription: this.petDescription,
+          mold: this.mold,
+          exhibition: this.exhibition,
+          exhibitionDescription: this.exhibitionDescription,
+          activeSmoking: this.activeSmoking,
+          passiveSmoking: this.passiveSmoking,
+          corticosteroid: this.corticosteroid,
+          corticosteroidTimes: this.corticosteroidTimes,
+          hospitalization: this.hospitalization,
+          hospitalizationTimes: this.hospitalizationTimes,
+          uti: this.uti,
+          utiTimes: this.utiTimes,
+          ventilation: this.ventilation,
+          ventilationTimes: this.ventilationTimes,
+          pcr: this.pcr,
+          pcrTimes: this.pcrTimes,
+          medications: this.medications,
+          medicationsDescription: this.medicationsDescription,
+          observations: this.observations
+        }),
         voucherId: this.getVoucher.id
       }
       this.activeVoucher(userData)
+      this.fetchVoucher(this.getVoucher.id)
+      this.verifyIsEdit(this.getVoucherInfos)
     },
 
     handleFile() {
@@ -1276,9 +1367,74 @@ export default {
     },
 
     verifyIsEdit(getVoucherInfos) {
-      if (!getVoucherInfos || getVoucherInfos?.status !== 'ativ') {
-        return (this.isEdit = true)
-      }
+      if (getVoucherInfos?.status === 'ativ') return
+
+      return (this.isEdit = true)
+    },
+
+    handleData() {
+      const questionnaire = this.getVoucherInfos.questionnaire
+      if (!questionnaire) return
+
+      const jsonString = questionnaire
+      const jsonObject = JSON.parse(jsonString.replace(/'/g, '"'))
+
+      this.age = jsonObject?.age
+      this.gender = jsonObject?.gender
+      this.color = jsonObject?.color
+      this.asthma = jsonObject?.asthma
+      this.lungDiseases = jsonObject?.lungDiseases
+      this.asthmaTreatment = jsonObject?.asthmaTreatment
+      this.inhalation = jsonObject?.inhalation
+      this.comorbidities = jsonObject?.comorbidities
+      this.otherComorbidities = jsonObject?.otherComorbidities
+      this.comorbiditiesInfo = jsonObject?.comorbiditiesInfo
+      this.laba = jsonObject?.laba
+      this.asthmaMedications = jsonObject?.asthmaMedications
+      this.immunobiological = jsonObject?.immunobiological
+      this.immunobiologicalDescription = jsonObject?.immunobiologicalDescription
+      this.espiroDate = jsonObject?.espiroDate
+      this.preCvf = jsonObject?.preCvf
+      this.preVef = jsonObject?.preVef
+      this.preVefCvf = jsonObject?.preVefCvf
+      this.preFef = jsonObject?.preFef
+      this.posCvf = jsonObject?.posCvf
+      this.posVef = jsonObject?.posVef
+      this.posVefCvf = jsonObject?.posVefCvf
+      this.posFef = jsonObject?.posFef
+      this.bd = jsonObject?.bd
+      this.report = jsonObject?.report
+      this.eosinophilsBlood = jsonObject?.eosinophilsBlood
+      this.eosinophilsSputum = jsonObject?.eosinophilsSputum
+      this.skinTest = jsonObject?.skinTest
+      this.ige = jsonObject?.ige
+      this.allergens = jsonObject?.allergens
+      this.igeTotal = jsonObject?.igeTotal
+      this.FeNO = jsonObject?.FeNO
+      this.plethysmography = jsonObject?.plethysmography
+      this.dlco = jsonObject?.dlco
+      this.ageStart = jsonObject?.ageStart
+      this.dust = jsonObject?.dust
+      this.pet = jsonObject?.pet
+      this.petDescription = jsonObject?.petDescription
+      this.mold = jsonObject?.mold
+      this.exhibition = jsonObject?.exhibition
+      this.exhibitionDescription = jsonObject?.exhibitionDescription
+      this.activeSmoking = jsonObject?.activeSmoking
+      this.passiveSmoking = jsonObject?.passiveSmoking
+      this.corticosteroid = jsonObject?.corticosteroid
+      this.corticosteroidTimes = jsonObject?.corticosteroidTimes
+      this.hospitalization = jsonObject?.hospitalization
+      this.hospitalizationTimes = jsonObject?.hospitalizationTimes
+      this.uti = jsonObject?.uti
+      this.utiTimes = jsonObject?.utiTimes
+      this.ventilation = jsonObject?.ventilation
+      this.ventilationTimes = jsonObject?.ventilationTimes
+      this.pcr = jsonObject?.pcr
+      this.pcrTimes = jsonObject?.pcrTimes
+      this.medications = jsonObject?.medications
+      this.medicationsDescription = jsonObject?.medicationsDescription
+      this.observations = jsonObject?.observations
     }
   }
 }

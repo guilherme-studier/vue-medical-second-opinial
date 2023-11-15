@@ -99,7 +99,7 @@ export default {
       const userData = {
         doctorName: this.name,
         doctorEmail: this.email,
-        numberOfClinicalCases: this.quantity,
+        numberOfClinicalCases: Number(this.quantity),
         contractId: this.contract
       }
 
