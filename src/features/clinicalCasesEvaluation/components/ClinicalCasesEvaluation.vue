@@ -41,12 +41,23 @@
         <template v-slot="scope">
           <div class="actions">
             <el-tooltip
+              v-if="scope.row.status !== 'Ativo'"
               class="box-item"
               effect="light"
               content="Ativar caso clínico"
               placement="top-start"
               ><font-awesome-icon
                 :icon="iconCheck"
+                @click="handleCheck(scope.row)"
+            /></el-tooltip>
+            <el-tooltip
+              v-if="scope.row.status === 'Ativo'"
+              class="box-item"
+              effect="light"
+              content="Consultar caso clínico"
+              placement="top-start"
+              ><font-awesome-icon
+                :icon="iconReader"
                 @click="handleCheck(scope.row)"
             /></el-tooltip>
             <el-tooltip
@@ -99,7 +110,8 @@
 import {
   faSquareCheck,
   faFile,
-  faComment
+  faComment,
+  faBookOpenReader
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mapGetters, mapActions } from 'vuex'
@@ -110,21 +122,19 @@ import SeemModal from './SeemModal.vue'
 import { formatDate } from '@/helpers/date'
 import { formatStatus } from '@/helpers/status'
 
-// import Modal from '@/components/modal'
-
 export default {
   name: 'ClinicalCasesConsultationDoctor',
   components: {
     MessageModal,
     SeemModal,
     FontAwesomeIcon
-    // Modal
   },
   data() {
     return {
       tableData: [],
       selectedContract: {},
       iconCheck: faSquareCheck,
+      iconReader: faBookOpenReader,
       iconFile: faFile,
       iconMessage: faComment
     }
