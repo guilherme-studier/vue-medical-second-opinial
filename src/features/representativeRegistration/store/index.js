@@ -22,7 +22,7 @@ export default {
   actions: {
     async updateRepresentativeIndustry({ commit }, userData) {
       commit('setLoading', true)
-      return updateIndustryRepresentant(userData.industryId, userData)
+      return updateIndustryRepresentant(userData)
         .then((response) => {
           commit('setRepresentative', response.data)
           toast.success('Cadastro atualizado com sucesso', {

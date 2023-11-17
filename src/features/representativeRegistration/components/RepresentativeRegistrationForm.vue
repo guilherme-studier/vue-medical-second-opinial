@@ -110,7 +110,8 @@ export default {
       'getPhone',
       'getCpf',
       'isRegistred',
-      'getId'
+      'getId',
+      'getIndustry'
     ]),
 
     isSaveDisabled() {
@@ -138,7 +139,7 @@ export default {
         email: this.email,
         phone: this.phone,
         name: this.name,
-        industryId: this.getId
+        industryId: this.getIndustry
       }
 
       if (this.isRegistrationForm) {
