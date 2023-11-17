@@ -2,7 +2,7 @@
   <div class="container">
     <div class="title">
       <img class="icon-voucher" :src="icon" />
-      <h1>{{ clinicalCases ? clinicalCases : '0' }} casos clínicos ativos</h1>
+      <h1>{{ getTotalContent }} casos clínicos ativos</h1>
     </div>
     <InputGroup>
       <InputWrapper>
@@ -50,7 +50,7 @@
           />
         </el-select>
       </InputWrapper>
-      <InputWrapper>
+      <!-- <InputWrapper>
         <el-select
           v-model="selectedDoctor"
           placeholder="Médico Consultor"
@@ -64,7 +64,7 @@
             :value="item.id"
           />
         </el-select>
-      </InputWrapper>
+      </InputWrapper> -->
     </InputGroup>
     <el-table
       class="consultation-table"
@@ -104,12 +104,14 @@
         align="center"
       ></el-table-column>
     </el-table>
-    <!-- <el-pagination
-      :page-size="3"
-      :pager-count="11"
-      layout="prev, pager, next"
-      :total="21"
-    /> -->
+    <div class="pagination">
+      <el-pagination
+        layout="prev, pager, next"
+        :total="getTotalContent"
+        :current-page="getPage"
+        @current-change="handlePageChange"
+      />
+    </div>
   </div>
 </template>
 
@@ -145,15 +147,16 @@ export default {
         'Status'
       ],
       tableData: [],
+      currentPage: 1,
       pageSize: 10
     }
   },
   mounted() {
     this.fetchSpecialties()
     this.fetchIndustries()
-    this.fetchContracts()
     this.fetchDiseases()
     this.fetchConsultantDoctors()
+    this.fetchContracts()
 
     this.setIndustryId()
     this.setSpecialtyId()
@@ -169,8 +172,9 @@ export default {
       'getIllness',
       'getDoctors',
       'getDoctor',
-      'getCurrentPage',
-      'getTotalPages'
+      'getTotalPages',
+      'getTotalContent',
+      'getPage'
     ]),
     ...mapGetters('specialty', ['getSpecialties', 'getLoadingSpecialtys']),
     ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
@@ -197,7 +201,7 @@ export default {
       'setIllnessId',
       'fetchConsultantDoctors',
       'setDoctorId',
-      'setPage'
+      'updatePage'
     ]),
     ...mapActions('specialty', ['fetchSpecialties']),
     ...mapActions('industry', ['fetchIndustries']),
@@ -208,13 +212,16 @@ export default {
     },
     handleCurrentChange(newPage) {
       this.setPage(newPage)
+    },
+    handlePageChange(newPage) {
+      this.updatePage(newPage)
     }
   },
   watch: {
     getContracts: {
       handler(newContracts) {
         this.tableData = newContracts?.map((contract) => ({
-          voucher: contract.contractId,
+          voucher: contract?.contractName ?? '-',
           industry: contract.industryName,
           specialty: contract.specialtyName,
           illness: contract.diseaseName,
@@ -231,6 +238,9 @@ export default {
     getIllness: 'fetchContracts',
     getDoctor: 'fetchContracts',
 
+    getPage() {
+      this.fetchContracts()
+    },
     selectedIndustry() {
       this.setIndustryId(this.selectedIndustry)
     },

@@ -17,8 +17,9 @@ export default {
     illness: null,
     doctors: [],
     doctor: null,
-    currentPage: null,
-    totalPages: null
+    totalPages: null,
+    totalContent: null,
+    page: 1
   }),
   mutations: {
     setContracts(state, contracts) {
@@ -45,11 +46,14 @@ export default {
     setDoctor(state, doctor) {
       state.doctor = !doctor ? null : doctor
     },
-    setCurrentPage(state, currentPage) {
-      state.currentPage = currentPage
-    },
     setTotalPages(state, totalPages) {
       state.totalPages = totalPages
+    },
+    setTotalContent(state, totalContent) {
+      state.totalContent = totalContent
+    },
+    setPage(state, page) {
+      state.page = page
     }
   },
   actions: {
@@ -60,14 +64,14 @@ export default {
         specialtyId: state.specialty,
         industryId: state.industry,
         consultantDoctorId: state.doctor,
-        page: state.currentPage
+        page: state.page
       }
 
       try {
         const response = await getContracts(params)
         commit('setContracts', response.data.content)
-        commit('setCurrentPage', response.data.page)
         commit('setTotalPages', response.data.totalPages)
+        commit('setTotalContent', response.data.totalContent)
       } catch (error) {
         commit('setError', true)
         toast.warning('Erro ao buscar os casos clínicos', { timeout: 5000 })
@@ -107,8 +111,8 @@ export default {
     setDoctorId({ commit }, doctor) {
       commit('setDoctor', doctor)
     },
-    setPage({ commit }, page) {
-      commit('setCurrentPage', page)
+    updatePage({ commit }, page) {
+      commit('setPage', page)
     }
   },
   getters: {
@@ -120,7 +124,8 @@ export default {
     getIllness: (state) => state.illness,
     getDoctors: (state) => state.doctors,
     getDoctor: (state) => state.doctor,
-    getCurrentPage: (state) => state.currentPage,
-    getTotalPages: (state) => state.totalPages
+    getTotalPages: (state) => state.totalPages,
+    getTotalContent: (state) => state.totalContent,
+    getPage: (state) => state.page
   }
 }
