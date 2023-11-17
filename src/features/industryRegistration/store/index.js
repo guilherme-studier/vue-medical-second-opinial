@@ -68,7 +68,7 @@ export default {
       commit('setLoading', true)
       return getIndustries()
         .then((response) => {
-          commit('setIndustries', response.data)
+          commit('setIndustries', response.data.content)
           commit('setTotalPages', response.data.totalPages)
           commit('setTotalContent', response.data.totalContent)
         })
