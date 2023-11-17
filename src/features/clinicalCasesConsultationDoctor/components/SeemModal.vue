@@ -8,9 +8,10 @@
         class="seem-text"
         v-model="seemText"
         placeholder="Escrever paracer..."
+        :disabled="!edit"
       />
     </div>
-    <div class="seem-send">
+    <div v-if="edit" class="seem-send">
       <el-button
         class="seem-btn"
         type="primary"
@@ -35,6 +36,10 @@ export default {
     opinion: {
       type: String,
       default: null
+    },
+    edit: {
+      type: Boolean,
+      default: false
     }
   },
   data() {

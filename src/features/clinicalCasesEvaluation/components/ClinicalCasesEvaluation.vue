@@ -4,8 +4,8 @@
       <div class="voucher-doctor">
         <img class="icon-voucher" :src="getIcon" />
         <h1>
-          {{ getName }} <span>possui</span> {{ tableData?.length }} casos
-          clínicos ativos
+          {{ getName }} <span>possui</span> {{ getTotalContent }} casos clínicos
+          ativos
         </h1>
       </div>
     </div>
@@ -40,39 +40,34 @@
       <el-table-column label="Ação" width="150" align="center">
         <template v-slot="scope">
           <div class="actions">
-            <el-tooltip
-              v-if="
-                scope.row.status === 'Disponível' ||
-                  scope.row.status === 'Alocado' ||
-                  scope.row.status === 'Reservado'
-              "
-              class="box-item"
-              effect="light"
-              content="Ativar caso clínico"
-              placement="top-start"
-              ><font-awesome-icon
-                :icon="iconCheck"
-                @click="handleCheck(scope.row)"
-                :class="{
-                  'filed-null':
-                    scope.row.status === 'Em avaliação' ||
-                    scope.row.status === 'Avaliado'
-                }"
-            /></el-tooltip>
-            <el-tooltip
+            <div
               v-if="
                 scope.row.status === 'Ativo' ||
                   scope.row.status === 'Em avaliação' ||
                   scope.row.status === 'Avaliado'
               "
-              class="box-item"
-              effect="light"
-              content="Consultar caso clínico"
-              placement="top-start"
-              ><font-awesome-icon
-                :icon="iconReader"
-                @click="handleCheck(scope.row)"
-            /></el-tooltip>
+            >
+              <el-tooltip
+                class="box-item"
+                effect="light"
+                content="Consultar caso clínico"
+                placement="top-start"
+                ><font-awesome-icon
+                  :icon="iconReader"
+                  @click="handleCheck(scope.row)"
+              /></el-tooltip>
+            </div>
+            <div v-else>
+              <el-tooltip
+                class="box-item"
+                effect="light"
+                content="Ativar caso clínico"
+                placement="top-start"
+                ><font-awesome-icon
+                  :icon="iconCheck"
+                  @click="handleCheck(scope.row)"
+              /></el-tooltip>
+            </div>
             <el-tooltip
               class="box-item"
               effect="light"
@@ -82,11 +77,7 @@
                 :icon="iconFile"
                 @click="handleFile(scope.row)"
                 :class="{
-                  'filed-null':
-                    scope.row.opinion === null ||
-                    scope.row.status === 'Ativo' ||
-                    scope.row.status === 'Em avaliação' ||
-                    scope.row.status === 'Alocado'
+                  'filed-null': scope.row.status !== 'Avaliado'
                 }"
             /></el-tooltip>
             <el-tooltip
@@ -105,6 +96,14 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination">
+      <el-pagination
+        layout="prev, pager, next"
+        :total="getTotalContent"
+        :current-page="getPage"
+        @current-change="handlePageChange"
+      />
+    </div>
 
     <!-- parecer modal -->
     <el-dialog title="Parecer" v-model="getIsModalSeem" @close="closeModalSeem">
@@ -158,7 +157,9 @@ export default {
       iconCheck: faSquareCheck,
       iconReader: faBookOpenReader,
       iconFile: faFile,
-      iconMessage: faComment
+      iconMessage: faComment,
+      currentPage: 1,
+      pageSize: 10
     }
   },
   computed: {
@@ -170,10 +171,22 @@ export default {
       'getIsModalSeem',
       'getIsModalMessage',
       'getClinicalCases',
-      'getLoadingClinicalCases'
+      'getLoadingClinicalCases',
+      'getTotalPages',
+      'getTotalContent',
+      'getPage'
     ]),
     isLoading() {
       return this.getLoadingClinicalCases
+    },
+    verifyActiveVoucher(status) {
+      if (
+        status === 'Ativo' ||
+        status === 'Em avaliação' ||
+        status === 'Avaliado'
+      )
+        return false
+      else return true
     }
   },
   mounted() {
@@ -195,6 +208,9 @@ export default {
         }))
       },
       deep: true
+    },
+    getPage() {
+      this.fetchClinicalCases()
     }
   },
   methods: {
@@ -204,7 +220,8 @@ export default {
       'handleActiveVoucher',
       'sendSeem',
       'fetchClinicalCases',
-      'onActiveVoucherPage'
+      'onActiveVoucherPage',
+      'updatePage'
     ]),
 
     async handleCheck(row) {
@@ -239,6 +256,9 @@ export default {
     closeModalMessage() {
       this.handleModalMessage()
       this.selectedContract = {}
+    },
+    handlePageChange(newPage) {
+      this.updatePage(newPage)
     }
   }
 }

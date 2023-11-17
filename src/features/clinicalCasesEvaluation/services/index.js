@@ -10,14 +10,14 @@ const doctorId = () => store?.getters?.getUserId
  * Buscar Casos Clínicos Designados.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const getClinicalCasesClientDoctor = () => {
+export const getClinicalCasesClientDoctor = (page = 1) => {
   return axios({
     method: 'GET',
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${getToken()}`
     },
-    url: `${BASE_URL}/voucher/doctor/${doctorId()}?page=1&size=50`
+    url: `${BASE_URL}/voucher/doctor/${doctorId()}?page=${page}&size=10`
   })
 }
 

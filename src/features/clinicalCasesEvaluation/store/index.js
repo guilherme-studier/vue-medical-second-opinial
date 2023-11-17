@@ -27,7 +27,10 @@ export default {
     loadingActiveVoucher: false,
     error: false,
     isActiveVoucher: false,
-    voucher: {}
+    voucher: {},
+    totalPages: null,
+    totalContent: null,
+    page: 1
   }),
   mutations: {
     updateSearchTerm(state, searchTerm) {
@@ -63,6 +66,15 @@ export default {
     },
     setLoadingActiveVoucher(state, value) {
       state.loadingActiveVoucher = value
+    },
+    setTotalPages(state, totalPages) {
+      state.totalPages = totalPages
+    },
+    setTotalContent(state, totalContent) {
+      state.totalContent = totalContent
+    },
+    setPage(state, page) {
+      state.page = page
     }
   },
   actions: {
@@ -87,10 +99,12 @@ export default {
       commit('setLoading', true)
       dispatch('getClinicalCases')
     },
-    async getClinicalCases({ commit }) {
-      return getClinicalCasesClientDoctor()
+    async getClinicalCases({ commit, state }) {
+      return getClinicalCasesClientDoctor(state.page)
         .then((response) => {
           commit('setClinicalCases', response.data.content)
+          commit('setTotalPages', response.data.totalPages)
+          commit('setTotalContent', response.data.totalContent)
         })
         .catch(() => {
           toast.warning(
@@ -103,6 +117,9 @@ export default {
         .finally(() => {
           commit('setLoading', false)
         })
+    },
+    updatePage({ commit }, page) {
+      commit('setPage', page)
     },
     async putOpinion({ commit, dispatch }, userData) {
       commit('setLoadingOpinion', true)
@@ -173,6 +190,9 @@ export default {
     getLoadingMessages: (state) => state.loadingMessages,
     getIsActiveVoucher: (state) => state.isActiveVoucher,
     getVoucher: (state) => state.voucher,
-    getLoadingActiveVoucher: (state) => state.loadingActiveVoucher
+    getLoadingActiveVoucher: (state) => state.loadingActiveVoucher,
+    getTotalPages: (state) => state.totalPages,
+    getTotalContent: (state) => state.totalContent,
+    getPage: (state) => state.page
   }
 }
