@@ -182,15 +182,8 @@ export default {
   },
   watch: {
     getClinicalCases: {
-      handler(newContracts) {
-        // Filter contracts with undesired statuses
-        const filteredContracts = newContracts?.filter(
-          (contract) =>
-            !['disp', 'rese', 'aloc', 'ativ'].includes(contract?.status)
-        )
-
-        // Map the filtered contracts to the tableData
-        this.tableData = filteredContracts?.map((contract) => ({
+      handler(contracts) {
+        this.tableData = contracts?.map((contract) => ({
           voucher: contract?.contractName,
           contractId: contract?.contractId,
           id: contract?.id,

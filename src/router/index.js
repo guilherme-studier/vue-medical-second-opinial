@@ -19,6 +19,7 @@ import Industries from '@/features/industries'
 // rotas
 import IndustryRepresentantMan from '@/features/industryRepresentantMan'
 import Login from '@/features/login'
+import LoginClientDoctor from '@/features/loginClientDoctor'
 import Registration from '@/features/registration'
 import RegistrationClinicalCases from '@/features/registrationClinicalCases'
 import RepresentativeRegistration from '@/features/representativeRegistration'
@@ -227,6 +228,18 @@ const routes = [
     beforeEnter: (to, from, next) => {
       if (store.getters.isLoggedIn) {
         next('/')
+      } else {
+        next()
+      }
+    }
+  },
+  {
+    path: '/login-client-doctor',
+    name: 'Médico Cliente - Login',
+    component: LoginClientDoctor,
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isLoggedIn) {
+        next('/login-client-doctor')
       } else {
         next()
       }
