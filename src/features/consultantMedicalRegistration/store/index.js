@@ -31,9 +31,16 @@ export default {
           return response
         })
         .catch((error) => {
-          toast.warning('Erro ao realizar a atualização de cadastro', {
-            timeout: 5000
-          })
+          const errorMessage = error.response
+            ? error.response.data.message
+            : 'Erro desconhecido'
+
+          toast.warning(
+            `Erro ao realizar a atualização de cadastro: ${errorMessage}`,
+            {
+              timeout: 5000
+            }
+          )
         })
         .finally(() => {
           commit('setLoading', false)
