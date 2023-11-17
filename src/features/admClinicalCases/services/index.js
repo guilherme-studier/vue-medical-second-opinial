@@ -17,7 +17,7 @@ export const getClinicalCases = (page = 1) => {
       'content-type': 'application/json',
       Authorization: `Bearer ${getToken()}`
     },
-    url: `${BASE_URL}/voucher/doctor/${doctorId()}?page=${page}&size=10`
+    url: `${BASE_URL}/voucher/doctor/${doctorId()}?page=${page}&size=10&status=emav,ativ`
   })
 }
 

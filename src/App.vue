@@ -1,7 +1,7 @@
 <template>
   <div class="app-container" v-loading="isLoading">
     <!-- MENU LATERAL -->
-    <sidebar-menu v-if="$route.name !== 'Login'" />
+    <sidebar-menu v-if="shouldDisplaySidebar" />
 
     <!-- ROTAS -->
     <router-view />
@@ -48,6 +48,11 @@ export default {
 
     isLoading() {
       return this.getLoading || this.getLoadingActiveVoucher
+    },
+
+    shouldDisplaySidebar() {
+      const excludedRoutes = ['Login', 'Médico Cliente - Login']
+      return !excludedRoutes.includes(this.$route.name)
     }
   },
 
