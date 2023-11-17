@@ -8,7 +8,7 @@
             placeholder="CPF"
             class="flexible-input"
             type="text"
-            :v-mask="isRegistrationForm ? '###.###.###-##' : null"
+            :v-mask="'###.###.###-##'"
             :disabled="!isRegistrationForm"
           />
         </input-wrapper>
@@ -81,6 +81,7 @@
                   v-model="newPassword"
                   placeholder="Nova senha"
                   class="flexible-input"
+                  :disabled="isNewPassword"
                   type="password"
                 />
               </input-wrapper>
@@ -348,10 +349,8 @@ export default {
     isSaveDisabled() {
       return (
         !this.termsAgreed ||
-        !this.newPassword ||
         !this.complement ||
         !this.specialty ||
-        !this.password ||
         !this.number ||
         !this.email ||
         !this.phone ||
@@ -366,6 +365,10 @@ export default {
         !this.cnpj ||
         !this.corporateName
       )
+    },
+
+    isNewPassword() {
+      return !this.password
     }
   },
   watch: {
@@ -427,8 +430,6 @@ export default {
       await this.getUser()
       this.isRegistration()
 
-      // this.clearForm()
-
       this.password = null
       this.newPassword = null
     },
@@ -445,7 +446,7 @@ export default {
         this.state = this.getState
         this.corporateName = this.getCorporateName
         this.complement = this.getComplement
-        this.specialty = this.getSpecialty
+        this.specialty = Number(this.getSpecialty)
         this.number = this.getNumber
         this.street = this.getStreet
         this.city = this.getCity
@@ -457,24 +458,6 @@ export default {
         this.termsAgreed = false
       }
     }
-    // clearForm() {
-    //   ;(this.termsAgreed = null),
-    //     (this.newPassword = null),
-    //     (this.complement = null),
-    //     (this.specialty = null),
-    //     (this.number = null),
-    //     (this.email = null),
-    //     (this.phone = null),
-    //     (this.street = null),
-    //     (this.name = null),
-    //     (this.city = null),
-    //     (this.crm = null),
-    //     (this.ufCrm = null),
-    //     (this.cep = null),
-    //     (this.state = null),
-    //     (this.cnpj = null),
-    //     (this.corporateName = null)
-    // }
   }
 }
 </script>

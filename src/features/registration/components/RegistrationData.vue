@@ -9,7 +9,7 @@
               placeholder="CPF"
               class="flexible-input"
               type="text"
-              :v-mask="isRegistrationForm ? '###.###.###-##' : null"
+              :v-mask="'###.###.###-##'"
               :disabled="!isRegistrationForm"
             />
           </input-wrapper>
@@ -84,6 +84,7 @@
               placeholder="Nova senha"
               class="flexible-input"
               type="password"
+              :disabled="isNewPassword"
             />
           </input-wrapper>
         </input-group>
@@ -198,10 +199,12 @@ export default {
       'isRegistred'
     ]),
 
+    isNewPassword() {
+      return !this.password
+    },
+
     isSaveDisabled() {
       return (
-        !this.newPassword ||
-        !this.password ||
         !this.email ||
         !this.phone ||
         !this.cpf ||
