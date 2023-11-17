@@ -4,8 +4,8 @@
       <div class="voucher-doctor">
         <img class="icon-voucher" :src="getIcon" />
         <h1>
-          {{ getName }} <span>possui</span> {{ tableData?.length }} casos
-          clínicos ativos
+          {{ getName }} <span>possui</span> {{ getTotalContent }} casos clínicos
+          ativos
         </h1>
       </div>
     </div>
@@ -54,35 +54,49 @@
               ><font-awesome-icon
                 :icon="iconReader"
                 @click="handleCheck(scope.row)"
-                :class="{
-                  'filed-null':
-                    scope.row.status === 'Disponível' ||
-                    scope.row.status === 'Alocado' ||
-                    scope.row.status === 'Reservado'
-                }"
             /></el-tooltip>
             <el-tooltip
               class="box-item"
               effect="light"
-              content="Adicionar/Verificar parecer de caso clínico"
+              :content="
+                scope.row?.status === 'Em avaliação'
+                  ? 'Adicionar parecer de caso clínico'
+                  : 'Consultar parecer'
+              "
               placement="top-start"
               ><font-awesome-icon
                 :icon="iconFile"
-                @click="handleFile(scope.row)"
+                @click="
+                  handleFile(scope.row, scope.row?.status === 'Em avaliação')
+                "
             /></el-tooltip>
             <el-tooltip
               class="box-item"
               effect="light"
-              content="Enviar mensagem"
+              :content="
+                scope.row?.status === 'Em avaliação'
+                  ? 'Incluir mensagem'
+                  : 'Consultar mensagens'
+              "
               placement="top-start"
               ><font-awesome-icon
                 :icon="iconMessage"
-                @click="handleComment(scope.row)"
+                @click="
+                  handleComment(scope.row, scope.row?.status === 'Em avaliação')
+                "
             /></el-tooltip>
           </div>
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination">
+      <el-pagination
+        layout="prev, pager, next"
+        :total="getTotalContent"
+        :current-page="getPage"
+        @current-change="handlePageChange"
+      />
+    </div>
 
     <!-- parecer modal -->
     <el-dialog
@@ -140,7 +154,9 @@ export default {
       iconCheck: faSquareCheck,
       iconReader: faBookOpenReader,
       iconFile: faFile,
-      iconMessage: faComment
+      iconMessage: faComment,
+      currentPage: 1,
+      pageSize: 10
     }
   },
   computed: {
@@ -152,7 +168,10 @@ export default {
       'getIsModalSeem',
       'getIsModalMessage',
       'getClinicalCases',
-      'getLoadingClinicalCases'
+      'getLoadingClinicalCases',
+      'getTotalPages',
+      'getTotalContent',
+      'getPage'
     ]),
     isLoading() {
       return this.getLoadingClinicalCases
@@ -164,7 +183,14 @@ export default {
   watch: {
     getClinicalCases: {
       handler(newContracts) {
-        this.tableData = newContracts?.map((contract) => ({
+        // Filter contracts with undesired statuses
+        const filteredContracts = newContracts?.filter(
+          (contract) =>
+            !['disp', 'rese', 'aloc', 'ativ'].includes(contract?.status)
+        )
+
+        // Map the filtered contracts to the tableData
+        this.tableData = filteredContracts?.map((contract) => ({
           voucher: contract?.contractName,
           contractId: contract?.contractId,
           id: contract?.id,
@@ -177,6 +203,9 @@ export default {
         }))
       },
       deep: true
+    },
+    getPage() {
+      this.fetchClinicalCases()
     }
   },
   methods: {
@@ -184,7 +213,8 @@ export default {
       'handleModalSeem',
       'handleModalMessage',
       'sendSeem',
-      'fetchClinicalCases'
+      'fetchClinicalCases',
+      'updatePage'
     ]),
     ...mapActions('clinicalCasesEvaluation', [
       'onActiveVoucherPage',
@@ -194,11 +224,12 @@ export default {
       await this.onActiveVoucherPage()
       this.handleActiveVoucher(row)
     },
-    handleFile(row) {
+    handleFile(row, edit) {
       if (row.opinion === null) {
         this.selectedContract = {
           voucher: row.id,
-          opinion: null
+          opinion: null,
+          edit: edit
         }
       } else {
         this.selectedContract = {
@@ -208,10 +239,11 @@ export default {
       }
       this.handleModalSeem(this.selectedContract.opinion)
     },
-    handleComment(row) {
+    handleComment(row, edit) {
       this.selectedContract = {
         id: row?.id,
-        voucher: row?.voucherId
+        voucher: row?.voucherId,
+        edit: edit
       }
       this.handleModalMessage(this.selectedContract?.id)
     },
@@ -222,6 +254,9 @@ export default {
     closeModalMessage() {
       this.handleModalMessage()
       this.selectedContract = {}
+    },
+    handlePageChange(newPage) {
+      this.updatePage(newPage)
     }
   }
 }

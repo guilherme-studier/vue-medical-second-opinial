@@ -13,7 +13,10 @@ export default {
     clinicalCases: [],
     searchTerm: '',
     loading: false,
-    error: false
+    error: false,
+    totalPages: null,
+    totalContent: null,
+    page: 1
   }),
   mutations: {
     updateSearchTerm(state, searchTerm) {
@@ -24,6 +27,15 @@ export default {
     },
     setLoading(state, value) {
       state.loading = value
+    },
+    setTotalPages(state, totalPages) {
+      state.totalPages = totalPages
+    },
+    setTotalContent(state, totalContent) {
+      state.totalContent = totalContent
+    },
+    setPage(state, page) {
+      state.page = page
     }
   },
   actions: {
@@ -31,10 +43,12 @@ export default {
       commit('setLoading', true)
       dispatch('getClinicalCases')
     },
-    async getClinicalCases({ commit }) {
-      return getClinicalCases()
+    async getClinicalCases({ commit, state }) {
+      return getClinicalCases(state.page)
         .then((response) => {
           commit('setClinicalCases', response.data.content)
+          commit('setTotalPages', response.data.totalPages)
+          commit('setTotalContent', response.data.totalContent)
         })
         .catch(() => {
           toast.warning(
@@ -47,6 +61,9 @@ export default {
         .finally(() => {
           commit('setLoading', false)
         })
+    },
+    updatePage({ commit }, page) {
+      commit('setPage', page)
     },
     async acceptClinicalCase({ commit, dispatch }, voucherId) {
       commit('setLoading', true)
@@ -109,6 +126,9 @@ export default {
     getSearchTerm: (state) => state.searchTerm,
     getError: (state) => state.error,
     getClinicalCases: (state) => state.clinicalCases,
-    getLoading: (state) => state.loading
+    getLoading: (state) => state.loading,
+    getTotalPages: (state) => state.totalPages,
+    getTotalContent: (state) => state.totalContent,
+    getPage: (state) => state.page
   }
 }

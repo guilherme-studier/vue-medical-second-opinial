@@ -20,6 +20,7 @@
           v-model="messageText"
           placeholder="Escreva mensagem..."
           type="textarea"
+          :disabled="!edit"
         />
       </div>
     </div>
@@ -28,7 +29,7 @@
         type="primary"
         class="message-btn"
         @click="sendMessage"
-        :disabled="!enabledSendMessage"
+        :disabled="!enabledSendMessage || !edit"
       >
         Enviar
       </el-button>
@@ -54,6 +55,10 @@ export default {
     voucher: {
       type: String,
       default: null
+    },
+    edit: {
+      type: Boolean,
+      default: false
     }
   },
   data() {

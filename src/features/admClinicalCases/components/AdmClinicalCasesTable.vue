@@ -4,8 +4,8 @@
       <div class="voucher-doctor">
         <img class="icon-voucher" :src="getIcon" />
         <h1>
-          {{ getName }} <span>possui</span> {{ tableData?.length }} casos
-          clínicos ativos
+          {{ getName }} <span>possui</span> {{ getTotalContent }} casos clínicos
+          ativos
         </h1>
       </div>
     </div>
@@ -50,7 +50,7 @@
                 :icon="iconCheck"
                 @click="accept(scope.row)"
                 :class="{
-                  'action-disabled': scope.row?.status !== 'Disponível'
+                  'action-disabled': scope.row?.status !== 'Ativo'
                 }"
             /></el-tooltip>
             <el-tooltip
@@ -62,7 +62,7 @@
                 :icon="iconX"
                 @click="decline(scope.row)"
                 :class="{
-                  'action-disabled': scope.row?.status !== 'Disponível'
+                  'action-disabled': scope.row?.status !== 'Ativo'
                 }"
             /></el-tooltip>
             <el-tooltip
@@ -81,6 +81,14 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination">
+      <el-pagination
+        layout="prev, pager, next"
+        :total="getTotalContent"
+        :current-page="getPage"
+        @current-change="handlePageChange"
+      />
+    </div>
   </div>
 </template>
 
@@ -103,7 +111,9 @@ export default {
       selectedContract: {},
       iconCheck: faCheck,
       iconX: faX,
-      iconTrash: faTrash
+      iconTrash: faTrash,
+      currentPage: 1,
+      pageSize: 10
     }
   },
   computed: {
@@ -113,7 +123,10 @@ export default {
       'getIcon',
       'getIconSearch',
       'getSearchTerm',
-      'getLoading'
+      'getLoading',
+      'getTotalPages',
+      'getTotalContent',
+      'getPage'
     ]),
     isLoading() {
       return this.getLoading
@@ -125,7 +138,13 @@ export default {
   watch: {
     getClinicalCases: {
       handler(newContracts) {
-        this.tableData = newContracts?.map((contract) => ({
+        // Filter contracts with status 'Ativo' or 'Em avaliação'
+        const filteredContracts = newContracts?.filter((contract) =>
+          ['ativ', 'emav'].includes(contract?.status)
+        )
+
+        // Map the filtered contracts to the tableData
+        this.tableData = filteredContracts?.map((contract) => ({
           voucher: contract?.contractName,
           contractId: contract?.contractId,
           id: contract?.id,
@@ -138,6 +157,9 @@ export default {
         }))
       },
       deep: true
+    },
+    getPage() {
+      this.fetchClinicalCases()
     }
   },
   methods: {
@@ -145,7 +167,8 @@ export default {
       'fetchClinicalCases',
       'acceptClinicalCase',
       'declineClinicalCase',
-      'cancelClinicalCase'
+      'cancelClinicalCase',
+      'updatePage'
     ]),
 
     accept(row) {
@@ -156,6 +179,9 @@ export default {
     },
     cancel(row) {
       this.cancelClinicalCase(row.id)
+    },
+    handlePageChange(newPage) {
+      this.updatePage(newPage)
     }
   }
 }

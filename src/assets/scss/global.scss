@@ -225,7 +225,7 @@ body {
     stroke: $green-500
   }
 
-  .el-dialog {
+  .el-dialog {  
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     header {
@@ -243,7 +243,7 @@ body {
   .el-table__header-wrapper {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-}
+  }
 
   button.el-dialog__headerbtn {
     background-color: none;
@@ -255,6 +255,34 @@ body {
 
     .el-dialog__close {
       color: $white;
+    }
+  }
+
+  .pagination {
+    justify-content: center;
+  }
+
+  .el-pager li.is-active {
+    color: $green-500;
+
+    &:hover {
+      color: $green-400;
+    }
+  }
+
+  button.btn-next.is-last {
+    &:hover {
+      background-color: transparent;
+      color: $green-500;
+      border: none;
+    }
+  }
+
+  button.btn-prev.is-first {
+    &:hover {
+      background-color: transparent;
+      color: $green-500;
+      border: none;
     }
   }
 
