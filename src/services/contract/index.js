@@ -29,7 +29,7 @@ export const createContract = (userData) => {
  */
 export const getContracts = ({
   page = 1,
-  size = 50,
+  size = 10,
   diseaseId,
   specialtyId,
   industryId,
