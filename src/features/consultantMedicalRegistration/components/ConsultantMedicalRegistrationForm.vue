@@ -8,7 +8,7 @@
             placeholder="CPF"
             class="flexible-input"
             type="text"
-            :v-mask="isRegistrationForm ? '###.###.###-##' : null"
+            :v-mask="'###.###.###-##'"
             :disabled="!isRegistrationForm"
           />
         </input-wrapper>
@@ -446,7 +446,7 @@ export default {
         this.state = this.getState
         this.corporateName = this.getCorporateName
         this.complement = this.getComplement
-        this.specialty = this.getSpecialty
+        this.specialty = Number(this.getSpecialty)
         this.number = this.getNumber
         this.street = this.getStreet
         this.city = this.getCity

@@ -29,8 +29,12 @@ export default {
           return response
         })
         .catch((error) => {
+          const errorMessage = error.response
+            ? error.response.data.message
+            : 'Erro desconhecido'
+
           toast.warning(
-            'Não foi possível realizar a atualização do cadastro Médico Cliente',
+            `Erro ao realizar a atualização de cadastro: ${errorMessage}`,
             {
               timeout: 5000
             }
