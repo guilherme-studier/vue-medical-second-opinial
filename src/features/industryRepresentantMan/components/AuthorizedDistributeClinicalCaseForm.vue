@@ -49,6 +49,7 @@
               type="email"
               placeholder="E-mail"
               class="flexible-input"
+              :disabled="isEditing"
             />
           </InputWrapper>
           <div class="remove-form" v-if="index > 0">

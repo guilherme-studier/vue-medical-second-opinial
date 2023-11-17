@@ -4,6 +4,7 @@ import { useToast } from 'vue-toastification'
 import { validateToken, logoutUser, login, reset } from '../services/index'
 
 import * as h from '@/helpers/auth'
+import { formatErrors } from '@/helpers/errors'
 import router from '@/router'
 
 const toast = useToast()
@@ -81,7 +82,11 @@ export default {
             router.push('/')
           })
           .catch((error) => {
-            toast.warning('Não foi possível realizar o login', {
+            const errorMessage = error.response
+              ? formatErrors(error.response.data.message)
+              : 'Erro desconhecido'
+
+            toast.warning(`Erro ao efetuar o login: ${errorMessage}`, {
               timeout: 5000
             })
           })

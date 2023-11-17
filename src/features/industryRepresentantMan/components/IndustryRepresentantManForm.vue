@@ -32,6 +32,14 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination">
+      <el-pagination
+        layout="prev, pager, next"
+        :total="getTotalContent"
+        :current-page="getPage"
+        @current-change="handlePageChange"
+      />
+    </div>
   </div>
 </template>
 
@@ -59,7 +67,9 @@ export default {
       iconDoctor: iconVoucher,
       iconEdit: faPenToSquare,
       iconCancel: faBan,
-      tableData: []
+      tableData: [],
+      currentPage: 1,
+      pageSize: 10
     }
   },
 
@@ -73,8 +83,9 @@ export default {
       'getIndustryRepresentant',
       'getIndustryRepresentants',
       'getLoadingRepresentantIndustry',
-      'getCurrentPage',
-      'getTotalPages'
+      'getTotalPages',
+      'getTotalContent',
+      'getPage'
     ]),
 
     isLoading() {
@@ -82,7 +93,7 @@ export default {
     }
   },
   watch: {
-    getCurrentPage: 'fetchIndustryRepresentants',
+    getPage: 'fetchIndustryRepresentants',
     getIndustryRepresentants: {
       handler(industrys) {
         this.tableData = industrys?.map((industry) => ({
@@ -99,7 +110,7 @@ export default {
       'fetchIndustryRepresentant',
       'fetchIndustryRepresentants',
       'cancelIndustryRepresentant',
-      'setPage'
+      'updatePage'
     ]),
     scrollToTop() {
       window.scrollTo({
@@ -113,6 +124,9 @@ export default {
     },
     cancel(row) {
       this.cancelIndustryRepresentant(row.id)
+    },
+    handlePageChange(newPage) {
+      this.updatePage(newPage)
     }
   }
 }

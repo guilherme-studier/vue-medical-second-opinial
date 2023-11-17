@@ -75,13 +75,7 @@ export const updateIndustry = (userData) => {
       Authorization: `Bearer ${getToken()}`
     },
     url,
-    data: {
-      email: userData.email,
-      phone: userData.phone,
-      contact: userData.contact,
-      observation: userData.observation,
-      name: userData.industryName
-    }
+    data: userData
   })
 }
 

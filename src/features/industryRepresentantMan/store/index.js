@@ -19,8 +19,9 @@ export default {
     industryRepresentant: null,
     industryRepresentants: [],
     loading: false,
-    currentPage: null,
-    totalPages: null
+    totalPages: null,
+    totalContent: null,
+    page: 1
   }),
   mutations: {
     setLoading(state, value) {
@@ -32,11 +33,14 @@ export default {
     setIndustryRepresentants(state, representants) {
       state.industryRepresentants = representants
     },
-    setCurrentPage(state, currentPage) {
-      state.currentPage = currentPage
-    },
     setTotalPages(state, totalPages) {
       state.totalPages = totalPages
+    },
+    setTotalContent(state, totalContent) {
+      state.totalContent = totalContent
+    },
+    setPage(state, page) {
+      state.page = page
     }
   },
   actions: {
@@ -82,11 +86,11 @@ export default {
     async fetchIndustryRepresentants({ commit, state }) {
       commit('setLoading', true)
 
-      return getIndustryRepresentants(state.currentPage)
+      return getIndustryRepresentants(state.page)
         .then((response) => {
           commit('setIndustryRepresentants', response.data.content)
-          commit('setCurrentPage', response.data.page)
           commit('setTotalPages', response.data.totalPages)
+          commit('setTotalContent', response.data.totalContent)
         })
         .catch((error) => {
           toast.warning('Erro ao buscar os representantes da indústria', {
@@ -96,6 +100,9 @@ export default {
         .finally(() => {
           commit('setLoading', false)
         })
+    },
+    updatePage({ commit }, page) {
+      commit('setPage', page)
     },
     async createIndustryRepresentant({ commit, dispatch }, userData) {
       commit('setLoading', true)
@@ -142,7 +149,8 @@ export default {
     getLoadingRepresentantIndustry: (state) => state.loading,
     getIndustryRepresentant: (state) => state.industryRepresentant,
     getIndustryRepresentants: (state) => state.industryRepresentants,
-    getCurrentPage: (state) => state.currentPage,
-    getTotalPages: (state) => state.totalPages
+    getTotalPages: (state) => state.totalPages,
+    getTotalContent: (state) => state.totalContent,
+    getPage: (state) => state.page
   }
 }

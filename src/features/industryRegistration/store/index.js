@@ -9,6 +9,8 @@ import {
   getIndustry
 } from '../../../services/industry/index'
 
+import { formatErrors } from '@/helpers/errors'
+
 const toast = useToast()
 
 export default {
@@ -17,8 +19,9 @@ export default {
     industry: null,
     industries: [],
     loading: false,
-    currentPage: null,
-    totalPages: null
+    totalPages: null,
+    totalContent: null,
+    page: 1
   }),
   mutations: {
     setIndustry(state, industries) {
@@ -30,11 +33,14 @@ export default {
     setLoading(state, value) {
       state.loading = value
     },
-    setCurrentPage(state, currentPage) {
-      state.currentPage = currentPage
-    },
     setTotalPages(state, totalPages) {
       state.totalPages = totalPages
+    },
+    setTotalContent(state, totalContent) {
+      state.totalContent = totalContent
+    },
+    setPage(state, page) {
+      state.page = page
     }
   },
   actions: {
@@ -63,8 +69,8 @@ export default {
       return getIndustries()
         .then((response) => {
           commit('setIndustries', response.data)
-          commit('setCurrentPage', parseInt(response.data.page))
-          commit('setTotalPages', parseInt(response.data.totalPages))
+          commit('setTotalPages', response.data.totalPages)
+          commit('setTotalContent', response.data.totalContent)
         })
         .catch((error) => {
           toast.warning('Erro ao buscar as indústrias', { timeout: 5000 })
@@ -81,10 +87,13 @@ export default {
           toast.success('Indústria removida com sucesso!', { timeout: 5000 })
         })
         .catch((error) => {
-          toast.warning(
-            'Indústria ativa em um caso clínico, não é possível deletá-la no momento ',
-            { timeout: 5000 }
-          )
+          const errorMessage = error.response
+            ? formatErrors(error.response.data.message)
+            : 'Erro desconhecido'
+
+          toast.warning(`Erro ao tentar deletar a indústria: ${errorMessage}`, {
+            timeout: 5000
+          })
         })
         .finally(() => {
           commit('setLoading', false)
@@ -119,15 +128,16 @@ export default {
           commit('setLoading', false)
         })
     },
-    setPage({ commit }, page) {
-      commit('setCurrentPage', page)
+    updatePage({ commit }, page) {
+      commit('setPage', page)
     }
   },
   getters: {
     getIndustries: (state) => state.industries,
     getIndustry: (state) => state.industry,
     getLoadingIndustry: (state) => state.loading,
-    getCurrentPage: (state) => state.currentPage,
-    getTotalPages: (state) => state.totalPages
+    getTotalPages: (state) => state.totalPages,
+    getTotalContent: (state) => state.totalContent,
+    getPage: (state) => state.page
   }
 }

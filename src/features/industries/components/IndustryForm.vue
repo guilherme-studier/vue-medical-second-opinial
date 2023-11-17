@@ -10,7 +10,7 @@
       <InputGroup>
         <InputWrapper>
           <el-input
-            v-model="industryName"
+            v-model="name"
             type="text"
             placeholder="Nome da Indústria"
             class="flexible-input"
@@ -121,6 +121,14 @@
         </template>
       </el-table-column>
     </el-table>
+    <!-- <div class="pagination">
+      <el-pagination
+        layout="prev, pager, next"
+        :total="getTotalContent"
+        :current-page="getPage"
+        @current-change="handlePageChange"
+      />
+    </div> -->
   </div>
 </template>
 
@@ -159,13 +167,15 @@ export default {
 
       /** Dados das indústrias */
       industryId: null,
-      industryName: null,
+      name: null,
       cnpj: null,
       email: null,
       phone: null,
       contact: null,
       observation: null,
-      tableData: []
+      tableData: [],
+      currentPage: 1,
+      pageSize: 10
     }
   },
 
@@ -178,8 +188,9 @@ export default {
     ...mapGetters('industry', [
       'getIndustries',
       'getLoadingIndustry',
-      'getCurrentPage',
-      'getTotalPages'
+      'getTotalPages',
+      'getTotalContent',
+      'getPage'
     ]),
 
     isLoading() {
@@ -187,11 +198,10 @@ export default {
     },
 
     isValidForm() {
-      return this.industryName && this.cnpj
+      return this.name && this.cnpj
     }
   },
   watch: {
-    getCurrentPage: 'fetchIndustries',
     getIndustries: {
       handler(industries) {
         if (Array.isArray(industries)) {
@@ -207,7 +217,8 @@ export default {
         }
       },
       deep: true
-    }
+    },
+    getPage: 'fetchIndustries'
   },
   methods: {
     ...mapActions('industry', [
@@ -215,13 +226,13 @@ export default {
       'createIndustry',
       'updateIndustryById',
       'fetchIndustries',
-      'setPage'
+      'updatePage'
     ]),
 
     newIndustry() {
       if (this.isValidForm) {
         const userData = {
-          name: this.industryName,
+          name: this.name,
           cnpj: this.cnpj,
           email: this.email,
           phone: this.phone,
@@ -236,9 +247,9 @@ export default {
     async editIndustry() {
       if (this.isValidForm) {
         const userData = {
+          name: this.name,
           observation: this.observation,
           id: this.industryId,
-          name: this.industryName,
           contact: this.contact,
           email: this.email,
           phone: this.phone
@@ -255,7 +266,7 @@ export default {
      */
     selectIndustry(row) {
       this.industryId = row?.id
-      this.industryName = row?.name
+      this.name = row?.name
       this.cnpj = row?.cnpj
       this.email = row?.email
       this.phone = row?.phone
@@ -271,7 +282,7 @@ export default {
     /** Cancelar criação/edição */
     clearForm() {
       this.industryId = null
-      this.industryName = null
+      this.name = null
       this.cnpj = null
       this.email = null
       this.phone = null
@@ -285,8 +296,9 @@ export default {
         behavior: 'smooth' // Para um comportamento de rolagem suave
       })
     },
-    updatePageData({ currentPage }) {
-      this.setPage(currentPage)
+
+    handlePageChange(newPage) {
+      this.updatePage(newPage)
     }
   }
 }
