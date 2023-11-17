@@ -1,26 +1,13 @@
-/** ==================================================
- * Helper para ajudar no tratamento de erros da API
- * =================================================== */
-
 /**
- * Trata a mensagem de erro e retorna um objeto com um array de mensagens
- * @param {Object} error
- * @returns {Object} - Objeto com a/as mensagens de erro
+ * Formata o erros de acordo com a string passada
+ * @returns {String}
  */
-export const errorMessageHandler = (error) => {
-  const messagesObj = {
-    messages: ['Ocorreu algum erro com a requisição.']
+
+export const formatErrors = (error) => {
+  switch (error) {
+    case 'data_in_use':
+      return 'Atividade ativa em um caso clínico'
+    case 'Usuário e/ou senha inválido':
+      return 'Usuário e/ou senha inválido'
   }
-
-  if (error.response.data) {
-    const {
-      response: { data }
-    } = error /** Extrai o parametro data da resposta de erro */
-
-    if (Array.isArray(data)) {
-      messagesObj.messages = data.map((item) => item.message)
-    }
-  }
-
-  return messagesObj
 }

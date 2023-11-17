@@ -8,6 +8,8 @@ import {
   getDisease
 } from '../../../services/disease/index.js'
 
+import { formatErrors } from '@/helpers/errors'
+
 const toast = useToast()
 
 export default {
@@ -16,8 +18,9 @@ export default {
     diseases: [],
     loading: false,
     error: false,
-    currentPage: null,
-    totalPages: null
+    totalPages: null,
+    totalContent: null,
+    page: 1
   }),
   mutations: {
     setDiseases(state, diseases) {
@@ -29,21 +32,24 @@ export default {
     setError(state, value) {
       state.error = value
     },
-    setCurrentPage(state, currentPage) {
-      state.currentPage = currentPage
-    },
     setTotalPages(state, totalPages) {
       state.totalPages = totalPages
+    },
+    setTotalContent(state, totalContent) {
+      state.totalContent = totalContent
+    },
+    setPage(state, page) {
+      state.page = page
     }
   },
   actions: {
     fetchDiseases({ commit, state }) {
       commit('setLoading', true)
-      getDiseases(state.currentPage)
+      getDiseases(state.page)
         .then((response) => {
           commit('setDiseases', response.data.content)
-          commit('setCurrentPage', parseInt(response.data.page))
-          commit('setTotalPages', parseInt(response.data.totalPages))
+          commit('setTotalPages', response.data.totalPages)
+          commit('setTotalContent', response.data.totalContent)
         })
         .catch(() => {
           commit('setError', true)
@@ -52,6 +58,9 @@ export default {
         .finally(() => {
           commit('setLoading', false)
         })
+    },
+    updatePage({ commit }, page) {
+      commit('setPage', page)
     },
     createNewDisease({ commit, dispatch }, diseaseName) {
       commit('setLoading', true)
@@ -75,12 +84,14 @@ export default {
           dispatch('fetchDiseases')
           toast.success('Doença removida com sucesso!', { timeout: 5000 })
         })
-        .catch(() => {
-          commit('setError', true)
-          toast.warning(
-            'Não foi possível deletar esta doença, ela está em uso em um caso clínico',
-            { timeout: 5000 }
-          )
+        .catch((error) => {
+          const errorMessage = error.response
+            ? formatErrors(error.response.data.message)
+            : 'Erro desconhecido'
+
+          toast.warning(`Erro ao tentar deletar a doença: ${errorMessage}`, {
+            timeout: 5000
+          })
         })
         .finally(() => {
           commit('setLoading', false)
@@ -123,7 +134,8 @@ export default {
     getDiseases: (state) => state.diseases,
     getLoadingDiseases: (state) => state.loading,
     getErrorDiseases: (state) => state.error,
-    getCurrentPage: (state) => state.currentPage,
-    getTotalPages: (state) => state.totalPages
+    getTotalPages: (state) => state.totalPages,
+    getTotalContent: (state) => state.totalContent,
+    getPage: (state) => state.page
   }
 }

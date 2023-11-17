@@ -9,6 +9,8 @@ import {
   getSpecialty
 } from '../../../services/specialty/index.js'
 
+import { formatErrors } from '@/helpers/errors'
+
 const toast = useToast()
 
 export default {
@@ -78,9 +80,17 @@ export default {
             timeout: 5000
           })
         })
-        .catch(() => {
-          commit('setError', true)
-          toast.warning('Erro ao deletar a especialidade', { timeout: 5000 })
+        .catch((error) => {
+          const errorMessage = error.response
+            ? formatErrors(error.response.data.message)
+            : 'Erro desconhecido'
+
+          toast.warning(
+            `Erro ao tentar deletar a especialidade: ${errorMessage}`,
+            {
+              timeout: 5000
+            }
+          )
         })
         .finally(() => {
           commit('setLoading', false)

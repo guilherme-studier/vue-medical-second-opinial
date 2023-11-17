@@ -36,12 +36,6 @@
         <img :src="icon" />
         <h1>Listagem</h1>
       </div>
-
-      <!-- CAMPO DE BUSCA -->
-      <!-- <div class="search">
-        <input type="text" v-model="searchTerm" placeholder="Buscar" />
-        <img class="search-icon" :src="iconSearch" alt="" />
-      </div> -->
     </div>
 
     <!-- TABELA -->
@@ -72,6 +66,14 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination">
+      <el-pagination
+        layout="prev, pager, next"
+        :total="getTotalContent"
+        :current-page="getPage"
+        @current-change="handlePageChange"
+      />
+    </div>
   </div>
 </template>
 
@@ -110,7 +112,10 @@ export default {
       illnessId: null,
       illnessName: null,
 
-      tableData: []
+      tableData: [],
+
+      currentPage: 1,
+      pageSize: 10
     }
   },
 
@@ -123,8 +128,9 @@ export default {
     ...mapGetters('disease', [
       'getDiseases',
       'getLoadingDiseases',
-      'getCurrentPage',
-      'getTotalPages'
+      'getTotalPages',
+      'getTotalContent',
+      'getPage'
     ]),
 
     isLoading() {
@@ -132,7 +138,7 @@ export default {
     }
   },
   watch: {
-    getCurrentPage: 'fetchDiseases',
+    getPage: 'fetchDiseases',
     getDiseases: {
       handler(diseases) {
         this.tableData = diseases?.map((disease) => ({
@@ -149,7 +155,7 @@ export default {
       'createNewDisease',
       'updateDiseaseById',
       'fetchDiseases',
-      'setPage'
+      'updatePage'
     ]),
 
     /** Criar doença */
@@ -206,8 +212,8 @@ export default {
         behavior: 'smooth' // Para um comportamento de rolagem suave
       })
     },
-    updatePageData({ currentPage }) {
-      this.setPage(currentPage)
+    handlePageChange(newPage) {
+      this.updatePage(newPage)
     }
   }
 }
