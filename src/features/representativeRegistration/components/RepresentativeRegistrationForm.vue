@@ -114,14 +114,7 @@ export default {
     ]),
 
     isSaveDisabled() {
-      return (
-        !this.newPassword ||
-        !this.phone ||
-        !this.email ||
-        !this.name ||
-        !this.cpf ||
-        !this.password
-      )
+      return !this.phone || !this.email || !this.name || !this.cpf
     }
   },
   watch: {
