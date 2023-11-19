@@ -28,8 +28,8 @@ export const createSpecialty = (name) => {
  * @param {number} size - Quantidade de especialidades por página.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const getSpecialties = (page = 1, size = 10) => {
-  const url = `${BASE_URL}/specialty?page=${page}&size=${size}`
+export const getSpecialties = (page = 1) => {
+  const url = `${BASE_URL}/specialty?page=${page}&size=10`
 
   return axios({
     method: 'GET',

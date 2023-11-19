@@ -66,7 +66,7 @@ export default {
     },
     async fetchIndustries({ commit, state }) {
       commit('setLoading', true)
-      return getIndustries()
+      return getIndustries(state.page)
         .then((response) => {
           commit('setIndustries', response.data.content)
           commit('setTotalPages', response.data.totalPages)

@@ -28,8 +28,8 @@ export const createIndustry = (userData) => {
  * @param {number} size - Quantidade de indústrias por página.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const getIndustries = (page = 1, size = 10) => {
-  const url = `${BASE_URL}/industry?page=${page}&size=${size}`
+export const getIndustries = (page = 1) => {
+  const url = `${BASE_URL}/industry?page=${page}&size=10`
 
   return axios({
     method: 'GET',
