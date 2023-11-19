@@ -12,6 +12,8 @@
             <el-select
               v-model="industry"
               placeholder="Indústria"
+              no-match-text="Nenhuma indústria encontrada"
+              filterable
               size="large"
               clearable
             >
@@ -147,7 +149,7 @@ export default {
   },
   mounted() {
     this.clearIndustryRepresentant()
-    this.fetchIndustries()
+    this.fetchIndustries(50)
   },
   watch: {
     getIndustryRepresentant: 'checkEditing'

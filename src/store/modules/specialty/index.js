@@ -44,9 +44,9 @@ export default {
     }
   },
   actions: {
-    fetchSpecialties({ commit, state }) {
+    fetchSpecialties({ commit, state }, size = 10) {
       commit('setLoading', true)
-      getSpecialties(state.page)
+      getSpecialties(state.page, size)
         .then((response) => {
           commit('setSpecialties', response.data.content)
           commit('setTotalPages', response.data.totalPages)

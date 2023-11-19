@@ -229,6 +229,8 @@
               <el-select
                 v-model="specialty"
                 placeholder="Selecione uma especialidade"
+                no-match-text="Nenhuma especialidade encontrada"
+                filterable
                 size="large"
                 clearable
               >
@@ -378,7 +380,7 @@ export default {
     this.getUser()
   },
   mounted() {
-    this.fetchSpecialties()
+    this.fetchSpecialties(50)
     this.isRegistration()
   },
   methods: {

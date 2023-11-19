@@ -43,6 +43,7 @@
       :data="tableData"
       :height="450"
       style="width: 100%"
+      empty-text="Não há dados para serem listados"
       border
       v-loading="isLoading"
     >

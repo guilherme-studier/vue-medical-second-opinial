@@ -43,9 +43,9 @@ export default {
     }
   },
   actions: {
-    fetchDiseases({ commit, state }) {
+    fetchDiseases({ commit, state }, size = 10) {
       commit('setLoading', true)
-      getDiseases(state.page)
+      getDiseases(state.page, size)
         .then((response) => {
           commit('setDiseases', response.data.content)
           commit('setTotalPages', response.data.totalPages)

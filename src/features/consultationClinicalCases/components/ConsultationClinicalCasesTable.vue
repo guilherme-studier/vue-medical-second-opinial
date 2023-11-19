@@ -10,6 +10,8 @@
           v-model="selectedIndustry"
           placeholder="Indústrias"
           size="large"
+          no-match-text="Nenhuma indústria encontrada"
+          filterable
           clearable
         >
           <el-option
@@ -25,6 +27,8 @@
           v-model="selectedSpecialty"
           placeholder="Especialidade"
           size="large"
+          no-match-text="Nenhuma especialidade encontrada"
+          filterable
           clearable
         >
           <el-option
@@ -39,6 +43,8 @@
         <el-select
           v-model="selectedIllness"
           placeholder="Doença"
+          no-match-text="Nenhuma doença encontrada"
+          filterable
           size="large"
           clearable
         >
@@ -71,6 +77,7 @@
       v-loading="isLoading"
       style="width: 100%"
       :data="tableData"
+      empty-text="Não há dados para serem listados"
       border
     >
       <el-table-column
@@ -152,9 +159,9 @@ export default {
     }
   },
   mounted() {
-    this.fetchSpecialties()
-    this.fetchIndustries()
-    this.fetchDiseases()
+    this.fetchSpecialties(50)
+    this.fetchIndustries(50)
+    this.fetchDiseases(50)
     this.fetchConsultantDoctors()
     this.fetchContracts()
 
