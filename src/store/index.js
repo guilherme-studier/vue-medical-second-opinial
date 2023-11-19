@@ -17,6 +17,7 @@ import home from '@/features/home/stores/index'
 import industry from '@/features/industryRegistration/store/index'
 import industryRepresentantMan from '@/features/industryRepresentantMan/store/index'
 import login from '@/features/login/store/index'
+import clientDoctor from '@/features/loginClientDoctor/stores/index'
 import registration from '@/features/registration/store/index'
 import registrationClinicalCases from '@/features/registrationClinicalCases/store/index'
 import representativeRegistration from '@/features/representativeRegistration/store/index'
@@ -66,6 +67,7 @@ const store = createStore({
     disease,
     industry,
     specialty,
+    clientDoctor,
     registration,
     admClinicalCases,
     activeClinicalCases,
