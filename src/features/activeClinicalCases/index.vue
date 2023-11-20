@@ -1211,7 +1211,7 @@ export default {
 
     isEdit() {
       if (this.isConsultant === 'consultant_doctor') return false
-      if (this.getVoucherInfos?.status === 'ativ') return false
+      if (this.getVoucherInfos?.status !== 'aloc') return false
       return true
     }
   },
