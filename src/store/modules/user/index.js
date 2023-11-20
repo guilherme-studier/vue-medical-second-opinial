@@ -32,7 +32,8 @@ export default {
       // eslint-disable-next-line camelcase
       corporate_name: null,
       category: null,
-      specialty: null
+      specialty: null,
+      industryId: null
     },
     loading: false
   }),
@@ -110,6 +111,7 @@ export default {
     getCategory: (state) => state.userData.category,
     getSpecialty: (state) => state.userData.specialty,
     getLoadingUser: (state) => state.loading,
+    getIndustry: (state) => state.userData.industryId,
     isRegistred: (state) => {
       const requiredProperties = ['email', 'name', 'phone', 'cpf']
 

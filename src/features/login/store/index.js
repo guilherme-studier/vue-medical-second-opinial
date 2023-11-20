@@ -32,7 +32,7 @@ export default {
       },
       {
         id: 4,
-        name: 'Patrocinador',
+        name: 'Representante da Indústria',
         background: 'background-sponsor'
       }
     ],

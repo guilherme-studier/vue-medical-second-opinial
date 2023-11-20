@@ -19,8 +19,9 @@ export default {
     specialties: [],
     loading: false,
     error: false,
-    currentPage: null,
-    totalPages: null
+    totalPages: null,
+    totalContent: null,
+    page: 1
   }),
   mutations: {
     setSpecialties(state, specialties) {
@@ -32,21 +33,24 @@ export default {
     setError(state, value) {
       state.error = value
     },
-    setCurrentPage(state, currentPage) {
-      state.currentPage = currentPage
-    },
     setTotalPages(state, totalPages) {
       state.totalPages = totalPages
+    },
+    setTotalContent(state, totalContent) {
+      state.totalContent = totalContent
+    },
+    setPage(state, page) {
+      state.page = page
     }
   },
   actions: {
-    fetchSpecialties({ commit, state }) {
+    fetchSpecialties({ commit, state }, size = 10) {
       commit('setLoading', true)
-      getSpecialties(state.currentPage ?? 1)
+      getSpecialties(state.page, size)
         .then((response) => {
           commit('setSpecialties', response.data.content)
-          commit('setCurrentPage', parseInt(response.data.page))
-          commit('setTotalPages', parseInt(response.data.totalPages))
+          commit('setTotalPages', response.data.totalPages)
+          commit('setTotalContent', response.data.totalContent)
         })
         .catch((error) => {
           commit('setError', true)
@@ -55,6 +59,9 @@ export default {
         .finally(() => {
           commit('setLoading', false)
         })
+    },
+    updatePage({ commit }, page) {
+      commit('setPage', page)
     },
     createNewSpecialty({ commit, dispatch }, specialtyName) {
       commit('setLoading', true)
@@ -135,7 +142,8 @@ export default {
     getSpecialties: (state) => state.specialties,
     getLoadingSpecialtys: (state) => state.loading,
     getErrorSpecialtys: (state) => state.error,
-    getCurrentPage: (state) => state.currentPage,
-    getTotalPages: (state) => state.totalPages
+    getTotalPages: (state) => state.totalPages,
+    getTotalContent: (state) => state.totalContent,
+    getPage: (state) => state.page
   }
 }

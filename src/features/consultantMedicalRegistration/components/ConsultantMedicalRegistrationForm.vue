@@ -31,6 +31,7 @@
                   v-model="name"
                   placeholder="Nome"
                   class="flexible-input"
+                  :disabled="!isRegistrationForm"
                   type="text"
                 />
               </input-wrapper>
@@ -41,6 +42,7 @@
                   v-model="email"
                   placeholder="E-mail"
                   class="flexible-input"
+                  disabled
                   type="email"
                 />
               </input-wrapper>
@@ -229,6 +231,8 @@
               <el-select
                 v-model="specialty"
                 placeholder="Selecione uma especialidade"
+                no-match-text="Nenhuma especialidade encontrada"
+                filterable
                 size="large"
                 clearable
               >
@@ -347,6 +351,10 @@ export default {
     ...mapGetters('specialty', ['getSpecialties']),
 
     isSaveDisabled() {
+      const isCnpjEmpty = !this.cnpj || this.cnpj.trim() === ''
+      const isCorporateNameEmpty =
+        !this.corporateName || this.corporateName.trim() === ''
+
       return (
         !this.termsAgreed ||
         !this.complement ||
@@ -362,11 +370,10 @@ export default {
         !this.ufCrm ||
         !this.state ||
         !this.cep ||
-        !this.cnpj ||
-        !this.corporateName
+        (isCnpjEmpty && !isCorporateNameEmpty) ||
+        (!isCnpjEmpty && isCorporateNameEmpty)
       )
     },
-
     isNewPassword() {
       return !this.password
     }
@@ -378,7 +385,7 @@ export default {
     this.getUser()
   },
   mounted() {
-    this.fetchSpecialties()
+    this.fetchSpecialties(50)
     this.isRegistration()
   },
   methods: {
@@ -456,6 +463,9 @@ export default {
       } else {
         this.isRegistrationForm = true
         this.termsAgreed = false
+        this.cpf = this.getCpf ?? null
+        this.name = this.getName ?? null
+        this.email = this.getEmail ?? null
       }
     }
   }

@@ -20,8 +20,14 @@
     display: flex;
     height: auto;
     width: 33%;
-  }
 
+  }
+  
+  button {
+    h3 {
+      padding: 10px 30px;
+    }
+  }
   .btn-back {
     position: absolute;
     max-height: 100px;

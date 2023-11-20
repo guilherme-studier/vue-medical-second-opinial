@@ -34,6 +34,8 @@
           <el-select
             v-model="contract"
             placeholder="Casos Clínicos"
+            no-match-text="Nenhuma caso clínico encontrado"
+            filterable
             size="large"
             clearable
           >

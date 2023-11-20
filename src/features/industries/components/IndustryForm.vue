@@ -80,17 +80,10 @@
     </div>
 
     <div class="industries--row">
-      <!-- TÍTULO -->
       <div class="title">
         <img :src="icon" />
         <h1>Listagem</h1>
       </div>
-
-      <!-- CAMPO DE BUSCA -->
-      <!-- <div class="search">
-        <input type="text" v-model="searchTerm" placeholder="Buscar" />
-        <img class="search-icon" :src="iconSearch" alt="" />
-      </div> -->
     </div>
 
     <!-- TABELA -->
@@ -98,6 +91,7 @@
       :data="tableData"
       :height="450"
       style="width: 100%"
+      empty-text="Não há dados para serem listados"
       border
       v-loading="isLoading"
     >
@@ -121,14 +115,14 @@
         </template>
       </el-table-column>
     </el-table>
-    <!-- <div class="pagination">
+    <div class="pagination">
       <el-pagination
         layout="prev, pager, next"
         :total="getTotalContent"
         :current-page="getPage"
         @current-change="handlePageChange"
       />
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -218,7 +212,9 @@ export default {
       },
       deep: true
     },
-    getPage: 'fetchIndustries'
+    getPage() {
+      this.fetchIndustries()
+    }
   },
   methods: {
     ...mapActions('industry', [

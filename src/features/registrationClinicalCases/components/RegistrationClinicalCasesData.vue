@@ -7,6 +7,8 @@
           <el-select
             v-model="industry"
             placeholder="Indústrias"
+            no-match-text="Nenhuma indústria encontrada"
+            filterable
             size="large"
             clearable
           >
@@ -22,6 +24,8 @@
           <el-select
             v-model="disease"
             placeholder="Doenças"
+            no-match-text="Nenhuma doença encontrada"
+            filterable
             size="large"
             clearable
           >
@@ -37,6 +41,8 @@
           <el-select
             v-model="specialty"
             placeholder="Especialidades"
+            no-match-text="Nenhuma especialidade encontrada"
+            filterable
             size="large"
             clearable
           >
@@ -184,9 +190,9 @@ export default {
     }
   },
   mounted() {
-    this.fetchSpecialties()
-    this.fetchIndustries()
-    this.fetchDiseases()
+    this.fetchSpecialties(50)
+    this.fetchIndustries(50)
+    this.fetchDiseases(50)
   },
   methods: {
     ...mapActions('registrationClinicalCases', ['createClinicalCase']),

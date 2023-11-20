@@ -10,10 +10,12 @@
           v-model="selectedIndustry"
           placeholder="Indústrias"
           size="large"
+          no-match-text="Nenhuma indústria encontrada"
+          filterable
           clearable
         >
           <el-option
-            v-for="item in getIndustries"
+            v-for="item in industriesOptions"
             :key="item.id"
             :label="item.name"
             :value="item.id"
@@ -25,10 +27,12 @@
           v-model="selectedSpecialty"
           placeholder="Especialidade"
           size="large"
+          no-match-text="Nenhuma especialidade encontrada"
+          filterable
           clearable
         >
           <el-option
-            v-for="item in getSpecialties"
+            v-for="item in specialtiesOptions"
             :key="item.id"
             :label="item.name"
             :value="item.id"
@@ -39,11 +43,13 @@
         <el-select
           v-model="selectedIllness"
           placeholder="Doença"
+          no-match-text="Nenhuma doença encontrada"
+          filterable
           size="large"
           clearable
         >
           <el-option
-            v-for="item in getDiseases"
+            v-for="item in diseasesOptions"
             :key="item.id"
             :label="item.name"
             :value="item.id"
@@ -71,6 +77,7 @@
       v-loading="isLoading"
       style="width: 100%"
       :data="tableData"
+      empty-text="Não há dados para serem listados"
       border
     >
       <el-table-column
@@ -152,9 +159,9 @@ export default {
     }
   },
   mounted() {
-    this.fetchSpecialties()
-    this.fetchIndustries()
-    this.fetchDiseases()
+    this.fetchSpecialties(50)
+    this.fetchIndustries(50)
+    this.fetchDiseases(50)
     this.fetchConsultantDoctors()
     this.fetchContracts()
 
@@ -179,6 +186,19 @@ export default {
     ...mapGetters('specialty', ['getSpecialties', 'getLoadingSpecialtys']),
     ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
     ...mapGetters('disease', ['getDiseases', 'getLoadingDiseases']),
+
+    specialtiesOptions() {
+      // Adicione a opção "Todos" no início da array
+      return [{ id: '', name: 'Todas' }, ...this.getSpecialties]
+    },
+
+    industriesOptions() {
+      return [{ id: '', name: 'Todas' }, ...this.getIndustries]
+    },
+
+    diseasesOptions() {
+      return [{ id: '', name: 'Todas' }, ...this.getDiseases]
+    },
 
     clinicalCases() {
       return this.getContracts.length

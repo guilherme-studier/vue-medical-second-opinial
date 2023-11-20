@@ -33,27 +33,17 @@
     </div>
 
     <div class="specialties--row">
-      <!-- TÍTULO -->
       <div class="title">
         <img :src="icon" />
         <h1>Listagem</h1>
       </div>
-
-      <!-- CAMPO DE BUSCA
-      <div class="search">
-        <el-input
-          v-model="searchTerm"
-          placeholder="Buscar"
-          prefix-icon="el-icon-search"
-        />
-      </div> -->
     </div>
 
-    <!-- TABELA -->
     <el-table
       :data="tableData"
       :height="450"
       style="width: 100%"
+      empty-text="Não há dados para serem listados"
       border
       v-loading="isLoading"
     >
@@ -77,6 +67,14 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination">
+      <el-pagination
+        layout="prev, pager, next"
+        :total="getTotalContent"
+        :current-page="getPage"
+        @current-change="handlePageChange"
+      />
+    </div>
   </div>
 </template>
 
@@ -114,7 +112,9 @@ export default {
       specialtyId: null,
       specialtyName: null,
 
-      tableData: []
+      tableData: [],
+      currentPage: 1,
+      pageSize: 10
     }
   },
 
@@ -124,7 +124,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters('specialty', ['getSpecialties', 'getLoadingSpecialtys']),
+    ...mapGetters('specialty', [
+      'getSpecialties',
+      'getLoadingSpecialtys',
+      'getTotalPages',
+      'getTotalContent',
+      'getPage'
+    ]),
 
     isLoading() {
       return this.getLoadingSpecialtys
@@ -139,6 +145,9 @@ export default {
         }))
       },
       deep: true
+    },
+    getPage() {
+      this.fetchSpecialties()
     }
   },
   methods: {
@@ -146,7 +155,8 @@ export default {
       'deleteSpecialtyById',
       'createNewSpecialty',
       'updateSpecialtyById',
-      'fetchSpecialties'
+      'fetchSpecialties',
+      'updatePage'
     ]),
 
     /** Criar especialidade */
@@ -202,6 +212,9 @@ export default {
         top: 0,
         behavior: 'smooth'
       })
+    },
+    handlePageChange(newPage) {
+      this.updatePage(newPage)
     }
   }
 }
