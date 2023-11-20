@@ -7,7 +7,7 @@
       <textarea
         class="seem-text"
         v-model="seemText"
-        placeholder="Escrever paracer..."
+        placeholder="Escrever parecer..."
         :disabled="edit"
       />
     </div>
