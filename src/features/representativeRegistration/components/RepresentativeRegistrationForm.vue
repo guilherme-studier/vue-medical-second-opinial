@@ -38,6 +38,7 @@
             v-model="email"
             placeholder="E-mail"
             class="flexible-input"
+            :disabled="!isRegistrationForm"
             type="text"
           />
         </InputWrapper>
@@ -156,7 +157,6 @@ export default {
       this.newPassword = null
     },
     isRegistration() {
-      // caso se tratar de um formulário de atualização de cadastro, os campos serão auto preenchidos
       if (this.isRegistred) {
         this.isRegistrationForm = false
         this.email = this.getEmail
@@ -165,14 +165,12 @@ export default {
         this.phone = this.getPhone
       } else {
         this.isRegistrationForm = true
+        this.email = this.getEmail ?? null
+        this.cpf = this.getCpf ?? null
+        this.name = this.getName ?? null
+        this.phone = this.getPhone ?? null
       }
     }
-    // clearForm() {
-    //   this.newPassword = null
-    //   this.phone = null
-    //   this.email = null
-    //   this.name = null
-    // }
   }
 }
 </script>

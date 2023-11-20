@@ -33,6 +33,7 @@
               v-model="name"
               placeholder="Nome"
               class="flexible-input"
+              :disabled="!isRegistrationForm"
               type="text"
             />
           </input-wrapper>
@@ -43,6 +44,7 @@
               v-model="email"
               placeholder="E-mail"
               class="flexible-input"
+              disabled
               type="email"
             />
           </input-wrapper>
@@ -209,7 +211,6 @@ export default {
         !this.phone ||
         !this.cpf ||
         !this.name ||
-        !this.crm ||
         !this.uf ||
         !this.termsAgreed
       )

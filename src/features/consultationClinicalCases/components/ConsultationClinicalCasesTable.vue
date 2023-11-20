@@ -15,7 +15,7 @@
           clearable
         >
           <el-option
-            v-for="item in getIndustries"
+            v-for="item in industriesOptions"
             :key="item.id"
             :label="item.name"
             :value="item.id"
@@ -32,7 +32,7 @@
           clearable
         >
           <el-option
-            v-for="item in getSpecialties"
+            v-for="item in specialtiesOptions"
             :key="item.id"
             :label="item.name"
             :value="item.id"
@@ -49,7 +49,7 @@
           clearable
         >
           <el-option
-            v-for="item in getDiseases"
+            v-for="item in diseasesOptions"
             :key="item.id"
             :label="item.name"
             :value="item.id"
@@ -186,6 +186,19 @@ export default {
     ...mapGetters('specialty', ['getSpecialties', 'getLoadingSpecialtys']),
     ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
     ...mapGetters('disease', ['getDiseases', 'getLoadingDiseases']),
+
+    specialtiesOptions() {
+      // Adicione a opção "Todos" no início da array
+      return [{ id: '', name: 'Todas' }, ...this.getSpecialties]
+    },
+
+    industriesOptions() {
+      return [{ id: '', name: 'Todas' }, ...this.getIndustries]
+    },
+
+    diseasesOptions() {
+      return [{ id: '', name: 'Todas' }, ...this.getDiseases]
+    },
 
     clinicalCases() {
       return this.getContracts.length

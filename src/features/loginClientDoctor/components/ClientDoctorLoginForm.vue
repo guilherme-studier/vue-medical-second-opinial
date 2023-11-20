@@ -62,6 +62,7 @@
             type="primary"
             :disabled="!isLoginEnabled"
             @click="handleButtonClick"
+            class="login-button"
             >{{ 'Entrar' }}</el-button
           >
         </div>
@@ -140,8 +141,8 @@ export default {
     }
 
     p {
-      font-size: 21px;
-      line-height: 24px;
+      font-size: 18px;
+      line-height: 20px;
       margin-bottom: 15px;
     }
   }
@@ -154,6 +155,11 @@ export default {
     .form-group {
       margin-bottom: 5px;
     }
+  }
+  .login-button {
+    width: 150px;
+    align-self: flex-end;
+    margin-top: 10px;
   }
 }
 </style>

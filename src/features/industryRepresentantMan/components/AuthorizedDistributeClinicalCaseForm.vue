@@ -99,7 +99,7 @@ export default {
   },
   data() {
     return {
-      titleCpf: 'CPFs autorizados',
+      titleCpf: 'Nomes autorizados',
       iconDoctor: iconVoucher,
       iconPlus: require('@/assets/icons/icon-plus.svg'),
       toggleIcon: faCirclePlus,
