@@ -8,10 +8,10 @@
         class="seem-text"
         v-model="seemText"
         placeholder="Escrever paracer..."
-        :disabled="!edit"
+        :disabled="edit"
       />
     </div>
-    <div v-if="edit" class="seem-send">
+    <div v-if="!edit" class="seem-send">
       <el-button
         class="seem-btn"
         type="primary"
