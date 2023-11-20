@@ -20,7 +20,7 @@
           v-model="messageText"
           placeholder="Escreva mensagem..."
           type="textarea"
-          :disabled="!edit"
+          :disabled="edit"
         />
       </div>
     </div>
@@ -29,7 +29,7 @@
         type="primary"
         class="message-btn"
         @click="sendMessage"
-        :disabled="!enabledSendMessage || !edit"
+        :disabled="!enabledSendMessage || edit"
       >
         Enviar
       </el-button>

@@ -1179,6 +1179,16 @@ export default {
     ...mapGetters('clinicalCasesEvaluation', ['getVoucher']),
     ...mapGetters('activeClinicalCases', ['getLoading', 'getVoucherInfos']),
 
+    isConsultant() {
+      // Recuperar o tipo do localStorage
+      const type = localStorage.getItem('user')
+        ? JSON.parse(localStorage.getItem('user')).type
+        : null
+
+      // Retornar o tipo, ou uma string padrão se não estiver definido
+      return type || 'Tipo não definido'
+    },
+
     isOtherComorbiditiesDisabled() {
       return !this.comorbidities?.includes(11)
     },
@@ -1200,6 +1210,7 @@ export default {
     },
 
     isEdit() {
+      if (this.isConsultant === 'consultant_doctor') return false
       if (this.getVoucherInfos?.status === 'ativ') return false
       return true
     }
