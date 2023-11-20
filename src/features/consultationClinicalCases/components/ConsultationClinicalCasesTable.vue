@@ -76,6 +76,7 @@
       class="consultation-table"
       v-loading="isLoading"
       style="width: 100%"
+      :height="450"
       :data="tableData"
       empty-text="Não há dados para serem listados"
       border
