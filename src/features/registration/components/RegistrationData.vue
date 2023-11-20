@@ -290,6 +290,8 @@ export default {
       } else {
         this.isRegistrationForm = true
         this.termsAgreed = false
+        this.name = this.getName ?? null
+        this.email = this.getEmail ?? null
       }
     }
   }
