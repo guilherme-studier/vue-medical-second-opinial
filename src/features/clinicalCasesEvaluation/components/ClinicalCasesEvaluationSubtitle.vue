@@ -35,12 +35,12 @@ export default {
         {
           icon: faFile,
           text:
-            'O parecer estará disponível para consulta e/ou impressão quando o médico consultor finalizar a avaliação do caso clínico. O status mudará automaticamente para "avaliado"'
+            'O parecer estará disponível para consulta e/ou impressão quando o médico consultor finalizar a avaliação do caso clínico. O status mudará automaticamente para "avaliado".'
         },
         {
           icon: faComment,
           text:
-            'O sistema de mensagens finará habilitado para interação após ativação pelo médico consultor, caso haja dúvidas fundamentais que precisem ser respondidas para conclusão do parecer'
+            'O sistema de mensagens finará habilitado para interação após ativação pelo médico consultor, caso haja dúvidas fundamentais que precisem ser respondidas para conclusão do parecer.'
         }
       ]
     }

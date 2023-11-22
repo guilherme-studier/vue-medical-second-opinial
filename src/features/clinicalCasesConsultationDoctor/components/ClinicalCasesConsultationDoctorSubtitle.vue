@@ -8,7 +8,6 @@
 
 <script>
 import {
-  faSquareCheck,
   faFile,
   faComment,
   faBookOpenReader
@@ -25,22 +24,16 @@ export default {
     return {
       susbtitleClinicalCases: [
         {
-          icon: faSquareCheck,
-          text: 'Para ativar seu caso clínico, por favor clique no botão acima.'
-        },
-        {
           icon: faBookOpenReader,
           text: 'Consultar caso clínico.'
         },
         {
           icon: faFile,
-          text:
-            'O parecer estará disponível para consulta e/ou impressão quando o médico consultor finalizar a avaliação do caso clínico. O status mudará automaticamente para "avaliado"'
+          text: 'Adicionar Parecer'
         },
         {
           icon: faComment,
-          text:
-            'O sistema de mensagens finará habilitado para interação após ativação pelo médico consultor, caso haja dúvidas fundamentais que precisem ser respondidas para conclusão do parecer'
+          text: 'Adicionar mensagem.'
         }
       ]
     }
