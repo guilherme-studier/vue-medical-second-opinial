@@ -1211,7 +1211,11 @@ export default {
 
     isEdit() {
       if (this.isConsultant === 'consultant_doctor') return false
-      if (this.getVoucherInfos?.status !== 'aloc') return false
+      if (
+        this.getVoucherInfos.length !== 0 &&
+        this.getVoucherInfos?.status !== 'aloc'
+      )
+        return false
       return true
     }
   },
