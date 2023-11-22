@@ -83,10 +83,16 @@ export default {
           commit('setLoading', false)
         })
     },
-    async fetchIndustryRepresentants({ commit, state }) {
+    async fetchIndustryRepresentants({ commit, state }, industry) {
       commit('setLoading', true)
 
-      return getIndustryRepresentants(state.page)
+      const params = {
+        page: state.page ?? 0,
+        industryId: industry ?? null,
+        size: 10
+      }
+
+      return getIndustryRepresentants({ params })
         .then((response) => {
           commit('setIndustryRepresentants', response.data.content)
           commit('setTotalPages', response.data.totalPages)
