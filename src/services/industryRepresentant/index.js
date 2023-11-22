@@ -26,14 +26,14 @@ export const getIndustryRepresentant = (industryRepresentId) => {
  * Obter a lista de representantes da indústria.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const getIndustryRepresentants = (page = 0, size = 10) => {
+export const getIndustryRepresentants = ({ params }) => {
   return axios({
     method: 'GET',
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${getToken()}`
     },
-    url: `${USER_BASE_URL}/industry-representative?page=${page}&size=${size}`
+    url: `${USER_BASE_URL}/industry-representative?page=${params.page}&size=${params.size}&industryId=${params.industryId}`
   })
 }
 

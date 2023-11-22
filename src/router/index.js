@@ -234,9 +234,10 @@ const routes = [
     }
   },
   {
-    path: '/login-client-doctor',
+    path: '/login-client-doctor/:id',
     name: 'Médico Cliente - Login',
     component: LoginClientDoctor,
+    props: true,
     beforeEnter: (to, from, next) => {
       if (store.getters.isLoggedIn) {
         next('/login-client-doctor')
@@ -245,7 +246,6 @@ const routes = [
       }
     }
   }
-  // Outras rotas aqui
 ]
 
 const router = createRouter({

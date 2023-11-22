@@ -5,6 +5,28 @@
       <h1>Listagem</h1>
     </div>
 
+    <InputGroup>
+      <InputWrapper>
+        <el-select
+          v-model="industry"
+          placeholder="Indústria"
+          no-match-text="Nenhuma indústria encontrada"
+          filterable
+          size="large"
+          clearable
+        >
+          <el-option
+            v-for="item in getIndustries"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          />
+        </el-select>
+      </InputWrapper>
+      <InputWrapper></InputWrapper>
+      <InputWrapper></InputWrapper>
+    </InputGroup>
+
     <!-- TABELA -->
     <el-table
       :data="tableData"
@@ -55,12 +77,16 @@ import { mapGetters, mapActions } from 'vuex'
 
 // eslint-disable-next-line import/order
 import iconVoucher from '@/assets/icons/icon-voucher.svg'
+import InputGroup from '@/components/inputGroup'
+import InputWrapper from '@/components/inputWrapper'
 
 export default {
   name: 'IndustryRepresentantManForm',
 
   components: {
-    FontAwesomeIcon
+    FontAwesomeIcon,
+    InputWrapper,
+    InputGroup
   },
 
   data() {
@@ -70,16 +96,18 @@ export default {
       iconCancel: faBan,
       tableData: [],
       currentPage: 1,
-      pageSize: 10
+      pageSize: 10,
+      industry: null
     }
   },
 
   mounted() {
     this.fetchIndustryRepresentants()
+    this.fetchIndustries(50)
   },
 
   computed: {
-    ...mapGetters('industry', ['getLoadingIndustry']),
+    ...mapGetters('industry', ['getLoadingIndustry', 'getIndustries']),
     ...mapGetters('industryRepresentantMan', [
       'getIndustryRepresentant',
       'getIndustryRepresentants',
@@ -104,6 +132,9 @@ export default {
         }))
       },
       deep: true
+    },
+    industry() {
+      this.fetchIndustryRepresentants(this.industry)
     }
   },
   methods: {
@@ -113,6 +144,8 @@ export default {
       'cancelIndustryRepresentant',
       'updatePage'
     ]),
+    ...mapActions('industry', ['fetchIndustries']),
+
     scrollToTop() {
       window.scrollTo({
         top: 0,
@@ -148,5 +181,9 @@ export default {
     transform: translateY(-2px);
     transition: transform 0.2s ease;
   }
+}
+
+.input-group {
+  padding: 10px 0;
 }
 </style>

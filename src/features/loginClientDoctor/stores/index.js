@@ -26,9 +26,9 @@ export default {
     }
   },
   actions: {
-    activeClientDoctor({ commit }, { username, password }) {
+    activeClientDoctor({ commit }, params) {
       commit('setLoading', true)
-      putActiveClientDoctor({ email: username, password })
+      putActiveClientDoctor({ params })
         .then((response) => {
           const userData = {
             id: response.data.id,
@@ -48,7 +48,7 @@ export default {
           router.push('/')
         })
         .catch((error) => {
-          const errorMessage = error.response
+          const errorMessage = error?.response
             ? formatErrors(error.response.data.message)
             : 'Erro desconhecido'
 

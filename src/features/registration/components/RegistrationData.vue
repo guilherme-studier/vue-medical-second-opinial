@@ -66,7 +66,6 @@
                   v-model="crm"
                   placeholder="CRM"
                   class="flexible-input"
-                  v-mask="'####-###'"
                   type="text"
                 />
               </input-wrapper>
@@ -253,31 +252,18 @@ export default {
       }
 
       if (this.isRegistrationForm) {
-        // Se não se tratar de um registro, não quero enviar cpf
         userData.cpf = this.cpf
       }
 
       await this.updateClientDoctor(userData)
       await this.getUser()
       this.isRegistration()
-      // this.clearForm()
 
       this.password = null
       this.newPassword = null
     },
-    // clearForm() {
-    //   this.termsAgreed = false
-    //   this.newPassword = null
-    //   this.number = null
-    //   this.phone = null
-    //   this.email = null
-    //   this.name = null
-    //   this.crm = null
-    //   this.uf = null
-    // },
 
     isRegistration() {
-      // caso se tratar de um formulário de atualização de cadastro, os campos serão auto preenchidos
       if (this.isRegistred) {
         this.isRegistrationForm = false
         this.termsAgreed = true
@@ -290,6 +276,7 @@ export default {
       } else {
         this.isRegistrationForm = true
         this.termsAgreed = false
+        this.cpf = this.getCpf ?? null
         this.name = this.getName ?? null
         this.email = this.getEmail ?? null
       }

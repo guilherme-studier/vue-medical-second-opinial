@@ -2,14 +2,14 @@ import axios from 'axios'
 
 const BASE_URL = 'https://meso.poatech.com.br:450/user/api'
 
-export const putActiveClientDoctor = ({ email, password }) => {
+export const putActiveClientDoctor = ({ params }) => {
   return axios({
-    method: 'POST',
+    method: 'PUT',
     //headers: { 'content-type': 'multipart/form-data' },
-    url: `${BASE_URL}/client-doctor-activation`,
+    url: `${BASE_URL}/client-doctor-activation/${params.activeToken}`,
     data: {
-      email,
-      password
+      email: params.email,
+      password: params.password
     }
   })
 }
