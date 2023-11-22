@@ -64,7 +64,6 @@
                       v-model="crm"
                       placeholder="CRM"
                       class="flexible-input"
-                      v-mask="'####-###'"
                       type="text"
                     />
                   </input-wrapper>
@@ -95,6 +94,7 @@
                   placeholder="CEP"
                   class="flexible-input"
                   type="text"
+                  v-mask="'#####-###'"
                 />
               </input-wrapper>
               <input-wrapper>
@@ -366,8 +366,6 @@ export default {
         !this.name ||
         !this.city ||
         !this.cpf ||
-        !this.crm ||
-        !this.ufCrm ||
         !this.state ||
         !this.cep ||
         (isCnpjEmpty && !isCorporateNameEmpty) ||

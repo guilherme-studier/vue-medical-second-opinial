@@ -66,7 +66,6 @@
                   v-model="crm"
                   placeholder="CRM"
                   class="flexible-input"
-                  v-mask="'####-###'"
                   type="text"
                 />
               </input-wrapper>
