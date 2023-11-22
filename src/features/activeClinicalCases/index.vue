@@ -866,7 +866,7 @@ export default {
       file: null, // Aqui é onde você armazenará o arquivo
       error: null,
       isModalDashedErroVisible: false,
-      titleComorbidities: 'Em relação à potenciais comorbidades',
+      titleComorbidities: 'Em relação a potenciais comorbidades',
       comorbidities: null,
       comorbiditiesOptions: [
         {
