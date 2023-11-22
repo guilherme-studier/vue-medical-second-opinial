@@ -33,7 +33,9 @@ export const getIndustryRepresentants = ({ params }) => {
       'content-type': 'application/json',
       Authorization: `Bearer ${getToken()}`
     },
-    url: `${USER_BASE_URL}/industry-representative?page=${params.page}&size=${params.size}&industryId=${params.industryId}`
+    url: `${USER_BASE_URL}/industry-representative?page=${params.page}&size=${
+      params.size
+    }&industryId=${params.industryId ?? ''}`
   })
 }
 
