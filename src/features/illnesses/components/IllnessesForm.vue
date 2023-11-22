@@ -139,7 +139,9 @@ export default {
     }
   },
   watch: {
-    getPage: 'fetchDiseases',
+    getPage() {
+      this.fetchDiseases()
+    },
     getDiseases: {
       handler(diseases) {
         this.tableData = diseases?.map((disease) => ({
