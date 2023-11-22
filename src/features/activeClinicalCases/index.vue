@@ -796,7 +796,7 @@
       <el-button class="save" type="primary" @click="handleSave"
         >Salvar</el-button
       >
-      <el-button class="send" type="info" @click="handleActiveVoucher"
+      <el-button class="send" type="primary" @click="handleActiveVoucher"
         >Submeter para avaliação</el-button
       >
     </div>
