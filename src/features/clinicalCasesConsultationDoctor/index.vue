@@ -4,6 +4,7 @@
     :class="{ 'form-loading': getLoadingClinicalCases }"
   >
     <clinical-cases-consultation-doctor-table />
+    <clinical-cases-consultation-doctor-subtitle />
   </div>
 </template>
 
@@ -11,11 +12,13 @@
 import { mapGetters } from 'vuex'
 
 import ClinicalCasesConsultationDoctorTable from './components/ClinicalCasesConsultationDoctor.vue'
+import ClinicalCasesConsultationDoctorSubtitle from './components/ClinicalCasesConsultationDoctorSubtitle.vue'
 
 export default {
   name: 'ClinicalCasesConsultationDoctor',
   components: {
-    ClinicalCasesConsultationDoctorTable
+    ClinicalCasesConsultationDoctorTable,
+    ClinicalCasesConsultationDoctorSubtitle
   },
   computed: {
     ...mapGetters('clinicalCasesConsultationDoctor', [

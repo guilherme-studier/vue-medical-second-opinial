@@ -34,10 +34,10 @@
         <div class="form-input">
           <div class="form-group">
             <el-input
-              v-model="username"
+              v-model="email"
               type="text"
-              id="username"
-              name="username"
+              id="email"
+              name="email"
               placeholder="Email"
             >
               <template #prepend>
@@ -84,21 +84,27 @@ export default {
       banner: loginClientDoctorBanner,
       iconUser: UserFilled,
       iconLock: Lock,
-      username: null,
-      password: null
+      email: null,
+      password: null,
+      idFromUrl: null
     }
   },
+  props: ['id'],
   computed: {
     isLoginEnabled() {
-      return this.username?.trim() !== '' && this.password?.trim() !== ''
+      return this.email?.trim() !== '' && this.password?.trim() !== ''
     }
+  },
+  created() {
+    this.idFromUrl = this.$route.params.id
   },
   methods: {
     ...mapActions('clientDoctor', ['activeClientDoctor']),
 
     async handleButtonClick() {
       this.activeClientDoctor({
-        username: this.username,
+        activeToken: this.idFromUrl,
+        email: this.email,
         password: this.password
       })
     }
