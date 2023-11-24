@@ -477,10 +477,19 @@
       <input-group>
         <input-wrapper>
           <form @submit.prevent="submit" enctype="multipart/form-data">
-            <input id="file" type="file" ref="fileInput" @change="handleFile" />
+            <input
+              id="actionsNewAsset"
+              ref="file"
+              type="file"
+              name="file"
+              class="att__search-input"
+              accept="image/png, image/gif, image/jpg, image/jpeg, .pdf"
+              @change="handleFile"
+            />
             <button type="submit">Enviar Arquivo</button>
           </form>
         </input-wrapper>
+        <img :src="selectedFile" />
       </input-group>
       <div class="content-title">
         <h1 class="title">Outras informações</h1>
@@ -806,6 +815,8 @@
 <script>
 import axios from 'axios'
 import { mapGetters, mapActions } from 'vuex'
+
+// import { postUrl } from './services/index'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
@@ -1158,7 +1169,9 @@ export default {
           id: 5,
           name: 'Indígena'
         }
-      ]
+      ],
+      selectedFile: {},
+      fileImg: null
     }
   },
   created() {
@@ -1359,26 +1372,42 @@ export default {
       this.verifyIsEdit(this.getVoucherInfos)
     },
 
-    handleFile() {
-      this.selectedFile = this.$refs.fileInput.files[0]
+    handleFile(event) {
+      this.selectedFile = event.target.files[0]
     },
 
     submit() {
-      const voucherId = this.getVoucher.voucherId
       const formData = new FormData()
-      formData.append('file', this.selectedFile)
+      formData.append('body', this.selectedFile)
 
       axios
         .post(
-          `https://meso.poatech.com.br:450/clinical-case/api/1.0/voucher/${voucherId}/document`,
-          formData
+          `https://meso.poatech.com.br:450/clinical-case/api/1.0/voucher/${this.getVoucher.id}/document`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: 'Bearer f219059fb71ea210be996f9cbfbc08dd'
+            }
+          }
         )
         .then((response) => {
-          console.log(response.data)
+          console.log('Resposta do servidor:', response)
         })
         .catch((error) => {
-          console.error(error)
+          console.error('Erro ao enviar imagem:', error)
         })
+
+      // postUrl(this.selectedFile, this.getVoucher.id)
+      //   .then((response) => {
+      //     console.log(response)
+      //   })
+      //   .catch(() => {
+      //     console.log('erro')
+      //   })
+      //   .finally(() => {
+      //     console.log('fim')
+      //   })
     },
 
     verifyIsEdit(getVoucherInfos) {

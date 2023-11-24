@@ -117,6 +117,7 @@
     </el-table>
     <div class="pagination">
       <el-pagination
+        v-if="getTotalPages > 1"
         layout="prev, pager, next"
         :total="getTotalContent"
         :current-page="getPage"

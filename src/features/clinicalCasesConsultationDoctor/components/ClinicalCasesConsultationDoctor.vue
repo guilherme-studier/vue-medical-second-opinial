@@ -55,6 +55,9 @@
               ><font-awesome-icon
                 :icon="iconReader"
                 @click="handleCheck(scope.row)"
+                :class="{
+                  'filed-null': scope.row.questionnaire !== null
+                }"
             /></el-tooltip>
             <el-tooltip
               class="box-item"
@@ -76,7 +79,7 @@
               effect="light"
               :content="
                 scope.row?.status === 'Em avaliação'
-                  ? 'Incluir mensagem'
+                  ? 'Enviar mensagem'
                   : 'Consultar mensagens'
               "
               placement="top-start"
@@ -92,6 +95,7 @@
     </el-table>
     <div class="pagination">
       <el-pagination
+        v-if="getTotalPages > 1"
         layout="prev, pager, next"
         :total="getTotalContent"
         :current-page="getPage"
@@ -236,7 +240,7 @@ export default {
     handleComment(row, edit) {
       this.selectedContract = {
         id: row?.id,
-        voucher: row?.voucherId,
+        voucher: row?.id,
         edit: edit
       }
       this.handleModalMessage(this.selectedContract?.id)
