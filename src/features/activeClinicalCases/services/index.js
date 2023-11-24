@@ -25,6 +25,24 @@ export const saveVoucher = (questionnaire, voucherId) => {
 }
 
 /**
+ * Upload de arquivos
+ * Endpoint realizar o upload de um documento para o voucher do contrato clínico
+ */
+export const postUrl = (body, voucherId) => {
+  console.log('Content-Type multipart/form-data')
+  console.log(body)
+  return axios({
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${getToken()}`
+    },
+    url: `${USER_BASE_URL}/voucher/${voucherId}/document`,
+    data: { body }
+  })
+}
+
+/**
  * Ativar Voucher
  * Endpoint para editar um caso clínico/voucher
  */

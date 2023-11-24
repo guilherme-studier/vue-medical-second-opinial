@@ -4,7 +4,7 @@
       <img class="icon-voucher" :src="icon" />
       <div :class="{ 'not-user': !isDoctorCon }">
         <div class="message-sender">
-          <h2>{{ message.name }}</h2>
+          <h2>Dr. {{ message.name }}</h2>
         </div>
         <div class="message-date">
           <p>{{ message.createdAtFormatted }}</p>

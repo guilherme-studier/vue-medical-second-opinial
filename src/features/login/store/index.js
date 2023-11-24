@@ -141,7 +141,7 @@ export default {
     },
 
     resetPassword({ commit }, email) {
-      reset({ email })
+      reset(email)
         .then((response) => {
           toast.success('E-mail de reset de senha enviado com sucesso', {
             timeout: 5000
