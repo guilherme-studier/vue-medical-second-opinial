@@ -55,9 +55,6 @@
               ><font-awesome-icon
                 :icon="iconReader"
                 @click="handleCheck(scope.row)"
-                :class="{
-                  'filed-null': scope.row.questionnaire !== null
-                }"
             /></el-tooltip>
             <el-tooltip
               class="box-item"
