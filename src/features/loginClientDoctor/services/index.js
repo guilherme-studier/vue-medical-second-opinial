@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = 'https://meso.poatech.com.br:450/user/api'
+const BASE_URL = 'https://meso.poatech.com.br:450/user/api/1.0'
 
 export const putActiveClientDoctor = ({ params }) => {
   return axios({

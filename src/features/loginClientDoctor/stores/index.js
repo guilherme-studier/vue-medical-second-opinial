@@ -4,7 +4,6 @@ import { useToast } from 'vue-toastification'
 import { putActiveClientDoctor } from '../services/index'
 
 import * as h from '@/helpers/auth'
-import { formatErrors } from '@/helpers/errors'
 import router from '@/router'
 
 const toast = useToast()
@@ -29,30 +28,17 @@ export default {
     activeClientDoctor({ commit }, params) {
       commit('setLoading', true)
       putActiveClientDoctor({ params })
-        .then((response) => {
-          const userData = {
-            id: response.data.id,
-            username: response.data.username,
-            firstname: response.data.firstname,
-            lastname: response.data.lastname,
-            phone: response.data.phone,
-            email: response.data.email,
-            token: response.data.token,
-            role: response.data.role
-          }
-
-          commit('setUser', userData)
-
-          localStorage.setItem('token', JSON.stringify(userData))
-
-          router.push('/')
+        .then(() => {
+          toast.success(
+            'Cadastro ativado com sucesso, realize seu primeiro login na plataforma',
+            {
+              timeout: 5000
+            }
+          )
+          router.push('/login')
         })
         .catch((error) => {
-          const errorMessage = error?.response
-            ? formatErrors(error.response.data.message)
-            : 'Erro desconhecido'
-
-          toast.warning(`Erro ao efetuar o login: ${errorMessage}`, {
+          toast.warning('Erro ao efetuar a ativação do cadastro', {
             timeout: 5000
           })
         })
