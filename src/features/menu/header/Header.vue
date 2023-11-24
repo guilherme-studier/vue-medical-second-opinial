@@ -3,6 +3,9 @@
     <img :src="banner" alt="Imagem" class="header-image" />
 
     <div class="container">
+      <h1 class="header-title">
+        {{ user }}
+      </h1>
       <h1>
         {{ title }}
       </h1>
@@ -18,6 +21,8 @@ import bannerConsultantdoctor from '../../../assets/consultant-header.png'
 import bannerClientdoctor from '../../../assets/doctor-header.png'
 import bannerAgent from '../../../assets/representant-header.png'
 
+import { formatTypeUser } from '@/helpers/typeUser'
+
 export default {
   name: 'Header',
   data() {
@@ -32,6 +37,8 @@ export default {
   },
   computed: {
     ...mapGetters(['getRole']),
+    ...mapGetters('user', ['getType']),
+
     banner() {
       const userType = this.getRole?.replace('_', '')
       return this.bannerOptions[userType] || []
@@ -39,6 +46,10 @@ export default {
 
     title() {
       return this.$route?.meta?.title
+    },
+
+    user() {
+      return formatTypeUser(this.getType)
     }
   }
 }
@@ -60,6 +71,11 @@ export default {
   }
 
   .container {
+    .header-title {
+      position: absolute;
+      top: -154px;
+      left: 31px;
+    }
     h1 {
       position: absolute;
       bottom: 35px;
