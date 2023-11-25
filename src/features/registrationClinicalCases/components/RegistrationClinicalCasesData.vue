@@ -93,21 +93,24 @@
       </InputGroup>
       <InputGroup>
         <InputWrapper>
-          <el-input
+          <el-date-picker
             v-model="startDate"
-            type="text"
+            type="date"
             placeholder="Data de Início"
-            class="flexible-input"
-            v-mask="'##/##/####'"
+            format="DD/MM/YYYY"
+            size="large"
+            @change="handleStartDateChange"
           />
         </InputWrapper>
+
         <InputWrapper>
-          <el-input
+          <el-date-picker
             v-model="expirationDate"
-            type="text"
+            type="date"
             placeholder="Data de Validade"
-            class="flexible-input"
-            v-mask="'##/##/####'"
+            format="DD/MM/YYYY"
+            size="large"
+            :disabledDate="disableExpirationDate"
           />
         </InputWrapper>
       </InputGroup>
@@ -188,6 +191,15 @@ export default {
         !this.fees
       )
     }
+
+    // expirationDateOptions() {
+    //   return {
+    //     disabledDate(time) {
+    //       // Desativa datas anteriores à startDate
+    //       return time.getTime() < this.startDate.getTime()
+    //     }
+    //   }
+    // }
   },
   mounted() {
     this.fetchSpecialties(50)
@@ -199,6 +211,16 @@ export default {
     ...mapActions('specialty', ['fetchSpecialties']),
     ...mapActions('industry', ['fetchIndustries']),
     ...mapActions('disease', ['fetchDiseases']),
+
+    disableExpirationDate(date) {
+      if (this.startDate) {
+        return date < new Date(this.startDate)
+      }
+      return false
+    },
+    handleStartDateChange() {
+      this.expirationDate = null
+    },
 
     async handleSave() {
       const userData = {

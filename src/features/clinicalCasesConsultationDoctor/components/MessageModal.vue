@@ -12,7 +12,7 @@
         />
       </div>
       <div v-else class="messages-empty">
-        Não há mensagens no momento
+        Não há mensagens no momento.
       </div>
       <div class="seem">
         <textarea
