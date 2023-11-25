@@ -167,8 +167,8 @@ export default {
       iconColor: '$green-500',
       disease: null,
       industry: null,
-      startDate: null,
-      expirationDate: null,
+      startDate: '',
+      expirationDate: '',
       fees: null,
       specialtyModalVisible: false,
       diseaseModalVisible: false
@@ -221,15 +221,29 @@ export default {
     handleStartDateChange() {
       this.expirationDate = null
     },
+    formatDateToString(date) {
+      const day = date
+        .getDate()
+        .toString()
+        .padStart(2, '0')
+      const month = (date.getMonth() + 1).toString().padStart(2, '0')
+      const year = date.getFullYear()
+
+      return `${day}/${month}/${year}`
+    },
 
     async handleSave() {
+      const formattedStartDate = this.formatDateToString(this.startDate)
+      const formattedExpirationDate = this.formatDateToString(
+        this.expirationDate
+      )
       const userData = {
         vouchersQuantity: parseInt(this.quantity),
         specialtyId: this.specialty,
         diseaseId: this.disease,
         industryId: this.industry,
-        startDate: convertDateToISOFormat(this.startDate),
-        endDate: convertDateToISOFormat(this.expirationDate),
+        startDate: convertDateToISOFormat(formattedStartDate),
+        endDate: convertDateToISOFormat(formattedExpirationDate),
         consultantDoctorFees: this.fees,
         contractName: this.name
       }

@@ -25,30 +25,13 @@ export const login = ({ email, password }) => {
  * @param {string} email - O email do usuário para o qual o reset de senha será solicitado.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const reset = (email) => {
+export const reset = ({ email }) => {
   return axios({
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     url: `${BASE_URL}/user/password`,
-    data: email
-  })
-}
-
-/**
- * Validar um token.
- * @param {string} token - O token a ser validado.
- * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
- */
-export const validateToken = (token = getToken()) => {
-  return axios({
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      Authorization: `Bearer ${getToken()}`
-    },
-    url: `${BASE_URL}/validateToken`,
     data: {
-      token
+      email: email
     }
   })
 }

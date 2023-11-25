@@ -78,6 +78,16 @@ body {
     }
   }
 
+  .el-scrollbar__wrap.el-scrollbar__wrap--hidden-default {
+    display: flex;
+  }
+
+  .el-date-picker__header {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+  }
+
   // textarea,
   // input,
   // input[type=email],
