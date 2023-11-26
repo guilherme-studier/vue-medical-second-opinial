@@ -4,8 +4,8 @@
       <div class="voucher-doctor">
         <img class="icon-voucher" :src="getIcon" />
         <h1>
-          {{ getName }} <span>possui</span> {{ getTotalContent }} casos clínicos
-          ativos
+          {{ getName }} <span>possui</span> {{ getTotalContent }} caso(s)
+          clínico(s) ativo(s)
         </h1>
       </div>
     </div>

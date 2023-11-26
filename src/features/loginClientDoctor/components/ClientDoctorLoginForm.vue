@@ -86,28 +86,33 @@ export default {
       iconLock: Lock,
       email: null,
       password: null,
-      idFromUrl: null
+      activetoken: null
     }
   },
-  props: ['id'],
   computed: {
     isLoginEnabled() {
       return this.email?.trim() !== '' && this.password?.trim() !== ''
     }
   },
-  created() {
-    this.idFromUrl = this.$route.params.id
+  watch: {
+    '$route.query.activetoken'(newValue) {
+      this.activetoken = newValue
+    }
   },
   methods: {
     ...mapActions('clientDoctor', ['activeClientDoctor']),
 
     async handleButtonClick() {
       this.activeClientDoctor({
-        activeToken: this.idFromUrl,
+        activeToken: this.activetoken,
         email: this.email,
         password: this.password
       })
     }
+  },
+  created() {
+    // Inicializar a propriedade activetoken com o valor atual da URL
+    this.activetoken = this.$route.query.activetoken
   }
 }
 </script>

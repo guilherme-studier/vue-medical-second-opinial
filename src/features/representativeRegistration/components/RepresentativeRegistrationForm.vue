@@ -7,7 +7,7 @@
             v-model="cpf"
             placeholder="CPF"
             class="flexible-input"
-            :v-mask="isRegistrationForm ? '###.###.###-##' : null"
+            v-mask="'###.###.###-##'"
             :disabled="!isRegistrationForm"
             type="text"
           />

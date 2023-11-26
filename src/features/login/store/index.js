@@ -79,7 +79,26 @@ export default {
 
             localStorage.setItem('token', JSON.stringify(userData))
 
-            router.push('/')
+            if (userData.username && userData.phone) return router.push('/')
+            else if (
+              !userData.username &&
+              !userData.phone &&
+              userData.role === 'consultant_doctor'
+            )
+              return router.push('/medical-registration')
+            else if (
+              !userData.username &&
+              !userData.phone &&
+              userData.role === 'agent'
+            )
+              return router.push('/representative-registration')
+            else if (
+              !userData.username &&
+              !userData.phone &&
+              userData.role === 'client_doctor'
+            )
+              return router.push('/registration-data')
+            else return router.push('/')
           })
           .catch((error) => {
             const errorMessage = error.response

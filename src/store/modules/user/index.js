@@ -3,6 +3,8 @@ import { useToast } from 'vue-toastification'
 
 import { getUserById, getUsers } from '../../../services/user/index'
 
+import router from '@/router'
+
 const toast = useToast()
 
 export default {
@@ -46,12 +48,16 @@ export default {
     }
   },
   actions: {
-    async getUser({ commit }, userId) {
+    async getUser({ commit, state }, userId) {
       commit('setLoading', true)
       return getUserById({ userId })
         .then((response) => {
           commit('setUserData', response.data)
           localStorage.setItem('user', JSON.stringify(response.data))
+
+          // if (!state.userData.term) {
+          //   router.push('/medical-registration')
+          // }
 
           return response.data
         })

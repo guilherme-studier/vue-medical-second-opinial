@@ -93,21 +93,24 @@
       </InputGroup>
       <InputGroup>
         <InputWrapper>
-          <el-input
+          <el-date-picker
             v-model="startDate"
-            type="text"
+            type="date"
             placeholder="Data de Início"
-            class="flexible-input"
-            v-mask="'##/##/####'"
+            format="DD/MM/YYYY"
+            size="large"
+            @change="handleStartDateChange"
           />
         </InputWrapper>
+
         <InputWrapper>
-          <el-input
+          <el-date-picker
             v-model="expirationDate"
-            type="text"
+            type="date"
             placeholder="Data de Validade"
-            class="flexible-input"
-            v-mask="'##/##/####'"
+            format="DD/MM/YYYY"
+            size="large"
+            :disabledDate="disableExpirationDate"
           />
         </InputWrapper>
       </InputGroup>
@@ -164,8 +167,8 @@ export default {
       iconColor: '$green-500',
       disease: null,
       industry: null,
-      startDate: null,
-      expirationDate: null,
+      startDate: '',
+      expirationDate: '',
       fees: null,
       specialtyModalVisible: false,
       diseaseModalVisible: false
@@ -188,6 +191,15 @@ export default {
         !this.fees
       )
     }
+
+    // expirationDateOptions() {
+    //   return {
+    //     disabledDate(time) {
+    //       // Desativa datas anteriores à startDate
+    //       return time.getTime() < this.startDate.getTime()
+    //     }
+    //   }
+    // }
   },
   mounted() {
     this.fetchSpecialties(50)
@@ -200,14 +212,38 @@ export default {
     ...mapActions('industry', ['fetchIndustries']),
     ...mapActions('disease', ['fetchDiseases']),
 
+    disableExpirationDate(date) {
+      if (this.startDate) {
+        return date < new Date(this.startDate)
+      }
+      return false
+    },
+    handleStartDateChange() {
+      this.expirationDate = null
+    },
+    formatDateToString(date) {
+      const day = date
+        .getDate()
+        .toString()
+        .padStart(2, '0')
+      const month = (date.getMonth() + 1).toString().padStart(2, '0')
+      const year = date.getFullYear()
+
+      return `${day}/${month}/${year}`
+    },
+
     async handleSave() {
+      const formattedStartDate = this.formatDateToString(this.startDate)
+      const formattedExpirationDate = this.formatDateToString(
+        this.expirationDate
+      )
       const userData = {
         vouchersQuantity: parseInt(this.quantity),
         specialtyId: this.specialty,
         diseaseId: this.disease,
         industryId: this.industry,
-        startDate: convertDateToISOFormat(this.startDate),
-        endDate: convertDateToISOFormat(this.expirationDate),
+        startDate: convertDateToISOFormat(formattedStartDate),
+        endDate: convertDateToISOFormat(formattedExpirationDate),
         consultantDoctorFees: this.fees,
         contractName: this.name
       }
