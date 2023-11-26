@@ -218,8 +218,8 @@ export default {
   watch: {
     isRegistred: 'isRegistration'
   },
-  mounted() {
-    this.getUser()
+  async mounted() {
+    await this.getUser()
     this.isRegistration()
   },
   methods: {

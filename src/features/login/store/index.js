@@ -97,7 +97,7 @@ export default {
               !userData.phone &&
               userData.role === 'client_doctor'
             )
-              return router.push('/registration-data')
+              return router.push('/registration')
             else return router.push('/')
           })
           .catch((error) => {

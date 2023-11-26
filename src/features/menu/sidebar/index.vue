@@ -101,7 +101,7 @@ export default {
     },
     handleRegisterRoute() {
       if (this.typeUser === 'consultant_doctor') return '/medical-registration'
-      else if (this.typeUser === 'client_doctor') return '/registration-data'
+      else if (this.typeUser === 'client_doctor') return '/registration'
       else if (this.typeUser === 'agent') return '/representative-registration'
       else return '/'
     },

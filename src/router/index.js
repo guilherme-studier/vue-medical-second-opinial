@@ -276,7 +276,7 @@ router.beforeEach((to, from, next) => {
 
       case 'client_doctor':
         if (!store.getters['user/isRegistred']) {
-          next('/registration-data')
+          next('/registration')
         }
         break
 
