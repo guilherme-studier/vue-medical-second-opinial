@@ -1,14 +1,13 @@
 <template>
   <div id="doctor-registration">
     <div class="form">
-      <input-group>
+      <!-- <input-group>
         <input-wrapper>
           <el-input
             v-model="cpf"
             placeholder="CPF"
             class="flexible-input"
-            type="text"
-            :v-mask="'###.###.###-##'"
+            v-mask="'###.###.###-##'"
             :disabled="!isRegistrationForm"
           />
         </input-wrapper>
@@ -20,7 +19,7 @@
             type="password"
           />
         </input-wrapper>
-      </input-group>
+      </input-group> -->
       <div>
         <div id="registration-data">
           <Title :title="titleRegistration" />
@@ -33,6 +32,15 @@
                   class="flexible-input"
                   :disabled="!isRegistrationForm"
                   type="text"
+                />
+              </input-wrapper>
+              <input-wrapper>
+                <el-input
+                  v-model="cpf"
+                  placeholder="CPF"
+                  class="flexible-input"
+                  v-mask="'###.###.###-##'"
+                  :disabled="!isRegistrationForm"
                 />
               </input-wrapper>
             </input-group>
@@ -268,6 +276,28 @@
             </input-wrapper>
           </input-group>
         </div>
+        <div id="data-payments">
+          <Title title="Troca de senha" />
+          <input-group>
+            <input-wrapper>
+              <el-input
+                v-model="password"
+                placeholder="Senha atual"
+                class="flexible-input"
+                type="password"
+              />
+            </input-wrapper>
+            <input-wrapper>
+              <el-input
+                v-model="newPassword"
+                placeholder="Nova senha"
+                class="flexible-input"
+                :disabled="isNewPassword"
+                type="password"
+              />
+            </input-wrapper>
+          </input-group>
+        </div>
         <div id="save">
           <el-button
             type="primary"
@@ -379,10 +409,8 @@ export default {
   watch: {
     isRegistred: 'isRegistration'
   },
-  async created() {
-    this.getUser()
-  },
-  mounted() {
+  async mounted() {
+    await this.getUser()
     this.fetchSpecialties(50)
     this.isRegistration()
   },
@@ -426,10 +454,7 @@ export default {
         // eslint-disable-next-line camelcase
         corporate_name: this.corporateName
       }
-      if (this.isRegistrationForm) {
-        // Se não se tratar de um registro, não quero enviar cpf
-        userData.cpf = this.cpf
-      }
+      if (this.isRegistrationForm) userData.cpf = this.cpf
 
       await this.updateConsultantMedical(userData)
       await this.getUser()
@@ -439,7 +464,6 @@ export default {
       this.newPassword = null
     },
     isRegistration() {
-      // caso se tratar de um formulário de atualização de cadastro, os campos serão auto preenchidos
       if (this.isRegistred) {
         this.isRegistrationForm = false
         this.termsAgreed = true
@@ -461,9 +485,9 @@ export default {
       } else {
         this.isRegistrationForm = true
         this.termsAgreed = false
-        this.cpf = this.getCpf ?? null
-        this.name = this.getName ?? null
-        this.email = this.getEmail ?? null
+        this.cpf = this.getCpf
+        this.name = this.getName
+        this.email = this.getEmail
       }
     }
   }
@@ -485,5 +509,10 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.content-title {
+  display: flex;
+  place-items: flex-start;
 }
 </style>

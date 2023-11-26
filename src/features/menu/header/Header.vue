@@ -29,6 +29,7 @@ export default {
     return {
       bannerOptions: {
         admin: bannerAdmin,
+        partner: bannerAdmin,
         consultantdoctor: bannerConsultantdoctor,
         clientdoctor: bannerClientdoctor,
         agent: bannerAgent

@@ -24,7 +24,7 @@ import Registration from '@/features/registration'
 import RegistrationClinicalCases from '@/features/registrationClinicalCases'
 import RepresentativeRegistration from '@/features/representativeRegistration'
 import Specialties from '@/features/specialties'
-import Tests from '@/features/test/index.vue'
+// import Tests from '@/features/test/index.vue'
 import store from '@/store'
 import Layout from '@/views/layout'
 
@@ -36,14 +36,14 @@ const routes = [
     name: '',
     component: Layout,
     children: [
-      {
-        path: '/teste-de-apis',
-        name: 'Testes',
-        component: Tests,
-        meta: {
-          title: 'Testes de apis'
-        }
-      },
+      // {
+      //   path: '/teste-de-apis',
+      //   name: 'Testes',
+      //   component: Tests,
+      //   meta: {
+      //     title: 'Testes de apis'
+      //   }
+      // },
       {
         path: '/',
         name: 'Home',
@@ -234,13 +234,17 @@ const routes = [
     }
   },
   {
-    path: '/login-client-doctor/:id',
+    path: '/login-client-doctor',
     name: 'Médico Cliente - Login',
     component: LoginClientDoctor,
-    props: true,
+    props: (route) => ({
+      activetoken: route.query.activetoken || null
+    }),
     beforeEnter: (to, from, next) => {
       if (store.getters.isLoggedIn) {
         next('/login-client-doctor')
+      } else if (to.query.activetoken) {
+        next()
       } else {
         next()
       }
@@ -258,6 +262,37 @@ const router = createRouter({
 
 // Update the document title on each navigation
 router.beforeEach((to, from, next) => {
+  const isLoginPage = to.path === '/login'
+
+  if (!isLoginPage) {
+    const userType = store.getters['user/getRole']
+
+    switch (userType) {
+      case 'consultant_doctor':
+        if (!store.getters['user/isRegistred']) {
+          next('/medical-registration')
+        }
+        break
+
+      case 'client_doctor':
+        if (!store.getters['user/isRegistred']) {
+          next('/registration-data')
+        }
+        break
+
+      case 'agent':
+        if (!store.getters['user/isRegistred']) {
+          next('/representative-registration')
+        }
+        break
+
+      // Caso de admin ou partner (ou qualquer outro tipo), não há regra especial
+
+      default:
+        break
+    }
+  }
+
   const baseTitle = 'Ceos'
 
   if (to.meta && to.meta.title) {

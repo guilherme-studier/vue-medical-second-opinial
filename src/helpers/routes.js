@@ -149,6 +149,58 @@ export const routes = {
       route: '/illnesses'
     }
   ],
+  partner: [
+    {
+      id: 1,
+      name: 'Início',
+      route: '/'
+    },
+    // {
+    //   id: 2,
+    //   name: 'Cadastro Indústria',
+    //   route: '/induster'
+    // },
+    {
+      id: 3,
+      name: 'Registro de Contrato e Geração de Casos Clínicos',
+      route: '/registration-clinical-cases'
+    },
+    // {
+    //   id: 18,
+    //   name: 'Registro de Pessoas Autorizadas a Distribuir Casos Clínicos',
+    //   route: '/authorized-distribute-clinical-cases'
+    // },
+    {
+      id: 4,
+      name: 'Consulta Casos Clínicos',
+      route: '/cosultation-clinical-cases'
+    },
+    {
+      id: 5,
+      name: 'Geração de Convite para Médico Consultor',
+      route: '/consultant-doctor'
+    },
+    {
+      id: 6,
+      name: 'Gestão de Representantes da Indústria',
+      route: '/industry-representant-management'
+    },
+    {
+      id: 12,
+      name: 'Gestão Especialidades',
+      route: '/specialties'
+    },
+    {
+      id: 17,
+      name: 'Gestão de Indústrias',
+      route: '/industries'
+    },
+    {
+      id: 13,
+      name: 'Gestão de Doenças',
+      route: '/illnesses'
+    }
+  ],
   consultantdoctor: [
     {
       id: 1,

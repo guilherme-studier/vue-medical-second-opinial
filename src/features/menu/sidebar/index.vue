@@ -92,19 +92,43 @@ export default {
   },
 
   computed: {
+    ...mapGetters('user', ['isRegistred']),
     ...mapGetters('clinicalCasesEvaluation', ['getIsActiveVoucher']),
     ...mapGetters(['getRole']),
 
     typeUser() {
       return this.getRole
     },
+    handleRegisterRoute() {
+      if (this.typeUser === 'consultant_doctor') return '/medical-registration'
+      else if (this.typeUser === 'client_doctor') return '/registration-data'
+      else if (this.typeUser === 'agent') return '/representative-registration'
+      else return '/'
+    },
     menuItemsWithLogout() {
+      if (
+        !this.isRegistred &&
+        this.typeUser !== 'partner' &&
+        this.typeUser !== 'admin'
+      ) {
+        return [
+          {
+            name: 'Atualização de Dados Cadastrais',
+            route: this.handleRegisterRoute
+          },
+          { name: 'Logout', action: 'logout' }
+        ]
+      }
+
       const userType = this.getRole?.replace('_', '')
       let menuItems = routes[userType] || []
 
       if (!this.getIsActiveVoucher) {
         menuItems = menuItems.filter((item) => item.id !== 16)
-      } else router.push('/active-clinical-case')
+      } else {
+        router.push('/active-clinical-case')
+        return []
+      }
 
       const hasLogoutItem = menuItems.some((item) => item.action === 'logout')
       if (!hasLogoutItem) {

@@ -68,7 +68,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['validateToken', 'setAuthToken']),
+    ...mapActions(['validateToken']),
     ...mapActions('clinicalCasesEvaluation', ['handleActiveVoucher']),
 
     fetchTokenStatus() {

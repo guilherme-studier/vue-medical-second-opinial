@@ -21,6 +21,25 @@ export const login = ({ email, password }) => {
 }
 
 /**
+ * @see https://meso.poatech.com.br:450/user/api/1.0/vaidateToken
+ * Validate Token
+ **/
+
+export const validateToken = () => {
+  return axios({
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${getToken()}`
+    },
+    url: `${BASE_URL}/validateToken`,
+    data: {
+      token: getToken()
+    }
+  })
+}
+
+/**
  * Resetar a senha do usuário.
  * @param {string} email - O email do usuário para o qual o reset de senha será solicitado.
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.

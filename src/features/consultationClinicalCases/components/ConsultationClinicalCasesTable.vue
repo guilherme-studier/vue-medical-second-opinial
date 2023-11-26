@@ -2,7 +2,7 @@
   <div class="container">
     <div class="title">
       <img class="icon-voucher" :src="icon" />
-      <h1>{{ getTotalContent }} casos clínicos ativos</h1>
+      <h1>{{ getTotalContent }} caso(s) clínico(s) ativo(s)</h1>
     </div>
     <InputGroup>
       <InputWrapper>
