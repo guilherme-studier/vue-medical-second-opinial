@@ -146,13 +146,13 @@ export default {
   .text {
     padding: 0 100px;
     h1 {
-      font-size: 28px;
+      font-size: 22px;
       color: $green-500;
       margin-bottom: 20px;
     }
 
     p {
-      font-size: 18px;
+      font-size: 14px;
       line-height: 20px;
       margin-bottom: 15px;
     }
