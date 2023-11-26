@@ -101,7 +101,7 @@ export default {
     },
     handleRegisterRoute() {
       if (this.typeUser === 'consultant_doctor') return '/medical-registration'
-      else if (this.typeUser === 'client_doctor') return '/registration'
+      // else if (this.typeUser === 'client_doctor') return '/registration'
       else if (this.typeUser === 'agent') return '/representative-registration'
       else return '/'
     },
@@ -109,7 +109,8 @@ export default {
       if (
         !this.isRegistred &&
         this.typeUser !== 'partner' &&
-        this.typeUser !== 'admin'
+        this.typeUser !== 'admin' &&
+        this.typeUser !== 'client_doctor'
       ) {
         return [
           {
