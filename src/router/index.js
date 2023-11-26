@@ -274,20 +274,17 @@ router.beforeEach((to, from, next) => {
         }
         break
 
-      case 'client_doctor':
-        if (!store.getters['user/isRegistred']) {
-          next('/registration')
-        }
-        break
+      // case 'client_doctor':
+      //   if (!store.getters['user/isRegistred']) {
+      //     next('/registration')
+      //   }
+      //   break
 
       case 'agent':
         if (!store.getters['user/isRegistred']) {
           next('/representative-registration')
         }
         break
-
-      // Caso de admin ou partner (ou qualquer outro tipo), não há regra especial
-
       default:
         break
     }
