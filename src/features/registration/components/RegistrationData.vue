@@ -9,7 +9,7 @@
               placeholder="CPF"
               class="flexible-input"
               type="text"
-              :v-mask="'###.###.###-##'"
+              v-mask="'###.###.###-##'"
               :disabled="!isRegistrationForm"
             />
           </input-wrapper>
