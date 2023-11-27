@@ -4,13 +4,13 @@
       Caso clínico: <span>{{ voucher }}</span>
     </h2>
     <div class="seem">
-      <textarea class="seem-text" v-model="opinionText" disabled />
+      <textarea
+        class="seem-text"
+        v-model="opinionText"
+        disabled
+        :class="{ scrollable: !edit }"
+      />
     </div>
-    <!-- <div class="seem-send">
-      <el-button class="seem-btn" type="primary" @click="sendSeem"
-        >Imprimir</el-button
-      >
-    </div> -->
   </div>
 </template>
 
@@ -41,4 +41,9 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/index.scss';
+
+.scrollable {
+  pointer-events: auto;
+  /* Outros estilos que você pode querer adicionar */
+}
 </style>

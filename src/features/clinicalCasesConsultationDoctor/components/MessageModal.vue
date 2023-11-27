@@ -14,17 +14,17 @@
       <div v-else class="messages-empty">
         Não há mensagens no momento.
       </div>
-      <div class="seem">
+      <div v-if="edit" class="seem">
         <textarea
           class="seem-text"
           v-model="messageText"
           placeholder="Escreva mensagem..."
           type="textarea"
-          :disabled="edit"
+          :disabled="!edit"
         />
       </div>
     </div>
-    <div class="message-send">
+    <div v-if="edit" class="message-send">
       <el-button
         type="primary"
         class="message-btn"

@@ -20,8 +20,8 @@ export const all = [
   },
   {
     id: 4,
-    name: 'Consulta Casos Clínicos',
-    route: '/cosultation-clinical-cases'
+    name: 'Consulta Contratos Clínicos',
+    route: '/consultation-clinical-contracts'
   },
   {
     id: 5,
@@ -120,8 +120,8 @@ export const routes = {
     // },
     {
       id: 4,
-      name: 'Consulta Casos Clínicos',
-      route: '/cosultation-clinical-cases'
+      name: 'Consulta Contratos Clínicos',
+      route: '/consultation-clinical-contracts'
     },
     {
       id: 5,
@@ -172,8 +172,8 @@ export const routes = {
     // },
     {
       id: 4,
-      name: 'Consulta Casos Clínicos',
-      route: '/cosultation-clinical-cases'
+      name: 'Consulta Contratos Clínicos',
+      route: '/consultation-clinical-contracts'
     },
     {
       id: 5,

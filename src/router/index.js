@@ -69,11 +69,11 @@ const routes = [
         }
       },
       {
-        path: '/cosultation-clinical-cases',
+        path: '/consultation-clinical-contracts',
         name: 'ConsultationClinicalCases',
         component: ConsultationClinicalCases,
         meta: {
-          title: 'Consulta Casos Clínicos'
+          title: 'Consulta Contratos Clínicos'
         }
       },
       {

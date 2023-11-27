@@ -8,6 +8,8 @@ import {
   postUrl
 } from '../services/index'
 
+import router from '@/router'
+
 const toast = useToast()
 
 export default {
@@ -50,9 +52,10 @@ export default {
       commit('setLoading', true)
       return activeVoucher(userData.data, userData.voucherId)
         .then(() => {
-          return toast.success('Caso clínico ativado com sucesso', {
+          toast.success('Caso clínico ativado com sucesso', {
             timeout: 5000
           })
+          return router.push('/clinical-cases-evaluation')
         })
         .catch(() => {
           toast.warning('Não foi possível ativar este caso clínico', {
