@@ -70,9 +70,6 @@
                 @click="
                   handleFile(scope.row, scope.row?.status === 'Em avaliação')
                 "
-                :class="{
-                  'filed-null': scope.row.status !== 'Avaliado'
-                }"
             /></el-tooltip>
             <el-tooltip
               class="box-item"
@@ -191,7 +188,7 @@ export default {
         this.tableData = contracts?.map((contract) => ({
           voucher: contract?.contractName,
           contractId: contract?.contractId,
-          id: contract?.voucherId,
+          id: contract?.id,
           illness: contract?.diseaseName,
           doctor: contract?.clientDoctorName,
           voucherId: contract?.voucherId,
@@ -225,13 +222,13 @@ export default {
     handleFile(row, edit) {
       if (row.opinion === null) {
         this.selectedContract = {
-          voucher: row.voucherId,
+          voucher: row.id,
           opinion: null,
           edit: edit
         }
       } else {
         this.selectedContract = {
-          voucher: row.voucherId,
+          voucher: row.id,
           opinion: row.opinion || ''
         }
       }

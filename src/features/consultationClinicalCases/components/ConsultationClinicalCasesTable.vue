@@ -82,33 +82,41 @@
       border
     >
       <el-table-column
-        label="Caso clínico/ID"
+        header-align="center"
+        label="Contrato"
         prop="voucher"
-        align="center"
+        align="left"
       ></el-table-column>
       <el-table-column
+        header-align="center"
         label="Indústria"
         prop="industry"
-        align="center"
+        align="left"
       ></el-table-column>
       <el-table-column
+        header-align="center"
         label="Especialidade"
         prop="specialty"
-        align="center"
+        align="left"
       ></el-table-column>
       <el-table-column
+        header-align="center"
         label="Doença"
         prop="illness"
+        align="left"
+      ></el-table-column>
+      <el-table-column
+        header-align="center"
+        label="Data de Início"
+        width="120"
+        prop="startDate"
         align="center"
       ></el-table-column>
       <el-table-column
-        label="Data"
-        prop="date"
-        align="center"
-      ></el-table-column>
-      <el-table-column
-        label="Status"
-        prop="status"
+        header-align="center"
+        label="Validade"
+        width="120"
+        prop="endDate"
         align="center"
       ></el-table-column>
     </el-table>
@@ -131,10 +139,9 @@ import iconVoucher from '@/assets/icons/icon-voucher.svg'
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
 import { formatDate } from '@/helpers/date'
-import { formatStatus } from '@/helpers/status'
 
 export default {
-  name: 'Consulta Casos Clínicos',
+  name: 'Consulta Contratos Clínicos',
   components: {
     InputWrapper,
     InputGroup
@@ -147,13 +154,14 @@ export default {
       selectedIllness: null,
       selectedDoctor: null,
       tableHeader: [
-        'Caso clínico/ID',
+        'Contrato',
         'Indústria',
         'Especialidade',
         'Doença',
         'Médico Consultor',
-        'Data',
-        'Status'
+        'Data de Início',
+        'Validade',
+        'Qtd de Casos Clínicos'
       ],
       tableData: [],
       currentPage: 1,
@@ -248,8 +256,8 @@ export default {
           specialty: contract.specialtyName,
           illness: contract.diseaseName,
           doctor: contract.consultantDoctorId,
-          date: formatDate(contract.startDate),
-          status: formatStatus(contract.status)
+          startDate: formatDate(contract.startDate),
+          endDate: formatDate(contract.startDate)
         }))
       },
       deep: true

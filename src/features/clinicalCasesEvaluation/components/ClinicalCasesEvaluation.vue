@@ -58,6 +58,22 @@
                   @click="handleCheck(scope.row)"
               /></el-tooltip>
             </div>
+            <div
+              v-else-if="
+                scope.row.status === 'Alocado' &&
+                  scope.row.questionnaire !== null
+              "
+            >
+              <el-tooltip
+                class="box-item"
+                effect="light"
+                content="Continuar editando caso clínico"
+                placement="top-start"
+                ><font-awesome-icon
+                  :icon="iconEdit"
+                  @click="handleCheck(scope.row)"
+              /></el-tooltip>
+            </div>
             <div v-else>
               <el-tooltip
                 class="box-item"
@@ -67,6 +83,9 @@
                 ><font-awesome-icon
                   :icon="iconCheck"
                   @click="handleCheck(scope.row)"
+                  :class="{
+                    'filed-null': scope.row.status === 'Em avaliação'
+                  }"
               /></el-tooltip>
             </div>
             <el-tooltip
@@ -81,18 +100,34 @@
                   'filed-null': scope.row.status !== 'Avaliado'
                 }"
             /></el-tooltip>
-            <el-tooltip
-              class="box-item"
-              effect="light"
-              content="Enviar mensagem"
-              placement="top-start"
-              ><font-awesome-icon
-                :icon="iconMessage"
-                @click="handleComment(scope.row)"
-                :class="{
-                  'filed-null': scope.row.status !== 'Em avaliação'
-                }"
-            /></el-tooltip>
+            <div v-if="scope.row.status === 'Em avaliação'">
+              <el-tooltip
+                class="box-item"
+                effect="light"
+                content="Enviar mensagens"
+                placement="top-start"
+                ><font-awesome-icon
+                  :icon="iconMessage"
+                  @click="handleComment(scope.row)"
+                  :class="{
+                    'filed-null': scope.row.status === 'Alocado'
+                  }"
+              /></el-tooltip>
+            </div>
+            <div v-else>
+              <el-tooltip
+                class="box-item"
+                effect="light"
+                content="Consultar mensagens"
+                placement="top-start"
+                ><font-awesome-icon
+                  :icon="iconMessage"
+                  @click="handleComment(scope.row)"
+                  :class="{
+                    'filed-null': scope.row.status === 'Alocado'
+                  }"
+              /></el-tooltip>
+            </div>
           </div>
         </template>
       </el-table-column>
@@ -124,6 +159,7 @@
       <message-modal
         :id="selectedContract?.id"
         :voucher="selectedContract?.voucher"
+        :status="selectedContract?.status"
       />
     </el-dialog>
   </div>
@@ -134,7 +170,8 @@ import {
   faSquareCheck,
   faFile,
   faComment,
-  faBookOpenReader
+  faBookOpenReader,
+  faPenToSquare
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mapGetters, mapActions } from 'vuex'
@@ -160,6 +197,7 @@ export default {
       iconReader: faBookOpenReader,
       iconFile: faFile,
       iconMessage: faComment,
+      iconEdit: faPenToSquare,
       currentPage: 1,
       pageSize: 10
     }
@@ -206,7 +244,8 @@ export default {
           date: formatDate(contract?.createdAt),
           status: formatStatus(contract?.status),
           opinion: contract?.opinion,
-          diseaseName: contract?.diseaseName
+          diseaseName: contract?.diseaseName,
+          questionnaire: contract?.questionnaire
         }))
       },
       deep: true
@@ -245,9 +284,11 @@ export default {
       this.handleModalSeem(this.selectedContract.opinion)
     },
     handleComment(row) {
+      console.log(row)
       this.selectedContract = {
         id: row?.id,
-        voucher: row?.voucherId
+        voucher: row?.id,
+        status: row?.status
       }
       this.handleModalMessage(this.selectedContract?.id)
     },

@@ -1,28 +1,6 @@
 <template>
   <div id="container">
     <div class="form">
-      <input-group>
-        <input-wrapper>
-          <el-input
-            v-model="cpf"
-            placeholder="CPF"
-            class="flexible-input"
-            v-mask="'###.###.###-##'"
-            :disabled="!isRegistrationForm"
-            type="text"
-          />
-        </input-wrapper>
-        <input-wrapper>
-          <el-input
-            v-model="password"
-            placeholder="Senha atual"
-            class="flexible-input"
-            type="password"
-          />
-        </input-wrapper>
-      </input-group>
-    </div>
-    <div class="form">
       <Title :title="tituloComponente" />
       <InputGroup>
         <InputWrapper>
@@ -35,9 +13,10 @@
         </InputWrapper>
         <InputWrapper>
           <el-input
-            v-model="email"
-            placeholder="E-mail"
+            v-model="cpf"
+            placeholder="CPF"
             class="flexible-input"
+            v-mask="'###.###.###-##'"
             :disabled="!isRegistrationForm"
             type="text"
           />
@@ -55,13 +34,33 @@
         </InputWrapper>
         <InputWrapper>
           <el-input
-            v-model="newPassword"
-            placeholder="Nova senha"
+            v-model="email"
+            placeholder="E-mail"
             class="flexible-input"
-            type="password"
+            :disabled="!isRegistrationForm"
+            type="text"
           />
         </InputWrapper>
       </InputGroup>
+      <Title title="Troca de senha" />
+      <input-group>
+        <input-wrapper>
+          <el-input
+            v-model="password"
+            placeholder="Senha atual"
+            class="flexible-input"
+            type="password"
+          />
+        </input-wrapper>
+        <input-wrapper>
+          <el-input
+            v-model="password"
+            placeholder="Senha atual"
+            class="flexible-input"
+            type="password"
+          />
+        </input-wrapper>
+      </input-group>
 
       <div class="save">
         <el-button type="primary" @click="handleSave" :disabled="isSaveDisabled"
@@ -177,4 +176,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/index.scss';
+
+.content-title {
+  display: flex;
+  place-items: flex-start;
+  margin: 10px 0;
+}
 </style>

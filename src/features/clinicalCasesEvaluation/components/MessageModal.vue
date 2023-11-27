@@ -12,18 +12,19 @@
         />
       </div>
       <div v-else class="messages-empty">
-        Não há mensagens no momento.
+        Você ainda não recebeu nenhuma mensagem do médico consultor.
       </div>
-      <div class="seem">
+      <div v-if="getMessages.length && edit" class="seem">
         <textarea
           class="seem-text"
           v-model="messageText"
           placeholder="Escreva mensagem..."
           type="textarea"
+          :disabled="!edit"
         />
       </div>
     </div>
-    <div class="message-send">
+    <div v-if="getMessages.length && edit" class="message-send">
       <el-button
         type="primary"
         class="message-btn"
@@ -54,6 +55,10 @@ export default {
     voucher: {
       type: String,
       default: null
+    },
+    status: {
+      type: String,
+      default: null
     }
   },
   data() {
@@ -67,9 +72,12 @@ export default {
       'getIsModalMessage',
       'getMessages'
     ]),
-
     enabledSendMessage() {
       return this.messageText?.length
+    },
+    edit() {
+      if (this.status === 'Em avaliação') return true
+      else return false
     }
   },
   methods: {
@@ -77,7 +85,6 @@ export default {
       'putNewMessage',
       'fetchMessages'
     ]),
-
     async sendMessage() {
       const handleData = {
         id: this.id,

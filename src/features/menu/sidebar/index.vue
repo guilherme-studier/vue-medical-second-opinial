@@ -106,14 +106,12 @@ export default {
       else return '/'
     },
     menuItemsWithLogout() {
-      console.log('aqui')
       if (
         !this.isRegistred &&
         this.typeUser !== 'partner' &&
         this.typeUser !== 'admin' &&
         this.typeUser !== 'client_doctor'
       ) {
-        console.log('aqui2')
         return [
           {
             name: 'Atualização de Dados Cadastrais',
@@ -125,13 +123,10 @@ export default {
 
       const userType = this.getRole?.replace('_', '')
       let menuItems = routes[userType] || []
-      console.log('aqui3')
 
       if (!this.getIsActiveVoucher) {
-        console.log('aqui4')
         menuItems = menuItems.filter((item) => item.id !== 16)
       } else {
-        console.log('aqui5')
         router.push('/active-clinical-case')
       }
 

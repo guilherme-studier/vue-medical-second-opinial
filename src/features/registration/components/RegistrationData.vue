@@ -1,29 +1,6 @@
 <template>
   <div id="registration-data">
-    <div id="doctor-registration">
-      <div class="form">
-        <input-group>
-          <input-wrapper>
-            <el-input
-              v-model="cpf"
-              placeholder="CPF"
-              class="flexible-input"
-              type="text"
-              v-mask="'###.###.###-##'"
-              :disabled="!isRegistrationForm"
-            />
-          </input-wrapper>
-          <input-wrapper>
-            <el-input
-              v-model="password"
-              placeholder="Senha atual"
-              class="flexible-input"
-              type="password"
-            />
-          </input-wrapper>
-        </input-group>
-      </div>
-    </div>
+    <div id="doctor-registration"></div>
     <div class="form">
       <Title :title="titleComponent" />
       <div class="form">
@@ -35,6 +12,16 @@
               class="flexible-input"
               :disabled="!isRegistrationForm"
               type="text"
+            />
+          </input-wrapper>
+          <input-wrapper>
+            <el-input
+              v-model="cpf"
+              placeholder="CPF"
+              class="flexible-input"
+              type="text"
+              v-mask="'###.###.###-##'"
+              :disabled="!isRegistrationForm"
             />
           </input-wrapper>
         </input-group>
@@ -69,27 +56,38 @@
                   type="text"
                 />
               </input-wrapper>
-              <input-wrapper>
-                <el-input
-                  v-model="uf"
-                  placeholder="UF"
-                  class="flexible-input"
-                  type="text"
-                />
-              </input-wrapper>
             </input-group>
           </input-wrapper>
           <input-wrapper>
             <el-input
-              v-model="newPassword"
-              placeholder="Nova senha"
+              v-model="uf"
+              placeholder="UF"
               class="flexible-input"
-              type="password"
-              :disabled="isNewPassword"
+              type="text"
             />
           </input-wrapper>
         </input-group>
       </div>
+      <Title title="Troca de senha" />
+      <input-group>
+        <input-wrapper>
+          <el-input
+            v-model="password"
+            placeholder="Senha atual"
+            class="flexible-input"
+            type="password"
+          />
+        </input-wrapper>
+        <input-wrapper>
+          <el-input
+            v-model="newPassword"
+            placeholder="Nova senha"
+            class="flexible-input"
+            type="password"
+            :disabled="isNewPassword"
+          />
+        </input-wrapper>
+      </input-group>
       <div class="terms-agreement">
         <label v-show="isRegistrationForm">
           <input type="checkbox" id="termsCheckbox" v-model="termsAgreed" />
@@ -287,4 +285,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/index.scss';
+
+.content-title {
+  display: flex;
+  place-items: flex-start;
+  margin: 10px 0;
+}
 </style>

@@ -8,10 +8,11 @@
         class="seem-text"
         v-model="seemText"
         placeholder="Escrever parecer..."
-        :disabled="edit"
+        :disabled="!edit"
+        :class="{ scrollable: !edit }"
       />
     </div>
-    <div v-if="!edit" class="seem-send">
+    <div v-if="edit" class="seem-send">
       <el-button
         class="seem-btn"
         type="primary"
@@ -78,4 +79,9 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/index.scss';
+
+.scrollable {
+  pointer-events: auto;
+  /* Outros estilos que você pode querer adicionar */
+}
 </style>
