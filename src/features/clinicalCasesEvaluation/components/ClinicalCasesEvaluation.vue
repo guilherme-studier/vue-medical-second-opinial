@@ -229,7 +229,8 @@ export default {
       else return true
     }
   },
-  mounted() {
+  async mounted() {
+    await this.getUser()
     this.fetchClinicalCases()
   },
   watch: {
@@ -255,6 +256,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions('user', ['getUser']),
     ...mapActions('clinicalCasesEvaluation', [
       'handleModalSeem',
       'handleModalMessage',

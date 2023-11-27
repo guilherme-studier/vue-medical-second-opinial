@@ -181,7 +181,8 @@ export default {
       return this.getLoadingClinicalCases
     }
   },
-  mounted() {
+  async mounted() {
+    await this.getUser()
     this.fetchClinicalCases()
   },
   watch: {
@@ -206,6 +207,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions('user', ['getUser']),
     ...mapActions('clinicalCasesConsultationDoctor', [
       'handleModalSeem',
       'handleModalMessage',
