@@ -164,6 +164,7 @@ export default {
     }
   },
   computed: {
+    ...mapActions('user', ['getUser']),
     ...mapGetters('user', ['getName']),
     ...mapGetters('clinicalCasesConsultationDoctor', [
       'getIcon',
@@ -181,7 +182,8 @@ export default {
       return this.getLoadingClinicalCases
     }
   },
-  mounted() {
+  async mounted() {
+    await this.getUser()
     this.fetchClinicalCases()
   },
   watch: {

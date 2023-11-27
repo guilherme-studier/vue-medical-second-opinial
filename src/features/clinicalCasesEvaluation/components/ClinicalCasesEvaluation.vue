@@ -203,6 +203,7 @@ export default {
     }
   },
   computed: {
+    ...mapActions('user', ['getUser']),
     ...mapGetters('user', ['getName']),
     ...mapGetters('clinicalCasesEvaluation', [
       'getIcon',
@@ -229,7 +230,8 @@ export default {
       else return true
     }
   },
-  mounted() {
+  async mounted() {
+    await this.getUser()
     this.fetchClinicalCases()
   },
   watch: {
