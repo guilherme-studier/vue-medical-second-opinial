@@ -236,6 +236,16 @@ body {
     color: $white;
   }
 
+  .el-table td.el-table__cell div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .el-upload.el-upload--text {
+    width: 100%;
+  }
+
   .el-loading-spinner .path {
     stroke: $green-500
   }
