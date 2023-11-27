@@ -109,6 +109,7 @@
       <seem-modal
         :voucher="selectedContract?.voucher"
         :opinion="selectedContract?.opinion"
+        :edit="selectedContract?.edit"
       />
     </el-dialog>
 
@@ -121,6 +122,7 @@
       <message-modal
         :id="selectedContract?.id"
         :voucher="selectedContract?.voucher"
+        :edit="selectedContract?.edit"
       />
     </el-dialog>
   </div>
