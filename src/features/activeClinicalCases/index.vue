@@ -1293,6 +1293,7 @@ export default {
     // }
   },
   computed: {
+    ...mapGetters(['getUserToken']),
     ...mapGetters('clinicalCasesEvaluation', ['getVoucher']),
     ...mapGetters('activeClinicalCases', [
       'getLoading',
@@ -1507,7 +1508,7 @@ export default {
         .post(`${url}/voucher/${voucherId}/document`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            Authorization: 'Bearer 7cb5ee2af54e71338e068abd11be3c9e'
+            Authorization: `Bearer ${this.getUserToken}`
           }
         })
         .then(() => {
