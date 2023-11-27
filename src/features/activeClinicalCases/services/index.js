@@ -28,17 +28,28 @@ export const saveVoucher = (questionnaire, voucherId) => {
  * Upload de arquivos
  * Endpoint realizar o upload de um documento para o voucher do contrato clínico
  */
-export const postUrl = (body, voucherId) => {
-  console.log('Content-Type multipart/form-data')
-  console.log(body)
+export const postUrl = (data) => {
+  const formData = new FormData()
+  formData.append('body', data.file)
   return axios({
     method: 'POST',
     headers: {
       'Content-Type': 'multipart/form-data',
       Authorization: `Bearer ${getToken()}`
     },
-    url: `${USER_BASE_URL}/voucher/${voucherId}/document`,
-    data: { body }
+    url: `${USER_BASE_URL}/voucher/${data.voucherId}/document`,
+    data: formData
+  })
+}
+
+export const getUrl = (voucherId) => {
+  return axios({
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${getToken()}`
+    },
+    url: `${USER_BASE_URL}/voucher/files/${voucherId}`
   })
 }
 

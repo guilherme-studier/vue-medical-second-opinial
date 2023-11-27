@@ -1,5 +1,8 @@
 <template>
   <div id="active-clinical-case">
+    <el-icon class="go-back" @click="goBack" :size="30">
+      <DArrowLeft />
+    </el-icon>
     <div class="active-clinical-case-form">
       <div class="side-by-side">
         <div class="half-width">
@@ -17,6 +20,7 @@
     <div class="form" :class="{ 'form-loading': isLoading }">
       <input-group>
         <input-wrapper>
+          <label>Idade</label>
           <el-input
             type="number"
             placeholder="Idade"
@@ -27,6 +31,7 @@
           />
         </input-wrapper>
         <input-wrapper>
+          <label>Sexo</label>
           <el-select
             v-model="gender"
             placeholder="Sexo"
@@ -43,6 +48,7 @@
           </el-select>
         </input-wrapper>
         <input-wrapper>
+          <label>Cor</label>
           <el-select
             v-model="color"
             placeholder="Cor"
@@ -66,6 +72,7 @@
       </div>
       <input-group>
         <input-wrapper>
+          <label>O paciente tem diagnóstico de asma?</label>
           <el-select
             v-model="asthma"
             placeholder="O paciente tem diagnóstico de asma?"
@@ -83,6 +90,11 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label
+            >Foram excluídas outras doenças pulmonares crônicas? (DPOC,
+            bronquiectasias, fibrose cística, insuficiência cardáiaca, etc.)
+            ?</label
+          >
           <el-select
             v-model="lungDiseases"
             placeholder="Foram excluídas outras doenças pulmonares crônicas? (DPOC, bronquiectasias, fibrose cística, insuficiência cardáiaca, etc.) ?"
@@ -100,6 +112,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label
+            >A adesão ao tratamento está adequada? (Checar idealmente com
+            contagem de doses do dispositivo entre as consultas.)</label
+          >
           <el-select
             v-model="asthmaTreatment"
             placeholder="A adesão ao tratamento está adequada? (Checar idealmente com contagem de doses do dispositivo entre as consultas.)"
@@ -117,6 +133,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label
+            >A técnica inalatória está adequada? (Ideal checagem em 2-3
+            consultas.)</label
+          >
           <el-select
             v-model="inhalation"
             :disabled="!isEdit"
@@ -138,6 +158,7 @@
       </div>
       <input-group>
         <input-wrapper>
+          <label>Quais o paciente apresenta?</label>
           <el-select
             v-model="comorbidities"
             placeholder="Quais o paciente apresenta?"
@@ -156,6 +177,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Outras comorbidades</label>
           <el-input
             v-model="otherComorbidities"
             :autosize="{ minRows: 4, maxRows: 4 }"
@@ -167,6 +189,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label
+            >Todas aquelas manejáveis estão adequadamente tratadas?
+            Descreva:</label
+          >
           <el-input
             v-model="comorbiditiesInfo"
             :autosize="{ minRows: 4, maxRows: 4 }"
@@ -178,6 +204,9 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label
+            >O paciente usa dose elevada de corticoide associado a LABA?</label
+          >
           <el-select
             v-model="laba"
             placeholder="O paciente usa dose elevada de corticoide associado a LABA?"
@@ -195,6 +224,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label
+            >Quais medicações para asma o paciente utiliza? (Incluir
+            medicamentos, apresentação e posologia.)</label
+          >
           <el-input
             v-model="asthmaMedications"
             :autosize="{ minRows: 4, maxRows: 4 }"
@@ -206,6 +239,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>O paciente fez/faz uso de imunobiológico(s)?</label>
           <el-select
             v-model="immunobiological"
             placeholder="O paciente fez/faz uso de imunobiológico(s)?"
@@ -223,6 +257,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Em caso positivo, descreva o medicamento e tempo de uso</label>
           <el-input
             v-model="immunobiologicalDescription"
             :autosize="{ minRows: 4, maxRows: 4 }"
@@ -259,7 +294,7 @@
           <el-input
             v-model="preCvf"
             placeholder="__%"
-            v-mask="['###%', '##%']"
+            v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
           >
             <template #prepend>CVF</template>
@@ -269,7 +304,7 @@
           <el-input
             v-model="preVef"
             placeholder="__%"
-            v-mask="['###%', '##%']"
+            v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
           >
             <template #prepend><span v-html="vef"/></template>
@@ -279,7 +314,7 @@
           <el-input
             v-model="preVefCvf"
             placeholder="__%"
-            v-mask="['###%', '##%']"
+            v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
           >
             <template #prepend><span v-html="vefCvf"/></template>
@@ -289,7 +324,7 @@
           <el-input
             v-model="preFef"
             placeholder="__%"
-            v-mask="['###%', '##%']"
+            v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
           >
             <template #prepend><span v-html="fef"/></template>
@@ -304,7 +339,7 @@
           <el-input
             v-model="posCvf"
             placeholder="__%"
-            v-mask="['###%', '##%']"
+            v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
           >
             <template #prepend>CVF</template>
@@ -314,7 +349,7 @@
           <el-input
             v-model="posVef"
             placeholder="__%"
-            v-mask="['###%', '##%']"
+            v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
           >
             <template #prepend><span v-html="vef"/></template>
@@ -324,7 +359,7 @@
           <el-input
             v-model="posVefCvf"
             placeholder="__%"
-            v-mask="['###%', '##%']"
+            v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
           >
             <template #prepend><span v-html="vefCvf"/></template>
@@ -334,7 +369,7 @@
           <el-input
             v-model="posFef"
             placeholder="__%"
-            v-mask="['###%', '##%']"
+            v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
           >
             <template #prepend><span v-html="fef"/></template>
@@ -348,13 +383,14 @@
             placeholder="Resposta ao BD: __%"
             class="flexible-input"
             v-model="bd"
-            v-mask="['###%', '##%']"
+            v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
           />
         </input-wrapper>
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Laudo: Texto da conclusão do laudo.</label>
           <el-input
             v-model="report"
             :autosize="{ minRows: 4, maxRows: 4 }"
@@ -366,6 +402,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Eosinófilos no sangue: __céls/mm&sup3;</label>
           <el-input
             v-model="eosinophilsBlood"
             type="text"
@@ -375,12 +412,13 @@
           />
         </input-wrapper>
         <input-wrapper>
+          <label>Eosinófilos no escarro: __%</label>
           <el-input
             v-model="eosinophilsSputum"
             type="text"
             :placeholder="`Eosinófilos no escarro: __%`"
             :disabled="!isEdit"
-            v-mask="['##%', '###%']"
+            v-mask="['##%', '#%', '###%']"
           />
         </input-wrapper>
       </input-group>
@@ -389,6 +427,7 @@
       </div>
       <input-group>
         <input-wrapper>
+          <label>Teste cutâneo?</label>
           <el-select
             v-model="skinTest"
             placeholder="Teste cutâneo?"
@@ -406,6 +445,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>IgE específica no sangue</label>
           <el-select
             v-model="ige"
             placeholder="IgE específica no sangue"
@@ -423,6 +463,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Quais alérgenos foram testados e quais deram positivos?</label>
           <el-input
             v-model="allergens"
             :autosize="{ minRows: 4, maxRows: 4 }"
@@ -434,6 +475,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>IgE total: __ UI/ml</label>
           <el-input
             v-model="igeTotal"
             type="text"
@@ -443,6 +485,7 @@
           />
         </input-wrapper>
         <input-wrapper>
+          <label>FeNO: __ ppm</label>
           <el-input
             v-model="FeNO"
             type="text"
@@ -454,6 +497,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Pletismografia (se realizado):</label>
           <el-input
             v-model="plethysmography"
             :autosize="{ minRows: 4, maxRows: 4 }"
@@ -465,6 +509,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Difusão de monóxido de carbono (DLCO) (se realizado):</label>
           <el-input
             v-model="dlco"
             :autosize="{ minRows: 4, maxRows: 4 }"
@@ -475,7 +520,7 @@
         </input-wrapper>
       </input-group>
       <input-group>
-        <input-wrapper>
+        <!-- <input-wrapper>
           <form @submit.prevent="submit" enctype="multipart/form-data">
             <input
               id="actionsNewAsset"
@@ -488,8 +533,33 @@
             />
             <button type="submit">Enviar Arquivo</button>
           </form>
+        </input-wrapper> -->
+        <input-wrapper class="clinical-case-upload">
+          <label>TC de tórax (fazer upload de imagem e laudo)</label>
+          <el-upload
+            v-model="fileList"
+            class="upload-demo"
+            :auto-upload="false"
+            @change="handleFileImg"
+            :disabled="!isEdit"
+            :show-file-list="false"
+          >
+            <template #trigger>
+              <el-input
+                type="text"
+                placeholder="TC de tórax (fazer upload de imagem e laudo)"
+                :suffix-icon="iconImg"
+              />
+            </template>
+          </el-upload>
+
+          <div class="filepath" v-for="file in getFile" :key="file.id">
+            <PictureFilled style="width: 1em; height: 1em; margin-right: 8px" />
+            <p class="filename">
+              {{ file.fileName }}
+            </p>
+          </div>
         </input-wrapper>
-        <img :src="selectedFile" />
       </input-group>
       <div class="content-title">
         <h1 class="title">Outras informações</h1>
@@ -497,6 +567,7 @@
       </div>
       <input-group>
         <input-wrapper>
+          <label>Início da doença com que idade: __</label>
           <el-input
             v-model="ageStart"
             type="number"
@@ -511,6 +582,7 @@
       </div>
       <input-group>
         <input-wrapper>
+          <label>Tem muita poeira doméstica em casa?</label>
           <el-select
             v-model="dust"
             placeholder="Tem muita poeira doméstica em casa?"
@@ -528,6 +600,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Animais em casa?</label>
           <el-select
             v-model="pet"
             placeholder="Animais em casa?"
@@ -543,6 +616,7 @@
             /> </el-select
         ></input-wrapper>
         <input-wrapper>
+          <label>Quantos?</label>
           <el-input
             v-model="petDescription"
             type="number"
@@ -554,6 +628,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Mofo no domicílio?</label>
           <el-select
             v-model="mold"
             placeholder="Mofo no domicílio?"
@@ -571,6 +646,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Exposição ocupacional</label>
           <el-select
             v-model="exhibition"
             placeholder="Exposição ocupacional"
@@ -586,6 +662,7 @@
             /> </el-select
         ></input-wrapper>
         <input-wrapper>
+          <label>Quais?</label>
           <el-input
             v-model="exhibitionDescription"
             type="text"
@@ -597,6 +674,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Fumante ativo?</label>
           <el-select
             v-model="activeSmoking"
             placeholder="Fumante ativo?"
@@ -612,6 +690,7 @@
             /> </el-select
         ></input-wrapper>
         <input-wrapper>
+          <label>Fumante passivo?</label>
           <el-select
             v-model="passiveSmoking"
             placeholder="Fumante passivo?"
@@ -629,6 +708,9 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label
+            >Exacerbação com uso de corticoide oral nos últimos 12 meses?</label
+          >
           <el-select
             v-model="corticosteroid"
             placeholder="Exacerbação com uso de corticoide oral nos últimos 12 meses?"
@@ -644,6 +726,7 @@
             /> </el-select
         ></input-wrapper>
         <input-wrapper>
+          <label>Quantas vezes?</label>
           <el-input
             v-model="corticosteroidTimes"
             type="number"
@@ -655,6 +738,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Hospitalização nos últimos 12 meses?</label>
           <el-select
             v-model="hospitalization"
             placeholder="Hospitalização nos últimos 12 meses?"
@@ -670,6 +754,7 @@
             /> </el-select
         ></input-wrapper>
         <input-wrapper>
+          <label>Quantas vezes?</label>
           <el-input
             v-model="hospitalizationTimes"
             type="number"
@@ -681,6 +766,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Histórico de internação em UTI?</label>
           <el-select
             v-model="uti"
             placeholder="Histórico de internação em UTI?"
@@ -696,6 +782,7 @@
             /> </el-select
         ></input-wrapper>
         <input-wrapper>
+          <label>Quantas vezes?</label>
           <el-input
             v-model="utiTimes"
             type="number"
@@ -707,6 +794,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Histórico de necessidade de Ventilação Mecânica?</label>
           <el-select
             v-model="ventilation"
             placeholder="Histórico de necessidade de Ventilação Mecânica?"
@@ -722,6 +810,7 @@
             /> </el-select
         ></input-wrapper>
         <input-wrapper>
+          <label>Quantas vezes?</label>
           <el-input
             v-model="ventilationTimes"
             type="number"
@@ -733,6 +822,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Histórico de PCR?</label>
           <el-select
             v-model="pcr"
             placeholder="Histórico de PCR?"
@@ -748,6 +838,7 @@
             /> </el-select
         ></input-wrapper>
         <input-wrapper>
+          <label>Quantas vezes?</label>
           <el-input
             v-model="pcrTimes"
             type="number"
@@ -759,6 +850,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Uso de outras medicações?</label>
           <el-select
             v-model="medications"
             placeholder="Uso de outras medicações?"
@@ -776,6 +868,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
+          <label>Descreva...</label>
           <el-input
             v-model="medicationsDescription"
             :autosize="{ minRows: 4, maxRows: 4 }"
@@ -791,6 +884,7 @@
       </div>
       <input-group>
         <input-wrapper>
+          <label>Descreva...</label>
           <el-input
             v-model="observations"
             :autosize="{ minRows: 4, maxRows: 4 }"
@@ -813,10 +907,10 @@
 </template>
 
 <script>
+import { PictureFilled, DArrowLeft } from '@element-plus/icons-vue'
 import axios from 'axios'
+import { useToast } from 'vue-toastification'
 import { mapGetters, mapActions } from 'vuex'
-
-// import { postUrl } from './services/index'
 
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
@@ -825,10 +919,18 @@ import router from '@/router'
 export default {
   components: {
     InputGroup,
-    InputWrapper
+    InputWrapper,
+    DArrowLeft,
+    PictureFilled
+  },
+  setup() {
+    const toast = useToast()
+
+    return { toast }
   },
   data() {
     return {
+      iconImg: PictureFilled,
       titleAsthma: 'Diagnóstico de Asma Grave',
       asthma: null,
       asthmaOptions: [
@@ -874,7 +976,6 @@ export default {
           name: 'Não'
         }
       ],
-      file: null, // Aqui é onde você armazenará o arquivo
       error: null,
       isModalDashedErroVisible: false,
       titleComorbidities: 'Em relação a potenciais comorbidades',
@@ -1187,10 +1288,17 @@ export default {
       this.verifyIsEdit(this.getVoucherInfos)
       this.handleData()
     }
+    // getFile() {
+    //   this.fetchFile()
+    // }
   },
   computed: {
     ...mapGetters('clinicalCasesEvaluation', ['getVoucher']),
-    ...mapGetters('activeClinicalCases', ['getLoading', 'getVoucherInfos']),
+    ...mapGetters('activeClinicalCases', [
+      'getLoading',
+      'getVoucherInfos',
+      'getFile'
+    ]),
 
     isConsultant() {
       // Recuperar o tipo do localStorage
@@ -1236,9 +1344,16 @@ export default {
     ...mapActions('activeClinicalCases', [
       'saveEditVoucher',
       'activeVoucher',
-      'fetchVoucher'
+      'fetchVoucher',
+      'fetchFile'
     ]),
     ...mapActions('clinicalCasesEvaluation', ['offActiveVoucherPage']),
+
+    goBack() {
+      if (this.isConsultant === 'consultant_doctor')
+        return router.push('/clinical-cases-consultation-doctor')
+      else router.push('/clinical-cases-evaluation')
+    },
 
     handleSave() {
       const userData = {
@@ -1376,38 +1491,36 @@ export default {
       this.selectedFile = event.target.files[0]
     },
 
-    submit() {
+    async handleFileImg(file) {
+      this.selectedFile = file.raw
+
+      await this.submit()
+    },
+
+    async submit() {
+      const url = 'https://meso.poatech.com.br:450/clinical-case/api/1.0'
+      const voucherId = this.getVoucher.id
       const formData = new FormData()
       formData.append('body', this.selectedFile)
 
-      axios
-        .post(
-          `https://meso.poatech.com.br:450/clinical-case/api/1.0/voucher/${this.getVoucher.id}/document`,
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              Authorization: 'Bearer f219059fb71ea210be996f9cbfbc08dd'
-            }
+      await axios
+        .post(`${url}/voucher/${voucherId}/document`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: 'Bearer 7cb5ee2af54e71338e068abd11be3c9e'
           }
-        )
-        .then((response) => {
-          console.log('Resposta do servidor:', response)
         })
-        .catch((error) => {
-          console.error('Erro ao enviar imagem:', error)
+        .then(() => {
+          this.toast.success('Upload realizado com sucesso', {
+            timeout: 5000
+          })
         })
-
-      // postUrl(this.selectedFile, this.getVoucher.id)
-      //   .then((response) => {
-      //     console.log(response)
-      //   })
-      //   .catch(() => {
-      //     console.log('erro')
-      //   })
-      //   .finally(() => {
-      //     console.log('fim')
-      //   })
+        .catch(() => {
+          this.toast.warning('Não foi possível realizar o upload do arquivo')
+        })
+        .finally(() => {
+          this.fetchFile(voucherId)
+        })
     },
 
     verifyIsEdit(getVoucherInfos) {
@@ -1487,6 +1600,16 @@ export default {
 <style lang="scss" scoped>
 #active-clinical-case {
   width: 100%;
+
+  .go-back {
+    position: fixed;
+    bottom: 100px;
+    right: 100px;
+    background: $green-500;
+    color: white;
+    border-radius: 19%;
+    cursor: pointer;
+  }
 }
 
 .full-width {
@@ -1551,6 +1674,23 @@ export default {
 
   .send {
     width: 250px;
+  }
+}
+
+label {
+  margin: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: $grayDark;
+}
+
+.filepath {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+
+  .filename {
+    font-size: 14px;
   }
 }
 </style>
