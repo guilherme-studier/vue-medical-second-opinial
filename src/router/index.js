@@ -274,11 +274,11 @@ router.beforeEach((to, from, next) => {
         }
         break
 
-      // case 'client_doctor':
-      //   if (!store.getters['user/isRegistred']) {
-      //     next('/registration')
-      //   }
-      //   break
+      case 'client_doctor':
+        if (!store.getters['user/isRegistred']) {
+          next('/registration')
+        }
+        break
 
       case 'agent':
         if (!store.getters['user/isRegistred']) {

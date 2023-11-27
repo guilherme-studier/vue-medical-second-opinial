@@ -60,7 +60,7 @@
           </input-wrapper>
           <input-wrapper>
             <el-input
-              v-model="uf"
+              v-model="uf_crm"
               placeholder="UF"
               class="flexible-input"
               type="text"
@@ -184,7 +184,8 @@ export default {
       name: null,
       crm: null,
       cpf: null,
-      uf: null
+      // eslint-disable-next-line camelcase
+      uf_crm: null
     }
   },
   computed: {
@@ -193,7 +194,7 @@ export default {
       'getName',
       'getPhone',
       'getCrm',
-      'getState',
+      'getUfCrm',
       'getCpf',
       'isRegistred'
     ]),
@@ -208,7 +209,7 @@ export default {
         !this.phone ||
         !this.cpf ||
         !this.name ||
-        !this.uf ||
+        !this.uf_crm ||
         !this.termsAgreed
       )
     }
@@ -246,7 +247,8 @@ export default {
         phone: this.phone,
         name: this.name,
         crm: this.crm,
-        uf: this.uf
+        // eslint-disable-next-line camelcase
+        uf_crm: this.uf_crm
       }
 
       if (this.isRegistrationForm) {
@@ -270,7 +272,8 @@ export default {
         this.name = this.getName
         this.phone = this.getPhone
         this.crm = this.getCrm
-        this.uf = this.getState
+        // eslint-disable-next-line camelcase
+        this.uf_crm = this.getUfCrm
       } else {
         this.isRegistrationForm = true
         this.termsAgreed = false
