@@ -92,12 +92,12 @@ export default {
               userData.role === 'agent'
             )
               return router.push('/representative-registration')
-            // else if (
-            //   !userData.username &&
-            //   !userData.phone &&
-            //   userData.role === 'client_doctor'
-            // )
-            //   return router.push('/registration')
+            else if (
+              !userData.username &&
+              !userData.phone &&
+              userData.role === 'client_doctor'
+            )
+              return router.push('/registration')
             else return router.push('/')
           })
           .catch((error) => {
