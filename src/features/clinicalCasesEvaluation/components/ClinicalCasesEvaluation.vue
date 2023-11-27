@@ -203,7 +203,6 @@ export default {
     }
   },
   computed: {
-    ...mapActions('user', ['getUser']),
     ...mapGetters('user', ['getName']),
     ...mapGetters('clinicalCasesEvaluation', [
       'getIcon',
@@ -257,6 +256,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions('user', ['getUser']),
     ...mapActions('clinicalCasesEvaluation', [
       'handleModalSeem',
       'handleModalMessage',

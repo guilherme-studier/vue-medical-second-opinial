@@ -29,7 +29,7 @@
         type="primary"
         class="message-btn"
         @click="sendMessage"
-        :disabled="!enabledSendMessage || edit"
+        :disabled="!enabledSendMessage && edit"
       >
         Enviar
       </el-button>
