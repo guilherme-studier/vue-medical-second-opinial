@@ -49,8 +49,8 @@ export default {
   },
   actions: {
     async getUser({ commit, state }, userId) {
-      commit('setLoading', true)
       if (!userId) return
+      commit('setLoading', true)
 
       return getUserById({ userId })
         .then((response) => {
