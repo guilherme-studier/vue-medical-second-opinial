@@ -49,7 +49,7 @@ export default {
   },
   actions: {
     async getUser({ commit, state }, userId) {
-      if (!userId) return
+      // if (!userId) return
       commit('setLoading', true)
 
       return getUserById({ userId })

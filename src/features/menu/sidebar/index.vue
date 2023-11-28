@@ -90,9 +90,9 @@ export default {
       iconColor: '$green-500'
     }
   },
-  async created() {
-    await this.getUser()
-  },
+  // async created() {
+  //   await this.getUser()
+  // },
   computed: {
     ...mapGetters('user', ['isRegistred']),
     ...mapGetters('clinicalCasesEvaluation', ['getIsActiveVoucher']),
