@@ -32,7 +32,7 @@ export const getMessages = (voucherId) => {
       'content-type': 'application/json',
       Authorization: `Bearer ${getToken()}`
     },
-    url: `${BASE_URL}/voucher/messages/${voucherId}`
+    url: `${BASE_URL}/voucher/messages/${voucherId}?&size=50`
   })
 }
 

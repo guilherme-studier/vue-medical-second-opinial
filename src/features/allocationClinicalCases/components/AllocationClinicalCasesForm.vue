@@ -91,12 +91,22 @@ export default {
       return !this.name || !this.email || !this.quantity
     }
   },
-  mounted() {
-    this.fetchContracts()
+  async mounted() {
+    await this.getUser()
+    const industryId = localStorage.getItem('user')
+      ? JSON.parse(localStorage.getItem('user')).industryId
+      : null
+
+    await this.setIndustryId(industryId)
+    await this.fetchContracts()
   },
   methods: {
+    ...mapActions('user', ['getUser']),
     ...mapActions('allocationClinicalCases', ['addClientDoctor']),
-    ...mapActions('consultationClinicalCases', ['fetchContracts']),
+    ...mapActions('consultationClinicalCases', [
+      'fetchContracts',
+      'setIndustryId'
+    ]),
     async handleSave() {
       const userData = {
         doctorName: this.name,

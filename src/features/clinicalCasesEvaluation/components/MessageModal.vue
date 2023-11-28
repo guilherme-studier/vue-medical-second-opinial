@@ -4,7 +4,11 @@
       Caso clínico: <span>{{ voucher }}</span>
     </h2>
     <div class="messages" v-loading="getLoadingMessages">
-      <div v-if="getMessages.length" class="chat-message-container">
+      <div
+        v-if="getMessages.length"
+        class="chat-message-container"
+        ref="messageContainer"
+      >
         <Message
           v-for="message in getMessages"
           :key="message.id"
@@ -66,6 +70,9 @@ export default {
       messageText: null
     }
   },
+  mounted() {
+    this.scrollToEnd()
+  },
   computed: {
     ...mapGetters('clinicalCasesEvaluation', [
       'getLoadingMessages',
@@ -93,6 +100,17 @@ export default {
       await this.putNewMessage(handleData)
       await this.fetchMessages(this.id)
       this.messageText = null
+
+      this.$nextTick(() => {
+        this.scrollToEnd()
+      })
+    },
+
+    scrollToEnd() {
+      const messageContainer = this.$refs.messageContainer
+      if (messageContainer) {
+        messageContainer.scrollTop = messageContainer.scrollHeight
+      }
     }
   }
 }

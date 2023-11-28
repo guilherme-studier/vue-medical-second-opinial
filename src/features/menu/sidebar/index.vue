@@ -90,7 +90,9 @@ export default {
       iconColor: '$green-500'
     }
   },
-
+  async created() {
+    await this.getUser()
+  },
   computed: {
     ...mapGetters('user', ['isRegistred']),
     ...mapGetters('clinicalCasesEvaluation', ['getIsActiveVoucher']),
@@ -138,6 +140,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions('user', ['getUser']),
     ...mapActions(['logoutUser']),
 
     toggleMenu() {

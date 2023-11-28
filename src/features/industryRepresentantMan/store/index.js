@@ -47,8 +47,8 @@ export default {
     async editIndustryRepresentant({ commit, dispatch, state }, userData) {
       commit('setLoading', true)
       return updateIndustryRepresentant(
-        state.industryRepresentant?.id,
-        userData
+        userData,
+        state.industryRepresentant?.id
       )
         .then((response) => {
           toast.success(

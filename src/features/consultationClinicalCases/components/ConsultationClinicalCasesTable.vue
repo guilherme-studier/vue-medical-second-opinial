@@ -115,8 +115,14 @@
       <el-table-column
         header-align="center"
         label="Validade"
-        width="120"
+        width="110"
         prop="endDate"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        header-align="center"
+        label="Honorários"
+        prop="fees"
         align="center"
       ></el-table-column>
     </el-table>
@@ -138,10 +144,11 @@ import { mapActions, mapGetters } from 'vuex'
 import iconVoucher from '@/assets/icons/icon-voucher.svg'
 import InputGroup from '@/components/inputGroup'
 import InputWrapper from '@/components/inputWrapper'
+import { formatCurrency } from '@/helpers/currency'
 import { formatDate } from '@/helpers/date'
 
 export default {
-  name: 'Consulta Contratos Clínicos',
+  name: 'Consulta Contratos Casos Clínicos',
   components: {
     InputWrapper,
     InputGroup
@@ -252,12 +259,13 @@ export default {
       handler(newContracts) {
         this.tableData = newContracts?.map((contract) => ({
           voucher: contract?.contractName ?? '-',
-          industry: contract.industryName,
-          specialty: contract.specialtyName,
-          illness: contract.diseaseName,
-          doctor: contract.consultantDoctorId,
-          startDate: formatDate(contract.startDate),
-          endDate: formatDate(contract.startDate)
+          industry: contract?.industryName,
+          specialty: contract?.specialtyName,
+          illness: contract?.diseaseName,
+          doctor: contract?.consultantDoctorId,
+          startDate: formatDate(contract?.startDate),
+          endDate: formatDate(contract?.startDate),
+          fees: formatCurrency(contract?.consultantDoctorFees)
         }))
       },
       deep: true
