@@ -4,7 +4,7 @@
 import { useToast } from 'vue-toastification'
 
 import {
-  updateIndustryRepresentant,
+  editIndustryRepresentant,
   createIndustryRepresentant,
   getIndustryRepresentant,
   getIndustryRepresentants,
@@ -46,10 +46,7 @@ export default {
   actions: {
     async editIndustryRepresentant({ commit, dispatch, state }, userData) {
       commit('setLoading', true)
-      return updateIndustryRepresentant(
-        userData,
-        state.industryRepresentant?.id
-      )
+      return editIndustryRepresentant(userData, state.industryRepresentant?.id)
         .then((response) => {
           toast.success(
             'Dados do Representante da Indústria atualizados com sucesso',
