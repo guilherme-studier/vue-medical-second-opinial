@@ -4,7 +4,7 @@ import store from '@/store'
 
 const USER_BASE_URL = 'https://meso.poatech.com.br:450/user/api/1.0'
 const getToken = () => store?.getters?.getUserToken
-const represetantId = () => store?.getters?.getUserId
+// const represetantId = () => store?.getters?.getUserId
 
 /**
  * Pesquisar pelo Representante da Indústria
@@ -45,14 +45,14 @@ export const getIndustryRepresentants = ({ params }) => {
  * @param {object} userData - Os dados do representante da indústria (name, email, industryId).
  * @returns {Promise} - Uma promessa que retorna a resposta da solicitação.
  */
-export const updateIndustryRepresentant = (userData) => {
+export const updateIndustryRepresentant = (userData, id) => {
   return axios({
     method: 'PUT',
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${getToken()}`
     },
-    url: `${USER_BASE_URL}/industry-representative/${represetantId()}`,
+    url: `${USER_BASE_URL}/industry-representative/${id}`,
     data: userData
   })
 }
@@ -81,7 +81,7 @@ export const createIndustryRepresentant = (userData) => {
  */
 export const cancelIndustryRepresentant = (representantId) => {
   return axios({
-    method: 'PATCH',
+    method: 'PUT',
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${getToken()}`

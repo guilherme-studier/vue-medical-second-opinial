@@ -283,6 +283,10 @@ body {
     }
   }
 
+  ul.el-scrollbar__view.el-select-dropdown__list {
+    width: 100%;
+  }
+
   .pagination {
     justify-content: center;
   }

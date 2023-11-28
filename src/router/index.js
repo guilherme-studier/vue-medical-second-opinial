@@ -73,7 +73,7 @@ const routes = [
         name: 'ConsultationClinicalCases',
         component: ConsultationClinicalCases,
         meta: {
-          title: 'Consulta Contratos Clínicos'
+          title: 'Consulta Contratos Casos Clínicos'
         }
       },
       {

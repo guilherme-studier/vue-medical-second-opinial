@@ -10,7 +10,7 @@ import { mapGetters } from 'vuex'
 import ConsultationClinicalCasesTable from './components/ConsultationClinicalCasesTable.vue'
 
 export default {
-  name: 'Consulta Contratos Clínicos',
+  name: 'Consulta Contratos Casos Clínicos',
   components: {
     ConsultationClinicalCasesTable
   },

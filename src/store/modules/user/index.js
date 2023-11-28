@@ -50,6 +50,8 @@ export default {
   actions: {
     async getUser({ commit, state }, userId) {
       commit('setLoading', true)
+      if (!userId) return
+
       return getUserById({ userId })
         .then((response) => {
           commit('setUserData', response.data)
