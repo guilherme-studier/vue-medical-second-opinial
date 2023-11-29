@@ -54,8 +54,8 @@
         </input-wrapper>
         <input-wrapper>
           <el-input
-            v-model="password"
-            placeholder="Senha atual"
+            v-model="newPassword"
+            placeholder="Nova senha"
             class="flexible-input"
             type="password"
           />

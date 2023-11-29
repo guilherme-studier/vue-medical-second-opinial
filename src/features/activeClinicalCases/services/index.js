@@ -53,6 +53,18 @@ export const getUrl = (voucherId) => {
   })
 }
 
+export const getFileDownload = (voucherId) => {
+  return axios({
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${getToken()}`
+    },
+    url: `${USER_BASE_URL}/voucher/download/files/${voucherId}`,
+    responseType: 'blob'
+  })
+}
+
 /**
  * Ativar Voucher
  * Endpoint para editar um caso clínico/voucher

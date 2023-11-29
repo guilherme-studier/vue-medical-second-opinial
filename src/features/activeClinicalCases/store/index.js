@@ -5,6 +5,7 @@ import {
   activeVoucher,
   getVoucher,
   getUrl,
+  getFileDownload,
   postUrl
 } from '../services/index'
 
@@ -81,6 +82,30 @@ export default {
         .finally(() => {
           commit('setLoading', false)
         })
+    },
+    async fechVoucherDownload({ commit }, fileData) {
+      commit('setLoading', true)
+      try {
+        const response = await getFileDownload(fileData.id)
+
+        const url = window.URL.createObjectURL(
+          new Blob([response.data], { type: 'image/png' })
+        )
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', fileData.name)
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+
+        toast.success('Download realizado com sucesso', { timeout: 5000 })
+      } catch (error) {
+        toast.warning('Não foi possível realizar o download do arquivo', {
+          timeout: 5000
+        })
+      } finally {
+        commit('setLoading', false)
+      }
     },
     async fetchFile({ commit }, voucherId) {
       return getUrl(voucherId)
