@@ -24,7 +24,7 @@
         align="center"
       ></el-table-column>
       <el-table-column
-        prop="id"
+        prop="voucherId"
         label="ID"
         align="center"
         style="max-width: 50%"
@@ -108,6 +108,7 @@
     >
       <seem-modal
         :voucher="selectedContract?.voucher"
+        :voucherId="selectedContract?.voucherId"
         :opinion="selectedContract?.opinion"
         :edit="selectedContract?.edit"
       />
@@ -123,6 +124,7 @@
         :id="selectedContract?.id"
         :voucher="selectedContract?.voucher"
         :edit="selectedContract?.edit"
+        :voucherId="selectedContract?.voucherId"
       />
     </el-dialog>
   </div>
@@ -226,12 +228,14 @@ export default {
     handleFile(row, edit) {
       if (row.opinion === null) {
         this.selectedContract = {
+          voucherId: row.voucherId,
           voucher: row.id,
           opinion: null,
           edit: edit
         }
       } else {
         this.selectedContract = {
+          voucherId: row.voucherId,
           voucher: row.id,
           opinion: row.opinion || ''
         }
@@ -240,6 +244,7 @@ export default {
     },
     handleComment(row, edit) {
       this.selectedContract = {
+        voucherId: row?.voucherId,
         id: row?.id,
         voucher: row?.id,
         edit: edit
