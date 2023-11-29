@@ -555,7 +555,7 @@
 
           <div class="filepath" v-for="file in getFile" :key="file.id">
             <PictureFilled style="width: 1em; height: 1em; margin-right: 8px" />
-            <p class="filename">
+            <p @click="handleDownload(file.id, file.fileName)" class="filename">
               {{ file.fileName }}
             </p>
           </div>
@@ -894,6 +894,16 @@
           />
         </input-wrapper>
       </input-group>
+    </div>
+    <div class="content-title">
+      <h1 class="title">Exames e Laudos Adicionais</h1>
+      <span class="line"></span>
+    </div>
+    <div class="filepath" v-for="file in getFile" :key="file.id">
+      <PictureFilled style="width: 1em; height: 1em; margin-right: 8px" />
+      <p @click="handleDownload(file.id, file.fileName)" class="filename">
+        {{ file.fileName }}
+      </p>
     </div>
     <div class="btn" v-if="isEdit">
       <el-button class="save" type="primary" @click="handleSave"
@@ -1343,12 +1353,21 @@ export default {
   },
   methods: {
     ...mapActions('activeClinicalCases', [
+      'fechVoucherDownload',
       'saveEditVoucher',
       'activeVoucher',
       'fetchVoucher',
       'fetchFile'
     ]),
     ...mapActions('clinicalCasesEvaluation', ['offActiveVoucherPage']),
+
+    handleDownload(id, name) {
+      const fileData = {
+        id: id,
+        name: name
+      }
+      this.fechVoucherDownload(fileData)
+    },
 
     goBack() {
       if (this.isConsultant === 'consultant_doctor')
@@ -1688,10 +1707,16 @@ label {
 .filepath {
   display: flex;
   align-items: center;
-  margin: 10px;
+  margin: 20px;
 
   .filename {
     font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+      border-bottom: 1px solid #000;
+    }
   }
 }
 </style>

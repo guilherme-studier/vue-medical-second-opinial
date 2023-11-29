@@ -75,23 +75,14 @@
                       type="text"
                     />
                   </input-wrapper>
-                  <input-wrapper>
-                    <el-input
-                      v-model="ufCrm"
-                      placeholder="UF CRM"
-                      class="flexible-input"
-                      type="text"
-                    />
-                  </input-wrapper>
                 </input-group>
               </input-wrapper>
               <input-wrapper>
                 <el-input
-                  v-model="newPassword"
-                  placeholder="Nova senha"
+                  v-model="ufCrm"
+                  placeholder="UF CRM"
                   class="flexible-input"
-                  :disabled="isNewPassword"
-                  type="password"
+                  type="text"
                 />
               </input-wrapper>
             </input-group>
