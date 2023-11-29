@@ -24,6 +24,12 @@
         align="center"
       ></el-table-column>
       <el-table-column
+        prop="voucherId"
+        label="ID"
+        align="center"
+        style="max-width: 50%"
+      ></el-table-column>
+      <el-table-column
         prop="illness"
         label="Doença"
         align="center"
@@ -147,6 +153,7 @@
       <seem-modal
         :voucher="selectedContract?.voucher"
         :opinion="selectedContract?.opinion"
+        :voucherId="selectedContract?.voucherId"
       />
     </el-dialog>
 
@@ -160,6 +167,7 @@
         :id="selectedContract?.id"
         :voucher="selectedContract?.voucher"
         :status="selectedContract?.status"
+        :voucherId="selectedContract?.voucherId"
       />
     </el-dialog>
   </div>
@@ -274,11 +282,13 @@ export default {
     handleFile(row) {
       if (row.opinion === null) {
         this.selectedContract = {
+          voucherId: row.voucherId,
           voucher: row.id,
           opinion: null
         }
       } else {
         this.selectedContract = {
+          voucherId: row.voucherId,
           voucher: row.id,
           opinion: row.opinion || ''
         }
@@ -286,8 +296,8 @@ export default {
       this.handleModalSeem(this.selectedContract.opinion)
     },
     handleComment(row) {
-      console.log(row)
       this.selectedContract = {
+        voucherId: row.voucherId,
         id: row?.id,
         voucher: row?.id,
         status: row?.status

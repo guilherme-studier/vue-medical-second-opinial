@@ -1,7 +1,7 @@
 <template>
   <div class="container-modal-message">
     <h2>
-      Caso clínico: <span>{{ voucher }}</span>
+      Caso clínico: <span>{{ voucherId }}</span>
     </h2>
     <div class="messages" v-loading="getLoadingMessages">
       <div
@@ -72,6 +72,10 @@ export default {
     return { toast }
   },
   props: {
+    voucherId: {
+      type: String,
+      default: null
+    },
     id: {
       type: Number,
       default: null

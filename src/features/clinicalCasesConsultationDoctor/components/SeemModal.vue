@@ -1,7 +1,7 @@
 <template>
   <div class="container-modal-seem" v-loading="getLoadingOpinion">
     <h2>
-      Caso clínico: <span>{{ voucher }}</span>
+      Caso clínico: <span>{{ voucherId }}</span>
     </h2>
     <div class="seem">
       <textarea
@@ -36,6 +36,10 @@ export default {
     return { toast }
   },
   props: {
+    voucherId: {
+      type: String,
+      default: null
+    },
     voucher: {
       type: String,
       default: null
