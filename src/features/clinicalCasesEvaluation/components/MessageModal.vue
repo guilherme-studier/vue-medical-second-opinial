@@ -29,6 +29,19 @@
       </div>
     </div>
     <div v-if="getMessages.length && edit" class="message-send">
+      <el-upload
+        v-model="fileList"
+        class="upload-demo"
+        :auto-upload="false"
+        @change="handleFileImg"
+        :show-file-list="false"
+      >
+        <template #trigger>
+          <el-button type="primary" class="message-btn" @click="sendMessage">
+            Upload de arquivo
+          </el-button>
+        </template>
+      </el-upload>
       <el-button
         type="primary"
         class="message-btn"
@@ -42,6 +55,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { useToast } from 'vue-toastification'
 import { mapActions, mapGetters } from 'vuex'
 
 import Message from './Message.vue'
@@ -50,6 +65,11 @@ export default {
   name: 'MessageModal',
   components: {
     Message
+  },
+  setup() {
+    const toast = useToast()
+
+    return { toast }
   },
   props: {
     id: {
@@ -67,13 +87,15 @@ export default {
   },
   data() {
     return {
-      messageText: null
+      messageText: null,
+      selectedFile: {}
     }
   },
   mounted() {
     this.scrollToEnd()
   },
   computed: {
+    ...mapGetters(['getUserToken']),
     ...mapGetters('clinicalCasesEvaluation', [
       'getLoadingMessages',
       'getIsModalMessage',
@@ -92,11 +114,43 @@ export default {
       'putNewMessage',
       'fetchMessages'
     ]),
+    async handleFileImg(file) {
+      this.selectedFile = file.raw
+
+      await this.submit()
+    },
+    async submit() {
+      const url = 'https://meso.poatech.com.br:450/clinical-case/api/1.0'
+      const voucherId = this.voucher
+      const formData = new FormData()
+      formData.append('body', this.selectedFile)
+
+      await axios
+        .post(`${url}/voucher/${voucherId}/document`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${this.getUserToken}`
+          }
+        })
+        .then(() => {
+          this.toast.success('Upload realizado com sucesso', {
+            timeout: 5000
+          })
+        })
+        .catch(() => {
+          this.toast.warning('Não foi possível realizar o upload do arquivo')
+        })
+        .finally(() => {
+          this.messageText = `${this.getMessages[0].name} anexou um arquivo. Disponível para consulta em Exames e Laudos Adicionais`
+          this.sendMessage()
+        })
+    },
     async sendMessage() {
       const handleData = {
         id: this.id,
         message: this.messageText
       }
+      if (!handleData.message) return
       await this.putNewMessage(handleData)
       await this.fetchMessages(this.id)
       this.messageText = null

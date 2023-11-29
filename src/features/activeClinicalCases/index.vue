@@ -296,6 +296,7 @@
             placeholder="__%"
             v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
+            @blur="verifyPreCvf"
           >
             <template #prepend>CVF</template>
           </el-input>
@@ -306,6 +307,7 @@
             placeholder="__%"
             v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
+            @blur="verifyPreVef"
           >
             <template #prepend><span v-html="vef"/></template>
           </el-input>
@@ -316,6 +318,7 @@
             placeholder="__%"
             v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
+            @blur="verifyPreVefCvf"
           >
             <template #prepend><span v-html="vefCvf"/></template>
           </el-input>
@@ -326,6 +329,7 @@
             placeholder="__%"
             v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
+            @blur="verifyPreFef"
           >
             <template #prepend><span v-html="fef"/></template>
           </el-input>
@@ -341,6 +345,7 @@
             placeholder="__%"
             v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
+            @blur="verifyPosCvf"
           >
             <template #prepend>CVF</template>
           </el-input>
@@ -351,6 +356,7 @@
             placeholder="__%"
             v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
+            @blur="verifyPosVef"
           >
             <template #prepend><span v-html="vef"/></template>
           </el-input>
@@ -361,6 +367,7 @@
             placeholder="__%"
             v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
+            @blur="verifyPosVefCvf"
           >
             <template #prepend><span v-html="vefCvf"/></template>
           </el-input>
@@ -371,6 +378,7 @@
             placeholder="__%"
             v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
+            @blur="verifyPosFef"
           >
             <template #prepend><span v-html="fef"/></template>
           </el-input>
@@ -385,6 +393,7 @@
             v-model="bd"
             v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
+            @blur="verifyBd"
           />
         </input-wrapper>
       </input-group>
@@ -419,6 +428,7 @@
             :placeholder="`Eosinófilos no escarro: __%`"
             :disabled="!isEdit"
             v-mask="['##%', '#%', '###%']"
+            @blur="verifyEosinophilsSputum"
           />
         </input-wrapper>
       </input-group>
@@ -1360,6 +1370,47 @@ export default {
       'fetchFile'
     ]),
     ...mapActions('clinicalCasesEvaluation', ['offActiveVoucherPage']),
+
+    verifyPreCvf() {
+      if (parseInt(this.preCvf) > 100) return (this.preCvf = '100%')
+    },
+
+    verifyPreVef() {
+      if (parseInt(this.preVef) > 100) return (this.preVef = '100%')
+    },
+
+    verifyPreVefCvf() {
+      if (parseInt(this.preVefCvf) > 100) return (this.preVefCvf = '100%')
+    },
+
+    verifyPreFef() {
+      if (parseInt(this.preFef) > 100) return (this.preFef = '100%')
+    },
+
+    verifyPosCvf() {
+      if (parseInt(this.posCvf) > 100) return (this.posCvf = '100%')
+    },
+
+    verifyPosVef() {
+      if (parseInt(this.posVef) > 100) return (this.posVef = '100%')
+    },
+
+    verifyPosVefCvf() {
+      if (parseInt(this.posVefCvf) > 100) return (this.posVefCvf = '100%')
+    },
+
+    verifyPosFef() {
+      if (parseInt(this.posFef) > 100) return (this.posFef = '100%')
+    },
+
+    verifyBd() {
+      if (parseInt(this.bd) > 100) return (this.bd = '100%')
+    },
+
+    verifyEosinophilsSputum() {
+      if (parseInt(this.eosinophilsSputum) > 100)
+        return (this.eosinophilsSputum = '100%')
+    },
 
     handleDownload(id, name) {
       const fileData = {
