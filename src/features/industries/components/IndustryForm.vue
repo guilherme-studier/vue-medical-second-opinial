@@ -51,7 +51,7 @@
           <el-input
             v-model="contact"
             type="text"
-            placeholder="Contato"
+            placeholder="Ponto Focal"
             class="flexible-input"
           />
         </InputWrapper>

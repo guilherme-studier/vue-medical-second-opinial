@@ -1022,10 +1022,6 @@ export default {
           name: 'Obesidade'
         },
         {
-          id: 6,
-          name: 'Obesidade'
-        },
-        {
           id: 7,
           name: 'Apneia obstrutiva do sono'
         },

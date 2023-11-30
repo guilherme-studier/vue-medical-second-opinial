@@ -40,7 +40,7 @@ export default {
         {
           icon: faComment,
           text:
-            'O sistema de mensagens finará habilitado para interação após ativação pelo médico consultor, caso haja dúvidas fundamentais que precisem ser respondidas para conclusão do parecer.'
+            'O sistema de mensagens finacá habilitado para interação após ativação pelo médico consultor, caso haja dúvidas fundamentais que precisem ser respondidas para conclusão do parecer.'
         }
       ]
     }

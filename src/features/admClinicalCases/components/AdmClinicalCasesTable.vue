@@ -5,7 +5,7 @@
         <img class="icon-voucher" :src="getIcon" />
         <h1>
           {{ getName }} <span>possui</span> {{ getTotalContent }} caso(s)
-          clínico(s) ativo(s)
+          clínico(s)
         </h1>
       </div>
     </div>
