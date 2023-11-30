@@ -99,7 +99,7 @@
               <input-wrapper>
                 <el-input
                   v-model="street"
-                  placeholder="Lagradouro"
+                  placeholder="Logradouro"
                   class="flexible-input"
                   type="text"
                 />

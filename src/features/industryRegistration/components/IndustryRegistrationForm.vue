@@ -42,7 +42,7 @@
       <InputGroup>
         <el-input
           type="text"
-          placeholder="Contato"
+          placeholder="Ponto Focal"
           class="full-width"
           v-model="contact"
         />
