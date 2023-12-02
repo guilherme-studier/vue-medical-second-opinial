@@ -20,9 +20,9 @@ export default {
       return putClientDoctor(userData)
         .then(() => {
           return toast.success(
-            'Atribuição de caso clínico efetuada com sucesso',
+            'Atribuição de caso(s) clínico(s) efetuada com sucesso',
             {
-              timeout: 5000
+              timeout: 8000
             }
           )
         })
@@ -30,7 +30,7 @@ export default {
           toast.warning(
             'Não foi possível efetuar a atribuição de caso clínico',
             {
-              timeout: 5000
+              timeout: 8000
             }
           )
         })

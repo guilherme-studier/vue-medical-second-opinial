@@ -40,7 +40,7 @@
                   placeholder="CPF"
                   class="flexible-input"
                   v-mask="'###.###.###-##'"
-                  :disabled="!isRegistrationForm"
+                  :disabled="getCpf"
                 />
               </input-wrapper>
             </input-group>
@@ -94,12 +94,31 @@
                   class="flexible-input"
                   type="text"
                   v-mask="'#####-###'"
+                  @input="searchCep"
                 />
               </input-wrapper>
               <input-wrapper>
                 <el-input
                   v-model="street"
                   placeholder="Logradouro"
+                  class="flexible-input"
+                  type="text"
+                />
+              </input-wrapper>
+            </input-group>
+            <input-group>
+              <input-wrapper>
+                <el-input
+                  v-model="city"
+                  placeholder="Cidade"
+                  class="flexible-input"
+                  type="text"
+                />
+              </input-wrapper>
+              <input-wrapper>
+                <el-input
+                  v-model="state"
+                  placeholder="UF"
                   class="flexible-input"
                   type="text"
                 />
@@ -124,27 +143,14 @@
                 />
               </input-wrapper>
             </input-group>
-            <input-group>
-              <input-wrapper>
-                <el-input
-                  v-model="city"
-                  placeholder="Cidade"
-                  class="flexible-input"
-                  type="text"
-                />
-              </input-wrapper>
-              <input-wrapper>
-                <el-input
-                  v-model="state"
-                  placeholder="UF"
-                  class="flexible-input"
-                  type="text"
-                />
-              </input-wrapper>
-            </input-group>
           </div>
           <div class="terms-agreement" v-show="isRegistrationForm">
-            <input type="checkbox" id="termsCheckbox" v-model="termsAgreed" />
+            <input
+              type="checkbox"
+              id="termsCheckbox"
+              v-model="termsAgreed"
+              :disabled="!isTermsAgree"
+            />
             <label>
               Li e estou de acordo com o
               <span @click="openModal">Termo de Responsabilidade</span> sobre a
@@ -156,7 +162,11 @@
               title="Termo de Responsabilidade"
             >
               <div class="">
-                <div class="modal-text">
+                <div
+                  ref="scrollbarRef"
+                  class="modal-text"
+                  @scroll="handleScroll"
+                >
                   <p>
                     Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry. Lorem Ipsum has been the industry's
@@ -216,7 +226,11 @@
                   </p>
                 </div>
 
-                <el-button class="modal-btn" type="primary" @click="handleTerms"
+                <el-button
+                  class="modal-btn"
+                  type="primary"
+                  @click="handleTerms"
+                  :disabled="!isTermsAgree"
                   >De acordo</el-button
                 >
               </div>
@@ -276,6 +290,7 @@
                 placeholder="Senha atual"
                 class="flexible-input"
                 type="password"
+                show-password
               />
             </input-wrapper>
             <input-wrapper>
@@ -285,6 +300,7 @@
                 class="flexible-input"
                 :disabled="isNewPassword"
                 type="password"
+                show-password
               />
             </input-wrapper>
           </input-group>
@@ -324,6 +340,7 @@ export default {
   },
   data() {
     return {
+      isTermsAgree: false,
       titlePayments: 'Dados para pagamentos de honorários',
       titleRegistration: 'Dados Cadastrais',
       titleSpecialty: 'Especialidade',
@@ -378,7 +395,6 @@ export default {
 
       return (
         !this.termsAgreed ||
-        !this.complement ||
         !this.specialty ||
         !this.number ||
         !this.email ||
@@ -409,6 +425,45 @@ export default {
     ...mapActions('user', ['getUser']),
     ...mapActions('specialty', ['fetchSpecialties']),
     ...mapActions('consultantMedicalRegistration', ['updateConsultantMedical']),
+
+    async searchCep() {
+      if (this.cep && this.cep.length === 9) {
+        try {
+          const response = await fetch(
+            `https://viacep.com.br/ws/${this.cep.replace('-', '')}/json/`
+          )
+          const data = await response.json()
+
+          if (!data.erro) {
+            this.state = data.uf
+            this.city = data.localidade
+            this.complement = data.complemento
+            this.street = data.logradouro
+          } else {
+            this.state = ''
+            this.city = ''
+            this.toast.error(
+              'CEP não encontrado, por favor preencha o restante dos dados do endereço'
+            )
+          }
+        } catch (error) {
+          this.toast.error(
+            'CEP não encontrado, por favor preencha o restante dos dados do endereço'
+          )
+        }
+      }
+    },
+
+    handleScroll() {
+      const modalContent = this.$refs.scrollbarRef
+      const isAtScrollEnd =
+        modalContent.scrollHeight - modalContent.scrollTop ===
+        modalContent.clientHeight
+
+      if (isAtScrollEnd) {
+        this.isTermsAgree = true
+      }
+    },
 
     openModal() {
       this.modalTermsVisible = true

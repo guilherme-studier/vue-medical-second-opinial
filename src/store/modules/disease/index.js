@@ -53,7 +53,7 @@ export default {
         })
         .catch(() => {
           commit('setError', true)
-          toast.warning('Erro ao buscar as doenças', { timeout: 5000 })
+          toast.warning('Erro ao buscar as doenças', { timeout: 8000 })
         })
         .finally(() => {
           commit('setLoading', false)
@@ -67,11 +67,11 @@ export default {
       createDisease(diseaseName)
         .then(() => {
           dispatch('fetchDiseases')
-          toast.success('Doença criada com sucesso!', { timeout: 5000 })
+          toast.success('Doença criada com sucesso!', { timeout: 8000 })
         })
         .catch(() => {
           commit('setError', true)
-          toast.warning('Erro ao criar a doença', { timeout: 5000 })
+          toast.warning('Erro ao criar a doença', { timeout: 8000 })
         })
         .finally(() => {
           commit('setLoading', false)
@@ -82,7 +82,7 @@ export default {
       deleteDisease(diseaseId)
         .then(() => {
           dispatch('fetchDiseases')
-          toast.success('Doença removida com sucesso!', { timeout: 5000 })
+          toast.success('Doença removida com sucesso!', { timeout: 8000 })
         })
         .catch((error) => {
           const errorMessage = error.response
@@ -90,7 +90,7 @@ export default {
             : 'Erro desconhecido'
 
           toast.warning(`Erro ao tentar deletar a doença: ${errorMessage}`, {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {
@@ -102,11 +102,11 @@ export default {
       updateDisease(data.id, data.name)
         .then(() => {
           dispatch('fetchDiseases')
-          toast.success('Doença atualizada com sucesso!', { timeout: 5000 })
+          toast.success('Doença atualizada com sucesso!', { timeout: 8000 })
         })
         .catch(() => {
           commit('setError', true)
-          toast.warning('Erro ao atualizar a doença', { timeout: 5000 })
+          toast.warning('Erro ao atualizar a doença', { timeout: 8000 })
         })
         .finally(() => {
           commit('setLoading', false)
@@ -120,7 +120,7 @@ export default {
         })
         .catch(() => {
           commit('setError', true)
-          toast.warning('Erro ao buscar a doença', { timeout: 5000 })
+          toast.warning('Erro ao buscar a doença', { timeout: 8000 })
         })
         .finally(() => {
           commit('setLoading', false)

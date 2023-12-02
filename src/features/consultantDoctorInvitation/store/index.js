@@ -25,12 +25,12 @@ export default {
         .then((response) => {
           commit('setDoctorConsultant', response.data)
           toast.success('Convite para Médico Consultor efetuado com sucesso', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .catch(() => {
           toast.warning('Erro realizar o convite para Médico Consultor', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {

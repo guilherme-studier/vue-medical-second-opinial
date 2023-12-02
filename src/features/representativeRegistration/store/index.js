@@ -26,7 +26,7 @@ export default {
         .then((response) => {
           commit('setRepresentative', response.data)
           toast.success('Cadastro atualizado com sucesso', {
-            timeout: 5000
+            timeout: 8000
           })
           return response
         })
@@ -34,7 +34,7 @@ export default {
           toast.warning(
             'Não foi possível realizar a atualização do cadastro Representante',
             {
-              timeout: 5000
+              timeout: 8000
             }
           )
         })

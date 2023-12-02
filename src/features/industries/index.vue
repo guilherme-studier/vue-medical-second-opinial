@@ -10,7 +10,7 @@ import { mapGetters } from 'vuex'
 import IndustryForm from './components/IndustryForm'
 
 export default {
-  name: 'Gestão de Indústrias',
+  name: 'Gestão de Patrocinadores',
   components: {
     IndustryForm
   },

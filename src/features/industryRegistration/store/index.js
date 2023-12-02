@@ -50,14 +50,14 @@ export default {
         .then((response) => {
           commit('setIndustry', response.data)
           toast.success('Cadastro Indústria efetuado criado com sucesso', {
-            timeout: 5000
+            timeout: 8000
           })
           dispatch('fetchIndustries')
           return response
         })
         .catch((error) => {
           toast.warning('Não foi possível realizar o cadastro', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {
@@ -73,7 +73,7 @@ export default {
           commit('setTotalContent', response.data.totalContent)
         })
         .catch((error) => {
-          toast.warning('Erro ao buscar as indústrias', { timeout: 5000 })
+          toast.warning('Erro ao buscar as indústrias', { timeout: 8000 })
         })
         .finally(() => {
           commit('setLoading', false)
@@ -84,7 +84,7 @@ export default {
       return deleteIndustry(industryId)
         .then(() => {
           dispatch('fetchIndustries')
-          toast.success('Indústria removida com sucesso!', { timeout: 5000 })
+          toast.success('Indústria removida com sucesso!', { timeout: 8000 })
         })
         .catch((error) => {
           const errorMessage = error.response
@@ -92,7 +92,7 @@ export default {
             : 'Erro desconhecido'
 
           toast.warning(`Erro ao tentar deletar a indústria: ${errorMessage}`, {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {
@@ -105,11 +105,11 @@ export default {
         .then(() => {
           dispatch('fetchIndustries')
           toast.success('Indústria atualizada com sucesso!', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .catch((error) => {
-          toast.warning('Erro ao atualizar a indústria', { timeout: 5000 })
+          toast.warning('Erro ao atualizar a indústria', { timeout: 8000 })
         })
         .finally(() => {
           commit('setLoading', false)
@@ -122,7 +122,7 @@ export default {
           commit('setIndustry', response.data.content)
         })
         .catch((error) => {
-          toast.warning('Erro ao buscar a indústria', { timeout: 5000 })
+          toast.warning('Erro ao buscar a indústria', { timeout: 8000 })
         })
         .finally(() => {
           commit('setLoading', false)

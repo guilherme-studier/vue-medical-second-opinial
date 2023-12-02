@@ -54,7 +54,7 @@ export default {
         })
         .catch((error) => {
           commit('setError', true)
-          toast.warning('Erro ao buscar as especialidades', { timeout: 5000 })
+          toast.warning('Erro ao buscar as especialidades', { timeout: 8000 })
         })
         .finally(() => {
           commit('setLoading', false)
@@ -68,11 +68,11 @@ export default {
       createSpecialty(specialtyName)
         .then(() => {
           dispatch('fetchSpecialties')
-          toast.success('Especialidade criada com sucesso!', { timeout: 5000 })
+          toast.success('Especialidade criada com sucesso!', { timeout: 8000 })
         })
         .catch(() => {
           commit('setError', true)
-          toast.warning('Erro ao criar a especialidade', { timeout: 5000 })
+          toast.warning('Erro ao criar a especialidade', { timeout: 8000 })
         })
         .finally(() => {
           commit('setLoading', false)
@@ -84,7 +84,7 @@ export default {
         .then(() => {
           dispatch('fetchSpecialties')
           toast.success('Especialidade removida com sucesso!', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .catch((error) => {
@@ -95,7 +95,7 @@ export default {
           toast.warning(
             `Erro ao tentar deletar a especialidade: ${errorMessage}`,
             {
-              timeout: 5000
+              timeout: 8000
             }
           )
         })
@@ -109,12 +109,12 @@ export default {
         .then(() => {
           dispatch('fetchSpecialties')
           toast.success('Especialidade atualizada com sucesso!', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .catch(() => {
           commit('setError', true)
-          toast.warning('Erro ao atualizar a especialidade', { timeout: 5000 })
+          toast.warning('Erro ao atualizar a especialidade', { timeout: 8000 })
         })
         .finally(() => {
           commit('setLoading', false)
@@ -128,7 +128,7 @@ export default {
         })
         .catch(() => {
           commit('setError', true)
-          toast.warning('Erro ao buscar a especialidade', { timeout: 5000 })
+          toast.warning('Erro ao buscar a especialidade', { timeout: 8000 })
         })
         .finally(() => {
           commit('setLoading', false)

@@ -9,5 +9,7 @@ export const formatErrors = (error) => {
       return 'Atividade ativa em um caso clínico'
     case 'Usuário e/ou senha inválido':
       return 'Usuário e/ou senha inválido'
+    case 'E-mail não cadastrado':
+      return 'Usuário não encontrado'
   }
 }

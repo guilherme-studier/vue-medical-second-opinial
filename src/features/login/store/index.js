@@ -106,7 +106,7 @@ export default {
               : 'Erro desconhecido'
 
             toast.warning(`Erro ao efetuar o login: ${errorMessage}`, {
-              timeout: 5000
+              timeout: 8000
             })
           })
           .finally(() => {
@@ -121,7 +121,7 @@ export default {
             commit('setValidatePassword', false)
             toast.warning(
               'Não foi possível validar a senha do usuário para realizar a atualização dos dados cadastrais',
-              { timeout: 5000 }
+              { timeout: 8000 }
             )
           })
           .finally(() => {
@@ -136,7 +136,7 @@ export default {
       } catch (error) {
         dispatch('logoutUser')
         toast.warning('Não foi possível validar o usuário logado', {
-          timeout: 5000
+          timeout: 8000
         })
       }
     },
@@ -151,7 +151,7 @@ export default {
         })
         .catch((error) => {
           toast.warning('Não foi possível realizar o logout do usuário', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {
@@ -162,13 +162,17 @@ export default {
     resetPassword({ commit }, email) {
       reset(email)
         .then((response) => {
-          toast.success('E-mail de reset de senha enviado com sucesso', {
-            timeout: 5000
+          toast.success('Email de recuperação de senha enviado com sucesso', {
+            timeout: 8000
           })
         })
         .catch((error) => {
-          toast.warning('Não foi possível realizar o reset da senha', {
-            timeout: 5000
+          const errorMessage = error.response
+            ? formatErrors(error.response.data.message)
+            : 'Erro desconhecido'
+
+          toast.warning(`Erro ao efetuar o reset da senha: ${errorMessage}`, {
+            timeout: 8000
           })
         })
     }

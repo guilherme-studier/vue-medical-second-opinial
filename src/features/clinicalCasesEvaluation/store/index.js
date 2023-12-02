@@ -110,7 +110,7 @@ export default {
           toast.warning(
             'Erro ao buscar os casos clínicos de Médico Consultor',
             {
-              timeout: 5000
+              timeout: 8000
             }
           )
         })
@@ -126,13 +126,13 @@ export default {
       return createOrEditOpinion(userData)
         .then(() => {
           toast.success('Parecer registrado com sucesso', {
-            timeout: 5000
+            timeout: 8000
           })
           dispatch('getClinicalCases')
         })
         .catch(() => {
           toast.warning('Não foi possível registrar o parecer do médico', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {
@@ -147,7 +147,7 @@ export default {
         })
         .catch(() => {
           toast.warning('Erro ao buscar as mensagens deste voucher', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {
@@ -159,14 +159,14 @@ export default {
       return putMessage(userData)
         .then(() => {
           toast.success('Mensagem enviada com sucesso', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .catch(() => {
           toast.warning(
             'Não foi possível enviar esta mensagem, tente novamente mais tarde',
             {
-              timeout: 5000
+              timeout: 8000
             }
           )
         })

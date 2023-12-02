@@ -1,20 +1,17 @@
 <template>
   <div class="login-form">
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="handleLogin">
       <!-- Exibe o campo de e-mail e senha quando forgotPassword for falso -->
       <div class="form-input" v-if="!forgotPassword">
         <div class="form-group">
           <el-input
             v-model="username"
-            type="text"
+            type="email"
             id="username"
             name="username"
             placeholder="Usuário"
-          >
-            <template #prepend>
-              <el-button :icon="iconUser" />
-            </template>
-          </el-input>
+            :prefix-icon="iconUser"
+          />
         </div>
         <div class="form-group">
           <el-input
@@ -23,11 +20,11 @@
             id="password"
             name="password"
             placeholder="Senha"
-          >
-            <template #prepend>
-              <el-button :icon="iconLock" />
-            </template>
-          </el-input>
+            ref="passwordInput"
+            @keyup.enter="handleLogin"
+            :prefix-icon="iconLock"
+            show-password
+          />
         </div>
       </div>
       <div class="password-field" v-else>
@@ -38,17 +35,15 @@
             id="email"
             name="email"
             placeholder="E-mail cadastrado"
-            ><template #prepend>
-              <el-button :icon="iconMail" />
-            </template>
-          </el-input>
+            :prefix-icon="iconMail"
+          />
         </div>
       </div>
       <div class="form-group last-form-group">
         <a @click="handlePassword" href="#">
           {{ forgotPassword ? 'Retornar Login' : 'Esqueci minha senha' }}
         </a>
-        <el-button type="primary" @click="handleButtonClick">{{
+        <el-button type="primary" @click="handleLogin">{{
           forgotPassword ? 'Enviar' : 'Entrar'
         }}</el-button>
       </div>
@@ -84,17 +79,14 @@ export default {
       } else this.email = null
     },
 
-    async handleButtonClick() {
-      if (this.forgotPassword) this.resetPassword({ email: this.email })
+    async handleLogin() {
+      console.log('aqui')
+      if (this.forgotPassword) return this.resetPassword({ email: this.email })
       else
         this.loginUser({
           username: this.username,
           password: this.password
         })
-    },
-
-    handleSubmit() {
-      return false
     }
   }
 }

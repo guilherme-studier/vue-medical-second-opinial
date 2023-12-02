@@ -1,8 +1,11 @@
 <template>
   <div id="active-clinical-case">
-    <el-icon class="go-back" @click="goBack" :size="30">
-      <DArrowLeft />
-    </el-icon>
+    <div @click="goBack" class="go-back">
+      <el-icon :size="15">
+        <DArrowLeft />
+      </el-icon>
+      <span>Voltar</span>
+    </div>
     <div class="active-clinical-case-form">
       <div class="side-by-side">
         <div class="half-width">
@@ -20,10 +23,10 @@
     <div class="form" :class="{ 'form-loading': isLoading }">
       <input-group>
         <input-wrapper>
-          <label>Idade</label>
+          <label>Idade. *</label>
           <el-input
             type="number"
-            placeholder="Idade"
+            placeholder="Idade."
             class="flexible-input"
             v-model="age"
             :disabled="!isEdit"
@@ -31,11 +34,12 @@
           />
         </input-wrapper>
         <input-wrapper>
-          <label>Sexo</label>
+          <label>Sexo. *</label>
           <el-select
             v-model="gender"
-            placeholder="Sexo"
+            placeholder="Sexo."
             size="large"
+            filterable
             clearable
             :disabled="!isEdit"
           >
@@ -48,11 +52,12 @@
           </el-select>
         </input-wrapper>
         <input-wrapper>
-          <label>Cor</label>
+          <label>Raça. *</label>
           <el-select
             v-model="color"
-            placeholder="Cor"
+            placeholder="Cor."
             size="large"
+            filterable
             clearable
             :disabled="!isEdit"
           >
@@ -72,7 +77,7 @@
       </div>
       <input-group>
         <input-wrapper>
-          <label>O paciente tem diagnóstico de asma?</label>
+          <label>O paciente tem diagnóstico de asma? *</label>
           <el-select
             v-model="asthma"
             placeholder="O paciente tem diagnóstico de asma?"
@@ -92,12 +97,12 @@
         <input-wrapper>
           <label
             >Foram excluídas outras doenças pulmonares crônicas? (DPOC,
-            bronquiectasias, fibrose cística, insuficiência cardáiaca, etc.)
-            ?</label
+            bronquiectasias, fibrose cística, insuficiência cardáiaca, etc.) ?
+            *</label
           >
           <el-select
             v-model="lungDiseases"
-            placeholder="Foram excluídas outras doenças pulmonares crônicas? (DPOC, bronquiectasias, fibrose cística, insuficiência cardáiaca, etc.) ?"
+            placeholder="Foram excluídas outras doenças pulmonares crônicas? (DPOC, bronquiectasias, fibrose cística, insuficiência cardáiaca, etc.)?"
             size="large"
             :disabled="!isEdit"
             clearable
@@ -114,11 +119,11 @@
         <input-wrapper>
           <label
             >A adesão ao tratamento está adequada? (Checar idealmente com
-            contagem de doses do dispositivo entre as consultas.)</label
+            contagem de doses do dispositivo entre as consultas). *</label
           >
           <el-select
             v-model="asthmaTreatment"
-            placeholder="A adesão ao tratamento está adequada? (Checar idealmente com contagem de doses do dispositivo entre as consultas.)"
+            placeholder="A adesão ao tratamento está adequada? (Checar idealmente com contagem de doses do dispositivo entre as consultas)."
             size="large"
             :disabled="!isEdit"
             clearable
@@ -135,12 +140,12 @@
         <input-wrapper>
           <label
             >A técnica inalatória está adequada? (Ideal checagem em 2-3
-            consultas.)</label
+            consultas). *</label
           >
           <el-select
             v-model="inhalation"
             :disabled="!isEdit"
-            placeholder="A técnica inalatória está adequada? (Ideal checagem em 2-3 consultas.)"
+            placeholder="A técnica inalatória está adequada? (Ideal checagem em 2-3 consultas)."
             size="large"
             clearable
           >
@@ -158,7 +163,7 @@
       </div>
       <input-group>
         <input-wrapper>
-          <label>Quais o paciente apresenta?</label>
+          <label>Quais o paciente apresenta? *</label>
           <el-select
             v-model="comorbidities"
             placeholder="Quais o paciente apresenta?"
@@ -177,12 +182,12 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Outras comorbidades</label>
+          <label>Outras comorbidades:</label>
           <el-input
             v-model="otherComorbidities"
             :autosize="{ minRows: 4, maxRows: 4 }"
             type="textarea"
-            placeholder="Outras comorbidades"
+            placeholder="Outras comorbidades."
             :disabled="isOtherComorbiditiesDisabled || !isEdit"
           />
         </input-wrapper>
@@ -190,8 +195,8 @@
       <input-group>
         <input-wrapper>
           <label
-            >Todas aquelas manejáveis estão adequadamente tratadas?
-            Descreva:</label
+            >Todas aquelas manejáveis estão adequadamente tratadas? Descreva:.
+            *</label
           >
           <el-input
             v-model="comorbiditiesInfo"
@@ -205,7 +210,8 @@
       <input-group>
         <input-wrapper>
           <label
-            >O paciente usa dose elevada de corticoide associado a LABA?</label
+            >O paciente usa dose elevada de corticoide associado a LABA?
+            *</label
           >
           <el-select
             v-model="laba"
@@ -226,20 +232,20 @@
         <input-wrapper>
           <label
             >Quais medicações para asma o paciente utiliza? (Incluir
-            medicamentos, apresentação e posologia.)</label
+            medicamentos, apresentação e posologia). *</label
           >
           <el-input
             v-model="asthmaMedications"
             :autosize="{ minRows: 4, maxRows: 4 }"
             type="textarea"
             :disabled="!isEdit"
-            placeholder="Quais medicações para asma o paciente utiliza? (Incluir medicamentos, apresentação e posologia.)"
+            placeholder="Quais medicações para asma o paciente utiliza? (Incluir medicamentos, apresentação e posologia)."
           />
         </input-wrapper>
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>O paciente fez/faz uso de imunobiológico(s)?</label>
+          <label>O paciente fez/faz uso de imunobiológico(s)? *</label>
           <el-select
             v-model="immunobiological"
             placeholder="O paciente fez/faz uso de imunobiológico(s)?"
@@ -257,12 +263,14 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Em caso positivo, descreva o medicamento e tempo de uso</label>
+          <label
+            >Em caso positivo, descreva o medicamento e tempo de uso.</label
+          >
           <el-input
             v-model="immunobiologicalDescription"
             :autosize="{ minRows: 4, maxRows: 4 }"
             type="textarea"
-            placeholder="Em caso positivo, descreva o medicamento e tempo de uso"
+            placeholder="Em caso positivo, descreva o medicamento e tempo de uso."
             :disabled="immunobiological !== 1 || !isEdit"
           />
         </input-wrapper>
@@ -287,15 +295,15 @@
         </input-wrapper>
       </input-group>
       <div class="content-subtitle">
-        <h2 class="title">Pré-BD</h2>
+        <h2 class="title">Pré-BD.</h2>
       </div>
       <input-group>
         <input-wrapper>
           <el-input
             v-model="preCvf"
             placeholder="__%"
-            v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
+            @keydown="handleKeyDown"
             @blur="verifyPreCvf"
           >
             <template #prepend>CVF</template>
@@ -305,8 +313,8 @@
           <el-input
             v-model="preVef"
             placeholder="__%"
-            v-mask="['###%', '##%', '#%']"
             :disabled="!isEdit"
+            @keydown="handleKeyDown"
             @blur="verifyPreVef"
           >
             <template #prepend><span v-html="vef"/></template>
@@ -316,7 +324,7 @@
           <el-input
             v-model="preVefCvf"
             placeholder="__%"
-            v-mask="['###%', '##%', '#%']"
+            @keydown="handleKeyDown"
             :disabled="!isEdit"
             @blur="verifyPreVefCvf"
           >
@@ -327,7 +335,7 @@
           <el-input
             v-model="preFef"
             placeholder="__%"
-            v-mask="['###%', '##%', '#%']"
+            @keydown="handleKeyDown"
             :disabled="!isEdit"
             @blur="verifyPreFef"
           >
@@ -336,14 +344,14 @@
         </input-wrapper>
       </input-group>
       <div class="content-subtitle">
-        <h2 class="title">Pós-BD</h2>
+        <h2 class="title">Pós-BD.</h2>
       </div>
       <input-group>
         <input-wrapper>
           <el-input
             v-model="posCvf"
             placeholder="__%"
-            v-mask="['###%', '##%', '#%']"
+            @keydown="handleKeyDown"
             :disabled="!isEdit"
             @blur="verifyPosCvf"
           >
@@ -354,7 +362,7 @@
           <el-input
             v-model="posVef"
             placeholder="__%"
-            v-mask="['###%', '##%', '#%']"
+            @keydown="handleKeyDown"
             :disabled="!isEdit"
             @blur="verifyPosVef"
           >
@@ -365,7 +373,7 @@
           <el-input
             v-model="posVefCvf"
             placeholder="__%"
-            v-mask="['###%', '##%', '#%']"
+            @keydown="handleKeyDown"
             :disabled="!isEdit"
             @blur="verifyPosVefCvf"
           >
@@ -376,7 +384,7 @@
           <el-input
             v-model="posFef"
             placeholder="__%"
-            v-mask="['###%', '##%', '#%']"
+            @keydown="handleKeyDown"
             :disabled="!isEdit"
             @blur="verifyPosFef"
           >
@@ -391,7 +399,7 @@
             placeholder="Resposta ao BD: __%"
             class="flexible-input"
             v-model="bd"
-            v-mask="['###%', '##%', '#%']"
+            @keydown="handleKeyDown"
             :disabled="!isEdit"
             @blur="verifyBd"
           />
@@ -399,7 +407,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Laudo: Texto da conclusão do laudo.</label>
+          <label>Laudo: Texto da conclusão do laudo. *</label>
           <el-input
             v-model="report"
             :autosize="{ minRows: 4, maxRows: 4 }"
@@ -411,23 +419,23 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Eosinófilos no sangue: __céls/mm&sup3;</label>
+          <label>Eosinófilos no sangue: __céls/mm&sup3;. *</label>
           <el-input
             v-model="eosinophilsBlood"
             type="text"
             :placeholder="`Eosinófilos no sangue: __céls/mm&sup3;`"
             :disabled="!isEdit"
-            v-mask="['##céls/mm&sup3', '###céls/mm&sup3']"
+            v-mask="['#céls/mm&sup3', '##céls/mm&sup3', '###céls/mm&sup3']"
           />
         </input-wrapper>
         <input-wrapper>
-          <label>Eosinófilos no escarro: __%</label>
+          <label>Eosinófilos no escarro: __% *</label>
           <el-input
             v-model="eosinophilsSputum"
             type="text"
             :placeholder="`Eosinófilos no escarro: __%`"
             :disabled="!isEdit"
-            v-mask="['##%', '#%', '###%']"
+            @keydown="handleKeyDown"
             @blur="verifyEosinophilsSputum"
           />
         </input-wrapper>
@@ -437,7 +445,7 @@
       </div>
       <input-group>
         <input-wrapper>
-          <label>Teste cutâneo?</label>
+          <label>Teste cutâneo? *</label>
           <el-select
             v-model="skinTest"
             placeholder="Teste cutâneo?"
@@ -455,10 +463,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>IgE específica no sangue</label>
+          <label>IgE específica no sangue. *</label>
           <el-select
             v-model="ige"
-            placeholder="IgE específica no sangue"
+            placeholder="IgE específica no sangue."
             size="large"
             :disabled="!isEdit"
             clearable
@@ -473,7 +481,9 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Quais alérgenos foram testados e quais deram positivos?</label>
+          <label
+            >Quais alérgenos foram testados e quais deram positivos? *</label
+          >
           <el-input
             v-model="allergens"
             :autosize="{ minRows: 4, maxRows: 4 }"
@@ -485,23 +495,23 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>IgE total: __ UI/ml</label>
+          <label>IgE total: __ UI/ml *</label>
           <el-input
             v-model="igeTotal"
             type="text"
             placeholder="IgE total: __ UI/ml"
             :disabled="!isEdit"
-            v-mask="['##UI/ml', '###UI/ml']"
+            v-mask="['#UI/ml', '##UI/ml', '###UI/ml']"
           />
         </input-wrapper>
         <input-wrapper>
-          <label>FeNO: __ ppm</label>
+          <label>FeNO: __ ppm *</label>
           <el-input
             v-model="FeNO"
             type="text"
             placeholder="FeNO: __ ppm"
             :disabled="!isEdit"
-            v-mask="['##ppm', '###ppm']"
+            v-mask="['#ppm', '##ppm', '###ppm']"
           />
         </input-wrapper>
       </input-group>
@@ -545,7 +555,7 @@
           </form>
         </input-wrapper> -->
         <input-wrapper class="clinical-case-upload">
-          <label>TC de tórax (fazer upload de imagem e laudo)</label>
+          <label>TC de tórax (fazer upload de imagem e laudo). *</label>
           <el-upload
             v-model="fileList"
             class="upload-demo"
@@ -557,7 +567,7 @@
             <template #trigger>
               <el-input
                 type="text"
-                placeholder="TC de tórax (fazer upload de imagem e laudo)"
+                placeholder="TC de tórax (fazer upload de imagem e laudo)."
                 :suffix-icon="iconImg"
               />
             </template>
@@ -577,22 +587,22 @@
       </div>
       <input-group>
         <input-wrapper>
-          <label>Início da doença com que idade: __</label>
+          <label>Início da doença com que idade: *</label>
           <el-input
             v-model="ageStart"
             type="number"
             min="0"
-            placeholder="Início da doença com que idade: __"
+            placeholder="Início da doença com que idade:"
             :disabled="!isEdit"
           />
         </input-wrapper>
       </input-group>
       <div class="content-subtitle">
-        <h2 class="title">Controle ambiental</h2>
+        <h2 class="title">Controle ambiental.</h2>
       </div>
       <input-group>
         <input-wrapper>
-          <label>Tem muita poeira doméstica em casa?</label>
+          <label>Tem muita poeira doméstica em casa? *</label>
           <el-select
             v-model="dust"
             placeholder="Tem muita poeira doméstica em casa?"
@@ -610,7 +620,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Animais em casa?</label>
+          <label>Animais em casa? *</label>
           <el-select
             v-model="pet"
             placeholder="Animais em casa?"
@@ -638,7 +648,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Mofo no domicílio?</label>
+          <label>Mofo no domicílio? *</label>
           <el-select
             v-model="mold"
             placeholder="Mofo no domicílio?"
@@ -656,10 +666,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Exposição ocupacional</label>
+          <label>Exposição ocupacional. *</label>
           <el-select
             v-model="exhibition"
-            placeholder="Exposição ocupacional"
+            placeholder="Exposição ocupacional."
             size="large"
             :disabled="!isEdit"
             clearable
@@ -684,7 +694,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Fumante ativo?</label>
+          <label>Fumante ativo? *</label>
           <el-select
             v-model="activeSmoking"
             placeholder="Fumante ativo?"
@@ -700,7 +710,7 @@
             /> </el-select
         ></input-wrapper>
         <input-wrapper>
-          <label>Fumante passivo?</label>
+          <label>Fumante passivo? *</label>
           <el-select
             v-model="passiveSmoking"
             placeholder="Fumante passivo?"
@@ -719,7 +729,8 @@
       <input-group>
         <input-wrapper>
           <label
-            >Exacerbação com uso de corticoide oral nos últimos 12 meses?</label
+            >Exacerbação com uso de corticoide oral nos últimos 12 meses?
+            *</label
           >
           <el-select
             v-model="corticosteroid"
@@ -748,7 +759,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Hospitalização nos últimos 12 meses?</label>
+          <label>Hospitalização nos últimos 12 meses? *</label>
           <el-select
             v-model="hospitalization"
             placeholder="Hospitalização nos últimos 12 meses?"
@@ -776,7 +787,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Histórico de internação em UTI?</label>
+          <label>Histórico de internação em UTI? *</label>
           <el-select
             v-model="uti"
             placeholder="Histórico de internação em UTI?"
@@ -804,7 +815,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Histórico de necessidade de Ventilação Mecânica?</label>
+          <label>Histórico de necessidade de Ventilação Mecânica? *</label>
           <el-select
             v-model="ventilation"
             placeholder="Histórico de necessidade de Ventilação Mecânica?"
@@ -832,7 +843,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Histórico de PCR?</label>
+          <label>Histórico de PCR? *</label>
           <el-select
             v-model="pcr"
             placeholder="Histórico de PCR?"
@@ -860,7 +871,7 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Uso de outras medicações?</label>
+          <label>Uso de outras medicações? *</label>
           <el-select
             v-model="medications"
             placeholder="Uso de outras medicações?"
@@ -894,7 +905,7 @@
       </div>
       <input-group>
         <input-wrapper>
-          <label>Descreva...</label>
+          <label>Descreva... *</label>
           <el-input
             v-model="observations"
             :autosize="{ minRows: 4, maxRows: 4 }"
@@ -905,18 +916,24 @@
         </input-wrapper>
       </input-group>
     </div>
-    <div class="content-title">
-      <h1 class="title">Exames e Laudos Adicionais</h1>
-      <span class="line"></span>
-    </div>
-    <div class="filepath" v-for="file in getFile" :key="file.id">
-      <PictureFilled style="width: 1em; height: 1em; margin-right: 8px" />
-      <p @click="handleDownload(file.id, file.fileName)" class="filename">
-        {{ file.fileName }}
-      </p>
+    <div v-if="!isEdit" class="exams">
+      <div class="content-title">
+        <h1 class="title">Exames e Laudos Adicionais</h1>
+        <span class="line"></span>
+      </div>
+      <div class="filepath" v-for="file in getFile" :key="file.id">
+        <PictureFilled style="width: 1em; height: 1em; margin-right: 8px" />
+        <p @click="handleDownload(file.id, file.fileName)" class="filename">
+          {{ file.fileName }}
+        </p>
+      </div>
     </div>
     <div class="btn" v-if="isEdit">
-      <el-button class="save" type="primary" @click="handleSave"
+      <el-button
+        :disabled="handleEnabledSave"
+        class="save"
+        type="primary"
+        @click="handleSave"
         >Salvar</el-button
       >
       <el-button class="send" type="primary" @click="handleActiveVoucher"
@@ -956,90 +973,90 @@ export default {
       asthmaOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       lungDiseases: null,
       lungDiseasesOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       asthmaTreatment: null,
       asthmaTreatmentOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       inhalation: null,
       inhalationOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       error: null,
       isModalDashedErroVisible: false,
-      titleComorbidities: 'Em relação a potenciais comorbidades',
+      titleComorbidities: 'Em relação a potenciais comorbidades.',
       comorbidities: null,
       comorbiditiesOptions: [
         {
           id: 1,
-          name: 'Nenhuma'
+          name: 'Nenhuma.'
         },
         {
           id: 2,
-          name: 'Rinite alérgica'
+          name: 'Rinite alérgica.'
         },
         {
           id: 3,
-          name: 'Dermatite atópica'
+          name: 'Dermatite atópica.'
         },
         {
           id: 4,
-          name: 'Sinusopatia crônica com polipose nasal'
+          name: 'Sinusopatia crônica com polipose nasal.'
         },
         {
           id: 6,
-          name: 'Obesidade'
+          name: 'Obesidade.'
         },
         {
           id: 7,
-          name: 'Apneia obstrutiva do sono'
+          name: 'Apneia obstrutiva do sono.'
         },
         {
           id: 8,
-          name: 'Refluxo gastroesofágico'
+          name: 'Refluxo gastroesofágico.'
         },
         {
           id: 9,
-          name: 'Hipertensão arterial sistêmica'
+          name: 'Hipertensão arterial sistêmica.'
         },
         {
           id: 10,
-          name: 'Diabetes'
+          name: 'Diabetes.'
         },
         {
           id: 11,
-          name: 'Outra'
+          name: 'Outras.'
         }
       ],
       otherComorbidities: null,
@@ -1048,11 +1065,11 @@ export default {
       labaOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       asthmaMedications: null,
@@ -1060,11 +1077,11 @@ export default {
       immunobiologicalOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       immunobiologicalDescription: null,
@@ -1087,22 +1104,22 @@ export default {
       skinOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       ige: null,
       igeOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       allergens: null,
@@ -1115,22 +1132,22 @@ export default {
       dustOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       pet: null,
       petOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       petDescription: null,
@@ -1138,22 +1155,22 @@ export default {
       moldOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       exhibition: null,
       exhibitionOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       exhibitionDescription: null,
@@ -1161,33 +1178,33 @@ export default {
       activeSmokingOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       passiveSmoking: null,
       passiveSmokingOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       corticosteroid: null,
       corticosteroidOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       corticosteroidTimes: null,
@@ -1195,11 +1212,11 @@ export default {
       hospitalizationOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       hospitalizationTimes: null,
@@ -1207,11 +1224,11 @@ export default {
       utiOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       utiTimes: null,
@@ -1219,11 +1236,11 @@ export default {
       ventilationOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       ventilationTimes: null,
@@ -1231,11 +1248,11 @@ export default {
       pcrOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       pcrTimes: null,
@@ -1243,11 +1260,11 @@ export default {
       medicationsOptions: [
         {
           id: 1,
-          name: 'Sim'
+          name: 'Sim.'
         },
         {
           id: 2,
-          name: 'Não'
+          name: 'Não.'
         }
       ],
       medicationsDescription: null,
@@ -1255,12 +1272,12 @@ export default {
       gender: null,
       genderOptions: [
         {
-          id: 1,
-          name: 'Masculino'
+          id: 2,
+          name: 'Feminino.'
         },
         {
-          id: 2,
-          name: 'Feminino'
+          id: 1,
+          name: 'Masculino.'
         }
       ],
       age: null,
@@ -1268,23 +1285,23 @@ export default {
       colorOptions: [
         {
           id: 1,
-          name: 'Branca'
+          name: 'Branca.'
         },
         {
           id: 2,
-          name: 'Preta'
+          name: 'Preta.'
         },
         {
           id: 3,
-          name: 'Parda'
+          name: 'Parda.'
         },
         {
           id: 4,
-          name: 'Amarela'
+          name: 'Amarela.'
         },
         {
           id: 5,
-          name: 'Indígena'
+          name: 'Indígena.'
         }
       ],
       selectedFile: {},
@@ -1303,10 +1320,48 @@ export default {
     getVoucherInfos() {
       this.verifyIsEdit(this.getVoucherInfos)
       this.handleData()
+    },
+    comorbidities() {
+      if (!this.comorbidities?.includes(11))
+        return this.clearOtherComorbidities()
+    },
+
+    immunobiological() {
+      if (this.immunobiological === 2)
+        return this.clearImmunobiologicalDescription()
+    },
+
+    pet() {
+      if (this.pet === 2) return this.clearPetDescription()
+    },
+
+    exhibition() {
+      if (this.exhibition === 2) return this.clearExhibitionDescription()
+    },
+
+    corticosteroid() {
+      if (this.corticosteroid === 2) return (this.corticosteroidTimes = null)
+    },
+
+    hospitalization() {
+      if (this.hospitalization === 2) return (this.hospitalizationTimes = null)
+    },
+
+    uti() {
+      if (this.uti === 2) return (this.utiTimes = null)
+    },
+
+    ventilation() {
+      if (this.ventilation === 2) return (this.ventilationTimes = null)
+    },
+
+    pcr() {
+      if (this.pcr === 2) return (this.pcrTimes = null)
+    },
+
+    medications() {
+      if (this.medications === 2) return (this.medicationsDescription = null)
     }
-    // getFile() {
-    //   this.fetchFile()
-    // }
   },
   computed: {
     ...mapGetters(['getUserToken']),
@@ -1323,8 +1378,8 @@ export default {
         ? JSON.parse(localStorage.getItem('user')).type
         : null
 
-      // Retornar o tipo, ou uma string padrão se não estiver definido
-      return type || 'Tipo não definido'
+      // Retornar o tipo, ou uma string padrão se não. estiver definido
+      return type || 'Tipo não. definido'
     },
 
     isOtherComorbiditiesDisabled() {
@@ -1355,6 +1410,117 @@ export default {
       )
         return false
       return true
+    },
+
+    verifyOtherComorbidities() {
+      if (this.isOtherComorbiditiesDisabled) return !this.otherComorbidities
+      else return this.otherComorbidities
+    },
+
+    verifyImmunobiologicalDescription() {
+      if (this.immunobiological === 2) return !this.immunobiologicalDescription
+      else return this.immunobiologicalDescription
+    },
+
+    verifyPet() {
+      if (this.pet === 2) return !this.petDescription
+      else return this.petDescription
+    },
+
+    verifyExhibition() {
+      if (this.exhibition === 2) return !this.exhibitionDescription
+      else return this.exhibitionDescription
+    },
+
+    verifyCorticosteroid() {
+      if (this.corticosteroid === 2) return !this.corticosteroidTimes
+      else return this.corticosteroidTimes
+    },
+
+    verifyHospitalization() {
+      if (this.hospitalization === 2) return !this.hospitalizationTimes
+      else return this.hospitalizationTimes
+    },
+
+    verifyTimes() {
+      if (this.uti === 2) return !this.utiTimes
+      else return this.utiTimes
+    },
+
+    verifyVentilation() {
+      if (this.ventilation === 2) return !this.ventilationTimes
+      else return this.ventilationTimes
+    },
+
+    verifyPcr() {
+      if (this.pcr === 2) return !this.pcrTimes
+      else return this.pcrTimes
+    },
+
+    verifyMedications() {
+      if (this.medications === 2) return !this.medicationsDescription
+      else return this.medicationsDescription
+    },
+
+    handleEnabledSave() {
+      return (
+        !this.age ||
+        !this.gender ||
+        !this.color ||
+        !this.asthma ||
+        !this.lungDiseases ||
+        !this.asthmaTreatment ||
+        !this.inhalation ||
+        !this.comorbidities ||
+        !this.verifyOtherComorbidities ||
+        !this.comorbiditiesInfo ||
+        !this.laba ||
+        !this.asthmaMedications ||
+        !this.immunobiological ||
+        !this.verifyImmunobiologicalDescription ||
+        !this.espiroDate ||
+        !this.preCvf ||
+        !this.preVef ||
+        !this.preVefCvf ||
+        !this.preFef ||
+        !this.posCvf ||
+        !this.posVef ||
+        !this.posVefCvf ||
+        !this.posFef ||
+        !this.bd ||
+        !this.report ||
+        !this.eosinophilsBlood ||
+        !this.eosinophilsSputum ||
+        !this.skinTest ||
+        !this.ige ||
+        !this.allergens ||
+        !this.igeTotal ||
+        !this.FeNO ||
+        !this.plethysmography ||
+        !this.dlco ||
+        !this.ageStart ||
+        !this.dust ||
+        !this.pet ||
+        !this.verifyPet ||
+        !this.mold ||
+        !this.exhibition ||
+        !this.verifyExhibition ||
+        !this.activeSmoking ||
+        !this.passiveSmoking ||
+        !this.corticosteroid ||
+        !this.verifyCorticosteroid ||
+        !this.hospitalization ||
+        !this.verifyHospitalization ||
+        !this.uti ||
+        !this.verifyTimes ||
+        !this.ventilation ||
+        !this.verifyVentilation ||
+        !this.pcr ||
+        !this.verifyPcr ||
+        !this.medications ||
+        !this.verifyMedications ||
+        !this.observations
+      )
     }
   },
   methods: {
@@ -1367,45 +1533,172 @@ export default {
     ]),
     ...mapActions('clinicalCasesEvaluation', ['offActiveVoucherPage']),
 
+    handleKeyDown(event) {
+      // Permite apenas entrada numérica, a tecla Backspace, Tab e ações de cursor
+      const isNumeric = /^[0-9]$/.test(event.key)
+      const isBackspace = event.key === 'Backspace'
+      const isTab = event.key === 'Tab'
+      const isCursorAction =
+        event.key.startsWith('Arrow') ||
+        event.key.startsWith('Home') ||
+        event.key.startsWith('End')
+
+      if (!(isNumeric || isBackspace || isTab || isCursorAction)) {
+        event.preventDefault()
+      }
+    },
     verifyPreCvf() {
-      if (parseInt(this.preCvf) > 100) return (this.preCvf = '100%')
+      // Remove caracteres não numéricos e garante que o valor seja um número
+      let numericValue = parseFloat(this.preCvf.replace(/[^0-9]/g, ''))
+
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
+
+      // Garante que o valor não ultrapasse 100
+      numericValue = Math.min(100, numericValue)
+
+      // Atualiza o valor formatado
+      this.preCvf = `${numericValue}%`
     },
 
+    clearOtherComorbidities() {
+      this.otherComorbidities = null
+    },
+
+    clearImmunobiologicalDescription() {
+      this.immunobiologicalDescription = null
+    },
+
+    clearPetDescription() {
+      this.petDescription = null
+    },
+
+    clearExhibitionDescription() {
+      this.exhibitionDescription = null
+    },
+
+    // verifyPreCvf() {
+    //   if (parseInt(this.preCvf) > 100) return (this.preCvf = '100%')
+    // },
+
     verifyPreVef() {
-      if (parseInt(this.preVef) > 100) return (this.preVef = '100%')
+      let numericValue = parseFloat(this.preVef.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
+
+      // Garante que o valor não ultrapasse 100
+      numericValue = Math.min(100, numericValue)
+
+      // Atualiza o valor formatado
+      this.preVef = `${numericValue}%`
     },
 
     verifyPreVefCvf() {
-      if (parseInt(this.preVefCvf) > 100) return (this.preVefCvf = '100%')
+      let numericValue = parseFloat(this.preVefCvf.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
+
+      // Garante que o valor não ultrapasse 100
+      numericValue = Math.min(100, numericValue)
+
+      // Atualiza o valor formatado
+      this.preVefCvf = `${numericValue}%`
     },
 
     verifyPreFef() {
-      if (parseInt(this.preFef) > 100) return (this.preFef = '100%')
+      let numericValue = parseFloat(this.preFef.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
+
+      // Garante que o valor não ultrapasse 100
+      numericValue = Math.min(100, numericValue)
+
+      // Atualiza o valor formatado
+      this.preFef = `${numericValue}%`
     },
 
     verifyPosCvf() {
-      if (parseInt(this.posCvf) > 100) return (this.posCvf = '100%')
+      let numericValue = parseFloat(this.posCvf.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
+
+      // Garante que o valor não ultrapasse 100
+      numericValue = Math.min(100, numericValue)
+
+      // Atualiza o valor formatado
+      this.posCvf = `${numericValue}%`
     },
 
     verifyPosVef() {
-      if (parseInt(this.posVef) > 100) return (this.posVef = '100%')
+      let numericValue = parseFloat(this.posVef.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
+
+      // Garante que o valor não ultrapasse 100
+      numericValue = Math.min(100, numericValue)
+
+      // Atualiza o valor formatado
+      this.posVef = `${numericValue}%`
     },
 
     verifyPosVefCvf() {
-      if (parseInt(this.posVefCvf) > 100) return (this.posVefCvf = '100%')
+      let numericValue = parseFloat(this.posVefCvf.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
+
+      // Garante que o valor não ultrapasse 100
+      numericValue = Math.min(100, numericValue)
+
+      // Atualiza o valor formatado
+      this.posVefCvf = `${numericValue}%`
     },
 
     verifyPosFef() {
-      if (parseInt(this.posFef) > 100) return (this.posFef = '100%')
+      let numericValue = parseFloat(this.posFef.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
+
+      // Garante que o valor não ultrapasse 100
+      numericValue = Math.min(100, numericValue)
+
+      // Atualiza o valor formatado
+      this.posFef = `${numericValue}%`
     },
 
     verifyBd() {
-      if (parseInt(this.bd) > 100) return (this.bd = '100%')
+      let numericValue = parseFloat(this.bd.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
+
+      // Garante que o valor não ultrapasse 100
+      numericValue = Math.min(100, numericValue)
+
+      // Atualiza o valor formatado
+      this.bd = `${numericValue}%`
     },
 
     verifyEosinophilsSputum() {
-      if (parseInt(this.eosinophilsSputum) > 100)
-        return (this.eosinophilsSputum = '100%')
+      let numericValue = parseFloat(
+        this.eosinophilsSputum.replace(/[^0-9]/g, '')
+      )
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
+
+      // Garante que o valor não ultrapasse 100
+      numericValue = Math.min(100, numericValue)
+
+      // Atualiza o valor formatado
+      this.eosinophilsSputum = `${numericValue}%`
     },
 
     handleDownload(id, name) {
@@ -1579,11 +1872,11 @@ export default {
         })
         .then(() => {
           this.toast.success('Upload realizado com sucesso', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .catch(() => {
-          this.toast.warning('Não foi possível realizar o upload do arquivo')
+          this.toast.warning('Não. foi possível realizar o upload do arquivo')
         })
         .finally(() => {
           this.fetchFile(voucherId)
@@ -1671,11 +1964,28 @@ export default {
   .go-back {
     position: fixed;
     bottom: 100px;
-    right: 100px;
-    background: $green-500;
-    color: white;
-    border-radius: 19%;
+    right: 40px;
     cursor: pointer;
+    color: $grayDark;
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-left: 5px;
+      transition: 0.5s;
+
+      &:hover {
+        text-decoration: underline;
+        color: $grayDark;
+      }
+    }
+
+    i {
+      background: $green-500;
+      color: white;
+      border-radius: 19%;
+      margin-left: 5px;
+    }
   }
 }
 
@@ -1715,7 +2025,7 @@ export default {
   align-items: left;
   text-align: left;
   display: flex;
-  padding: 20px;
+  padding: 30px 20px 0 20px;
 
   .title {
     color: $green-500;

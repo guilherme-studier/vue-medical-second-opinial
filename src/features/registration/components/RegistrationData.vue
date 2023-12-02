@@ -76,6 +76,7 @@
             placeholder="Senha atual"
             class="flexible-input"
             type="password"
+            show-password
           />
         </input-wrapper>
         <input-wrapper>
@@ -85,23 +86,67 @@
             class="flexible-input"
             type="password"
             :disabled="isNewPassword"
+            show-password
           />
         </input-wrapper>
       </input-group>
       <div class="terms-agreement">
         <label v-show="isRegistrationForm">
-          <input type="checkbox" id="termsCheckbox" v-model="termsAgreed" />
+          <input
+            type="checkbox"
+            id="termsCheckbox"
+            v-model="termsAgreed"
+            :disabled="!isTermsAgree"
+          />
           Li e estou de acordo com o
-          <span @click="openModal">Termo de Responsabilidade</span> sobre a
-          Execução dos Serviços
+          <span @click="openModal" :class="{ disabled: !canAgreeTerms }"
+            >Termo de Responsabilidade</span
+          >
+          sobre a Execução dos Serviços
         </label>
         <el-dialog
-          v-if="modalTermsVisible"
+          v-model="modalTermsVisible"
           @close="closeModal"
           title="Termo de Responsabilidade"
         >
-          <div class="modal-content">
-            <div class="modal-text">
+          <div ref="modalContent">
+            <div ref="scrollbarRef" class="modal-text" @scroll="handleScroll">
+              <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </p>
+              <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </p>
+              <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </p>
               <p>
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry's standard dummy
@@ -133,7 +178,13 @@
               </p>
             </div>
 
-            <button class="modal-btn" @click="handleTerms">De acordo</button>
+            <el-button
+              class="modal-btn"
+              type="primary"
+              @click="handleTerms"
+              :disabled="!isTermsAgree"
+              >De acordo</el-button
+            >
           </div>
         </el-dialog>
         <div id="save">
@@ -171,6 +222,8 @@ export default {
   },
   data() {
     return {
+      canAgreeTerms: false,
+      isScrollEnd: false,
       titleComponent: 'Dados Cadastrais',
       isRegistrationForm: false,
       modalTermsVisible: false,
@@ -185,7 +238,8 @@ export default {
       crm: null,
       cpf: null,
       // eslint-disable-next-line camelcase
-      uf_crm: null
+      uf_crm: null,
+      isTermsAgree: false
     }
   },
   computed: {
@@ -226,6 +280,45 @@ export default {
     ...mapActions('registration', ['updateClientDoctor']),
     ...mapActions(['loginUser']),
 
+    async searchCep() {
+      if (this.cep && this.cep.length === 9) {
+        try {
+          const response = await fetch(
+            `https://viacep.com.br/ws/${this.cep.replace('-', '')}/json/`
+          )
+          const data = await response.json()
+
+          if (!data.erro) {
+            this.state = data.uf
+            this.city = data.localidade
+            this.complement = data.complemento
+            this.street = data.logradouro
+          } else {
+            this.state = ''
+            this.city = ''
+            this.toast.error(
+              'CEP não encontrado, por favor preencha o restante dos dados do endereço'
+            )
+          }
+        } catch (error) {
+          this.toast.error(
+            'CEP não encontrado, por favor preencha o restante dos dados do endereço'
+          )
+        }
+      }
+    },
+
+    handleScroll() {
+      const modalContent = this.$refs.scrollbarRef
+      const isAtScrollEnd =
+        modalContent.scrollHeight - modalContent.scrollTop ===
+        modalContent.clientHeight
+
+      if (isAtScrollEnd) {
+        this.isTermsAgree = true
+      }
+    },
+
     openModal() {
       this.modalTermsVisible = true
     },
@@ -234,6 +327,7 @@ export default {
     },
     handleTerms() {
       this.termsAgreed = true
+
       this.closeModal()
     },
     async handleSave() {

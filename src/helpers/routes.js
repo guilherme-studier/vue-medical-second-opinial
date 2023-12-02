@@ -86,7 +86,7 @@ export const all = [
   },
   {
     id: 17,
-    name: 'Gestão de Indústrias',
+    name: 'Gestão de Patrocinadores',
     route: '/industries'
   }
   // {
@@ -140,7 +140,7 @@ export const routes = {
     },
     {
       id: 17,
-      name: 'Gestão de Indústrias',
+      name: 'Gestão de Patrocinadores',
       route: '/industries'
     },
     {
@@ -192,7 +192,7 @@ export const routes = {
     },
     {
       id: 17,
-      name: 'Gestão de Indústrias',
+      name: 'Gestão de Patrocinadores',
       route: '/industries'
     },
     {

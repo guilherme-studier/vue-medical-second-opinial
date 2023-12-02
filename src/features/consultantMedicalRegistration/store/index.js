@@ -26,7 +26,7 @@ export default {
         .then((response) => {
           commit('setDoctorConsultant', response.data)
           toast.success('Cadastro de Médico Consultor atualizado com sucesso', {
-            timeout: 5000
+            timeout: 8000
           })
           return response
         })
@@ -38,7 +38,7 @@ export default {
           toast.warning(
             `Erro ao realizar a atualização de cadastro: ${errorMessage}`,
             {
-              timeout: 5000
+              timeout: 8000
             }
           )
         })

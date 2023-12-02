@@ -6,7 +6,7 @@
         <InputWrapper>
           <el-select
             v-model="industry"
-            placeholder="Indústrias"
+            placeholder="Patrocinador"
             no-match-text="Nenhuma indústria encontrada"
             filterable
             size="large"
@@ -251,13 +251,13 @@ export default {
       try {
         await this.createClinicalCase(userData)
         this.toast.success('Cadastro efetuado criado com sucesso', {
-          timeout: 5000
+          timeout: 8000
         })
       } catch (error) {
         this.toast.warning(
           'Não foi possível realizar o Registro de Caso Clínico',
           {
-            timeout: 5000
+            timeout: 8000
           }
         )
       }
