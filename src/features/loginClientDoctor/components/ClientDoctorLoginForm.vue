@@ -14,22 +14,27 @@
           Seja muito bem-vindo(a) à plataforma Medical Second Opinion - MeSO.
         </p>
         <p>
-          Por meio da plataforma MeSO você terá a oportunidade de analisar um
-          caso clínico junto a um de nossos consultores médicos especialistas,
-          auxiliando-o na avaliação sobre o diagnóstico e manejo do paciente
-          envolvido.
+          Por meio da plataforma MeSO, você terá a oportunidade de discutir um
+          caso clínico de um de seus pacientes junto a um de nossos médicos
+          especialistas, podendo auxiliá-lo(la) tanto no diagnóstico, quanto no
+          manejo do referido paciente.
         </p>
         <p>
           Todo o processo será realizado via plataforma MeSO, com total sigilo e
           segurança dos dados trocados durante o processo, resguardando a
-          privacidade dos pacientes envolvidos, de acordo com a legislação
-          vigente.
+          privacidade dos pacientes envolvidos, e de com a legislação vigente.
         </p>
         <p>
-          Por favor, digite no campo abaixo o e-mail que você informou ao
-          representante de nossa indústria parceira que ele lhe forneceu este
-          link. Em breve lhe enviaremos um e-mail com instruções para seu
-          cadastramento na plataforma MeSO.
+          Por favor, digite nos campos abaixo o endereço de e-mail pelo qual
+          você acessou este link e a senha provisória recebida para acessar o(s)
+          caso(s) clínico(s) disponível(is) para sua utilização.
+        </p>
+        <p>
+          Após o Login na plataforma MeSO, selecione a opção "Cadastro Médico
+          Cliente" para informar seus dados pessoais e registrar uma nova senha.
+        </p>
+        <p>
+          Obrigado!
         </p>
         <div class="form-input">
           <div class="form-group">
@@ -52,6 +57,7 @@
               id="password"
               name="password"
               placeholder="Senha"
+              show-password
             >
               <template #prepend>
                 <el-button :icon="iconLock" />

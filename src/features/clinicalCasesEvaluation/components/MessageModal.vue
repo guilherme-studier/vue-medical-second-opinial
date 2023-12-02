@@ -138,7 +138,7 @@ export default {
         })
         .then(() => {
           this.toast.success('Upload realizado com sucesso', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .catch(() => {

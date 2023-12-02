@@ -54,7 +54,7 @@ export default {
           toast.warning(
             'Erro ao buscar os casos clínicos de Médico Consultor',
             {
-              timeout: 5000
+              timeout: 8000
             }
           )
         })
@@ -70,13 +70,13 @@ export default {
       return putClinicalCase('accept', voucherId)
         .then(() => {
           toast.success('Caso Clínico aceito com sucesso', {
-            timeout: 5000
+            timeout: 8000
           })
           dispatch('getClinicalCases')
         })
         .catch(() => {
           toast.warning('Não foi possível aceitar este caso clínico', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {
@@ -88,13 +88,13 @@ export default {
       return putClinicalCase('decline', voucherId)
         .then(() => {
           toast.success('Caso Clínico declinado com sucesso', {
-            timeout: 5000
+            timeout: 8000
           })
           dispatch('getClinicalCases')
         })
         .catch(() => {
           toast.warning('Não foi possível declinar este caso clínico', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {
@@ -106,13 +106,13 @@ export default {
       return putClinicalCase('cancel', voucherId)
         .then(() => {
           toast.success('Caso Clínico cancelado com sucesso', {
-            timeout: 5000
+            timeout: 8000
           })
           dispatch('getClinicalCases')
         })
         .catch(() => {
           toast.warning('Não foi possível cancelar este caso clínico', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {

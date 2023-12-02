@@ -32,14 +32,14 @@ export default {
           toast.success(
             'Cadastro ativado com sucesso, realize seu primeiro login na plataforma',
             {
-              timeout: 5000
+              timeout: 8000
             }
           )
           router.push('/login')
         })
         .catch((error) => {
           toast.warning('Erro ao efetuar a ativação do cadastro', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {

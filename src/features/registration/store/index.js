@@ -25,7 +25,7 @@ export default {
       return updateUserClientDoctor(userData)
         .then((response) => {
           commit('setClientDoctor', response.data)
-          toast.success('Cadastro atualizado com sucesso', { timeout: 5000 })
+          toast.success('Cadastro atualizado com sucesso', { timeout: 8000 })
           return response
         })
         .catch((error) => {
@@ -36,7 +36,7 @@ export default {
           toast.warning(
             `Erro ao realizar a atualização de cadastro: ${errorMessage}`,
             {
-              timeout: 5000
+              timeout: 8000
             }
           )
         })

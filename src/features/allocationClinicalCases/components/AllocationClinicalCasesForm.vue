@@ -24,7 +24,7 @@
         <InputWrapper>
           <el-input
             v-model="quantity"
-            placeholder="Quantidade de vouchers"
+            placeholder="Quantidade de casos clínicos"
             class="flexible-input"
             type="number"
             min="0"

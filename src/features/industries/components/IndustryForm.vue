@@ -12,7 +12,7 @@
           <el-input
             v-model="name"
             type="text"
-            placeholder="Nome da Indústria"
+            placeholder="Patrocinador"
             class="flexible-input"
           />
         </InputWrapper>

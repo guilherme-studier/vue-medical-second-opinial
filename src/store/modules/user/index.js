@@ -65,7 +65,7 @@ export default {
         })
         .catch((error) => {
           toast.warning('Não foi possível carregar as informações do usuário', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {
@@ -85,7 +85,7 @@ export default {
           toast.warning(
             'Não foi possível carregar as informações dos usuários',
             {
-              timeout: 5000
+              timeout: 8000
             }
           )
         })

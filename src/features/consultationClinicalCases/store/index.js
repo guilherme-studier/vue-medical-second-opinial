@@ -74,7 +74,7 @@ export default {
         commit('setTotalContent', response.data.totalContent)
       } catch (error) {
         commit('setError', true)
-        toast.warning('Erro ao buscar os casos clínicos', { timeout: 5000 })
+        toast.warning('Erro ao buscar os casos clínicos', { timeout: 8000 })
       } finally {
         commit('setLoading', false)
       }
@@ -91,7 +91,7 @@ export default {
           toast.warning(
             'Não foi possível carregar as informações dos usuários',
             {
-              timeout: 5000
+              timeout: 8000
             }
           )
         })

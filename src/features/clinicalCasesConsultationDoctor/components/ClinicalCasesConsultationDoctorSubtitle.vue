@@ -1,5 +1,6 @@
 <template>
   <div class="container clinical-cases--subtitle">
+    <h2>Orientações:</h2>
     <div v-for="item in susbtitleClinicalCases" :key="item.icon">
       <subtitle :icon="item.icon" :text="item.text" />
     </div>
@@ -25,15 +26,15 @@ export default {
       susbtitleClinicalCases: [
         {
           icon: faBookOpenReader,
-          text: 'Consultar caso clínico.'
+          text: 'Consulta: Consultar caso clínico'
         },
         {
           icon: faFile,
-          text: 'Adicionar Parecer'
+          text: 'Parecer: Adicionar Parecer'
         },
         {
           icon: faComment,
-          text: 'Adicionar mensagem.'
+          text: 'Mensageria: Adicionar mensagem.'
         }
       ]
     }
@@ -43,4 +44,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/index.scss';
+
+.clinical-cases--subtitle {
+  h2 {
+    margin: 10px;
+  }
+}
 </style>

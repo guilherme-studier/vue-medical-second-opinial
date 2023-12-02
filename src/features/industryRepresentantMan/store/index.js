@@ -51,14 +51,14 @@ export default {
           toast.success(
             'Dados do Representante da Indústria atualizados com sucesso',
             {
-              timeout: 5000
+              timeout: 8000
             }
           )
           dispatch('fetchIndustryRepresentants')
         })
         .catch((error) => {
           toast.warning('Não foi possível editar os dados do Representante', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {
@@ -73,7 +73,7 @@ export default {
         })
         .catch((error) => {
           toast.warning('Erro ao buscar os dados do Representante', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {
@@ -97,7 +97,7 @@ export default {
         })
         .catch((error) => {
           toast.warning('Erro ao buscar os representantes da indústria', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {
@@ -116,7 +116,7 @@ export default {
         })
         .catch((error) => {
           toast.warning('Erro ao criar o representante da indústria', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {
@@ -132,7 +132,7 @@ export default {
         })
         .catch((error) => {
           toast.warning('Erro ao cancelar o representante da indústria', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {

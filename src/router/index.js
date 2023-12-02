@@ -202,7 +202,7 @@ const routes = [
         name: 'Industries',
         component: Industries,
         meta: {
-          title: 'Gestão de Indústrias'
+          title: 'Gestão de Patrocinadores'
         }
       }
       // {
@@ -290,7 +290,7 @@ router.beforeEach((to, from, next) => {
     }
   }
 
-  const baseTitle = 'Ceos'
+  const baseTitle = 'Medical Second Opinion'
 
   if (to.meta && to.meta.title) {
     document.title = `${baseTitle} | ${to.meta.title}`

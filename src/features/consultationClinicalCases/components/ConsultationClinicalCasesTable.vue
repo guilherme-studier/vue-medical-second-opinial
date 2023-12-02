@@ -8,7 +8,7 @@
       <InputWrapper>
         <el-select
           v-model="selectedIndustry"
-          placeholder="Indústrias"
+          placeholder="Patrocinador"
           size="large"
           no-match-text="Nenhuma indústria encontrada"
           filterable

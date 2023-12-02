@@ -50,6 +50,7 @@
             placeholder="Senha atual"
             class="flexible-input"
             type="password"
+            show-password
           />
         </input-wrapper>
         <input-wrapper>
@@ -58,6 +59,7 @@
             placeholder="Nova senha"
             class="flexible-input"
             type="password"
+            show-password
           />
         </input-wrapper>
       </input-group>

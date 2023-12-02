@@ -37,12 +37,12 @@ export default {
       return saveVoucher(userData.data, userData.voucherId)
         .then(() => {
           return toast.success('Caso clínico salvo com sucesso', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .catch(() => {
           toast.warning('Não foi possível salvar este caso clínico', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {
@@ -54,13 +54,13 @@ export default {
       return activeVoucher(userData.data, userData.voucherId)
         .then(() => {
           toast.success('Caso clínico ativado com sucesso', {
-            timeout: 5000
+            timeout: 8000
           })
           return router.push('/clinical-cases-evaluation')
         })
         .catch(() => {
           toast.warning('Não foi possível ativar este caso clínico', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {
@@ -76,7 +76,7 @@ export default {
         })
         .catch(() => {
           toast.warning('Não foi possível localizar dados do voucher', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .finally(() => {
@@ -98,10 +98,10 @@ export default {
         link.click()
         document.body.removeChild(link)
 
-        toast.success('Download realizado com sucesso', { timeout: 5000 })
+        toast.success('Download realizado com sucesso', { timeout: 8000 })
       } catch (error) {
         toast.warning('Não foi possível realizar o download do arquivo', {
-          timeout: 5000
+          timeout: 8000
         })
       } finally {
         commit('setLoading', false)
@@ -116,7 +116,7 @@ export default {
           toast.warning(
             'Não foi possível carregar os arquivos relacionados ao voucher',
             {
-              timeout: 5000
+              timeout: 8000
             }
           )
         })
@@ -129,14 +129,14 @@ export default {
       return postUrl(data.file, data.voucherId)
         .then(() => {
           toast.success('Upload realizado com sucesso', {
-            timeout: 5000
+            timeout: 8000
           })
         })
         .catch(() => {
           toast.warning(
             'Não foi possível carregar os arquivos relacionados ao voucher',
             {
-              timeout: 5000
+              timeout: 8000
             }
           )
         })

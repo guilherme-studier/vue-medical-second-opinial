@@ -76,7 +76,7 @@ export default {
       return this.toast.info(
         'Antes de registrar o parecer, verifique se há mensagens no chat do caso clínico',
         {
-          timeout: 5000
+          timeout: 8000
         }
       )
     }
