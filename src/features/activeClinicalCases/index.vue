@@ -1551,6 +1551,10 @@ export default {
       // Remove caracteres não numéricos e garante que o valor seja um número
       let numericValue = parseFloat(this.preCvf.replace(/[^0-9]/g, ''))
 
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
+
       // Garante que o valor não ultrapasse 100
       numericValue = Math.min(100, numericValue)
 
@@ -1580,6 +1584,9 @@ export default {
 
     verifyPreVef() {
       let numericValue = parseFloat(this.preVef.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
 
       // Garante que o valor não ultrapasse 100
       numericValue = Math.min(100, numericValue)
@@ -1590,6 +1597,9 @@ export default {
 
     verifyPreVefCvf() {
       let numericValue = parseFloat(this.preVefCvf.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
 
       // Garante que o valor não ultrapasse 100
       numericValue = Math.min(100, numericValue)
@@ -1600,6 +1610,9 @@ export default {
 
     verifyPreFef() {
       let numericValue = parseFloat(this.preFef.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
 
       // Garante que o valor não ultrapasse 100
       numericValue = Math.min(100, numericValue)
@@ -1610,6 +1623,9 @@ export default {
 
     verifyPosCvf() {
       let numericValue = parseFloat(this.posCvf.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
 
       // Garante que o valor não ultrapasse 100
       numericValue = Math.min(100, numericValue)
@@ -1620,6 +1636,9 @@ export default {
 
     verifyPosVef() {
       let numericValue = parseFloat(this.posVef.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
 
       // Garante que o valor não ultrapasse 100
       numericValue = Math.min(100, numericValue)
@@ -1630,6 +1649,9 @@ export default {
 
     verifyPosVefCvf() {
       let numericValue = parseFloat(this.posVefCvf.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
 
       // Garante que o valor não ultrapasse 100
       numericValue = Math.min(100, numericValue)
@@ -1640,6 +1662,9 @@ export default {
 
     verifyPosFef() {
       let numericValue = parseFloat(this.posFef.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
 
       // Garante que o valor não ultrapasse 100
       numericValue = Math.min(100, numericValue)
@@ -1650,6 +1675,9 @@ export default {
 
     verifyBd() {
       let numericValue = parseFloat(this.bd.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
 
       // Garante que o valor não ultrapasse 100
       numericValue = Math.min(100, numericValue)
@@ -1662,6 +1690,9 @@ export default {
       let numericValue = parseFloat(
         this.eosinophilsSputum.replace(/[^0-9]/g, '')
       )
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
 
       // Garante que o valor não ultrapasse 100
       numericValue = Math.min(100, numericValue)
