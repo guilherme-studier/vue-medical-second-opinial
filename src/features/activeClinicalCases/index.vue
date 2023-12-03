@@ -929,14 +929,14 @@
       </div>
     </div>
     <div class="btn" v-if="isEdit">
-      <el-button
-        :disabled="handleEnabledSave"
-        class="save"
-        type="primary"
-        @click="handleSave"
+      <el-button class="save" type="primary" @click="handleSave"
         >Salvar</el-button
       >
-      <el-button class="send" type="primary" @click="handleActiveVoucher"
+      <el-button
+        class="send"
+        type="primary"
+        :disabled="handleEnabledSubmit"
+        @click="handleActiveVoucher"
         >Submeter para avaliação</el-button
       >
     </div>
@@ -1462,7 +1462,7 @@ export default {
       else return this.medicationsDescription
     },
 
-    handleEnabledSave() {
+    handleEnabledSubmit() {
       return (
         !this.age ||
         !this.gender ||
