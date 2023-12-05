@@ -425,11 +425,12 @@
             type="text"
             :placeholder="`Eosinófilos no sangue: __céls/mm&sup3;`"
             :disabled="!isEdit"
-            v-mask="['#céls/mm&sup3', '##céls/mm&sup3', '###céls/mm&sup3']"
+            @keydown="handleKeyDown"
+            @blur="verifyEosinophilsBlood"
           />
         </input-wrapper>
         <input-wrapper>
-          <label>Eosinófilos no escarro: __% *</label>
+          <label>Eosinófilos no escarro: __% (se realizado)</label>
           <el-input
             v-model="eosinophilsSputum"
             type="text"
@@ -501,17 +502,19 @@
             type="text"
             placeholder="IgE total: __ UI/ml"
             :disabled="!isEdit"
-            v-mask="['#UI/ml', '##UI/ml', '###UI/ml']"
+            @keydown="handleKeyDown"
+            @blur="verifyIgeTotal"
           />
         </input-wrapper>
         <input-wrapper>
-          <label>FeNO: __ ppm *</label>
+          <label>FeNO: __ ppm (se realizado)</label>
           <el-input
             v-model="FeNO"
             type="text"
             placeholder="FeNO: __ ppm"
             :disabled="!isEdit"
-            v-mask="['#ppm', '##ppm', '###ppm']"
+            @keydown="handleKeyDown"
+            @blur="verifyFeNO"
           />
         </input-wrapper>
       </input-group>
@@ -555,7 +558,9 @@
           </form>
         </input-wrapper> -->
         <input-wrapper class="clinical-case-upload">
-          <label>TC de tórax (fazer upload de imagem e laudo). *</label>
+          <label
+            >TC de tórax (fazer upload de imagem e laudo, se realizado).</label
+          >
           <el-upload
             v-model="fileList"
             class="upload-demo"
@@ -636,13 +641,16 @@
             /> </el-select
         ></input-wrapper>
         <input-wrapper>
-          <label>Quantos?</label>
+          <label
+            >Descreva o(s) tipo(s) de animal(is). Ex.: cachorro, gato, ave,
+            etc.</label
+          >
           <el-input
             v-model="petDescription"
-            type="number"
+            type="text"
             min="0"
             :disabled="pet !== 1 || !isEdit"
-            placeholder="Quantos?"
+            placeholder="Descreva o(s) tipo(s) de animal(is). Ex.: cachorro, gato, ave, etc."
           />
         </input-wrapper>
       </input-group>
@@ -900,18 +908,23 @@
         </input-wrapper>
       </input-group>
       <div class="content-title">
-        <h1 class="title">Observações adicionais</h1>
+        <h1 class="title">
+          Observações adicionais.
+        </h1>
         <span class="line"></span>
       </div>
       <input-group>
         <input-wrapper>
-          <label>Descreva... *</label>
+          <label
+            >Observações adicionais (inclua aqui informações adicionais que
+            julgar relevante para apresentação do seu caso clínico).</label
+          >
           <el-input
             v-model="observations"
             :autosize="{ minRows: 4, maxRows: 4 }"
             type="textarea"
             :disabled="!isEdit"
-            placeholder="Descreva..."
+            placeholder="Observações adicionais"
           />
         </input-wrapper>
       </input-group>
@@ -1490,12 +1503,10 @@ export default {
         !this.bd ||
         !this.report ||
         !this.eosinophilsBlood ||
-        !this.eosinophilsSputum ||
         !this.skinTest ||
         !this.ige ||
         !this.allergens ||
         !this.igeTotal ||
-        !this.FeNO ||
         !this.plethysmography ||
         !this.dlco ||
         !this.ageStart ||
@@ -1518,8 +1529,7 @@ export default {
         !this.pcr ||
         !this.verifyPcr ||
         !this.medications ||
-        !this.verifyMedications ||
-        !this.observations
+        !this.verifyMedications
       )
     }
   },
@@ -1686,6 +1696,18 @@ export default {
       this.bd = `${numericValue}%`
     },
 
+    verifyEosinophilsBlood() {
+      let numericValue = parseFloat(
+        this.eosinophilsBlood.replace(/[^0-9]/g, '')
+      )
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
+
+      // Atualiza o valor formatado
+      this.eosinophilsBlood = `${numericValue}céls/mm&sup3`
+    },
+
     verifyEosinophilsSputum() {
       let numericValue = parseFloat(
         this.eosinophilsSputum.replace(/[^0-9]/g, '')
@@ -1699,6 +1721,26 @@ export default {
 
       // Atualiza o valor formatado
       this.eosinophilsSputum = `${numericValue}%`
+    },
+
+    verifyIgeTotal() {
+      let numericValue = parseFloat(this.igeTotal.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
+
+      // Atualiza o valor formatado
+      this.igeTotal = `${numericValue}UI/ml`
+    },
+
+    verifyFeNO() {
+      let numericValue = parseFloat(this.FeNO.replace(/[^0-9]/g, ''))
+      if (isNaN(numericValue)) {
+        numericValue = 0
+      }
+
+      // Atualiza o valor formatado
+      this.FeNO = `${numericValue}ppm`
     },
 
     handleDownload(id, name) {
