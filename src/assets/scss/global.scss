@@ -291,6 +291,10 @@ body {
     width: 100%;
   }
 
+  .el-checkbox.el-checkbox--large .el-checkbox__label {
+    font-weight: 400;
+  }
+
   .pagination {
     justify-content: center;
   }

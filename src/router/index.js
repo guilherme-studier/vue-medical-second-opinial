@@ -12,6 +12,7 @@ import ClinicalCasesIndustry from '@/features/clinicalCasesIndustry'
 import ConsultantDoctorInvitation from '@/features/consultantDoctorInvitation'
 import ConsultantMedicalRegistration from '@/features/consultantMedicalRegistration'
 import ConsultationClinicalCases from '@/features/consultationClinicalCases'
+import ContractClinicalCases from '@/features/contractClinicalCases'
 import Home from '@/features/home/index.vue'
 import Illnesses from '@/features/illnesses'
 import Industries from '@/features/industries'
@@ -203,6 +204,14 @@ const routes = [
         component: Industries,
         meta: {
           title: 'Gestão de Patrocinadores'
+        }
+      },
+      {
+        path: '/contract-clinical-case',
+        name: 'ContractClinicalCases',
+        component: ContractClinicalCases,
+        meta: {
+          title: 'Contrato de Casos Clínicos'
         }
       }
       // {
