@@ -322,6 +322,7 @@ export default {
 
       await this.postNewDoctorsToContract(contractToDoctorsData)
       await this.fetchDoctorsByContractId(this.contract.contractId)
+      this.newConfigurationEnabled = false
     },
 
     addNewRow() {
