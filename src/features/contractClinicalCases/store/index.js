@@ -5,7 +5,8 @@ import {
   getContractByIndustryId,
   getContract,
   getContracts,
-  getDoctorsByContractId
+  getDoctorsByContractId,
+  addDoctorsToContract
 } from '../services/index'
 
 const toast = useToast()
@@ -97,6 +98,31 @@ export default {
           toast.warning('Não foi possível consultar os contratos clínicos', {
             timeout: 8000
           })
+        })
+        .finally(() => {
+          commit('setLoading', false)
+        })
+    },
+    async postNewDoctorsToContract({ commit }, contractData) {
+      commit('setLoading', true)
+
+      console.log(contractData)
+
+      const userData = {
+        contractId: contractData.contractId,
+        doctors: contractData.doctors
+      }
+
+      return addDoctorsToContract(userData.contractId, userData.doctors)
+        .then((response) => {
+          console.log('Médicos adicionados com sucesso:', response.data)
+          return response.data
+        })
+        .catch((error) => {
+          toast.warning('Erro ao adicionar médicos ao contrato', {
+            timeout: 8000
+          })
+          throw error
         })
         .finally(() => {
           commit('setLoading', false)

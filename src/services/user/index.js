@@ -77,10 +77,8 @@ export const blockUser = (userId) => {
   })
 }
 
-export const getUsers = ({ page = 1, size = 100, type }) => {
-  let url = `${BASE_URL}/users?page=${page}&size=${size}`
-
-  // Verifica se 'data' é definido e se 'type' está definido em 'data'
+export const getUsers = ({ type }) => {
+  let url = `${BASE_URL}/users?`
   if (type) {
     url += `&type=${type}`
   }

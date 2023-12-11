@@ -49,6 +49,30 @@ export const getDoctorsByContractId = (contractId) => {
 }
 
 /**
+ * Endpoint para adicionar médicos a um contrato clínico.
+ * @param {Object} contractData - Dados do usuário.
+ * @param {string} contractData.contractId - ID do contrato clínico.
+ * @param {Array} contractData.doctors - Array de objetos de médicos a serem adicionados.
+ * @param {number} contractData.doctors[].doctorId - ID do médico.
+ * @param {string} contractData.doctors[].category - Categoria do médico (sup | tit).
+ * @param {number} contractData.doctors[].categoryIndex - Índice da categoria.
+ */
+export const addDoctorsToContract = (contractId, doctors) => {
+  return axios({
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${getToken()}`
+    },
+    url: `${BASE_URL}/contract-doctors`,
+    data: {
+      contractId,
+      doctors
+    }
+  })
+}
+
+/**
  * Endpoint para ocontrato de caso clínico pelo id
  */
 export const getContract = (id) => {

@@ -76,6 +76,7 @@
       </el-table>
 
       <el-checkbox
+        v-if="contract"
         v-model="newConfigurationEnabled"
         label="Criar Nova Configuração"
         size="large"
@@ -83,7 +84,7 @@
 
       <el-table
         v-if="newConfigurationEnabled"
-        :data="tableData"
+        :data="tableDataUpdate"
         style="width: 100%"
         empty-text="Não há dados para serem listados"
         border
@@ -105,20 +106,35 @@
               clearable
             >
               <el-option
-                v-for="doctor in getDoctors"
+                v-for="doctor in filteredDoctors"
                 :key="doctor.id"
                 :label="doctor.name"
                 :value="doctor.id"
+                :disabled="doctor.disabled"
               />
             </el-select>
           </template>
         </el-table-column>
       </el-table>
+      <div v-if="newConfigurationEnabled" class="icon-plus-container">
+        <font-awesome-icon
+          :icon="toggleIcon"
+          style="color: #008B8F;"
+          @click="addNewRow"
+        />
+      </div>
+      <div v-if="newConfigurationEnabled" class="save">
+        <el-button type="primary" @click="handleSave" :disabled="isSaveDisabled"
+          >Salvar</el-button
+        >
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mapActions, mapGetters } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
@@ -131,7 +147,8 @@ export default {
   components: {
     Title,
     InputGroup,
-    InputWrapper
+    InputWrapper,
+    FontAwesomeIcon
   },
   data() {
     return {
@@ -139,7 +156,11 @@ export default {
       selectContract: null,
       contract: null,
       tituloComponente: 'Configuração Atual',
-      newConfigurationEnabled: false
+      toggleIcon: faCirclePlus,
+      newConfigurationEnabled: false,
+      tableData: null,
+      tableDataUpdate: null,
+      selectedDoctorsIds: []
     }
   },
   mounted() {
@@ -147,6 +168,10 @@ export default {
     this.fetchIndustries(50)
   },
   computed: {
+    ...mapGetters('consultationClinicalCases', [
+      'getUsersDoctors',
+      'getLoadingContracts'
+    ]),
     ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
     ...mapGetters('contractClinicalCases', [
       'getContractsByIndustryId',
@@ -155,8 +180,21 @@ export default {
       'getDoctors'
     ]),
 
+    filteredDoctors() {
+      return this.getUsersDoctors.map((doctor) => ({
+        ...doctor,
+        disabled:
+          this.selectedDoctorsIds.includes(doctor.id) ||
+          this.tableDataUpdate.some((item) => item.selectedDoctor === doctor.id)
+      }))
+    },
+
     isLoading() {
-      return this.getLoadingIndustry || this.getContractLoading
+      return (
+        this.getLoadingIndustry ||
+        this.getContractLoading ||
+        this.getLoadingContracts
+      )
     }
   },
   watch: {
@@ -166,10 +204,29 @@ export default {
           doctorName: doctor?.doctorName,
           category: formatCategory(doctor?.category)
         }))
+
+        if (!doctors?.length) {
+          this.tableDataUpdate = [
+            {
+              category: formatCategory('tit'),
+              selectedDoctor: null,
+              categoryIndex: 0
+            }
+          ]
+        } else {
+          this.tableDataUpdate = doctors?.map((doctor, index) => ({
+            category: formatCategory(doctor?.category),
+            selectedDoctor: doctor?.doctorId,
+            categoryIndex: index
+          }))
+        }
       }
     },
     selectedIndustry() {
       this.contract = null
+      this.tableData = null
+      this.tableDataUpdate = null
+      this.newConfigurationEnabled = false
       this.selectContract = null
       this.clearContractsByIndustryId()
       this.clearDoctors()
@@ -179,30 +236,94 @@ export default {
       this.fetchContractByIndustryId(this.selectedIndustry)
     },
     selectContract() {
-      if (!this.selectContract) return (this.contract = null)
+      this.tableDataUpdate = null
+      this.newConfigurationEnabled = false
+
+      if (!this.selectContract) {
+        this.clearDoctors()
+        this.contract = null
+        this.tableData = null
+        return
+      }
 
       this.fetchContract(this.selectContract)
     },
     getContract() {
-      if (!this.getContract) return (this.contract = null)
+      if (!this.getContract) {
+        this.contract = null
+        this.tableData = null
+        this.tableDataUpdate = null
+        this.newConfigurationEnabled = false
+        return
+      }
 
       this.contract = this.getContract[0]
 
       this.fetchDoctorsByContractId(this.contract.contractId)
+      this.fetchConsultantDoctors()
+      this.clearDoctors()
     }
   },
   methods: {
+    ...mapActions('consultationClinicalCases', ['fetchConsultantDoctors']),
     ...mapActions('industry', ['fetchIndustries']),
     ...mapActions('contractClinicalCases', [
       'fetchContractByIndustryId',
+      'postNewDoctorsToContract',
       'clearContractsByIndustryId',
       'fetchDoctorsByContractId',
       'fetchContract',
       'clearDoctors'
     ]),
 
+    handleSave() {
+      // Clonar o objeto para evitar mutações indesejadas
+      const updatedTableData = JSON.parse(JSON.stringify(this.tableDataUpdate))
+
+      // Iterar sobre cada item em tableDataUpdate e ajustar a propriedade 'category'
+      updatedTableData.forEach((item) => {
+        if (item.category === 'Titular') {
+          item.category = 'tit'
+        } else if (item.category === 'Suplente') {
+          item.category = 'sup'
+        }
+        // Adicione mais condições conforme necessário
+      })
+
+      const contractToDoctorsData = {
+        contractId: Number(this.contract?.contractId),
+        doctors: updatedTableData
+      }
+
+      return this.postNewDoctorsToContract(contractToDoctorsData)
+    },
+
+    addNewRow() {
+      const lastIndex = this.tableDataUpdate.length - 1
+
+      if (lastIndex >= 0) {
+        const newItem = {
+          categoryIndex: this.tableDataUpdate[lastIndex].categoryIndex + 1,
+          category: `${formatCategory('sup')} ${this.tableDataUpdate[lastIndex]
+            .categoryIndex + 1}`,
+          selectedDoctor: null,
+          doctorName: null
+        }
+
+        this.tableDataUpdate.push(newItem)
+      } else {
+        const newItem = {
+          category: formatCategory('sup') + 1,
+          selectedDoctor: null,
+          categoryIndex: 0,
+          doctorName: null
+        }
+
+        this.tableDataUpdate.push(newItem)
+      }
+    },
+
     formatPapel(row) {
-      // Função para formatar a coluna "Papel"
       switch (row.paper) {
         case 'titular':
           return 'Titular'
@@ -245,5 +366,33 @@ export default {
       padding: 30px;
     }
   }
+}
+
+body .el-table td.el-table__cell div {
+  .el-input__wrapper {
+    box-shadow: none;
+  }
+}
+
+.icon-plus-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  cursor: pointer;
+  position: relative;
+  left: 972px;
+  top: -55px;
+
+  .fa-circle-plus {
+    font-size: 27px;
+    margin-left: 10px;
+  }
+}
+
+.save {
+  padding: 10px 0 20px 0;
+  display: flex;
+  width: 150px;
+  float: inline-end;
 }
 </style>
