@@ -13,6 +13,7 @@ import clinicalCasesIndustry from '@/features/clinicalCasesIndustry/store/index'
 import consultantDoctorInvitation from '@/features/consultantDoctorInvitation/store/index'
 import consultantMedicalRegistration from '@/features/consultantMedicalRegistration/store/index'
 import consultationClinicalCases from '@/features/consultationClinicalCases/store/index'
+import contractClinicalCases from '@/features/contractClinicalCases/store/index'
 import home from '@/features/home/stores/index'
 import industry from '@/features/industryRegistration/store/index'
 import industryRepresentantMan from '@/features/industryRepresentantMan/store/index'
@@ -80,7 +81,8 @@ const store = createStore({
     representativeRegistration,
     consultantDoctorInvitation,
     consultantMedicalRegistration,
-    clinicalCasesConsultationDoctor
+    clinicalCasesConsultationDoctor,
+    contractClinicalCases
     // authorizedDistributeClinicalCases
   },
   getters: {

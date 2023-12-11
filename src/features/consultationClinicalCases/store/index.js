@@ -122,7 +122,7 @@ export default {
     getIndustry: (state) => state.industry,
     getSpecialty: (state) => state.specialty,
     getIllness: (state) => state.illness,
-    getDoctors: (state) => state.doctors,
+    getUsersDoctors: (state) => state.doctors,
     getDoctor: (state) => state.doctor,
     getTotalPages: (state) => state.totalPages,
     getTotalContent: (state) => state.totalContent,
