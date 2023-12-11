@@ -106,8 +106,6 @@ export default {
     async postNewDoctorsToContract({ commit }, contractData) {
       commit('setLoading', true)
 
-      console.log(contractData)
-
       const userData = {
         contractId: contractData.contractId,
         doctors: contractData.doctors
@@ -115,7 +113,6 @@ export default {
 
       return addDoctorsToContract(userData.contractId, userData.doctors)
         .then((response) => {
-          console.log('Médicos adicionados com sucesso:', response.data)
           return response.data
         })
         .catch((error) => {

@@ -80,7 +80,6 @@ export default {
     },
 
     async handleLogin() {
-      console.log('aqui')
       if (this.forgotPassword) return this.resetPassword({ email: this.email })
       else
         this.loginUser({

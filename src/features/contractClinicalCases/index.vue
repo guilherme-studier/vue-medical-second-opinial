@@ -39,7 +39,7 @@
         </el-select>
       </InputWrapper>
     </InputGroup>
-    <div class="content-contract">
+    <div class="content-contract" :class="{ inactive: contract === null }">
       <InputGroup>
         <InputWrapper>
           <div class="content-clinical-case">
@@ -122,6 +122,12 @@
           style="color: #008B8F;"
           @click="addNewRow"
         />
+        <font-awesome-icon
+          v-if="tableDataUpdate.length > 1"
+          :icon="iconLess"
+          style="color: #008B8F;"
+          @click="removeLastItem"
+        />
       </div>
       <div v-if="newConfigurationEnabled" class="save">
         <el-button type="primary" @click="handleSave" :disabled="isSaveDisabled"
@@ -133,7 +139,7 @@
 </template>
 
 <script>
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
+import { faCirclePlus, faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mapActions, mapGetters } from 'vuex'
 
@@ -157,6 +163,7 @@ export default {
       contract: null,
       tituloComponente: 'Configuração Atual',
       toggleIcon: faCirclePlus,
+      iconLess: faX,
       newConfigurationEnabled: false,
       tableData: null,
       tableDataUpdate: null,
@@ -180,6 +187,15 @@ export default {
       'getDoctors'
     ]),
 
+    isSaveDisabled() {
+      if (this.newConfigurationEnabled && this.tableDataUpdate) {
+        return this.tableDataUpdate.some(
+          (item) => item.selectedDoctor === null || item.selectedDoctor === ''
+        )
+      }
+      return true
+    },
+
     filteredDoctors() {
       return this.getUsersDoctors.map((doctor) => ({
         ...doctor,
@@ -200,9 +216,12 @@ export default {
   watch: {
     getDoctors: {
       handler(doctors) {
-        this.tableData = doctors?.map((doctor) => ({
+        this.tableData = doctors?.map((doctor, index) => ({
           doctorName: doctor?.doctorName,
-          category: formatCategory(doctor?.category)
+          category:
+            doctor?.category === 'sup'
+              ? `${formatCategory(doctor?.category)} ${index}`
+              : formatCategory(doctor?.category)
         }))
 
         if (!doctors?.length) {
@@ -215,7 +234,10 @@ export default {
           ]
         } else {
           this.tableDataUpdate = doctors?.map((doctor, index) => ({
-            category: formatCategory(doctor?.category),
+            category:
+              doctor?.category === 'sup'
+                ? `${formatCategory(doctor?.category)} ${index}`
+                : formatCategory(doctor?.category),
             selectedDoctor: doctor?.doctorId,
             categoryIndex: index
           }))
@@ -276,18 +298,21 @@ export default {
       'clearDoctors'
     ]),
 
-    handleSave() {
-      // Clonar o objeto para evitar mutações indesejadas
+    async handleSave() {
       const updatedTableData = JSON.parse(JSON.stringify(this.tableDataUpdate))
 
-      // Iterar sobre cada item em tableDataUpdate e ajustar a propriedade 'category'
-      updatedTableData.forEach((item) => {
+      updatedTableData.forEach((item, index) => {
         if (item.category === 'Titular') {
           item.category = 'tit'
-        } else if (item.category === 'Suplente') {
+        } else if (item.category === `Suplente ${index}`) {
           item.category = 'sup'
         }
-        // Adicione mais condições conforme necessário
+
+        // Verifica se a propriedade selectedDoctor existe e a renomeia para doctorId
+        if ('selectedDoctor' in item) {
+          item.doctorId = item.selectedDoctor
+          delete item.selectedDoctor // Remove a propriedade selectedDoctor
+        }
       })
 
       const contractToDoctorsData = {
@@ -295,7 +320,8 @@ export default {
         doctors: updatedTableData
       }
 
-      return this.postNewDoctorsToContract(contractToDoctorsData)
+      await this.postNewDoctorsToContract(contractToDoctorsData)
+      await this.fetchDoctorsByContractId(this.contract.contractId)
     },
 
     addNewRow() {
@@ -320,6 +346,12 @@ export default {
         }
 
         this.tableDataUpdate.push(newItem)
+      }
+    },
+
+    removeLastItem() {
+      if (this.tableDataUpdate.length > 0) {
+        this.tableDataUpdate.pop()
       }
     },
 
@@ -365,6 +397,11 @@ export default {
     .el-checkbox {
       padding: 30px;
     }
+
+    &.inactive {
+      opacity: 0.3;
+      pointer-events: none;
+    }
   }
 }
 
@@ -385,6 +422,11 @@ body .el-table td.el-table__cell div {
 
   .fa-circle-plus {
     font-size: 27px;
+    margin-left: 10px;
+  }
+
+  .fa-x {
+    font-size: 15px;
     margin-left: 10px;
   }
 }
