@@ -7,6 +7,7 @@ import activeClinicalCases from '@/features/activeClinicalCases/store/index'
 import admClinicalCases from '@/features/admClinicalCases/store/index'
 import allocationClinicalCases from '@/features/allocationClinicalCases/store/index'
 // import authorizedDistributeClinicalCases from '@/features/authorizedDistributeClinicalCases/store/index'
+import clinicalCaseConsultation from '@/features/clinicalCaseConsultation/store/index'
 import clinicalCasesConsultationDoctor from '@/features/clinicalCasesConsultationDoctor/store/index'
 import clinicalCasesEvaluation from '@/features/clinicalCasesEvaluation/store/index'
 import clinicalCasesIndustry from '@/features/clinicalCasesIndustry/store/index'
@@ -82,6 +83,7 @@ const store = createStore({
     consultantDoctorInvitation,
     consultantMedicalRegistration,
     clinicalCasesConsultationDoctor,
+    clinicalCaseConsultation,
     contractClinicalCases
     // authorizedDistributeClinicalCases
   },
