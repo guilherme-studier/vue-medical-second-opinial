@@ -308,10 +308,9 @@ export default {
           item.category = 'sup'
         }
 
-        // Verifica se a propriedade selectedDoctor existe e a renomeia para doctorId
         if ('selectedDoctor' in item) {
           item.doctorId = item.selectedDoctor
-          delete item.selectedDoctor // Remove a propriedade selectedDoctor
+          delete item.selectedDoctor
         }
       })
 
@@ -381,7 +380,7 @@ export default {
   .content-contract {
     .content-clinical-case {
       padding: 20px;
-      border-bottom: 1px solid $gray-400;
+      border-bottom: 1px solid $gray-500;
 
       span {
         font-weight: 600;
