@@ -1491,7 +1491,6 @@ export default {
         !this.asthmaMedications ||
         !this.immunobiological ||
         !this.verifyImmunobiologicalDescription ||
-        !this.espiroDate ||
         !this.preCvf ||
         !this.preVef ||
         !this.preVefCvf ||
