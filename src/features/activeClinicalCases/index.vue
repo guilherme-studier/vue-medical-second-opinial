@@ -1702,7 +1702,7 @@ export default {
       }
 
       // Atualiza o valor formatado
-      this.eosinophilsBlood = `${numericValue}céls/mm&sup3`
+      this.eosinophilsBlood = `${numericValue}céls/mm³`
     },
 
     verifyEosinophilsSputum() {
