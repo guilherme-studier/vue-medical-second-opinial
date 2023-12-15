@@ -1491,7 +1491,6 @@ export default {
         !this.asthmaMedications ||
         !this.immunobiological ||
         !this.verifyImmunobiologicalDescription ||
-        !this.espiroDate ||
         !this.preCvf ||
         !this.preVef ||
         !this.preVefCvf ||
@@ -1703,7 +1702,7 @@ export default {
       }
 
       // Atualiza o valor formatado
-      this.eosinophilsBlood = `${numericValue}céls/mm&sup3`
+      this.eosinophilsBlood = `${numericValue}céls/mm³`
     },
 
     verifyEosinophilsSputum() {
