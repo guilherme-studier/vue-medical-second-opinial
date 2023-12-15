@@ -287,9 +287,9 @@ export const routes = {
       route: '/allocation-clinical-cases'
     }
     // {
-    //   id: 14,
-    //   name: 'Casos Clínicos Designados',
-    //   route: '/clinical-cases-industry'
+    //   id: 20,
+    //   name: 'Consulta Casos Clínicos',
+    //   route: '/clinical-case-consultation'
     // }
   ]
 }

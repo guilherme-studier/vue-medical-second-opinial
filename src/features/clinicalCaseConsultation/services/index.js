@@ -4,6 +4,8 @@ import store from '@/store'
 
 const BASE_URL = 'https://meso.poatech.com.br:450/clinical-case/api/1.0'
 const getToken = () => store?.getters?.getUserToken
+const agentId = () => store?.getters?.getUserId
+const getRole = () => store?.getters?.getRole
 
 /**
  * Endpoint para buscar todos os vouchers com opção de filtros.
@@ -18,13 +20,18 @@ const getToken = () => store?.getters?.getUserToken
  */
 export const getAllVouchers = (params) => {
   const defaultParams = { page: 1, ...params }
+  const headers = {
+    'content-type': 'application/json',
+    Authorization: `Bearer ${getToken()}`
+  }
+
+  if (getRole() === 'agent') {
+    defaultParams.agentId = agentId()
+  }
 
   return axios({
     method: 'GET',
-    headers: {
-      'content-type': 'application/json',
-      Authorization: `Bearer ${getToken()}`
-    },
+    headers,
     url: `${BASE_URL}/voucher/all`,
     params: defaultParams
   })
