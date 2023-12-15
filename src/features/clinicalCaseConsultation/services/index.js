@@ -29,3 +29,18 @@ export const getAllVouchers = (params) => {
     params: defaultParams
   })
 }
+
+/**
+ * Endpoint para buscar o histórico de um voucher específico.
+ * @param {number} voucherId - Id do voucher para o qual o histórico será buscado.
+ */
+export const getVoucherHistoric = (voucherId) => {
+  return axios({
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${getToken()}`
+    },
+    url: `${BASE_URL}/voucher-historic/${voucherId}`
+  })
+}

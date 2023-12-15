@@ -141,7 +141,16 @@
         border
         v-loading="isLoading"
       >
-        <el-table-column prop="id" label="ID" align="center"></el-table-column>
+        <el-table-column prop="id" label="ID" align="center">
+          <template v-slot="scope">
+            <span
+              @click="viewHistory(scope.row.id)"
+              style="cursor: pointer; color: #1890ff; text-decoration: underline;"
+            >
+              {{ scope.row.id }}
+            </span>
+          </template>
+        </el-table-column>
         <el-table-column
           prop="status"
           label="Status"
@@ -162,6 +171,36 @@
           label="Médico Cliente"
           align="center"
         ></el-table-column>
+        <el-table-column label="Ação" width="150" align="center">
+          <template v-slot="scope">
+            <div class="actions">
+              <el-tooltip
+                class="box-item"
+                effect="light"
+                content="Declinar caso clínico"
+                placement="top-start"
+                ><font-awesome-icon
+                  :icon="iconX"
+                  @click="decline(scope.row)"
+                  :class="{
+                    'action-disabled': scope.row?.status !== 'Ativo'
+                  }"
+              /></el-tooltip>
+              <el-tooltip
+                class="box-item"
+                effect="light"
+                content="Cancelar caso clínico"
+                placement="top-start"
+                ><font-awesome-icon
+                  :icon="iconTrash"
+                  @click="cancel(scope.row)"
+                  :class="{
+                    'action-disabled': scope.row?.status !== 'Em avaliação'
+                  }"
+              /></el-tooltip>
+            </div>
+          </template>
+        </el-table-column>
       </el-table>
 
       <div class="pagination">
@@ -174,10 +213,41 @@
         />
       </div>
     </div>
+
+    <el-dialog :title="modalHistoricTitle" v-model="isHistoryModalVisible">
+      <div v-if="getVoucherHistory">
+        <el-table
+          :data="tableDataHistoric"
+          :height="450"
+          style="width: 100%"
+          empty-text="Não há dados para serem listados"
+          border
+          v-loading="isLoading"
+        >
+          <el-table-column
+            prop="status"
+            label="Status"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            prop="date"
+            label="Data"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            prop="consultantDoctor"
+            label="Médico Consultor"
+            align="center"
+          ></el-table-column>
+        </el-table>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { faCheck, faX, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mapActions, mapGetters } from 'vuex'
 
 import InputGroup from '@/components/inputGroup'
@@ -190,7 +260,8 @@ export default {
   name: 'Contrato de Casos Clínicos',
   components: {
     InputGroup,
-    InputWrapper
+    InputWrapper,
+    FontAwesomeIcon
   },
   data() {
     return {
@@ -207,7 +278,12 @@ export default {
         { id: 'ativ', name: 'Ativo' }
       ],
       contract: null,
-      tableData: null
+      tableData: null,
+      iconCheck: faCheck,
+      iconX: faX,
+      iconTrash: faTrash,
+      isHistoryModalVisible: false,
+      modalHistoricTitle: null
     }
   },
   mounted() {
@@ -230,7 +306,8 @@ export default {
       'getIndustry',
       'getContractVoucher',
       'getConsultantDoctor',
-      'getStatus'
+      'getStatus',
+      'getVoucherHistory'
     ]),
     ...mapGetters('industry', ['getIndustries', 'getLoadingIndustry']),
     ...mapGetters('contractClinicalCases', [
@@ -261,6 +338,15 @@ export default {
         consultantDoctor: voucher?.consultantDoctorName,
         clientDoctorName: voucher?.clientDoctorName
       }))
+    },
+    getVoucherHistory() {
+      this.tableDataHistoric = this.getVoucherHistory?.map(
+        (voucherHistoric) => ({
+          status: formatStatus(voucherHistoric?.status),
+          date: formatDate(voucherHistoric?.createdAt),
+          consultantDoctor: voucherHistoric?.name ?? '-'
+        })
+      )
     },
     getIndustry: 'fetchVoucherAll',
     getContractVoucher: 'fetchVoucherAll',
@@ -307,13 +393,18 @@ export default {
     }
   },
   methods: {
+    ...mapActions('admClinicalCases', [
+      'acceptClinicalCase',
+      'cancelClinicalCase'
+    ]),
     ...mapActions('clinicalCaseConsultation', [
       'fetchVoucherAll',
       'updatePage',
       'setIndustryId',
       'setContractId',
       'setConsultantDoctorId',
-      'setStatusId'
+      'setStatusId',
+      'fetchVoucherHistory'
     ]),
     ...mapActions('industry', ['fetchIndustries']),
     ...mapActions('contractClinicalCases', [
@@ -322,6 +413,12 @@ export default {
       'fetchContract'
     ]),
     ...mapActions('consultationClinicalCases', ['fetchConsultantDoctors']),
+
+    viewHistory(voucherId) {
+      this.fetchVoucherHistory(voucherId)
+      this.modalHistoricTitle = `ID: ${voucherId}`
+      this.isHistoryModalVisible = true
+    },
 
     resolveDate(date) {
       return formatDate(date)
@@ -333,6 +430,12 @@ export default {
 
     handlePageChange(newPage) {
       this.updatePage(newPage)
+    },
+    decline(row) {
+      this.declineClinicalCase(row.id)
+    },
+    cancel(row) {
+      this.cancelClinicalCase(row.id)
     }
   }
 }
@@ -359,6 +462,26 @@ export default {
 
   .clinical-case-table {
     padding: 20px 0;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 19px;
+  margin: 2px;
+
+  .action-disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    color: lightgray;
+  }
+
+  svg:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
   }
 }
 </style>

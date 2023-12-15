@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useToast } from 'vue-toastification'
 
-import { getAllVouchers } from '../services/index'
+import { getAllVouchers, getVoucherHistoric } from '../services/index'
 
 const toast = useToast()
 
@@ -16,11 +16,15 @@ export default {
     industry: null,
     contract: null,
     consultantDoctor: null,
-    status: null
+    status: null,
+    voucherHistory: null
   }),
   mutations: {
     setVouchers(state, vouchers) {
       state.vouchers = vouchers
+    },
+    setVoucherHistory(state, voucherHistory) {
+      state.voucherHistory = voucherHistory
     },
     setLoadingVouchers(state, value) {
       state.loadingVouchers = value
@@ -89,6 +93,24 @@ export default {
     },
     setStatusId({ commit }, status) {
       commit('setStatus', status)
+    },
+    async fetchVoucherHistory({ commit }, voucherId) {
+      commit('setLoadingVouchers', true)
+
+      return getVoucherHistoric(voucherId)
+        .then((response) => {
+          commit('setVoucherHistory', response.data)
+          return response.data
+        })
+        .catch((error) => {
+          toast.warning('Não foi possível buscar o histórico do voucher', {
+            timeout: 8000
+          })
+          throw error
+        })
+        .finally(() => {
+          commit('setLoadingVouchers', false)
+        })
     }
   },
   getters: {
@@ -100,6 +122,7 @@ export default {
     getIndustry: (state) => state.industry,
     getContractVoucher: (state) => state.contract,
     getConsultantDoctor: (state) => state.consultantDoctor,
-    getStatus: (state) => state.status
+    getStatus: (state) => state.status,
+    getVoucherHistory: (state) => state.voucherHistory
   }
 }
