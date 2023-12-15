@@ -145,7 +145,7 @@
           <template v-slot="scope">
             <span
               @click="viewHistory(scope.row.id)"
-              style="cursor: pointer; color: #1890ff; text-decoration: underline;"
+              style="cursor: pointer; text-decoration: underline;"
             >
               {{ scope.row.id }}
             </span>
