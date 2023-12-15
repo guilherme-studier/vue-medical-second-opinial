@@ -6,6 +6,7 @@ import ActiveClinicalCases from '@/features/activeClinicalCases'
 import AdmClinicalCases from '@/features/admClinicalCases'
 import AllocationClinicalCases from '@/features/allocationClinicalCases'
 // import AuthorizedDistributeClinicalCases from '@/features/authorizedDistributeClinicalCases'
+import ClinicalCaseConsultation from '@/features/clinicalCaseConsultation'
 import ClinicalCasesConsultationDoctor from '@/features/clinicalCasesConsultationDoctor'
 import ClinicalCasesEvaluation from '@/features/clinicalCasesEvaluation'
 import ClinicalCasesIndustry from '@/features/clinicalCasesIndustry'
@@ -212,6 +213,14 @@ const routes = [
         component: ContractClinicalCases,
         meta: {
           title: 'Contrato de Casos Clínicos'
+        }
+      },
+      {
+        path: '/clinical-case-consultation',
+        name: 'ClinicalCaseConsultation',
+        component: ClinicalCaseConsultation,
+        meta: {
+          title: 'Consulta Casos Clínicos'
         }
       }
       // {

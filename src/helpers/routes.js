@@ -152,6 +152,11 @@ export const routes = {
       id: 19,
       name: 'Contrato de Casos Clínicos',
       route: '/contract-clinical-case'
+    },
+    {
+      id: 20,
+      name: 'Consulta Casos Clínicos',
+      route: '/clinical-case-consultation'
     }
   ],
   partner: [
@@ -204,6 +209,16 @@ export const routes = {
       id: 13,
       name: 'Gestão de Doenças',
       route: '/illnesses'
+    },
+    {
+      id: 19,
+      name: 'Contrato de Casos Clínicos',
+      route: '/contract-clinical-case'
+    },
+    {
+      id: 20,
+      name: 'Consulta Casos Clínicos',
+      route: '/clinical-case-consultation'
     }
   ],
   consultantdoctor: [
@@ -272,9 +287,9 @@ export const routes = {
       route: '/allocation-clinical-cases'
     }
     // {
-    //   id: 14,
-    //   name: 'Casos Clínicos Designados',
-    //   route: '/clinical-cases-industry'
+    //   id: 20,
+    //   name: 'Consulta Casos Clínicos',
+    //   route: '/clinical-case-consultation'
     // }
   ]
 }
