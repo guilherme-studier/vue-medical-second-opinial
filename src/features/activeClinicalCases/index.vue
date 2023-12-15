@@ -195,7 +195,7 @@
       <input-group>
         <input-wrapper>
           <label
-            >Todas aquelas manejáveis estão adequadamente tratadas? Descreva:.
+            >Todas aquelas manejáveis estão adequadamente tratadas? Descreva:
             *</label
           >
           <el-input
@@ -295,7 +295,7 @@
         </input-wrapper>
       </input-group>
       <div class="content-subtitle">
-        <h2 class="title">Pré-BD.</h2>
+        <h2 class="title">Pré-BD.*</h2>
       </div>
       <input-group>
         <input-wrapper>
@@ -344,7 +344,7 @@
         </input-wrapper>
       </input-group>
       <div class="content-subtitle">
-        <h2 class="title">Pós-BD.</h2>
+        <h2 class="title">Pós-BD.*</h2>
       </div>
       <input-group>
         <input-wrapper>
