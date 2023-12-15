@@ -233,7 +233,8 @@ export default {
           cnpj: this.cnpj,
           email: this.email,
           phone: this.phone,
-          contact: this.contact
+          contact: this.contact,
+          observation: this.observation
         }
         this.createIndustry(userData)
         this.clearForm()
