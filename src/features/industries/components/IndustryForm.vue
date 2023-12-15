@@ -193,7 +193,7 @@ export default {
     },
 
     isValidForm() {
-      return this.name && this.cnpj
+      return this.name && this.cnpj && this.email && this.phone && this.contact
     }
   },
   watch: {
