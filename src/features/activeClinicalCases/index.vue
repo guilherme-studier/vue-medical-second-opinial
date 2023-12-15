@@ -1507,8 +1507,6 @@ export default {
         !this.ige ||
         !this.allergens ||
         !this.igeTotal ||
-        !this.plethysmography ||
-        !this.dlco ||
         !this.ageStart ||
         !this.dust ||
         !this.pet ||
