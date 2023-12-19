@@ -141,13 +141,13 @@
         border
         v-loading="isLoading"
       >
-        <el-table-column prop="id" label="ID" align="center">
+        <el-table-column prop="voucherId" label="ID" align="center">
           <template v-slot="scope">
             <span
-              @click="viewHistory(scope.row.id)"
+              @click="viewHistory(scope.row.id, scope.row.voucherId)"
               style="cursor: pointer; text-decoration: underline;"
             >
-              {{ scope.row.id }}
+              {{ scope.row.voucherId }}
             </span>
           </template>
         </el-table-column>
@@ -332,6 +332,7 @@ export default {
   watch: {
     getVouchers() {
       this.tableData = this.getVouchers?.map((voucher) => ({
+        voucherId: voucher?.voucherId,
         id: voucher?.id,
         status: formatStatus(voucher?.status),
         date: formatDate(voucher?.createdAt),
@@ -414,8 +415,8 @@ export default {
     ]),
     ...mapActions('consultationClinicalCases', ['fetchConsultantDoctors']),
 
-    viewHistory(voucherId) {
-      this.fetchVoucherHistory(voucherId)
+    viewHistory(id, voucherId) {
+      this.fetchVoucherHistory(id)
       this.modalHistoricTitle = `ID: ${voucherId}`
       this.isHistoryModalVisible = true
     },
