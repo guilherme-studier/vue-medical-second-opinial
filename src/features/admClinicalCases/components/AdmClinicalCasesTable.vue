@@ -23,7 +23,11 @@
         label="Casos Clínicos"
         align="center"
       ></el-table-column>
-      <el-table-column prop="id" label="ID" align="center"></el-table-column>
+      <el-table-column
+        prop="voucherId"
+        label="ID"
+        align="center"
+      ></el-table-column>
       <el-table-column
         prop="illness"
         label="Doença"

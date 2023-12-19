@@ -155,7 +155,7 @@ const routes = [
         name: 'clinicalCasesConsultationDoctor',
         component: ClinicalCasesConsultationDoctor,
         meta: {
-          title: 'Casos Clínicos Designados'
+          title: 'Avaliação de Casos Clínicos Designados'
         }
       },
       {
