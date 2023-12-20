@@ -47,24 +47,28 @@
         </input-group>
         <input-group>
           <input-wrapper>
-            <input-group>
-              <input-wrapper>
-                <el-input
-                  v-model="crm"
-                  placeholder="CRM"
-                  class="flexible-input"
-                  type="text"
-                />
-              </input-wrapper>
-            </input-group>
-          </input-wrapper>
-          <input-wrapper>
             <el-input
-              v-model="uf_crm"
-              placeholder="UF"
+              v-model="crm"
+              placeholder="CRM"
               class="flexible-input"
               type="text"
             />
+          </input-wrapper>
+          <input-wrapper>
+            <el-select
+              v-model="uf_crm"
+              size="large"
+              filterable
+              clearable
+              placeholder="UF CRM"
+            >
+              <el-option
+                v-for="option in ufOptions"
+                :key="option.value"
+                :label="option.label"
+                :value="option.value"
+              />
+            </el-select>
           </input-wrapper>
         </input-group>
       </div>
@@ -239,7 +243,36 @@ export default {
       cpf: null,
       // eslint-disable-next-line camelcase
       uf_crm: null,
-      isTermsAgree: false
+      isTermsAgree: false,
+      ufOptions: [
+        { label: 'AC', value: 'AC' },
+        { label: 'AL', value: 'AL' },
+        { label: 'AP', value: 'AP' },
+        { label: 'AM', value: 'AM' },
+        { label: 'BA', value: 'BA' },
+        { label: 'CE', value: 'CE' },
+        { label: 'DF', value: 'DF' },
+        { label: 'ES', value: 'ES' },
+        { label: 'GO', value: 'GO' },
+        { label: 'MA', value: 'MA' },
+        { label: 'MT', value: 'MT' },
+        { label: 'MS', value: 'MS' },
+        { label: 'MG', value: 'MG' },
+        { label: 'PA', value: 'PA' },
+        { label: 'PB', value: 'PB' },
+        { label: 'PR', value: 'PR' },
+        { label: 'PE', value: 'PE' },
+        { label: 'PI', value: 'PI' },
+        { label: 'RJ', value: 'RJ' },
+        { label: 'RN', value: 'RN' },
+        { label: 'RS', value: 'RS' },
+        { label: 'RO', value: 'RO' },
+        { label: 'RR', value: 'RR' },
+        { label: 'SC', value: 'SC' },
+        { label: 'SP', value: 'SP' },
+        { label: 'SE', value: 'SE' },
+        { label: 'TO', value: 'TO' }
+      ]
     }
   },
   computed: {
@@ -311,8 +344,10 @@ export default {
     handleScroll() {
       const modalContent = this.$refs.scrollbarRef
       const isAtScrollEnd =
-        modalContent.scrollHeight - modalContent.scrollTop ===
-        modalContent.clientHeight
+        modalContent.scrollHeight -
+          modalContent.scrollTop -
+          modalContent.clientHeight <
+        1
 
       if (isAtScrollEnd) {
         this.isTermsAgree = true

@@ -239,7 +239,7 @@ export const routes = {
     },
     {
       id: 15,
-      name: 'Casos Clínicos Designados',
+      name: 'Avaliação de Casos Clínicos Designados',
       route: '/clinical-cases-consultation-doctor'
     },
     {

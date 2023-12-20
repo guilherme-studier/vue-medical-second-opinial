@@ -23,7 +23,9 @@
     <div class="form" :class="{ 'form-loading': isLoading }">
       <input-group>
         <input-wrapper>
-          <label>Idade. *</label>
+          <label
+            >Idade. <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-input
             type="number"
             placeholder="Idade."
@@ -34,7 +36,9 @@
           />
         </input-wrapper>
         <input-wrapper>
-          <label>Sexo. *</label>
+          <label
+            >Sexo. <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="gender"
             placeholder="Sexo."
@@ -52,7 +56,9 @@
           </el-select>
         </input-wrapper>
         <input-wrapper>
-          <label>Raça. *</label>
+          <label
+            >Raça. <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="color"
             placeholder="Cor."
@@ -77,7 +83,10 @@
       </div>
       <input-group>
         <input-wrapper>
-          <label>O paciente tem diagnóstico de asma? *</label>
+          <label
+            >O paciente tem diagnóstico de asma?
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="asthma"
             placeholder="O paciente tem diagnóstico de asma?"
@@ -98,7 +107,7 @@
           <label
             >Foram excluídas outras doenças pulmonares crônicas? (DPOC,
             bronquiectasias, fibrose cística, insuficiência cardáiaca, etc.) ?
-            *</label
+            <span style="color: red; font-size: 20px">*</span></label
           >
           <el-select
             v-model="lungDiseases"
@@ -119,7 +128,8 @@
         <input-wrapper>
           <label
             >A adesão ao tratamento está adequada? (Checar idealmente com
-            contagem de doses do dispositivo entre as consultas). *</label
+            contagem de doses do dispositivo entre as consultas).
+            <span style="color: red; font-size: 20px">*</span></label
           >
           <el-select
             v-model="asthmaTreatment"
@@ -140,7 +150,8 @@
         <input-wrapper>
           <label
             >A técnica inalatória está adequada? (Ideal checagem em 2-3
-            consultas). *</label
+            consultas).
+            <span style="color: red; font-size: 20px">*</span></label
           >
           <el-select
             v-model="inhalation"
@@ -163,7 +174,10 @@
       </div>
       <input-group>
         <input-wrapper>
-          <label>Quais o paciente apresenta? *</label>
+          <label
+            >Quais o paciente apresenta?
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="comorbidities"
             placeholder="Quais o paciente apresenta?"
@@ -196,7 +210,7 @@
         <input-wrapper>
           <label
             >Todas aquelas manejáveis estão adequadamente tratadas? Descreva:
-            *</label
+            <span style="color: red; font-size: 20px">*</span></label
           >
           <el-input
             v-model="comorbiditiesInfo"
@@ -211,7 +225,7 @@
         <input-wrapper>
           <label
             >O paciente usa dose elevada de corticoide associado a LABA?
-            *</label
+            <span style="color: red; font-size: 20px">*</span></label
           >
           <el-select
             v-model="laba"
@@ -232,7 +246,8 @@
         <input-wrapper>
           <label
             >Quais medicações para asma o paciente utiliza? (Incluir
-            medicamentos, apresentação e posologia). *</label
+            medicamentos, apresentação e posologia).
+            <span style="color: red; font-size: 20px">*</span></label
           >
           <el-input
             v-model="asthmaMedications"
@@ -245,7 +260,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>O paciente fez/faz uso de imunobiológico(s)? *</label>
+          <label
+            >O paciente fez/faz uso de imunobiológico(s)?
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="immunobiological"
             placeholder="O paciente fez/faz uso de imunobiológico(s)?"
@@ -280,7 +298,10 @@
         <span class="line"></span>
       </div>
       <div class="content-subtitle">
-        <h2 class="title">{{ subtitleEspiro }}</h2>
+        <h2 class="title">
+          {{ subtitleEspiro }}
+          <span style="color: red; font-size: 20px">*</span>
+        </h2>
       </div>
       <input-group>
         <input-wrapper>
@@ -295,7 +316,9 @@
         </input-wrapper>
       </input-group>
       <div class="content-subtitle">
-        <h2 class="title">Pré-BD.*</h2>
+        <h2 class="title">
+          Pré-BD.<span style="color: red; font-size: 20px">*</span>
+        </h2>
       </div>
       <input-group>
         <input-wrapper>
@@ -344,7 +367,9 @@
         </input-wrapper>
       </input-group>
       <div class="content-subtitle">
-        <h2 class="title">Pós-BD.*</h2>
+        <h2 class="title">
+          Pós-BD.<span style="color: red; font-size: 20px">*</span>
+        </h2>
       </div>
       <input-group>
         <input-wrapper>
@@ -407,7 +432,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Laudo: Texto da conclusão do laudo. *</label>
+          <label
+            >Laudo: Texto da conclusão do laudo.
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-input
             v-model="report"
             :autosize="{ minRows: 4, maxRows: 4 }"
@@ -419,7 +447,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Eosinófilos no sangue: __céls/mm&sup3;. *</label>
+          <label
+            >Eosinófilos no sangue: __céls/mm&sup3;.
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-input
             v-model="eosinophilsBlood"
             type="text"
@@ -446,7 +477,10 @@
       </div>
       <input-group>
         <input-wrapper>
-          <label>Teste cutâneo? *</label>
+          <label
+            >Teste cutâneo?
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="skinTest"
             placeholder="Teste cutâneo?"
@@ -464,7 +498,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>IgE específica no sangue. *</label>
+          <label
+            >IgE específica no sangue.
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="ige"
             placeholder="IgE específica no sangue."
@@ -483,7 +520,8 @@
       <input-group>
         <input-wrapper>
           <label
-            >Quais alérgenos foram testados e quais deram positivos? *</label
+            >Quais alérgenos foram testados e quais deram positivos?
+            <span style="color: red; font-size: 20px">*</span></label
           >
           <el-input
             v-model="allergens"
@@ -496,7 +534,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>IgE total: __ UI/ml *</label>
+          <label
+            >IgE total: __ UI/ml
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-input
             v-model="igeTotal"
             type="text"
@@ -590,15 +631,37 @@
         <h1 class="title">Outras informações</h1>
         <span class="line"></span>
       </div>
+      <div class="content-subtitle">
+        <h2 class="title">
+          Início da doença com que idade
+          <span style="color: red; font-size: 20px">*</span>
+        </h2>
+      </div>
       <input-group>
         <input-wrapper>
-          <label>Início da doença com que idade: *</label>
+          <label
+            >Em anos: <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-input
             v-model="ageStart"
             type="number"
             min="0"
-            placeholder="Início da doença com que idade:"
+            placeholder="Início da doença com que idade em anos"
             :disabled="!isEdit"
+          />
+        </input-wrapper>
+        <input-wrapper>
+          <label
+            >Em meses: <span style="color: red; font-size: 20px">*</span></label
+          >
+          <el-input
+            v-model="ageMonthStart"
+            type="number"
+            min="0"
+            max="12"
+            placeholder="Início da doença com que idade em meses"
+            :disabled="!isEdit"
+            @blur="verifyAgeMonthStart"
           />
         </input-wrapper>
       </input-group>
@@ -607,7 +670,10 @@
       </div>
       <input-group>
         <input-wrapper>
-          <label>Tem muita poeira doméstica em casa? *</label>
+          <label
+            >Tem muita poeira doméstica em casa?
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="dust"
             placeholder="Tem muita poeira doméstica em casa?"
@@ -625,7 +691,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Animais em casa? *</label>
+          <label
+            >Animais em casa?
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="pet"
             placeholder="Animais em casa?"
@@ -656,7 +725,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Mofo no domicílio? *</label>
+          <label
+            >Mofo no domicílio?
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="mold"
             placeholder="Mofo no domicílio?"
@@ -674,7 +746,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Exposição ocupacional. *</label>
+          <label
+            >Exposição ocupacional.
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="exhibition"
             placeholder="Exposição ocupacional."
@@ -702,7 +777,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Fumante ativo? *</label>
+          <label
+            >Fumante ativo?
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="activeSmoking"
             placeholder="Fumante ativo?"
@@ -718,7 +796,10 @@
             /> </el-select
         ></input-wrapper>
         <input-wrapper>
-          <label>Fumante passivo? *</label>
+          <label
+            >Fumante passivo?
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="passiveSmoking"
             placeholder="Fumante passivo?"
@@ -738,7 +819,7 @@
         <input-wrapper>
           <label
             >Exacerbação com uso de corticoide oral nos últimos 12 meses?
-            *</label
+            <span style="color: red; font-size: 20px">*</span></label
           >
           <el-select
             v-model="corticosteroid"
@@ -767,7 +848,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Hospitalização nos últimos 12 meses? *</label>
+          <label
+            >Hospitalização nos últimos 12 meses?
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="hospitalization"
             placeholder="Hospitalização nos últimos 12 meses?"
@@ -795,7 +879,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Histórico de internação em UTI? *</label>
+          <label
+            >Histórico de internação em UTI?
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="uti"
             placeholder="Histórico de internação em UTI?"
@@ -823,7 +910,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Histórico de necessidade de Ventilação Mecânica? *</label>
+          <label
+            >Histórico de necessidade de Ventilação Mecânica?
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="ventilation"
             placeholder="Histórico de necessidade de Ventilação Mecânica?"
@@ -851,7 +941,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Histórico de PCR? *</label>
+          <label
+            >Histórico de PCR?
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="pcr"
             placeholder="Histórico de PCR?"
@@ -879,7 +972,10 @@
       </input-group>
       <input-group>
         <input-wrapper>
-          <label>Uso de outras medicações? *</label>
+          <label
+            >Uso de outras medicações?
+            <span style="color: red; font-size: 20px">*</span></label
+          >
           <el-select
             v-model="medications"
             placeholder="Uso de outras medicações?"
@@ -1141,6 +1237,7 @@ export default {
       plethysmography: null,
       dlco: null,
       ageStart: null,
+      ageMonthStart: null,
       dust: null,
       dustOptions: [
         {
@@ -1488,6 +1585,7 @@ export default {
         !this.verifyOtherComorbidities ||
         !this.comorbiditiesInfo ||
         !this.laba ||
+        !this.espiroDate ||
         !this.asthmaMedications ||
         !this.immunobiological ||
         !this.verifyImmunobiologicalDescription ||
@@ -1507,6 +1605,7 @@ export default {
         !this.allergens ||
         !this.igeTotal ||
         !this.ageStart ||
+        !this.ageMonthStart ||
         !this.dust ||
         !this.pet ||
         !this.verifyPet ||
@@ -1556,7 +1655,7 @@ export default {
     },
     verifyPreCvf() {
       // Remove caracteres não numéricos e garante que o valor seja um número
-      let numericValue = parseFloat(this.preCvf.replace(/[^0-9]/g, ''))
+      let numericValue = parseFloat(this.preCvf?.replace(/[^0-9]/g, ''))
 
       if (isNaN(numericValue)) {
         numericValue = 0
@@ -1590,7 +1689,7 @@ export default {
     // },
 
     verifyPreVef() {
-      let numericValue = parseFloat(this.preVef.replace(/[^0-9]/g, ''))
+      let numericValue = parseFloat(this.preVef?.replace(/[^0-9]/g, ''))
       if (isNaN(numericValue)) {
         numericValue = 0
       }
@@ -1603,7 +1702,7 @@ export default {
     },
 
     verifyPreVefCvf() {
-      let numericValue = parseFloat(this.preVefCvf.replace(/[^0-9]/g, ''))
+      let numericValue = parseFloat(this.preVefCvf?.replace(/[^0-9]/g, ''))
       if (isNaN(numericValue)) {
         numericValue = 0
       }
@@ -1616,7 +1715,7 @@ export default {
     },
 
     verifyPreFef() {
-      let numericValue = parseFloat(this.preFef.replace(/[^0-9]/g, ''))
+      let numericValue = parseFloat(this.preFef?.replace(/[^0-9]/g, ''))
       if (isNaN(numericValue)) {
         numericValue = 0
       }
@@ -1629,7 +1728,7 @@ export default {
     },
 
     verifyPosCvf() {
-      let numericValue = parseFloat(this.posCvf.replace(/[^0-9]/g, ''))
+      let numericValue = parseFloat(this.posCvf?.replace(/[^0-9]/g, ''))
       if (isNaN(numericValue)) {
         numericValue = 0
       }
@@ -1641,8 +1740,12 @@ export default {
       this.posCvf = `${numericValue}%`
     },
 
+    verifyAgeMonthStart() {
+      if (this.ageMonthStart > 12) return (this.ageMonthStart = 12)
+    },
+
     verifyPosVef() {
-      let numericValue = parseFloat(this.posVef.replace(/[^0-9]/g, ''))
+      let numericValue = parseFloat(this.posVef?.replace(/[^0-9]/g, ''))
       if (isNaN(numericValue)) {
         numericValue = 0
       }
@@ -1655,7 +1758,7 @@ export default {
     },
 
     verifyPosVefCvf() {
-      let numericValue = parseFloat(this.posVefCvf.replace(/[^0-9]/g, ''))
+      let numericValue = parseFloat(this.posVefCvf?.replace(/[^0-9]/g, ''))
       if (isNaN(numericValue)) {
         numericValue = 0
       }
@@ -1668,7 +1771,7 @@ export default {
     },
 
     verifyPosFef() {
-      let numericValue = parseFloat(this.posFef.replace(/[^0-9]/g, ''))
+      let numericValue = parseFloat(this.posFef?.replace(/[^0-9]/g, ''))
       if (isNaN(numericValue)) {
         numericValue = 0
       }
@@ -1681,7 +1784,7 @@ export default {
     },
 
     verifyBd() {
-      let numericValue = parseFloat(this.bd.replace(/[^0-9]/g, ''))
+      let numericValue = parseFloat(this.bd?.replace(/[^0-9]/g, ''))
       if (isNaN(numericValue)) {
         numericValue = 0
       }
@@ -1695,7 +1798,7 @@ export default {
 
     verifyEosinophilsBlood() {
       let numericValue = parseFloat(
-        this.eosinophilsBlood.replace(/[^0-9]/g, '')
+        this.eosinophilsBlood?.replace(/[^0-9]/g, '')
       )
       if (isNaN(numericValue)) {
         numericValue = 0
@@ -1707,7 +1810,7 @@ export default {
 
     verifyEosinophilsSputum() {
       let numericValue = parseFloat(
-        this.eosinophilsSputum.replace(/[^0-9]/g, '')
+        this.eosinophilsSputum?.replace(/[^0-9]/g, '')
       )
       if (isNaN(numericValue)) {
         numericValue = 0
@@ -1721,7 +1824,7 @@ export default {
     },
 
     verifyIgeTotal() {
-      let numericValue = parseFloat(this.igeTotal.replace(/[^0-9]/g, ''))
+      let numericValue = parseFloat(this.igeTotal?.replace(/[^0-9]/g, ''))
       if (isNaN(numericValue)) {
         numericValue = 0
       }
@@ -1731,7 +1834,7 @@ export default {
     },
 
     verifyFeNO() {
-      let numericValue = parseFloat(this.FeNO.replace(/[^0-9]/g, ''))
+      let numericValue = parseFloat(this.FeNO?.replace(/[^0-9]/g, ''))
       if (isNaN(numericValue)) {
         numericValue = 0
       }
@@ -1792,6 +1895,7 @@ export default {
           plethysmography: this.plethysmography,
           dlco: this.dlco,
           ageStart: this.ageStart,
+          ageMonthStart: this.ageMonthStart,
           dust: this.dust,
           pet: this.pet,
           petDescription: this.petDescription,
@@ -1857,6 +1961,7 @@ export default {
           plethysmography: this.plethysmography,
           dlco: this.dlco,
           ageStart: this.ageStart,
+          ageMonthStart: this.ageMonthStart,
           dust: this.dust,
           pet: this.pet,
           petDescription: this.petDescription,
@@ -1970,6 +2075,7 @@ export default {
       this.plethysmography = jsonObject?.plethysmography
       this.dlco = jsonObject?.dlco
       this.ageStart = jsonObject?.ageStart
+      this.ageMonthStart = jsonObject?.ageMonthStart
       this.dust = jsonObject?.dust
       this.pet = jsonObject?.pet
       this.petDescription = jsonObject?.petDescription
