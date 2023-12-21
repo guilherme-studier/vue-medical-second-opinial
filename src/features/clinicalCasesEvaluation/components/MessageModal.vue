@@ -109,8 +109,9 @@ export default {
       return this.messageText?.length
     },
     edit() {
-      if (this.status === 'Em avaliação') return true
-      else return false
+      return true
+      // if (this.status === 'Em avaliação') return true
+      // else return false
     }
   },
   methods: {

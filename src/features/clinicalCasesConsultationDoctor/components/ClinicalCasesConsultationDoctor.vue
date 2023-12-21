@@ -82,9 +82,7 @@
               placement="top-start"
               ><font-awesome-icon
                 :icon="iconMessage"
-                @click="
-                  handleComment(scope.row, scope.row?.status === 'Em avaliação')
-                "
+                @click="handleComment(scope.row, true)"
             /></el-tooltip>
           </div>
         </template>

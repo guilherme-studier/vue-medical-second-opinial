@@ -107,7 +107,7 @@
                 }"
             /></el-tooltip>
             <div v-if="scope.row.status === 'Em avaliação'">
-              <el-tooltip
+              <!-- <el-tooltip
                 class="box-item"
                 effect="light"
                 content="Enviar mensagens"
@@ -118,10 +118,19 @@
                   :class="{
                     'filed-null': scope.row.status === 'Alocado'
                   }"
+              /></el-tooltip> -->
+              <el-tooltip
+                class="box-item"
+                effect="light"
+                content="Enviar mensagens"
+                placement="top-start"
+                ><font-awesome-icon
+                  :icon="iconMessage"
+                  @click="handleComment(scope.row)"
               /></el-tooltip>
             </div>
             <div v-else>
-              <el-tooltip
+              <!-- <el-tooltip
                 class="box-item"
                 effect="light"
                 content="Consultar mensagens"
@@ -132,6 +141,15 @@
                   :class="{
                     'filed-null': scope.row.status === 'Alocado'
                   }"
+              /></el-tooltip> -->
+              <el-tooltip
+                class="box-item"
+                effect="light"
+                content="Consultar mensagens"
+                placement="top-start"
+                ><font-awesome-icon
+                  :icon="iconMessage"
+                  @click="handleComment(scope.row)"
               /></el-tooltip>
             </div>
           </div>
