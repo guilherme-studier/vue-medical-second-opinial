@@ -1,0 +1,43 @@
+name: Deploy in STAGING
+
+on:
+  push:
+    branches:
+      - 'develop'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install # will run `yarn install` command
+
+      - name: Build bundle
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build # will run `yarn build` command      
+        env:
+          CI: false # Without this, will fail on any React build warnings - YIKES!!!
+
+      - name: Deploy index to S3 - meso staging
+        uses: jakejarvis/s3-sync-action@master
+        env:
+          AWS_S3_BUCKET: develop.meso.education
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          SOURCE_DIR: "dist"          
