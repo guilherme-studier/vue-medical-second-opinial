@@ -3,7 +3,7 @@ name: Deploy in PRODUCTION
 on:
   push:
     branches:
-      - 'release'
+      - 'main'
 
 jobs:
   build:
