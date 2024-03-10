@@ -19,9 +19,9 @@ Espaço para introdução e resumo da plataforma.
 
 - [x] **Início**: Home.
 
-- [ ] **404**: 404 Error.
+- [x] **404**: 404 Error.
 
-- [ ] **Welcome**: Boas vindas.
+- [x] **Welcome**: Boas vindas.
 
 <!-- Instituto Ceos -->
 
@@ -58,9 +58,9 @@ Espaço para introdução e resumo da plataforma.
 
 ### Testes
 
-- [ ] **Jest**: Testes unitários focados nos componentes da aplicação.
+- [x] **Jest**: Testes unitários focados nos componentes da aplicação.
   
-- [ ] **Cypress**: Testes automatizados das features como um todo.
+- [x] **Cypress**: Testes automatizados das features como um todo.
 
 ### Conceitos abordados
 
