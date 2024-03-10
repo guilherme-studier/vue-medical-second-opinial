@@ -6,7 +6,7 @@
 
 ### Projeto
 
-Espaço para introdução e resumo da plataforma.
+Produção: https://plataforma.meso.education
 
 ## 🖼️ Imagens do Projeto
 <div align="center">
